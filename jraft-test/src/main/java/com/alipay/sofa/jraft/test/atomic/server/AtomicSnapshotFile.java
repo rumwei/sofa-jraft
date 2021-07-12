@@ -29,13 +29,14 @@ import com.alipay.sofa.jraft.test.atomic.command.CommandCodec;
 
 /**
  * atomic snapshot file
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Apr-09 5:14:55 PM
  */
 public class AtomicSnapshotFile {
     private static final Logger LOG = LoggerFactory.getLogger(AtomicSnapshotFile.class);
-    private String              path;
+    private String path;
 
     public AtomicSnapshotFile(String path) {
         super();
@@ -48,6 +49,7 @@ public class AtomicSnapshotFile {
 
     /**
      * Save value to snapshot file.
+     *
      * @param values
      * @return
      */

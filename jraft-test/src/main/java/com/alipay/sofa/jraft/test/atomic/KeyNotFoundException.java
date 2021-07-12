@@ -18,8 +18,9 @@ package com.alipay.sofa.jraft.test.atomic;
 
 /**
  * Key not found exception
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Apr-25 2:24:08 PM
  */
 public class KeyNotFoundException extends Exception {

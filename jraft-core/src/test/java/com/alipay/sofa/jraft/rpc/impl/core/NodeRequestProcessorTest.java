@@ -76,7 +76,7 @@ public class NodeRequestProcessorTest {
     }
 
     private MockRequestProcessor processor;
-    private MockAsyncContext     asyncContext;
+    private MockAsyncContext asyncContext;
 
     @Before
     public void setup() {

@@ -19,15 +19,14 @@ package com.alipay.sofa.jraft.rhea.options;
 import com.alipay.sofa.jraft.util.Utils;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class RpcOptions {
 
-    private int callbackExecutorCorePoolSize    = Utils.cpus() << 2;
+    private int callbackExecutorCorePoolSize = Utils.cpus() << 2;
     private int callbackExecutorMaximumPoolSize = Utils.cpus() << 3;
-    private int callbackExecutorQueueCapacity   = 512;
-    private int rpcTimeoutMillis                = 5000;
+    private int callbackExecutorQueueCapacity = 512;
+    private int rpcTimeoutMillis = 5000;
 
     public int getCallbackExecutorCorePoolSize() {
         return callbackExecutorCorePoolSize;
@@ -64,8 +63,8 @@ public class RpcOptions {
     @Override
     public String toString() {
         return "RpcOptions{" + "callbackExecutorCorePoolSize=" + callbackExecutorCorePoolSize
-               + ", callbackExecutorMaximumPoolSize=" + callbackExecutorMaximumPoolSize
-               + ", callbackExecutorQueueCapacity=" + callbackExecutorQueueCapacity + ", rpcTimeoutMillis="
-               + rpcTimeoutMillis + '}';
+                + ", callbackExecutorMaximumPoolSize=" + callbackExecutorMaximumPoolSize
+                + ", callbackExecutorQueueCapacity=" + callbackExecutorQueueCapacity + ", rpcTimeoutMillis="
+                + rpcTimeoutMillis + '}';
     }
 }

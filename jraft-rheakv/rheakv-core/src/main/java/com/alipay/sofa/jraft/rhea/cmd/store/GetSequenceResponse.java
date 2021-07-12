@@ -19,7 +19,6 @@ package com.alipay.sofa.jraft.rhea.cmd.store;
 import com.alipay.sofa.jraft.rhea.storage.Sequence;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class GetSequenceResponse extends BaseResponse<Sequence> {

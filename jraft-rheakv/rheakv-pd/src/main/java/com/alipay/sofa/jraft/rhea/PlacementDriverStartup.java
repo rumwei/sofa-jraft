@@ -41,7 +41,7 @@ public class PlacementDriverStartup {
         final String configPath = args[0];
         final ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         final PlacementDriverServerOptions opts = mapper.readValue(new File(configPath),
-            PlacementDriverServerOptions.class);
+                PlacementDriverServerOptions.class);
         final PlacementDriverServer pdServer = new PlacementDriverServer();
         if (!pdServer.init(opts)) {
             throw new PlacementDriverServerStartupException("Fail to start [PlacementDriverServer].");

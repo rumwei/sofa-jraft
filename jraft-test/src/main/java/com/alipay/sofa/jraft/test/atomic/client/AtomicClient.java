@@ -44,19 +44,20 @@ import com.alipay.sofa.jraft.test.atomic.command.ValueCommand;
 
 /**
  * A counter client
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Apr-25 4:08:14 PM
  */
 public class AtomicClient {
 
-    static final Logger                LOG    = LoggerFactory.getLogger(AtomicClient.class);
+    static final Logger LOG = LoggerFactory.getLogger(AtomicClient.class);
 
-    private final Configuration        conf;
+    private final Configuration conf;
     private final CliClientServiceImpl cliClientService;
-    private RpcClient                  rpcClient;
-    private CliOptions                 cliOptions;
-    private TreeMap<Long, String>      groups = new TreeMap<>();
+    private RpcClient rpcClient;
+    private CliOptions cliOptions;
+    private TreeMap<Long, String> groups = new TreeMap<>();
 
     public AtomicClient(String groupId, Configuration conf) {
         super();
@@ -80,7 +81,7 @@ public class AtomicClient {
             for (final PeerId peer : peers) {
                 try {
                     final BooleanCommand cmd = (BooleanCommand) this.rpcClient.invokeSync(peer.getEndpoint(),
-                        new GetSlotsCommand(), cliOptions.getRpcDefaultTimeout());
+                            new GetSlotsCommand(), cliOptions.getRpcDefaultTimeout());
                     if (cmd instanceof SlotsResponseCommand) {
                         groups = ((SlotsResponseCommand) cmd).getMap();
                         break;
@@ -141,7 +142,7 @@ public class AtomicClient {
     }
 
     public long get(String key, boolean readFromQuorum) throws KeyNotFoundException, InterruptedException,
-                                                       TimeoutException {
+            TimeoutException {
         if (readFromQuorum) {
             return get(getPeer(key), key, true, false);
         } else {
@@ -151,14 +152,14 @@ public class AtomicClient {
     }
 
     public long get(PeerId peer, String key, boolean readFromQuorum, boolean readByStateMachine)
-                                                                                                throws KeyNotFoundException,
-                                                                                                InterruptedException {
+            throws KeyNotFoundException,
+            InterruptedException {
         try {
             final GetCommand request = new GetCommand(key);
             request.setReadFromQuorum(readFromQuorum);
             request.setReadByStateMachine(readByStateMachine);
             final Object response = this.rpcClient.invokeSync(peer.getEndpoint(), request,
-                cliOptions.getRpcDefaultTimeout());
+                    cliOptions.getRpcDefaultTimeout());
             final BooleanCommand cmd = (BooleanCommand) response;
             if (cmd.isSuccess()) {
                 return ((ValueCommand) cmd).getVlaue();
@@ -185,7 +186,7 @@ public class AtomicClient {
             request.setKey(key);
             request.setDetal(delta);
             final Object response = this.rpcClient.invokeSync(peer.getEndpoint(), request,
-                cliOptions.getRpcDefaultTimeout());
+                    cliOptions.getRpcDefaultTimeout());
             final BooleanCommand cmd = (BooleanCommand) response;
             if (cmd.isSuccess()) {
                 return ((ValueCommand) cmd).getVlaue();
@@ -207,7 +208,7 @@ public class AtomicClient {
             request.setKey(key);
             request.setValue(value);
             final Object response = this.rpcClient.invokeSync(peer.getEndpoint(), request,
-                cliOptions.getRpcDefaultTimeout());
+                    cliOptions.getRpcDefaultTimeout());
             final BooleanCommand cmd = (BooleanCommand) response;
             return cmd.isSuccess();
         } catch (final Throwable t) {
@@ -226,7 +227,7 @@ public class AtomicClient {
             request.setNewValue(newVal);
             request.setExpect(expect);
             final Object response = this.rpcClient.invokeSync(peer.getEndpoint(), request,
-                cliOptions.getRpcDefaultTimeout());
+                    cliOptions.getRpcDefaultTimeout());
             final BooleanCommand cmd = (BooleanCommand) response;
             return cmd.isSuccess();
         } catch (final Throwable t) {

@@ -28,7 +28,6 @@ import com.alipay.sofa.jraft.rhea.util.concurrent.DistributedLock;
 import com.alipay.sofa.jraft.util.ExecutorServiceHelper;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class DistributedLockExample {

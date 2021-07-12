@@ -27,40 +27,40 @@ import com.alipay.sofa.jraft.rhea.util.StackTraceUtil;
 /**
  * This class contains all the client-server errors--those errors that must be sent from the server to the client. These
  * are thus part of the protocol. The names can be changed but the error code cannot.
- *
+ * <p>
  * Note that client library will convert an unknown error code to the non-retriable UnknownServerException if the client library
  * version is old and does not recognize the newly-added error code. Therefore when a new server-side error is added,
  * we may need extra logic to convert the new error code to another existing error code before sending the response back to
  * the client if the request version suggests that the client may not recognize the new error code.
- *
+ * <p>
  * Do not add exceptions that occur only on the client or only on the server here.
  */
 public enum Errors {
     UNKNOWN_SERVER_ERROR(-1, "The server experienced an unexpected error when processing the request",
-        UnknownServerException::new),
+            UnknownServerException::new),
 
     NONE(0, null, message -> null),
 
     STORAGE_ERROR(1, "Disk error when trying to access log file on the disk.", StorageException::new),
 
     INVALID_REQUEST(2, "This most likely occurs because of a request being malformed by the "
-                       + "client library or the message was sent to an incompatible server. See the server logs "
-                       + "for more details.", InvalidRequestException::new),
+            + "client library or the message was sent to an incompatible server. See the server logs "
+            + "for more details.", InvalidRequestException::new),
 
     LEADER_NOT_AVAILABLE(3, "The leader is not available.", LeaderNotAvailableException::new),
 
     NOT_LEADER(4, "This is not the correct leader.", NotLeaderException::new),
 
     INVALID_PARAMETER(5, "Invalid parameter error, please check your input parameters. See the server logs for more "
-                         + "details.", InvalidParameterException::new),
+            + "details.", InvalidParameterException::new),
 
     NO_REGION_FOUND(6, "Can not find region error.", NoRegionFoundException::new),
 
     INVALID_REGION_MEMBERSHIP(7, "Invalid region membership config error (add or remove peer happened).",
-        InvalidRegionMembershipException::new),
+            InvalidRegionMembershipException::new),
 
     INVALID_REGION_VERSION(8, "Invalid region version error (region split or merge happened).",
-        InvalidRegionVersionException::new),
+            InvalidRegionVersionException::new),
 
     INVALID_REGION_EPOCH(9, "Invalid region epoch (membership or version changed).", InvalidRegionEpochException::new),
 
@@ -73,27 +73,27 @@ public enum Errors {
     REGION_HEARTBEAT_OUT_OF_DATE(13, "The region heartbeat info is out of date", RegionHeartbeatOutOfDateException::new),
 
     CALL_SELF_ENDPOINT_ERROR(14, "The usual reason is that the rpc call selected the self endpoint.",
-        CallSelfEndpointException::new),
+            CallSelfEndpointException::new),
 
     SERVER_BUSY(15, "The server is busy now.", ServerBusyException::new),
 
     REGION_ENGINE_FAIL(16, "Fail to start region engine. See the server logs for more details.",
-        RegionEngineFailException::new),
+            RegionEngineFailException::new),
 
     CONFLICT_REGION_ID(17, "There is a conflict between the new region id and the existing ids. "
-                            + "The new region cannot be created.", RangeSplitFailException::new),
+            + "The new region cannot be created.", RangeSplitFailException::new),
 
     TOO_SMALL_TO_SPLIT(18, "The region size is too small to split. See the server logs for more details.",
-        RangeSplitFailException::new);
+            RangeSplitFailException::new);
 
     private interface ApiExceptionBuilder {
         ApiException build(final String message);
     }
 
-    private static final Logger          LOG          = LoggerFactory.getLogger(Errors.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Errors.class);
 
     private static Map<Class<?>, Errors> classToError = Maps.newHashMap();
-    private static Map<Short, Errors>    codeToError  = Maps.newHashMap();
+    private static Map<Short, Errors> codeToError = Maps.newHashMap();
 
     static {
         for (final Errors error : Errors.values()) {
@@ -104,9 +104,9 @@ public enum Errors {
         }
     }
 
-    private final short                  code;
-    private final ApiExceptionBuilder    builder;
-    private final ApiException           exception;
+    private final short code;
+    private final ApiExceptionBuilder builder;
+    private final ApiException exception;
 
     Errors(int code, String defaultExceptionString, ApiExceptionBuilder builder) {
         this.code = (short) code;
@@ -125,7 +125,7 @@ public enum Errors {
      * Create an instance of the ApiException that contains the given error message.
      *
      * @param message The message string to set.
-     * @return        The exception.
+     * @return The exception.
      */
     public ApiException exception(final String message) {
         if (message == null) {
@@ -161,6 +161,7 @@ public enum Errors {
 
     /**
      * Get a friendly description of the error (if one is available).
+     *
      * @return the error message
      */
     public String message() {

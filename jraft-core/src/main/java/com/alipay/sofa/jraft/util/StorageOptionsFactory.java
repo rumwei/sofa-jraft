@@ -31,7 +31,6 @@ import org.rocksdb.RocksObject;
 import org.rocksdb.util.SizeUnit;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class StorageOptionsFactory {
@@ -40,14 +39,14 @@ public final class StorageOptionsFactory {
         RocksDB.loadLibrary();
     }
 
-    private static final Map<String, DBOptions>             rocksDBOptionsTable      = new ConcurrentHashMap<>();
-    private static final Map<String, ColumnFamilyOptions>   columnFamilyOptionsTable = new ConcurrentHashMap<>();
-    private static final Map<String, BlockBasedTableConfig> tableFormatConfigTable   = new ConcurrentHashMap<>();
+    private static final Map<String, DBOptions> rocksDBOptionsTable = new ConcurrentHashMap<>();
+    private static final Map<String, ColumnFamilyOptions> columnFamilyOptionsTable = new ConcurrentHashMap<>();
+    private static final Map<String, BlockBasedTableConfig> tableFormatConfigTable = new ConcurrentHashMap<>();
 
     /**
      * Releases all storage options from the responsibility of freeing the
      * underlying native C++ object.
-     *
+     * <p>
      * Note, that once an instance of options has been released, calling any
      * of its functions will lead to undefined behavior.
      */
@@ -78,7 +77,7 @@ public final class StorageOptionsFactory {
         Requires.requireNonNull(opts, "opts");
         if (rocksDBOptionsTable.putIfAbsent(cls.getName(), opts) != null) {
             throw new IllegalStateException("DBOptions with class key [" + cls.getName()
-                                            + "] has already been registered");
+                    + "] has already been registered");
         }
     }
 
@@ -148,7 +147,7 @@ public final class StorageOptionsFactory {
         Requires.requireNonNull(opts, "opts");
         if (columnFamilyOptionsTable.putIfAbsent(cls.getName(), opts) != null) {
             throw new IllegalStateException("ColumnFamilyOptions with class key [" + cls.getName()
-                                            + "] has already been registered");
+                    + "] has already been registered");
         }
     }
 
@@ -249,8 +248,8 @@ public final class StorageOptionsFactory {
         // compression type
         if (!Platform.isWindows()) {
             opts.setCompressionType(CompressionType.LZ4_COMPRESSION) //
-                .setCompactionStyle(CompactionStyle.LEVEL) //
-                .optimizeLevelStyleCompaction();
+                    .setCompactionStyle(CompactionStyle.LEVEL) //
+                    .optimizeLevelStyleCompaction();
         }
 
         // https://github.com/facebook/rocksdb/pull/5744
@@ -272,7 +271,7 @@ public final class StorageOptionsFactory {
         Requires.requireNonNull(cfg, "cfg");
         if (tableFormatConfigTable.putIfAbsent(cls.getName(), cfg) != null) {
             throw new IllegalStateException("TableFormatConfig with class key [" + cls.getName()
-                                            + "] has already been registered");
+                    + "] has already been registered");
         }
     }
 
@@ -298,49 +297,49 @@ public final class StorageOptionsFactory {
     public static BlockBasedTableConfig getDefaultRocksDBTableConfig() {
         // See https://github.com/sofastack/sofa-jraft/pull/156
         return new BlockBasedTableConfig() //
-            // Begin to use partitioned index filters
-            // https://github.com/facebook/rocksdb/wiki/Partitioned-Index-Filters#how-to-use-it
-            .setIndexType(IndexType.kTwoLevelIndexSearch) //
-            .setFilter(new BloomFilter(16, false)) //
-            .setPartitionFilters(true) //
-            .setMetadataBlockSize(8 * SizeUnit.KB) //
-            .setCacheIndexAndFilterBlocks(false) //
-            .setCacheIndexAndFilterBlocksWithHighPriority(true) //
-            .setPinL0FilterAndIndexBlocksInCache(true) //
-            // End of partitioned index filters settings.
-            .setBlockSize(4 * SizeUnit.KB)//
-            .setBlockCacheSize(512 * SizeUnit.MB) //
-            .setCacheNumShardBits(8);
+                // Begin to use partitioned index filters
+                // https://github.com/facebook/rocksdb/wiki/Partitioned-Index-Filters#how-to-use-it
+                .setIndexType(IndexType.kTwoLevelIndexSearch) //
+                .setFilter(new BloomFilter(16, false)) //
+                .setPartitionFilters(true) //
+                .setMetadataBlockSize(8 * SizeUnit.KB) //
+                .setCacheIndexAndFilterBlocks(false) //
+                .setCacheIndexAndFilterBlocksWithHighPriority(true) //
+                .setPinL0FilterAndIndexBlocksInCache(true) //
+                // End of partitioned index filters settings.
+                .setBlockSize(4 * SizeUnit.KB)//
+                .setBlockCacheSize(512 * SizeUnit.MB) //
+                .setCacheNumShardBits(8);
     }
 
     private static BlockBasedTableConfig copyTableFormatConfig(final BlockBasedTableConfig cfg) {
         return new BlockBasedTableConfig() //
-            .setNoBlockCache(cfg.noBlockCache()) //
-            .setBlockCacheSize(cfg.blockCacheSize()) //
-            .setCacheNumShardBits(cfg.cacheNumShardBits()) //
-            .setBlockSize(cfg.blockSize()) //
-            .setBlockSizeDeviation(cfg.blockSizeDeviation()) //
-            .setBlockRestartInterval(cfg.blockRestartInterval()) //
-            .setWholeKeyFiltering(cfg.wholeKeyFiltering()) //
-            .setCacheIndexAndFilterBlocks(cfg.cacheIndexAndFilterBlocks()) //
-            .setCacheIndexAndFilterBlocksWithHighPriority(cfg.cacheIndexAndFilterBlocksWithHighPriority()) //
-            .setPinL0FilterAndIndexBlocksInCache(cfg.pinL0FilterAndIndexBlocksInCache()) //
-            .setPartitionFilters(cfg.partitionFilters()) //
-            .setMetadataBlockSize(cfg.metadataBlockSize()) //
-            .setPinTopLevelIndexAndFilter(cfg.pinTopLevelIndexAndFilter()) //
-            .setHashIndexAllowCollision(cfg.hashIndexAllowCollision()) //
-            .setBlockCacheCompressedSize(cfg.blockCacheCompressedSize()) //
-            .setBlockCacheCompressedNumShardBits(cfg.blockCacheCompressedNumShardBits()) //
-            .setChecksumType(cfg.checksumType()) //
-            .setIndexType(cfg.indexType()) //
-            .setFormatVersion(cfg.formatVersion());
+                .setNoBlockCache(cfg.noBlockCache()) //
+                .setBlockCacheSize(cfg.blockCacheSize()) //
+                .setCacheNumShardBits(cfg.cacheNumShardBits()) //
+                .setBlockSize(cfg.blockSize()) //
+                .setBlockSizeDeviation(cfg.blockSizeDeviation()) //
+                .setBlockRestartInterval(cfg.blockRestartInterval()) //
+                .setWholeKeyFiltering(cfg.wholeKeyFiltering()) //
+                .setCacheIndexAndFilterBlocks(cfg.cacheIndexAndFilterBlocks()) //
+                .setCacheIndexAndFilterBlocksWithHighPriority(cfg.cacheIndexAndFilterBlocksWithHighPriority()) //
+                .setPinL0FilterAndIndexBlocksInCache(cfg.pinL0FilterAndIndexBlocksInCache()) //
+                .setPartitionFilters(cfg.partitionFilters()) //
+                .setMetadataBlockSize(cfg.metadataBlockSize()) //
+                .setPinTopLevelIndexAndFilter(cfg.pinTopLevelIndexAndFilter()) //
+                .setHashIndexAllowCollision(cfg.hashIndexAllowCollision()) //
+                .setBlockCacheCompressedSize(cfg.blockCacheCompressedSize()) //
+                .setBlockCacheCompressedNumShardBits(cfg.blockCacheCompressedNumShardBits()) //
+                .setChecksumType(cfg.checksumType()) //
+                .setIndexType(cfg.indexType()) //
+                .setFormatVersion(cfg.formatVersion());
     }
 
     private static <T extends RocksObject> T checkInvalid(final T opts) {
         if (!opts.isOwningHandle()) {
             throw new IllegalStateException(
-                "the instance of options [" + opts
-                        + "] has been released, calling any of its functions will lead to undefined behavior.");
+                    "the instance of options [" + opts
+                            + "] has been released, calling any of its functions will lead to undefined behavior.");
         }
         return opts;
     }

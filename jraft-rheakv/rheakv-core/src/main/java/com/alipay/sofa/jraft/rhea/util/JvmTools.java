@@ -27,7 +27,6 @@ import java.util.Map;
 import com.sun.management.HotSpotDiagnosticMXBean;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class JvmTools {
@@ -44,7 +43,7 @@ public final class JvmTools {
             final StackTraceElement[] stackTraces = entry.getValue();
 
             stackList.add(String.format("\"%s\" tid=%s isDaemon=%s priority=%s" + Constants.NEWLINE, thread.getName(),
-                thread.getId(), thread.isDaemon(), thread.getPriority()));
+                    thread.getId(), thread.isDaemon(), thread.getPriority()));
 
             stackList.add("java.lang.Thread.State: " + thread.getState() + Constants.NEWLINE);
 
@@ -66,7 +65,7 @@ public final class JvmTools {
 
         final List<String> memoryUsageList = new LinkedList<>();
         memoryUsageList.add("********************************** Memory Usage **********************************"
-                            + Constants.NEWLINE);
+                + Constants.NEWLINE);
         memoryUsageList.add("Heap Memory Usage: " + heapMemoryUsage.toString() + Constants.NEWLINE);
         memoryUsageList.add("NonHeap Memory Usage: " + nonHeapMemoryUsage.toString() + Constants.NEWLINE);
 
@@ -84,9 +83,10 @@ public final class JvmTools {
     /**
      * Dumps the heap to the outputFile file in the same format as the
      * hprof heap dump.
-     * @param outputFile    the system-dependent filename
-     * @param live          if true dump only live objects i.e. objects
-     *                      that are reachable from others
+     *
+     * @param outputFile the system-dependent filename
+     * @param live       if true dump only live objects i.e. objects
+     *                   that are reachable from others
      */
     @SuppressWarnings("all")
     public static void jMap(final String outputFile, final boolean live) throws Exception {
@@ -98,9 +98,9 @@ public final class JvmTools {
     }
 
     private static class MXBeanHolder {
-        static final MemoryMXBean            memoryMxBean            = ManagementFactory.getMemoryMXBean();
+        static final MemoryMXBean memoryMxBean = ManagementFactory.getMemoryMXBean();
         static final HotSpotDiagnosticMXBean hotSpotDiagnosticMxBean = ManagementFactory
-                                                                         .getPlatformMXBean(HotSpotDiagnosticMXBean.class);
+                .getPlatformMXBean(HotSpotDiagnosticMXBean.class);
     }
 
     private JvmTools() {

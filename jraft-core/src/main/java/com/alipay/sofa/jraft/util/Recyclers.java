@@ -54,7 +54,8 @@ public abstract class Recyclers<T> {
         INITIAL_CAPACITY = Math.min(MAX_CAPACITY_PER_THREAD, 256);
     }
 
-    public static final Handle NOOP_HANDLE = new Handle() {};
+    public static final Handle NOOP_HANDLE = new Handle() {
+    };
 
     private final int maxCapacityPerThread;
     private final ThreadLocal<Stack<T>> threadLocal = new ThreadLocal<Stack<T>>() {
@@ -119,7 +120,8 @@ public abstract class Recyclers<T> {
         return threadLocal.get().size;
     }
 
-    public interface Handle {}
+    public interface Handle {
+    }
 
     static final class DefaultHandle implements Handle {
         private int lastRecycledId;
@@ -364,7 +366,7 @@ public abstract class Recyclers<T> {
                     // performing a volatile read to confirm there is no data left to collect.
                     // We never unlink the first queue, as we don't want to synchronize on updating the head.
                     if (cursor.hasFinalData()) {
-                        for (;;) {
+                        for (; ; ) {
                             if (cursor.transfer(this)) {
                                 success = true;
                             } else {

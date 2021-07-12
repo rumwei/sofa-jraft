@@ -39,31 +39,31 @@ import com.alipay.sofa.jraft.util.timer.TimerTask;
  */
 public abstract class ReadIndexClosure implements Closure {
 
-    private static final Logger                                      LOG               = LoggerFactory
-                                                                                           .getLogger(ReadIndexClosure.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(ReadIndexClosure.class);
 
-    private static final AtomicIntegerFieldUpdater<ReadIndexClosure> STATE_UPDATER     = AtomicIntegerFieldUpdater
-                                                                                           .newUpdater(
-                                                                                               ReadIndexClosure.class,
-                                                                                               "state");
+    private static final AtomicIntegerFieldUpdater<ReadIndexClosure> STATE_UPDATER = AtomicIntegerFieldUpdater
+            .newUpdater(
+                    ReadIndexClosure.class,
+                    "state");
 
-    private static final long                                        DEFAULT_TIMEOUT   = SystemPropertyUtil.getInt(
-                                                                                           "jraft.read-index.timeout",
-                                                                                           2 * 1000);
+    private static final long DEFAULT_TIMEOUT = SystemPropertyUtil.getInt(
+            "jraft.read-index.timeout",
+            2 * 1000);
 
-    private static final int                                         PENDING           = 0;
-    private static final int                                         COMPLETE          = 1;
-    private static final int                                         TIMEOUT           = 2;
+    private static final int PENDING = 0;
+    private static final int COMPLETE = 1;
+    private static final int TIMEOUT = 2;
 
     /**
      * Invalid log index -1.
      */
-    public static final long                                         INVALID_LOG_INDEX = -1;
+    public static final long INVALID_LOG_INDEX = -1;
 
-    private long                                                     index             = INVALID_LOG_INDEX;
-    private byte[]                                                   requestContext;
+    private long index = INVALID_LOG_INDEX;
+    private byte[] requestContext;
 
-    private volatile int                                             state             = PENDING;
+    private volatile int state = PENDING;
 
     public ReadIndexClosure() {
         this(DEFAULT_TIMEOUT);

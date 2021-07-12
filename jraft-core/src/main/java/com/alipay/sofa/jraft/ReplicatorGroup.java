@@ -33,7 +33,7 @@ import com.alipay.sofa.jraft.util.ThreadId;
  * Replicators in a raft group.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-08 5:35:26 PM
  */
 public interface ReplicatorGroup extends Describer {
@@ -48,10 +48,10 @@ public interface ReplicatorGroup extends Describer {
 
     /**
      * Adds a replicator for follower({@link ReplicatorType#Follower}).
-     * @see #addReplicator(PeerId, ReplicatorType)
      *
      * @param peer target peer
      * @return true on success
+     * @see #addReplicator(PeerId, ReplicatorType)
      */
     default boolean addReplicator(final PeerId peer) {
         return addReplicator(peer, ReplicatorType.Follower);
@@ -157,8 +157,8 @@ public interface ReplicatorGroup extends Describer {
     /**
      * Reset the interval of heartbeat,
      * This method is supposed to be called when the very candidate becomes the
-     *  leader, so we suppose that there are no running replicators.
-     *  return true when success, false otherwise.
+     * leader, so we suppose that there are no running replicators.
+     * return true when success, false otherwise.
      *
      * @param newIntervalMs new heartbeat interval millis
      * @return true on success

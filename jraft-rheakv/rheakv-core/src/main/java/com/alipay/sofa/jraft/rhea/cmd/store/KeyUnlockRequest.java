@@ -20,14 +20,13 @@ import com.alipay.sofa.jraft.rhea.util.concurrent.DistributedLock;
 import com.alipay.sofa.jraft.util.BytesUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class KeyUnlockRequest extends BaseRequest {
 
-    private static final long        serialVersionUID = 4301415966181665575L;
+    private static final long serialVersionUID = 4301415966181665575L;
 
-    private byte[]                   key;
+    private byte[] key;
     private DistributedLock.Acquirer acquirer;
 
     public byte[] getKey() {

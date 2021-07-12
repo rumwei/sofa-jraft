@@ -41,7 +41,7 @@ public class InstructionProcessor {
 
     private static final Logger LOG = LoggerFactory.getLogger(InstructionProcessor.class);
 
-    private final StoreEngine   storeEngine;
+    private final StoreEngine storeEngine;
 
     public InstructionProcessor(StoreEngine storeEngine) {
         this.storeEngine = storeEngine;

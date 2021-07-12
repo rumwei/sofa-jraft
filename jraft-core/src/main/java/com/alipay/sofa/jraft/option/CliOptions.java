@@ -20,7 +20,7 @@ package com.alipay.sofa.jraft.option;
  * Cli service options.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-09 3:25:59 PM
  */
 public class CliOptions extends RpcOptions {

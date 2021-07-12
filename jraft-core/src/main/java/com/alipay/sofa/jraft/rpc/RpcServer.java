@@ -20,8 +20,9 @@ import com.alipay.sofa.jraft.Lifecycle;
 import com.alipay.sofa.jraft.rpc.impl.ConnectionClosedEventListener;
 
 /**
- *
  * @author jiachun.fjc
+ * Raft专用的RpcServer，通过{@link RaftRpcServerFactory}来创建，启动后即可为其所在的Raft Node节点提供Rpc服务
+ * 从而其他节点可以连接本节点进行通讯，如发起选举、处理心跳和复制日志等
  */
 public interface RpcServer extends Lifecycle<Void> {
 
@@ -40,7 +41,6 @@ public interface RpcServer extends Lifecycle<Void> {
     void registerProcessor(final RpcProcessor<?> processor);
 
     /**
-     *
      * @return bound port
      */
     int boundPort();

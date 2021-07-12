@@ -18,8 +18,9 @@ package com.alipay.sofa.jraft.error;
 
 /**
  * Protobuf message class not found exception.
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Apr-19 5:17:38 PM
  */
 public class MessageClassNotFoundException extends RuntimeException {

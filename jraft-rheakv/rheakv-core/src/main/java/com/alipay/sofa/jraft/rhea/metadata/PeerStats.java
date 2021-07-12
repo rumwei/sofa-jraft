@@ -19,15 +19,14 @@ package com.alipay.sofa.jraft.rhea.metadata;
 import java.io.Serializable;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class PeerStats implements Serializable {
 
     private static final long serialVersionUID = 785959293291029071L;
 
-    private Peer              peer;
-    private int               downSeconds;
+    private Peer peer;
+    private int downSeconds;
 
     public Peer getPeer() {
         return peer;

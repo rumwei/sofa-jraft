@@ -26,9 +26,9 @@ import com.alipay.sofa.jraft.rhea.storage.RocksRawKVStore;
 
 public class BaseKVStoreTest {
 
-    protected String          tempPath;
+    protected String tempPath;
     protected RocksRawKVStore kvStore;
-    protected RocksDBOptions  dbOptions;
+    protected RocksDBOptions dbOptions;
 
     protected void setup() throws Exception {
         File file = getTempDir();

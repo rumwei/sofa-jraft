@@ -24,7 +24,6 @@ import com.alipay.sofa.jraft.util.Requires;
 import com.alipay.sofa.jraft.util.Utils;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class DefaultFixedThreadsExecutorGroupFactory implements FixedThreadsExecutorGroupFactory {

@@ -17,7 +17,6 @@
 package com.alipay.sofa.jraft.rhea.cmd.store;
 
 /**
- *
  * @author nicholas.jxf
  */
 public class BatchDeleteResponse extends BaseResponse<Boolean> {

@@ -43,6 +43,7 @@ import com.alipay.sofa.jraft.rpc.impl.FutureImpl;
 import com.alipay.sofa.jraft.storage.LogManager;
 import com.alipay.sofa.jraft.storage.SnapshotStorage;
 import com.google.protobuf.ByteString;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -53,26 +54,26 @@ import static org.mockito.Matchers.eq;
 @RunWith(value = MockitoJUnitRunner.class)
 public class ReplicatorGroupTest {
 
-    static final Logger         LOG            = LoggerFactory.getLogger(ReplicatorGroupTest.class);
+    static final Logger LOG = LoggerFactory.getLogger(ReplicatorGroupTest.class);
 
-    private TimerManager        timerManager;
+    private TimerManager timerManager;
     private ReplicatorGroupImpl replicatorGroup;
     @Mock
-    private BallotBox           ballotBox;
+    private BallotBox ballotBox;
     @Mock
-    private LogManager          logManager;
+    private LogManager logManager;
     @Mock
-    private NodeImpl            node;
+    private NodeImpl node;
     @Mock
-    private RaftClientService   rpcService;
+    private RaftClientService rpcService;
     @Mock
-    private SnapshotStorage     snapshotStorage;
-    private final NodeOptions   options        = new NodeOptions();
-    private final RaftOptions   raftOptions    = new RaftOptions();
-    private final PeerId        peerId1        = new PeerId("localhost", 8082);
-    private final PeerId        peerId2        = new PeerId("localhost", 8083);
-    private final PeerId        peerId3        = new PeerId("localhost", 8084);
-    private final AtomicInteger errorCounter   = new AtomicInteger(0);
+    private SnapshotStorage snapshotStorage;
+    private final NodeOptions options = new NodeOptions();
+    private final RaftOptions raftOptions = new RaftOptions();
+    private final PeerId peerId1 = new PeerId("localhost", 8082);
+    private final PeerId peerId2 = new PeerId("localhost", 8083);
+    private final PeerId peerId3 = new PeerId("localhost", 8084);
+    private final AtomicInteger errorCounter = new AtomicInteger(0);
     private final AtomicInteger stoppedCounter = new AtomicInteger(0);
     private final AtomicInteger startedCounter = new AtomicInteger(0);
 
@@ -260,26 +261,26 @@ public class ReplicatorGroupTest {
         final RpcRequests.AppendEntriesRequest request3 = createEmptyEntriesRequestToPeer(this.peerId3);
 
         Mockito
-            .when(this.rpcService.appendEntries(eq(this.peerId1.getEndpoint()), eq(request1), eq(-1), Mockito.any()))
-            .thenReturn(new FutureImpl<>());
+                .when(this.rpcService.appendEntries(eq(this.peerId1.getEndpoint()), eq(request1), eq(-1), Mockito.any()))
+                .thenReturn(new FutureImpl<>());
         Mockito
-            .when(this.rpcService.appendEntries(eq(this.peerId2.getEndpoint()), eq(request2), eq(-1), Mockito.any()))
-            .thenReturn(new FutureImpl<>());
+                .when(this.rpcService.appendEntries(eq(this.peerId2.getEndpoint()), eq(request2), eq(-1), Mockito.any()))
+                .thenReturn(new FutureImpl<>());
         Mockito
-            .when(this.rpcService.appendEntries(eq(this.peerId3.getEndpoint()), eq(request3), eq(-1), Mockito.any()))
-            .thenReturn(new FutureImpl<>());
+                .when(this.rpcService.appendEntries(eq(this.peerId3.getEndpoint()), eq(request3), eq(-1), Mockito.any()))
+                .thenReturn(new FutureImpl<>());
     }
 
     private RpcRequests.AppendEntriesRequest createEmptyEntriesRequestToPeer(final PeerId peerId) {
         return RpcRequests.AppendEntriesRequest.newBuilder() //
-            .setGroupId("test") //
-            .setServerId(new PeerId("localhost", 8081).toString()) //
-            .setPeerId(peerId.toString()) //
-            .setTerm(1) //
-            .setPrevLogIndex(10) //
-            .setPrevLogTerm(1) //
-            .setCommittedIndex(0) //
-            .setData(ByteString.EMPTY) //
-            .build();
+                .setGroupId("test") //
+                .setServerId(new PeerId("localhost", 8081).toString()) //
+                .setPeerId(peerId.toString()) //
+                .setTerm(1) //
+                .setPrevLogIndex(10) //
+                .setPrevLogTerm(1) //
+                .setCommittedIndex(0) //
+                .setData(ByteString.EMPTY) //
+                .build();
     }
 }

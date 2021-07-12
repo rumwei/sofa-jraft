@@ -36,7 +36,7 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(value = MockitoJUnitRunner.class)
 public class LocalSnapshotWriterTest extends BaseStorageTest {
-    private LocalSnapshotWriter  writer;
+    private LocalSnapshotWriter writer;
     @Mock
     private LocalSnapshotStorage snapshotStorage;
 
@@ -65,7 +65,7 @@ public class LocalSnapshotWriterTest extends BaseStorageTest {
     @Test
     public void testSyncInit() throws Exception {
         LocalFileMetaOutter.LocalFileMeta meta = LocalFileMetaOutter.LocalFileMeta.newBuilder().setChecksum("test")
-            .setSource(LocalFileMetaOutter.FileSource.FILE_SOURCE_LOCAL).build();
+                .setSource(LocalFileMetaOutter.FileSource.FILE_SOURCE_LOCAL).build();
         assertTrue(this.writer.addFile("data1", meta));
         assertTrue(this.writer.addFile("data2"));
 

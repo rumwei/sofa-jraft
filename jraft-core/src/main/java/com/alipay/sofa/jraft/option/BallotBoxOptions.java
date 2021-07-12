@@ -23,12 +23,12 @@ import com.alipay.sofa.jraft.closure.ClosureQueue;
  * Ballot box options.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-04 2:58:36 PM
  */
 public class BallotBoxOptions {
 
-    private FSMCaller    waiter;
+    private FSMCaller waiter;
     private ClosureQueue closureQueue;
 
     public FSMCaller getWaiter() {

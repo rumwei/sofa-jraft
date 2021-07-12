@@ -38,8 +38,9 @@ import com.alipay.sofa.jraft.util.Endpoint;
 
 /**
  * Test helper
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Apr-11 10:16:07 AM
  */
 public class TestUtils {
@@ -114,7 +115,7 @@ public class TestUtils {
 
     public static RpcRequests.PingRequest createPingRequest() {
         RpcRequests.PingRequest reqObject = RpcRequests.PingRequest.newBuilder()
-            .setSendTimestamp(System.currentTimeMillis()).build();
+                .setSendTimestamp(System.currentTimeMillis()).build();
         return reqObject;
     }
 

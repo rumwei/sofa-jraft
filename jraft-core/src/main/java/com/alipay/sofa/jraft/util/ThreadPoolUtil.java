@@ -24,7 +24,6 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class ThreadPoolUtil {
@@ -59,12 +58,12 @@ public final class ThreadPoolUtil {
      *                         by the {@code execute} method.
      * @param threadFactory    the factory to use when the executor creates a new thread
      * @throws IllegalArgumentException if one of the following holds:<br>
-     *         {@code corePoolSize < 0}<br>
-     *         {@code keepAliveSeconds < 0}<br>
-     *         {@code maximumPoolSize <= 0}<br>
-     *         {@code maximumPoolSize < corePoolSize}
-     * @throws NullPointerException if {@code workQueue}
-     *         or {@code threadFactory} or {@code handler} is null
+     *                                  {@code corePoolSize < 0}<br>
+     *                                  {@code keepAliveSeconds < 0}<br>
+     *                                  {@code maximumPoolSize <= 0}<br>
+     *                                  {@code maximumPoolSize < corePoolSize}
+     * @throws NullPointerException     if {@code workQueue}
+     *                                  or {@code threadFactory} or {@code handler} is null
      */
     public static ThreadPoolExecutor newThreadPool(final String poolName, final boolean enableMetric,
                                                    final int coreThreads, final int maximumThreads,
@@ -72,7 +71,7 @@ public final class ThreadPoolUtil {
                                                    final BlockingQueue<Runnable> workQueue,
                                                    final ThreadFactory threadFactory) {
         return newThreadPool(poolName, enableMetric, coreThreads, maximumThreads, keepAliveSeconds, workQueue,
-            threadFactory, defaultHandler);
+                threadFactory, defaultHandler);
     }
 
     /**
@@ -94,12 +93,12 @@ public final class ThreadPoolUtil {
      * @param rejectedHandler  the handler to use when execution is blocked because the
      *                         thread bounds and queue capacities are reached
      * @throws IllegalArgumentException if one of the following holds:<br>
-     *         {@code corePoolSize < 0}<br>
-     *         {@code keepAliveSeconds < 0}<br>
-     *         {@code maximumPoolSize <= 0}<br>
-     *         {@code maximumPoolSize < corePoolSize}
-     * @throws NullPointerException if {@code workQueue}
-     *         or {@code threadFactory} or {@code handler} is null
+     *                                  {@code corePoolSize < 0}<br>
+     *                                  {@code keepAliveSeconds < 0}<br>
+     *                                  {@code maximumPoolSize <= 0}<br>
+     *                                  {@code maximumPoolSize < corePoolSize}
+     * @throws NullPointerException     if {@code workQueue}
+     *                                  or {@code threadFactory} or {@code handler} is null
      */
     public static ThreadPoolExecutor newThreadPool(final String poolName, final boolean enableMetric,
                                                    final int coreThreads, final int maximumThreads,
@@ -110,10 +109,10 @@ public final class ThreadPoolUtil {
         final TimeUnit unit = TimeUnit.SECONDS;
         if (enableMetric) {
             return new MetricThreadPoolExecutor(coreThreads, maximumThreads, keepAliveSeconds, unit, workQueue,
-                threadFactory, rejectedHandler, poolName);
+                    threadFactory, rejectedHandler, poolName);
         } else {
             return new LogThreadPoolExecutor(coreThreads, maximumThreads, keepAliveSeconds, unit, workQueue,
-                threadFactory, rejectedHandler, poolName);
+                    threadFactory, rejectedHandler, poolName);
         }
     }
 
@@ -121,17 +120,16 @@ public final class ThreadPoolUtil {
      * Creates a new ScheduledThreadPoolExecutor with the given
      * initial parameters.
      *
-     * @param poolName        the name of the thread pool
-     * @param enableMetric    if metric is enabled
-     * @param coreThreads     the number of threads to keep in the pool, even if they are
-     *                        idle, unless {@code allowCoreThreadTimeOut} is set.
-     * @param threadFactory   the factory to use when the executor
-     *                        creates a new thread
-     *
-     * @throws IllegalArgumentException if {@code corePoolSize < 0}
-     * @throws NullPointerException if {@code threadFactory} or
-     *         {@code handler} is null
+     * @param poolName      the name of the thread pool
+     * @param enableMetric  if metric is enabled
+     * @param coreThreads   the number of threads to keep in the pool, even if they are
+     *                      idle, unless {@code allowCoreThreadTimeOut} is set.
+     * @param threadFactory the factory to use when the executor
+     *                      creates a new thread
      * @return a new ScheduledThreadPoolExecutor
+     * @throws IllegalArgumentException if {@code corePoolSize < 0}
+     * @throws NullPointerException     if {@code threadFactory} or
+     *                                  {@code handler} is null
      */
     public static ScheduledThreadPoolExecutor newScheduledThreadPool(final String poolName, final boolean enableMetric,
                                                                      final int coreThreads,
@@ -151,11 +149,10 @@ public final class ThreadPoolUtil {
      *                        creates a new thread
      * @param rejectedHandler the handler to use when execution is blocked because the
      *                        thread bounds and queue capacities are reached
-     *
-     * @throws IllegalArgumentException if {@code corePoolSize < 0}
-     * @throws NullPointerException if {@code threadFactory} or
-     *         {@code handler} is null
      * @return a new ScheduledThreadPoolExecutor
+     * @throws IllegalArgumentException if {@code corePoolSize < 0}
+     * @throws NullPointerException     if {@code threadFactory} or
+     *                                  {@code handler} is null
      */
     public static ScheduledThreadPoolExecutor newScheduledThreadPool(final String poolName, final boolean enableMetric,
                                                                      final int coreThreads,
@@ -172,13 +169,13 @@ public final class ThreadPoolUtil {
     }
 
     public static class PoolBuilder {
-        private String                   poolName;
-        private Boolean                  enableMetric;
-        private Integer                  coreThreads;
-        private Integer                  maximumThreads;
-        private Long                     keepAliveSeconds;
-        private BlockingQueue<Runnable>  workQueue;
-        private ThreadFactory            threadFactory;
+        private String poolName;
+        private Boolean enableMetric;
+        private Integer coreThreads;
+        private Integer maximumThreads;
+        private Long keepAliveSeconds;
+        private BlockingQueue<Runnable> workQueue;
+        private ThreadFactory threadFactory;
         private RejectedExecutionHandler handler = ThreadPoolUtil.defaultHandler;
 
         public PoolBuilder poolName(final String poolName) {
@@ -232,15 +229,15 @@ public final class ThreadPoolUtil {
             Requires.requireNonNull(this.handler, "handler");
 
             return ThreadPoolUtil.newThreadPool(this.poolName, this.enableMetric, this.coreThreads,
-                this.maximumThreads, this.keepAliveSeconds, this.workQueue, this.threadFactory, this.handler);
+                    this.maximumThreads, this.keepAliveSeconds, this.workQueue, this.threadFactory, this.handler);
         }
     }
 
     public static class ScheduledPoolBuilder {
-        private String                   poolName;
-        private Boolean                  enableMetric;
-        private Integer                  coreThreads;
-        private ThreadFactory            threadFactory;
+        private String poolName;
+        private Boolean enableMetric;
+        private Integer coreThreads;
+        private ThreadFactory threadFactory;
         private RejectedExecutionHandler handler = ThreadPoolUtil.defaultHandler;
 
         public ScheduledPoolBuilder poolName(final String poolName) {
@@ -277,7 +274,7 @@ public final class ThreadPoolUtil {
             Requires.requireNonNull(this.handler, "handler");
 
             return ThreadPoolUtil.newScheduledThreadPool(this.poolName, this.enableMetric, this.coreThreads,
-                this.threadFactory, this.handler);
+                    this.threadFactory, this.handler);
         }
     }
 }

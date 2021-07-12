@@ -21,7 +21,6 @@ import java.util.List;
 import com.alipay.sofa.jraft.rhea.metadata.Instruction;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class RegionHeartbeatResponse extends BaseResponse<List<Instruction>> {

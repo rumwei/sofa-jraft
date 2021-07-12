@@ -24,12 +24,11 @@ import java.util.concurrent.ConcurrentMap;
 import com.alipay.sofa.jraft.rhea.util.Maps;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class ConcurrentSet<E> extends AbstractSet<E> implements Serializable {
 
-    private static final long               serialVersionUID = -6761513279741915432L;
+    private static final long serialVersionUID = -6761513279741915432L;
 
     private final ConcurrentMap<E, Boolean> map;
 

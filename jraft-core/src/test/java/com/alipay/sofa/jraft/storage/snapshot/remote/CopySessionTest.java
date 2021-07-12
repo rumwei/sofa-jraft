@@ -47,14 +47,14 @@ import static org.junit.Assert.assertSame;
 
 @RunWith(value = MockitoJUnitRunner.class)
 public class CopySessionTest {
-    private CopySession                        session;
+    private CopySession session;
     @Mock
-    private RaftClientService                  rpcService;
+    private RaftClientService rpcService;
     private RpcRequests.GetFileRequest.Builder rb;
-    private final Endpoint                     address = new Endpoint("localhost", 8081);
-    private CopyOptions                        copyOpts;
-    private RaftOptions                        raftOpts;
-    private TimerManager                       timerManager;
+    private final Endpoint address = new Endpoint("localhost", 8081);
+    private CopyOptions copyOpts;
+    private RaftOptions raftOpts;
+    private TimerManager timerManager;
 
     @Before
     public void setup() {
@@ -107,7 +107,7 @@ public class CopySessionTest {
         this.session.setDestBuf(bufRef);
 
         this.session.onRpcReturned(Status.OK(), RpcRequests.GetFileResponse.newBuilder().setReadSize(100).setEof(true)
-            .setData(ByteString.copyFrom(new byte[100])).build());
+                .setData(ByteString.copyFrom(new byte[100])).build());
         assertEquals(100, bufRef.capacity());
         //should be flip
         assertEquals(0, bufRef.getBuffer().position());
@@ -125,13 +125,13 @@ public class CopySessionTest {
 
         final FutureImpl<Message> future = new FutureImpl<>();
         final RpcRequests.GetFileRequest.Builder rb = RpcRequests.GetFileRequest.newBuilder().setReaderId(99)
-            .setFilename("data").setCount(Integer.MAX_VALUE).setOffset(100).setReadPartly(true);
+                .setFilename("data").setCount(Integer.MAX_VALUE).setOffset(100).setReadPartly(true);
         Mockito
-            .when(this.rpcService.getFile(this.address, rb.build(), this.copyOpts.getTimeoutMs(), session.getDone()))
-            .thenReturn(future);
+                .when(this.rpcService.getFile(this.address, rb.build(), this.copyOpts.getTimeoutMs(), session.getDone()))
+                .thenReturn(future);
 
         this.session.onRpcReturned(Status.OK(), RpcRequests.GetFileResponse.newBuilder().setReadSize(100).setEof(false)
-            .setData(ByteString.copyFrom(new byte[100])).build());
+                .setData(ByteString.copyFrom(new byte[100])).build());
         assertEquals(100, bufRef.capacity());
         assertEquals(100, bufRef.getBuffer().position());
 
@@ -149,10 +149,10 @@ public class CopySessionTest {
 
         final FutureImpl<Message> future = new FutureImpl<>();
         final RpcRequests.GetFileRequest.Builder rb = RpcRequests.GetFileRequest.newBuilder().setReaderId(99)
-            .setFilename("data").setCount(Integer.MAX_VALUE).setOffset(0).setReadPartly(true);
+                .setFilename("data").setCount(Integer.MAX_VALUE).setOffset(0).setReadPartly(true);
         Mockito
-            .when(this.rpcService.getFile(this.address, rb.build(), this.copyOpts.getTimeoutMs(), session.getDone()))
-            .thenReturn(future);
+                .when(this.rpcService.getFile(this.address, rb.build(), this.copyOpts.getTimeoutMs(), session.getDone()))
+                .thenReturn(future);
 
         this.session.onRpcReturned(new Status(RaftError.EINTR, "test"), null);
         assertNotNull(this.session.getTimer());
@@ -166,10 +166,10 @@ public class CopySessionTest {
         assertNull(this.session.getRpcCall());
         final FutureImpl<Message> future = new FutureImpl<>();
         final RpcRequests.GetFileRequest.Builder rb = RpcRequests.GetFileRequest.newBuilder().setReaderId(99)
-            .setFilename("data").setCount(maxCount).setOffset(0).setReadPartly(true);
+                .setFilename("data").setCount(maxCount).setOffset(0).setReadPartly(true);
         Mockito
-            .when(this.rpcService.getFile(this.address, rb.build(), this.copyOpts.getTimeoutMs(), session.getDone()))
-            .thenReturn(future);
+                .when(this.rpcService.getFile(this.address, rb.build(), this.copyOpts.getTimeoutMs(), session.getDone()))
+                .thenReturn(future);
         this.session.sendNextRpc();
         assertNotNull(this.session.getRpcCall());
         assertSame(future, this.session.getRpcCall());

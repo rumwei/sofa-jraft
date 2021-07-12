@@ -53,13 +53,13 @@ import com.alipay.sofa.jraft.test.TestUtils;
 
 @RunWith(value = MockitoJUnitRunner.class)
 public class FSMCallerTest {
-    private FSMCallerImpl    fsmCaller;
+    private FSMCallerImpl fsmCaller;
     @Mock
-    private NodeImpl         node;
+    private NodeImpl node;
     @Mock
-    private StateMachine     fsm;
+    private StateMachine fsm;
     @Mock
-    private LogManager       logManager;
+    private LogManager logManager;
     private ClosureQueueImpl closureQueue;
 
     @Before
@@ -103,7 +103,7 @@ public class FSMCallerTest {
         Mockito.verify(this.logManager).setAppliedId(new LogId(10, 1));
         assertFalse(this.fsmCaller.getError().getStatus().isOk());
         assertEquals("Fail to get entry at index=11 while committed_index=11", this.fsmCaller.getError().getStatus()
-            .getErrorMsg());
+                .getErrorMsg());
     }
 
     @Test
@@ -205,7 +205,7 @@ public class FSMCallerTest {
     public void testOnSnapshotSave() throws Exception {
         final SnapshotWriter writer = Mockito.mock(SnapshotWriter.class);
         Mockito.when(this.logManager.getConfiguration(10)).thenReturn(
-            TestUtils.getConfEntry("localhost:8081,localhost:8082,localhost:8083", "localhost:8081"));
+                TestUtils.getConfEntry("localhost:8081,localhost:8082,localhost:8083", "localhost:8081"));
         final SaveSnapshotClosure done = new SaveSnapshotClosure() {
 
             @Override

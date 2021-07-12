@@ -21,14 +21,13 @@ import com.alipay.sofa.jraft.rhea.client.RheaKVStore;
 import com.alipay.sofa.jraft.rhea.options.RheaKVStoreOptions;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class Node {
 
     private final RheaKVStoreOptions options;
 
-    private RheaKVStore              rheaKVStore;
+    private RheaKVStore rheaKVStore;
 
     public Node(RheaKVStoreOptions options) {
         this.options = options;

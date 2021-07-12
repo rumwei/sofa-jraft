@@ -94,7 +94,7 @@ public class RegionRouteTableTest {
             table.addOrUpdateRegion(r2);
             table.addOrUpdateRegion(r3);
             List<Region> foundList = table.findRegionsByKeyRange(KeyValueTool.makeKey("adc"),
-                KeyValueTool.makeKey("def"));
+                    KeyValueTool.makeKey("def"));
             assertEquals(2, foundList.size());
             assertEquals(r1.getId(), foundList.get(0).getId());
             assertEquals(r2.getId(), foundList.get(1).getId());
@@ -121,7 +121,7 @@ public class RegionRouteTableTest {
             table.addOrUpdateRegion(r6);
             table.addOrUpdateRegion(r7);
             List<Region> foundList = table.findRegionsByKeyRange(KeyValueTool.makeKey("adc"),
-                KeyValueTool.makeKey("def"));
+                    KeyValueTool.makeKey("def"));
             assertEquals(2, foundList.size());
             assertEquals(r1.getId(), foundList.get(0).getId());
             assertEquals(r2.getId(), foundList.get(1).getId());

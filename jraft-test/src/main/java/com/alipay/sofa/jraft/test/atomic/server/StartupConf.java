@@ -31,9 +31,9 @@ public class StartupConf {
     private String dataPath;
     private String conf;
     private String serverAddress;
-    private long   minSlot;
-    private long   maxSlot;
-    private int    totalSlots = 1;
+    private long minSlot;
+    private long maxSlot;
+    private int totalSlots = 1;
 
     public int getTotalSlots() {
         return this.totalSlots;
@@ -135,8 +135,8 @@ public class StartupConf {
     @Override
     public String toString() {
         return "StartupConf [groupId=" + this.groupId + ", dataPath=" + this.dataPath + ", conf=" + this.conf
-               + ", serverAddress=" + this.serverAddress + ", minSlot=" + this.minSlot + ", maxSlot=" + this.maxSlot
-               + ", totalSlots=" + this.totalSlots + "]";
+                + ", serverAddress=" + this.serverAddress + ", minSlot=" + this.minSlot + ", maxSlot=" + this.maxSlot
+                + ", totalSlots=" + this.totalSlots + "]";
     }
 
 }

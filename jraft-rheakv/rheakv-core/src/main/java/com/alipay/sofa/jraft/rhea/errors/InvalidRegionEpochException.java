@@ -17,7 +17,6 @@
 package com.alipay.sofa.jraft.rhea.errors;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class InvalidRegionEpochException extends ApiException {

@@ -29,12 +29,12 @@ import com.alipay.sofa.jraft.entity.PeerId;
  * Client RPC service connection event processor for {@link ConnectionEventType#CONNECT}
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-12 10:21:22 AM
  */
 public class ClientServiceConnectionEventProcessor implements ConnectionEventProcessor {
 
-    private static final Logger   LOG = LoggerFactory.getLogger(ClientServiceConnectionEventProcessor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ClientServiceConnectionEventProcessor.class);
 
     private final ReplicatorGroup rgGroup;
 

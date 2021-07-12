@@ -20,7 +20,6 @@ import com.alipay.sofa.jraft.rhea.options.RpcOptions;
 import com.alipay.sofa.jraft.rhea.util.Configured;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class RpcOptionsConfigured implements Configured<RpcOptions> {

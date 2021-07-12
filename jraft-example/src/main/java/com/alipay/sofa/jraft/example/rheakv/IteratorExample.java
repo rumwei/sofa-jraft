@@ -30,7 +30,6 @@ import static com.alipay.sofa.jraft.util.BytesUtil.readUtf8;
 import static com.alipay.sofa.jraft.util.BytesUtil.writeUtf8;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class IteratorExample {
@@ -63,7 +62,7 @@ public class IteratorExample {
         final RheaIterator<KVEntry> it3 = rheaKVStore.iterator(firstKeyString, lastKeyString, 5);
         final RheaIterator<KVEntry> it4 = rheaKVStore.iterator(firstKeyString, lastKeyString, 6, false);
 
-        for (final RheaIterator<KVEntry> it : new RheaIterator[] { it1, it2, it3, it4 }) {
+        for (final RheaIterator<KVEntry> it : new RheaIterator[]{it1, it2, it3, it4}) {
             while (it.hasNext()) {
                 final KVEntry kv = it.next();
                 LOG.info("Sync iterator: key={}, value={}", readUtf8(kv.getKey()), readUtf8(kv.getValue()));

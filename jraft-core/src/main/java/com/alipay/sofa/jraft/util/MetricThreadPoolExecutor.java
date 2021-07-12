@@ -57,7 +57,7 @@ public class MetricThreadPoolExecutor extends LogThreadPoolExecutor {
         super.beforeExecute(t, r);
         try {
             ThreadPoolMetricRegistry.timerThreadLocal() //
-                .set(ThreadPoolMetricRegistry.metricRegistry().timer("threadPool." + getName()).time());
+                    .set(ThreadPoolMetricRegistry.metricRegistry().timer("threadPool." + getName()).time());
         } catch (final Throwable ignored) {
             // ignored
         }

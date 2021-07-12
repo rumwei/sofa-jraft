@@ -29,9 +29,9 @@ import com.alipay.sofa.jraft.util.internal.Updaters;
 public class ServerStreamHelper {
 
     private static final ReferenceFieldUpdater<ServerCallImpl<?, ?>, ServerStream> STREAM_GETTER = Updaters
-                                                                                                     .newReferenceFieldUpdater(
-                                                                                                         ServerCallImpl.class,
-                                                                                                         "stream");
+            .newReferenceFieldUpdater(
+                    ServerCallImpl.class,
+                    "stream");
 
     public static ServerStream getServerStream(final ServerCall<?, ?> call) {
         if (call instanceof ServerCallImpl) {

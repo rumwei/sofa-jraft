@@ -33,23 +33,23 @@ import com.alipay.sofa.jraft.rpc.RpcContext;
  */
 public class RequestProcessClosure<REQ, RSP> implements Closure {
 
-    private static final Logger                                           LOG           = LoggerFactory
-                                                                                            .getLogger(RequestProcessClosure.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(RequestProcessClosure.class);
 
     private static final AtomicIntegerFieldUpdater<RequestProcessClosure> STATE_UPDATER = AtomicIntegerFieldUpdater
-                                                                                            .newUpdater(
-                                                                                                RequestProcessClosure.class,
-                                                                                                "state");
+            .newUpdater(
+                    RequestProcessClosure.class,
+                    "state");
 
-    private static final int                                              PENDING       = 0;
-    private static final int                                              RESPOND       = 1;
+    private static final int PENDING = 0;
+    private static final int RESPOND = 1;
 
-    private final REQ                                                     request;
-    private final RpcContext                                              rpcCtx;
+    private final REQ request;
+    private final RpcContext rpcCtx;
 
-    private RSP                                                           response;
+    private RSP response;
 
-    private volatile int                                                  state         = PENDING;
+    private volatile int state = PENDING;
 
     public RequestProcessClosure(REQ request, RpcContext rpcCtx) {
         super();

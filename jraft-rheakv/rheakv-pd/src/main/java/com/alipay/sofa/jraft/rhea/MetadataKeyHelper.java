@@ -28,65 +28,65 @@ public final class MetadataKeyHelper {
 
     public static String getClusterInfoKey(final long clusterId) {
         return StringBuilderHelper.get() //
-            .append("pd_cluster") //
-            .append(DELIMITER) //
-            .append(clusterId) //
-            .toString();
+                .append("pd_cluster") //
+                .append(DELIMITER) //
+                .append(clusterId) //
+                .toString();
     }
 
     public static String getStoreIdKey(final long clusterId, final Endpoint endpoint) {
         return StringBuilderHelper.get() //
-            .append("pd_store_id_map") //
-            .append(DELIMITER) //
-            .append(clusterId) //
-            .append(DELIMITER) //
-            .append(endpoint) //
-            .toString();
+                .append("pd_store_id_map") //
+                .append(DELIMITER) //
+                .append(clusterId) //
+                .append(DELIMITER) //
+                .append(endpoint) //
+                .toString();
     }
 
     public static String getStoreSeqKey(final long clusterId) {
         return StringBuilderHelper.get() //
-            .append("pd_store_id_seq") //
-            .append(DELIMITER) //
-            .append(clusterId) //
-            .toString();
+                .append("pd_store_id_seq") //
+                .append(DELIMITER) //
+                .append(clusterId) //
+                .toString();
     }
 
     public static String getStoreInfoKey(final long clusterId, final long storeId) {
         return StringBuilderHelper.get() //
-            .append("pd_store_info") //
-            .append(DELIMITER) //
-            .append(clusterId) //
-            .append(DELIMITER) //
-            .append(storeId) //
-            .toString();
+                .append("pd_store_info") //
+                .append(DELIMITER) //
+                .append(clusterId) //
+                .append(DELIMITER) //
+                .append(storeId) //
+                .toString();
     }
 
     public static String getRegionSeqKey(final long clusterId) {
         return StringBuilderHelper.get() //
-            .append("pd_region_id_seq") //
-            .append(DELIMITER) //
-            .append(clusterId) //
-            .toString();
+                .append("pd_region_id_seq") //
+                .append(DELIMITER) //
+                .append(clusterId) //
+                .toString();
     }
 
     public static String getStoreStatsKey(final long clusterId, final long storeId) {
         return StringBuilderHelper.get() //
-            .append("pd_store_stats") //
-            .append(DELIMITER) //
-            .append(clusterId) //
-            .append(DELIMITER) //
-            .append(storeId).toString();
+                .append("pd_store_stats") //
+                .append(DELIMITER) //
+                .append(clusterId) //
+                .append(DELIMITER) //
+                .append(storeId).toString();
     }
 
     public static String getRegionStatsKey(final long clusterId, final long regionId) {
         return StringBuilderHelper.get() //
-            .append("pd_region_stats") //
-            .append(DELIMITER) //
-            .append(clusterId) //
-            .append(DELIMITER) //
-            .append(regionId) //
-            .toString();
+                .append("pd_region_stats") //
+                .append(DELIMITER) //
+                .append(clusterId) //
+                .append(DELIMITER) //
+                .append(regionId) //
+                .toString();
     }
 
     private MetadataKeyHelper() {

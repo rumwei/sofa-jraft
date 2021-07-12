@@ -19,14 +19,13 @@ package com.alipay.sofa.jraft.rhea.cmd.store;
 import com.alipay.sofa.jraft.util.BytesUtil;
 
 /**
- *
  * @author nicholas.jxf
  */
 public class ContainsKeyRequest extends BaseRequest {
 
     private static final long serialVersionUID = -2690374162748351638L;
 
-    private byte[]            key;
+    private byte[] key;
 
     public byte[] getKey() {
         return key;

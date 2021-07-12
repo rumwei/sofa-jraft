@@ -34,18 +34,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class RheaBenchmarkCluster {
 
-    private static final String[]             CONF   = {
+    private static final String[] CONF = {
             "jraft-rheakv/rheakv-core/src/test/resources/benchmark/conf/rhea_cluster_1.yaml",
             "jraft-rheakv/rheakv-core/src/test/resources/benchmark/conf/rhea_cluster_2.yaml",
-            "jraft-rheakv/rheakv-core/src/test/resources/benchmark/conf/rhea_cluster_3.yaml" };
+            "jraft-rheakv/rheakv-core/src/test/resources/benchmark/conf/rhea_cluster_3.yaml"};
 
-    private volatile String                   tempDbPath;
-    private volatile String                   tempRaftPath;
+    private volatile String tempDbPath;
+    private volatile String tempRaftPath;
     private CopyOnWriteArrayList<RheaKVStore> stores = new CopyOnWriteArrayList<>();
 
     protected void start() throws IOException, InterruptedException {

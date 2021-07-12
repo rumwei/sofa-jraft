@@ -20,15 +20,16 @@ import java.io.Serializable;
 
 /**
  * Boolean command represents true or false.
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Apr-25 1:25:10 PM
  */
 public class BooleanCommand implements Serializable {
     private static final long serialVersionUID = 2776110757482798187L;
-    private boolean           success;
-    private String            errorMsg;
-    private String            redirect;
+    private boolean success;
+    private String errorMsg;
+    private String redirect;
 
     public String getRedirect() {
         return this.redirect;

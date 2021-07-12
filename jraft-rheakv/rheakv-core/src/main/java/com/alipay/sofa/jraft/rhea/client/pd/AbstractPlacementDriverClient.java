@@ -55,20 +55,19 @@ import com.alipay.sofa.jraft.util.Requires;
 import com.alipay.sofa.jraft.util.internal.ThrowUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public abstract class AbstractPlacementDriverClient implements PlacementDriverClient {
 
-    private static final Logger         LOG              = LoggerFactory.getLogger(AbstractPlacementDriverClient.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractPlacementDriverClient.class);
 
-    protected final RegionRouteTable    regionRouteTable = new RegionRouteTable();
-    protected final long                clusterId;
-    protected final String              clusterName;
+    protected final RegionRouteTable regionRouteTable = new RegionRouteTable();
+    protected final long clusterId;
+    protected final String clusterName;
 
-    protected CliService                cliService;
-    protected CliClientService          cliClientService;
-    protected RpcClient                 rpcClient;
+    protected CliService cliService;
+    protected CliClientService cliClientService;
+    protected RpcClient rpcClient;
     protected PlacementDriverRpcService pdRpcService;
 
     protected AbstractPlacementDriverClient(long clusterId, String clusterName) {
@@ -251,7 +250,7 @@ public abstract class AbstractPlacementDriverClient implements PlacementDriverCl
             // A newly launched raft group may not have been successful in the election,
             // or in the 'leader-transfer' state, it needs to be re-tried
             Throwable lastCause = null;
-            for (;;) {
+            for (; ; ) {
                 try {
                     final Status st = routeTable.refreshLeader(this.cliClientService, raftGroupId, 2000);
                     if (st.isOk()) {
@@ -274,7 +273,7 @@ public abstract class AbstractPlacementDriverClient implements PlacementDriverCl
                     }
                 } else {
                     throw lastCause != null ? new RouteTableException(error.toString(), lastCause)
-                        : new RouteTableException(error.toString());
+                            : new RouteTableException(error.toString());
                 }
             }
         }
@@ -291,7 +290,7 @@ public abstract class AbstractPlacementDriverClient implements PlacementDriverCl
             final StringBuilder error = new StringBuilder();
             // A newly launched raft group may not have been successful in the election,
             // or in the 'leader-transfer' state, it needs to be re-tried
-            for (;;) {
+            for (; ; ) {
                 try {
                     final Status st = routeTable.refreshConfiguration(this.cliClientService, raftGroupId, 5000);
                     if (st.isOk()) {
@@ -388,9 +387,9 @@ public abstract class AbstractPlacementDriverClient implements PlacementDriverCl
     protected Region getLocalRegionMetadata(final RegionEngineOptions opts) {
         final long regionId = Requires.requireNonNull(opts.getRegionId(), "opts.regionId");
         Requires.requireTrue(regionId >= Region.MIN_ID_WITH_MANUAL_CONF, "opts.regionId must >= "
-                                                                         + Region.MIN_ID_WITH_MANUAL_CONF);
+                + Region.MIN_ID_WITH_MANUAL_CONF);
         Requires.requireTrue(regionId < Region.MAX_ID_WITH_MANUAL_CONF, "opts.regionId must < "
-                                                                        + Region.MAX_ID_WITH_MANUAL_CONF);
+                + Region.MAX_ID_WITH_MANUAL_CONF);
         final byte[] startKey = opts.getStartKeyBytes();
         final byte[] endKey = opts.getEndKeyBytes();
         final String initialServerList = opts.getInitialServerList();

@@ -37,8 +37,8 @@ public class FutureTest {
 
     private static final class NotifyFutureRunner implements Runnable {
         FutureImpl<Boolean> future;
-        long                sleepTime;
-        Throwable           throwable;
+        long sleepTime;
+        Throwable throwable;
 
         public NotifyFutureRunner(FutureImpl<Boolean> future, long sleepTime, Throwable throwable) {
             super();

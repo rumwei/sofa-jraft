@@ -21,14 +21,13 @@ import io.protostuff.LinkedBuffer;
 import com.alipay.sofa.jraft.rhea.serialization.Serializer;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class LinkedBuffers {
 
     // reuse the 'byte[]' of LinkedBuffer's head node
     private static final ThreadLocal<LinkedBuffer> bufThreadLocal = ThreadLocal.withInitial(
-                                                                      () -> LinkedBuffer.allocate(Serializer.DEFAULT_BUF_SIZE));
+            () -> LinkedBuffer.allocate(Serializer.DEFAULT_BUF_SIZE));
 
     public static LinkedBuffer getLinkedBuffer() {
         return bufThreadLocal.get();

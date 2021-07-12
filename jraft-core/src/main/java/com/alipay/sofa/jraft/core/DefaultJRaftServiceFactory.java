@@ -33,9 +33,9 @@ import com.alipay.sofa.jraft.util.SPI;
 
 /**
  * The default factory for JRaft services.
- * @author boyan(boyan@antfin.com)
- * @since 1.2.6
  *
+ * @author boyan(boyan @ antfin.com)
+ * @since 1.2.6
  */
 @SPI
 public class DefaultJRaftServiceFactory implements JRaftServiceFactory {

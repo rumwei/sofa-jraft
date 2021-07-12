@@ -22,7 +22,6 @@ import java.util.Objects;
 import com.alipay.sofa.jraft.util.Copiable;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class RegionEpoch implements Copiable<RegionEpoch>, Comparable<RegionEpoch>, Serializable {
@@ -30,9 +29,9 @@ public class RegionEpoch implements Copiable<RegionEpoch>, Comparable<RegionEpoc
     private static final long serialVersionUID = -3752136007698056705L;
 
     // Conf change version, auto increment when add or remove peer
-    private long              confVer;
+    private long confVer;
     // Region version, auto increment when split or merge
-    private long              version;
+    private long version;
 
     public RegionEpoch() {
     }

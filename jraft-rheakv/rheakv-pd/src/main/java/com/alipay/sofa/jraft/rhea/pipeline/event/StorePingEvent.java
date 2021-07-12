@@ -20,7 +20,6 @@ import com.alipay.sofa.jraft.rhea.MetadataStore;
 import com.alipay.sofa.jraft.rhea.cmd.pd.StoreHeartbeatRequest;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class StorePingEvent extends PingEvent<StoreHeartbeatRequest> {

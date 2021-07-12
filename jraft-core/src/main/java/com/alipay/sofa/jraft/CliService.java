@@ -28,7 +28,7 @@ import com.alipay.sofa.jraft.option.CliOptions;
  * Client command-line service
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-09 4:05:35 PM
  */
 public interface CliService extends Lifecycle<CliOptions> {
@@ -84,7 +84,6 @@ public interface CliService extends Lifecycle<CliOptions> {
      * @param learners learner peers to add
      * @return operation status
      * @since 1.3.0
-     *
      */
     Status addLearners(final String groupId, final Configuration conf, final List<PeerId> learners);
 
@@ -97,7 +96,6 @@ public interface CliService extends Lifecycle<CliOptions> {
      * @param learners learner peers to remove
      * @return operation status
      * @since 1.3.0
-     *
      */
     Status removeLearners(final String groupId, final Configuration conf, final List<PeerId> learners);
 
@@ -105,12 +103,11 @@ public interface CliService extends Lifecycle<CliOptions> {
      * Converts the specified learner to follower of |conf|.
      * return OK status when success.
      *
-     * @param groupId  the raft group id
-     * @param conf     current configuration
-     * @param learner  learner peer
+     * @param groupId the raft group id
+     * @param conf    current configuration
+     * @param learner learner peer
      * @return operation status
      * @since 1.3.8
-     *
      */
     Status learner2Follower(final String groupId, final Configuration conf, final PeerId learner);
 
@@ -123,7 +120,6 @@ public interface CliService extends Lifecycle<CliOptions> {
      * @param learners learner peers to set
      * @return operation status
      * @since 1.3.0
-     *
      */
     Status resetLearners(final String groupId, final Configuration conf, final List<PeerId> learners);
 
@@ -148,6 +144,7 @@ public interface CliService extends Lifecycle<CliOptions> {
 
     /**
      * Get the leader of the replication group.
+     *
      * @param groupId  the raft group id
      * @param conf     configuration
      * @param leaderId id of leader

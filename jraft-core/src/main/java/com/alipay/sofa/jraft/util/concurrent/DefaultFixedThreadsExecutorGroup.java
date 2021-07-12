@@ -24,13 +24,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class DefaultFixedThreadsExecutorGroup implements FixedThreadsExecutorGroup {
 
-    private final SingleThreadExecutor[]                 children;
-    private final Set<SingleThreadExecutor>              readonlyChildren;
+    private final SingleThreadExecutor[] children;
+    private final Set<SingleThreadExecutor> readonlyChildren;
     private final ExecutorChooserFactory.ExecutorChooser chooser;
 
     public DefaultFixedThreadsExecutorGroup(SingleThreadExecutor[] children) {

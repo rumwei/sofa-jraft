@@ -20,21 +20,22 @@ import java.io.Serializable;
 
 /**
  * Get value command
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Apr-25 1:28:37 PM
  */
 public class GetCommand extends BaseRequestCommand implements Serializable {
 
     /**
-     * 
+     *
      */
-    private static final long serialVersionUID   = -512223854448447263L;
+    private static final long serialVersionUID = -512223854448447263L;
 
     //Whether to use ReadIndex
-    private boolean           readFromQuorum     = false;
+    private boolean readFromQuorum = false;
 
-    private boolean           readByStateMachine = false;
+    private boolean readByStateMachine = false;
 
     public boolean isReadByStateMachine() {
         return readByStateMachine;

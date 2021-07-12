@@ -21,15 +21,16 @@ import com.alipay.sofa.jraft.Status;
 
 /**
  * Leader closure to apply task.
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Apr-25 1:35:11 PM
  */
 public class LeaderTaskClosure implements Closure {
-    private Object      cmd;
+    private Object cmd;
     private CommandType cmdType;
-    private Closure     done;
-    private Object      response;
+    private Closure done;
+    private Object response;
 
     @Override
     public void run(Status status) {

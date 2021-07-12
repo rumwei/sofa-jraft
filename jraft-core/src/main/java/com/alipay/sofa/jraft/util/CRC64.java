@@ -20,8 +20,8 @@ import java.util.zip.Checksum;
 
 /**
  * CRC64
- * @author boyan(boyan@antfin.com)
  *
+ * @author boyan(boyan @ antfin.com)
  */
 public class CRC64 implements Checksum {
     /**
@@ -32,13 +32,13 @@ public class CRC64 implements Checksum {
      * x64+x62+x57+x55+x54+x53+x52+x47+x46+x45+x40+x39+x38+x37+x35+x33+
      * x32+x31+x29+x27+x24+x23+x22+x21+x19+x17+x13+x12+x10+x9+x7+x4+x+1
      * </pre>
-     *
+     * <p>
      * poly=0x42f0e1eba9ea3693 init=0x0 refin=false refout=false xorout=0x0
      *
      * @see <a href="http://en.wikipedia.org/wiki/Cyclic_redundancy_check">http://en.wikipedia.org/wiki/Cyclic_redundancy_check</a>
      * @see <a href="http://reveng.sourceforge.net/crc-catalogue/17plus.htm">http://reveng.sourceforge.net/crc-catalogue/17plus.htm</a>
      */
-    private static final long[] CRC_TABLE = new long[] { 0x0000000000000000L, 0x42F0E1EBA9EA3693L, 0x85E1C3D753D46D26L,
+    private static final long[] CRC_TABLE = new long[]{0x0000000000000000L, 0x42F0E1EBA9EA3693L, 0x85E1C3D753D46D26L,
             0xC711223CFA3E5BB5L, 0x493366450E42ECDFL, 0x0BC387AEA7A8DA4CL, 0xCCD2A5925D9681F9L, 0x8E224479F47CB76AL,
             0x9266CC8A1C85D9BEL, 0xD0962D61B56FEF2DL, 0x17870F5D4F51B498L, 0x5577EEB6E6BB820BL, 0xDB55AACF12C73561L,
             0x99A54B24BB2D03F2L, 0x5EB4691841135847L, 0x1C4488F3E8F96ED4L, 0x663D78FF90E185EFL, 0x24CD9914390BB37CL,
@@ -89,8 +89,8 @@ public class CRC64 implements Checksum {
             0xBE317F32F78E067BL, 0xFCC19ED95E6430E8L, 0x86B86ED5267CDBD3L, 0xC4488F3E8F96ED40L, 0x0359AD0275A8B6F5L,
             0x41A94CE9DC428066L, 0xCF8B0890283E370CL, 0x8D7BE97B81D4019FL, 0x4A6ACB477BEA5A2AL, 0x089A2AACD2006CB9L,
             0x14DEA25F3AF9026DL, 0x562E43B4931334FEL, 0x913F6188692D6F4BL, 0xD3CF8063C0C759D8L, 0x5DEDC41A34BBEEB2L,
-            0x1F1D25F19D51D821L, 0xD80C07CD676F8394L, 0x9AFCE626CE85B507L };
-    private long                crc       = 0;
+            0x1F1D25F19D51D821L, 0xD80C07CD676F8394L, 0x9AFCE626CE85B507L};
+    private long crc = 0;
 
     @Override
     public void update(final int b) {

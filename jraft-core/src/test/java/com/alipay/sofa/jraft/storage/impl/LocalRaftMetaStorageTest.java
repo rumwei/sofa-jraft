@@ -41,9 +41,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-11 4:50:23 PM
  */
 @RunWith(MockitoJUnitRunner.class)
@@ -51,7 +50,7 @@ public class LocalRaftMetaStorageTest extends BaseStorageTest {
     private RaftMetaStorage raftMetaStorage;
 
     @Mock
-    private NodeImpl        node;
+    private NodeImpl node;
 
     @Override
     @Before

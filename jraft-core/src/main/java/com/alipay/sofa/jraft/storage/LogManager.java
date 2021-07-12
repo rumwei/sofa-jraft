@@ -32,7 +32,7 @@ import com.alipay.sofa.jraft.util.Describer;
  * Log manager.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-04 3:02:42 PM
  */
 public interface LogManager extends Lifecycle<LogManagerOptions>, Describer {
@@ -41,14 +41,14 @@ public interface LogManager extends Lifecycle<LogManagerOptions>, Describer {
      * Closure to to run in stable state.
      *
      * @author boyan (boyan@alibaba-inc.com)
-     *
+     * <p>
      * 2018-Apr-04 4:35:29 PM
      */
     abstract class StableClosure implements Closure {
 
-        protected long           firstLogIndex = 0;
+        protected long firstLogIndex = 0;
         protected List<LogEntry> entries;
-        protected int            nEntries;
+        protected int nEntries;
 
         public StableClosure() {
             // NO-OP
@@ -112,7 +112,7 @@ public interface LogManager extends Lifecycle<LogManagerOptions>, Describer {
      * Wait the log manager to be shut down.
      *
      * @throws InterruptedException if the current thread is interrupted
-     *         while waiting
+     *                              while waiting
      */
     void join() throws InterruptedException;
 
@@ -194,7 +194,7 @@ public interface LogManager extends Lifecycle<LogManagerOptions>, Describer {
      * New log notifier callback.
      *
      * @author boyan (boyan@alibaba-inc.com)
-     *
+     * <p>
      * 2018-Apr-04 4:40:04 PM
      */
     interface NewLogCallback {
@@ -211,10 +211,10 @@ public interface LogManager extends Lifecycle<LogManagerOptions>, Describer {
     /**
      * Wait until there are more logs since |last_log_index| and |on_new_log|
      * would be called after there are new logs or error occurs, return the waiter id.
-     * 
-     * @param expectedLastLogIndex  expected last index of log
-     * @param cb                    callback
-     * @param arg                   the waiter pass-in argument
+     *
+     * @param expectedLastLogIndex expected last index of log
+     * @param cb                   callback
+     * @param arg                  the waiter pass-in argument
      */
     long wait(final long expectedLastLogIndex, final NewLogCallback cb, final Object arg);
 
@@ -234,6 +234,7 @@ public interface LogManager extends Lifecycle<LogManagerOptions>, Describer {
 
     /**
      * Check log consistency, returns the status
+     *
      * @return status
      */
     Status checkConsistency();

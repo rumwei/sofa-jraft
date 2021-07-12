@@ -26,15 +26,15 @@ import com.lmax.disruptor.dsl.ProducerType;
 
 /**
  * A builder to build a disruptor instance.
- * @author boyan(boyan@antfin.com)
  *
+ * @author boyan(boyan @ antfin.com)
  */
 public class DisruptorBuilder<T> {
     private EventFactory<T> eventFactory;
-    private Integer         ringBufferSize;
-    private ThreadFactory   threadFactory = new NamedThreadFactory("Disruptor-", true);
-    private ProducerType    producerType  = ProducerType.MULTI;
-    private WaitStrategy    waitStrategy  = new BlockingWaitStrategy();
+    private Integer ringBufferSize;
+    private ThreadFactory threadFactory = new NamedThreadFactory("Disruptor-", true);
+    private ProducerType producerType = ProducerType.MULTI;
+    private WaitStrategy waitStrategy = new BlockingWaitStrategy();
 
     private DisruptorBuilder() {
     }
@@ -92,7 +92,7 @@ public class DisruptorBuilder<T> {
         Requires.requireNonNull(this.ringBufferSize, " Ring buffer size not set");
         Requires.requireNonNull(this.eventFactory, "Event factory not set");
         return new Disruptor<>(this.eventFactory, this.ringBufferSize, this.threadFactory, this.producerType,
-            this.waitStrategy);
+                this.waitStrategy);
     }
 
 }

@@ -31,8 +31,8 @@ public final class RaftOutter {
     }
 
     public interface EntryMetaOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:jraft.EntryMeta)
-                                       com.google.protobuf.MessageOrBuilder {
+            // @@protoc_insertion_point(interface_extends:jraft.EntryMeta)
+            com.google.protobuf.MessageOrBuilder {
 
         /**
          * <code>required int64 term = 1;</code>
@@ -187,8 +187,8 @@ public final class RaftOutter {
      * Protobuf type {@code jraft.EntryMeta}
      */
     public static final class EntryMeta extends com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:jraft.EntryMeta)
-                                                                                      EntryMetaOrBuilder {
+            // @@protoc_insertion_point(message_implements:jraft.EntryMeta)
+            EntryMetaOrBuilder {
         private static final long serialVersionUID = 0L;
 
         // Use EntryMeta.newBuilder() to construct.
@@ -214,14 +214,14 @@ public final class RaftOutter {
 
         private EntryMeta(com.google.protobuf.CodedInputStream input,
                           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                      throws com.google.protobuf.InvalidProtocolBufferException {
+                throws com.google.protobuf.InvalidProtocolBufferException {
             this();
             if (extensionRegistry == null) {
                 throw new java.lang.NullPointerException();
             }
             int mutable_bitField0_ = 0;
             com.google.protobuf.UnknownFieldSet.Builder unknownFields = com.google.protobuf.UnknownFieldSet
-                .newBuilder();
+                    .newBuilder();
             try {
                 boolean done = false;
                 while (!done) {
@@ -244,7 +244,7 @@ public final class RaftOutter {
                         case 16: {
                             int rawValue = input.readEnum();
                             com.alipay.sofa.jraft.entity.EnumOutter.EntryType value = com.alipay.sofa.jraft.entity.EnumOutter.EntryType
-                                .valueOf(rawValue);
+                                    .valueOf(rawValue);
                             if (value == null) {
                                 unknownFields.mergeVarintField(2, rawValue);
                             } else {
@@ -329,13 +329,13 @@ public final class RaftOutter {
 
         protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable() {
             return com.alipay.sofa.jraft.entity.RaftOutter.internal_static_jraft_EntryMeta_fieldAccessorTable
-                .ensureFieldAccessorsInitialized(com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta.class,
-                    com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta.Builder.class);
+                    .ensureFieldAccessorsInitialized(com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta.class,
+                            com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta.Builder.class);
         }
 
-        private int             bitField0_;
+        private int bitField0_;
         public static final int TERM_FIELD_NUMBER = 1;
-        private long            term_;
+        private long term_;
 
         /**
          * <code>required int64 term = 1;</code>
@@ -352,7 +352,7 @@ public final class RaftOutter {
         }
 
         public static final int TYPE_FIELD_NUMBER = 2;
-        private int             type_;
+        private int type_;
 
         /**
          * <code>required .jraft.EntryType type = 2;</code>
@@ -366,11 +366,11 @@ public final class RaftOutter {
          */
         public com.alipay.sofa.jraft.entity.EnumOutter.EntryType getType() {
             com.alipay.sofa.jraft.entity.EnumOutter.EntryType result = com.alipay.sofa.jraft.entity.EnumOutter.EntryType
-                .valueOf(type_);
+                    .valueOf(type_);
             return result == null ? com.alipay.sofa.jraft.entity.EnumOutter.EntryType.ENTRY_TYPE_UNKNOWN : result;
         }
 
-        public static final int                    PEERS_FIELD_NUMBER = 3;
+        public static final int PEERS_FIELD_NUMBER = 3;
         private com.google.protobuf.LazyStringList peers_;
 
         /**
@@ -402,7 +402,7 @@ public final class RaftOutter {
         }
 
         public static final int DATA_LEN_FIELD_NUMBER = 4;
-        private long            dataLen_;
+        private long dataLen_;
 
         /**
          * <code>optional int64 data_len = 4;</code>
@@ -418,7 +418,7 @@ public final class RaftOutter {
             return dataLen_;
         }
 
-        public static final int                    OLD_PEERS_FIELD_NUMBER = 5;
+        public static final int OLD_PEERS_FIELD_NUMBER = 5;
         private com.google.protobuf.LazyStringList oldPeers_;
 
         /**
@@ -470,7 +470,7 @@ public final class RaftOutter {
         }
 
         public static final int CHECKSUM_FIELD_NUMBER = 6;
-        private long            checksum_;
+        private long checksum_;
 
         /**
          * <pre>
@@ -494,7 +494,7 @@ public final class RaftOutter {
             return checksum_;
         }
 
-        public static final int                    LEARNERS_FIELD_NUMBER = 7;
+        public static final int LEARNERS_FIELD_NUMBER = 7;
         private com.google.protobuf.LazyStringList learners_;
 
         /**
@@ -525,7 +525,7 @@ public final class RaftOutter {
             return learners_.getByteString(index);
         }
 
-        public static final int                    OLD_LEARNERS_FIELD_NUMBER = 8;
+        public static final int OLD_LEARNERS_FIELD_NUMBER = 8;
         private com.google.protobuf.LazyStringList oldLearners_;
 
         /**
@@ -740,69 +740,69 @@ public final class RaftOutter {
         }
 
         public static com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta parseFrom(java.nio.ByteBuffer data)
-                                                                                                           throws com.google.protobuf.InvalidProtocolBufferException {
+                throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
         public static com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta parseFrom(java.nio.ByteBuffer data,
                                                                                   com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                                                                              throws com.google.protobuf.InvalidProtocolBufferException {
+                throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
         public static com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta parseFrom(com.google.protobuf.ByteString data)
-                                                                                                                      throws com.google.protobuf.InvalidProtocolBufferException {
+                throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
         public static com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta parseFrom(com.google.protobuf.ByteString data,
                                                                                   com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                                                                              throws com.google.protobuf.InvalidProtocolBufferException {
+                throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
         public static com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta parseFrom(byte[] data)
-                                                                                              throws com.google.protobuf.InvalidProtocolBufferException {
+                throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
         public static com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta parseFrom(byte[] data,
                                                                                   com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                                                                              throws com.google.protobuf.InvalidProtocolBufferException {
+                throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
         public static com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta parseFrom(java.io.InputStream input)
-                                                                                                            throws java.io.IOException {
+                throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3.parseWithIOException(PARSER, input);
         }
 
         public static com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta parseFrom(java.io.InputStream input,
                                                                                   com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                                                                              throws java.io.IOException {
+                throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3.parseWithIOException(PARSER, input, extensionRegistry);
         }
 
         public static com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta parseDelimitedFrom(java.io.InputStream input)
-                                                                                                                     throws java.io.IOException {
+                throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3.parseDelimitedWithIOException(PARSER, input);
         }
 
         public static com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta parseDelimitedFrom(java.io.InputStream input,
                                                                                            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                                                                                       throws java.io.IOException {
+                throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3.parseDelimitedWithIOException(PARSER, input,
-                extensionRegistry);
+                    extensionRegistry);
         }
 
         public static com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta parseFrom(com.google.protobuf.CodedInputStream input)
-                                                                                                                             throws java.io.IOException {
+                throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3.parseWithIOException(PARSER, input);
         }
 
         public static com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta parseFrom(com.google.protobuf.CodedInputStream input,
                                                                                   com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                                                                              throws java.io.IOException {
+                throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3.parseWithIOException(PARSER, input, extensionRegistry);
         }
 
@@ -832,17 +832,17 @@ public final class RaftOutter {
          * Protobuf type {@code jraft.EntryMeta}
          */
         public static final class Builder extends com.google.protobuf.GeneratedMessageV3.Builder<Builder>
-                                                                                                         implements
-                                                                                                         // @@protoc_insertion_point(builder_implements:jraft.EntryMeta)
-                                                                                                         com.alipay.sofa.jraft.entity.RaftOutter.EntryMetaOrBuilder {
+                implements
+                // @@protoc_insertion_point(builder_implements:jraft.EntryMeta)
+                com.alipay.sofa.jraft.entity.RaftOutter.EntryMetaOrBuilder {
             public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
                 return com.alipay.sofa.jraft.entity.RaftOutter.internal_static_jraft_EntryMeta_descriptor;
             }
 
             protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable() {
                 return com.alipay.sofa.jraft.entity.RaftOutter.internal_static_jraft_EntryMeta_fieldAccessorTable
-                    .ensureFieldAccessorsInitialized(com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta.class,
-                        com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta.Builder.class);
+                        .ensureFieldAccessorsInitialized(com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta.class,
+                                com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta.Builder.class);
             }
 
             // Construct using com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta.newBuilder()
@@ -899,7 +899,7 @@ public final class RaftOutter {
 
             public com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta buildPartial() {
                 com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta result = new com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta(
-                    this);
+                        this);
                 int from_bitField0_ = bitField0_;
                 int to_bitField0_ = 0;
                 if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -1050,7 +1050,7 @@ public final class RaftOutter {
 
             public Builder mergeFrom(com.google.protobuf.CodedInputStream input,
                                      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                                 throws java.io.IOException {
+                    throws java.io.IOException {
                 com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta parsedMessage = null;
                 try {
                     parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
@@ -1065,7 +1065,7 @@ public final class RaftOutter {
                 return this;
             }
 
-            private int  bitField0_;
+            private int bitField0_;
 
             private long term_;
 
@@ -1117,7 +1117,7 @@ public final class RaftOutter {
              */
             public com.alipay.sofa.jraft.entity.EnumOutter.EntryType getType() {
                 com.alipay.sofa.jraft.entity.EnumOutter.EntryType result = com.alipay.sofa.jraft.entity.EnumOutter.EntryType
-                    .valueOf(type_);
+                        .valueOf(type_);
                 return result == null ? com.alipay.sofa.jraft.entity.EnumOutter.EntryType.ENTRY_TYPE_UNKNOWN : result;
             }
 
@@ -1674,6 +1674,7 @@ public final class RaftOutter {
 
         // @@protoc_insertion_point(class_scope:jraft.EntryMeta)
         private static final com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta DEFAULT_INSTANCE;
+
         static {
             DEFAULT_INSTANCE = new com.alipay.sofa.jraft.entity.RaftOutter.EntryMeta();
         }
@@ -1684,13 +1685,13 @@ public final class RaftOutter {
 
         @java.lang.Deprecated
         public static final com.google.protobuf.Parser<EntryMeta> PARSER = new com.google.protobuf.AbstractParser<EntryMeta>() {
-                                                                             public EntryMeta parsePartialFrom(com.google.protobuf.CodedInputStream input,
-                                                                                                               com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                                                                                                           throws com.google.protobuf.InvalidProtocolBufferException {
-                                                                                 return new EntryMeta(input,
-                                                                                     extensionRegistry);
-                                                                             }
-                                                                         };
+            public EntryMeta parsePartialFrom(com.google.protobuf.CodedInputStream input,
+                                              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new EntryMeta(input,
+                        extensionRegistry);
+            }
+        };
 
         public static com.google.protobuf.Parser<EntryMeta> parser() {
             return PARSER;
@@ -1708,8 +1709,8 @@ public final class RaftOutter {
     }
 
     public interface SnapshotMetaOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:jraft.SnapshotMeta)
-                                          com.google.protobuf.MessageOrBuilder {
+            // @@protoc_insertion_point(interface_extends:jraft.SnapshotMeta)
+            com.google.protobuf.MessageOrBuilder {
 
         /**
          * <code>required int64 last_included_index = 1;</code>
@@ -1816,8 +1817,8 @@ public final class RaftOutter {
      * Protobuf type {@code jraft.SnapshotMeta}
      */
     public static final class SnapshotMeta extends com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:jraft.SnapshotMeta)
-                                                                                         SnapshotMetaOrBuilder {
+            // @@protoc_insertion_point(message_implements:jraft.SnapshotMeta)
+            SnapshotMetaOrBuilder {
         private static final long serialVersionUID = 0L;
 
         // Use SnapshotMeta.newBuilder() to construct.
@@ -1841,14 +1842,14 @@ public final class RaftOutter {
 
         private SnapshotMeta(com.google.protobuf.CodedInputStream input,
                              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                         throws com.google.protobuf.InvalidProtocolBufferException {
+                throws com.google.protobuf.InvalidProtocolBufferException {
             this();
             if (extensionRegistry == null) {
                 throw new java.lang.NullPointerException();
             }
             int mutable_bitField0_ = 0;
             com.google.protobuf.UnknownFieldSet.Builder unknownFields = com.google.protobuf.UnknownFieldSet
-                .newBuilder();
+                    .newBuilder();
             try {
                 boolean done = false;
                 while (!done) {
@@ -1939,13 +1940,13 @@ public final class RaftOutter {
 
         protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable() {
             return com.alipay.sofa.jraft.entity.RaftOutter.internal_static_jraft_SnapshotMeta_fieldAccessorTable
-                .ensureFieldAccessorsInitialized(com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta.class,
-                    com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta.Builder.class);
+                    .ensureFieldAccessorsInitialized(com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta.class,
+                            com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta.Builder.class);
         }
 
-        private int             bitField0_;
+        private int bitField0_;
         public static final int LAST_INCLUDED_INDEX_FIELD_NUMBER = 1;
-        private long            lastIncludedIndex_;
+        private long lastIncludedIndex_;
 
         /**
          * <code>required int64 last_included_index = 1;</code>
@@ -1962,7 +1963,7 @@ public final class RaftOutter {
         }
 
         public static final int LAST_INCLUDED_TERM_FIELD_NUMBER = 2;
-        private long            lastIncludedTerm_;
+        private long lastIncludedTerm_;
 
         /**
          * <code>required int64 last_included_term = 2;</code>
@@ -1978,7 +1979,7 @@ public final class RaftOutter {
             return lastIncludedTerm_;
         }
 
-        public static final int                    PEERS_FIELD_NUMBER = 3;
+        public static final int PEERS_FIELD_NUMBER = 3;
         private com.google.protobuf.LazyStringList peers_;
 
         /**
@@ -2009,7 +2010,7 @@ public final class RaftOutter {
             return peers_.getByteString(index);
         }
 
-        public static final int                    OLD_PEERS_FIELD_NUMBER = 4;
+        public static final int OLD_PEERS_FIELD_NUMBER = 4;
         private com.google.protobuf.LazyStringList oldPeers_;
 
         /**
@@ -2040,7 +2041,7 @@ public final class RaftOutter {
             return oldPeers_.getByteString(index);
         }
 
-        public static final int                    LEARNERS_FIELD_NUMBER = 5;
+        public static final int LEARNERS_FIELD_NUMBER = 5;
         private com.google.protobuf.LazyStringList learners_;
 
         /**
@@ -2071,7 +2072,7 @@ public final class RaftOutter {
             return learners_.getByteString(index);
         }
 
-        public static final int                    OLD_LEARNERS_FIELD_NUMBER = 6;
+        public static final int OLD_LEARNERS_FIELD_NUMBER = 6;
         private com.google.protobuf.LazyStringList oldLearners_;
 
         /**
@@ -2258,69 +2259,69 @@ public final class RaftOutter {
         }
 
         public static com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta parseFrom(java.nio.ByteBuffer data)
-                                                                                                              throws com.google.protobuf.InvalidProtocolBufferException {
+                throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
         public static com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta parseFrom(java.nio.ByteBuffer data,
                                                                                      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                                                                                 throws com.google.protobuf.InvalidProtocolBufferException {
+                throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
         public static com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta parseFrom(com.google.protobuf.ByteString data)
-                                                                                                                         throws com.google.protobuf.InvalidProtocolBufferException {
+                throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
         public static com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta parseFrom(com.google.protobuf.ByteString data,
                                                                                      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                                                                                 throws com.google.protobuf.InvalidProtocolBufferException {
+                throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
         public static com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta parseFrom(byte[] data)
-                                                                                                 throws com.google.protobuf.InvalidProtocolBufferException {
+                throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
         public static com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta parseFrom(byte[] data,
                                                                                      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                                                                                 throws com.google.protobuf.InvalidProtocolBufferException {
+                throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
         public static com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta parseFrom(java.io.InputStream input)
-                                                                                                               throws java.io.IOException {
+                throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3.parseWithIOException(PARSER, input);
         }
 
         public static com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta parseFrom(java.io.InputStream input,
                                                                                      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                                                                                 throws java.io.IOException {
+                throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3.parseWithIOException(PARSER, input, extensionRegistry);
         }
 
         public static com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta parseDelimitedFrom(java.io.InputStream input)
-                                                                                                                        throws java.io.IOException {
+                throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3.parseDelimitedWithIOException(PARSER, input);
         }
 
         public static com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta parseDelimitedFrom(java.io.InputStream input,
                                                                                               com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                                                                                          throws java.io.IOException {
+                throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3.parseDelimitedWithIOException(PARSER, input,
-                extensionRegistry);
+                    extensionRegistry);
         }
 
         public static com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta parseFrom(com.google.protobuf.CodedInputStream input)
-                                                                                                                                throws java.io.IOException {
+                throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3.parseWithIOException(PARSER, input);
         }
 
         public static com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta parseFrom(com.google.protobuf.CodedInputStream input,
                                                                                      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                                                                                 throws java.io.IOException {
+                throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3.parseWithIOException(PARSER, input, extensionRegistry);
         }
 
@@ -2350,17 +2351,17 @@ public final class RaftOutter {
          * Protobuf type {@code jraft.SnapshotMeta}
          */
         public static final class Builder extends com.google.protobuf.GeneratedMessageV3.Builder<Builder>
-                                                                                                         implements
-                                                                                                         // @@protoc_insertion_point(builder_implements:jraft.SnapshotMeta)
-                                                                                                         com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMetaOrBuilder {
+                implements
+                // @@protoc_insertion_point(builder_implements:jraft.SnapshotMeta)
+                com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMetaOrBuilder {
             public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
                 return com.alipay.sofa.jraft.entity.RaftOutter.internal_static_jraft_SnapshotMeta_descriptor;
             }
 
             protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable() {
                 return com.alipay.sofa.jraft.entity.RaftOutter.internal_static_jraft_SnapshotMeta_fieldAccessorTable
-                    .ensureFieldAccessorsInitialized(com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta.class,
-                        com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta.Builder.class);
+                        .ensureFieldAccessorsInitialized(com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta.class,
+                                com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta.Builder.class);
             }
 
             // Construct using com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta.newBuilder()
@@ -2413,7 +2414,7 @@ public final class RaftOutter {
 
             public com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta buildPartial() {
                 com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta result = new com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta(
-                    this);
+                        this);
                 int from_bitField0_ = bitField0_;
                 int to_bitField0_ = 0;
                 if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -2550,7 +2551,7 @@ public final class RaftOutter {
 
             public Builder mergeFrom(com.google.protobuf.CodedInputStream input,
                                      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                                 throws java.io.IOException {
+                    throws java.io.IOException {
                 com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta parsedMessage = null;
                 try {
                     parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
@@ -2565,7 +2566,7 @@ public final class RaftOutter {
                 return this;
             }
 
-            private int  bitField0_;
+            private int bitField0_;
 
             private long lastIncludedIndex_;
 
@@ -3036,6 +3037,7 @@ public final class RaftOutter {
 
         // @@protoc_insertion_point(class_scope:jraft.SnapshotMeta)
         private static final com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta DEFAULT_INSTANCE;
+
         static {
             DEFAULT_INSTANCE = new com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta();
         }
@@ -3046,13 +3048,13 @@ public final class RaftOutter {
 
         @java.lang.Deprecated
         public static final com.google.protobuf.Parser<SnapshotMeta> PARSER = new com.google.protobuf.AbstractParser<SnapshotMeta>() {
-                                                                                public SnapshotMeta parsePartialFrom(com.google.protobuf.CodedInputStream input,
-                                                                                                                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                                                                                                                 throws com.google.protobuf.InvalidProtocolBufferException {
-                                                                                    return new SnapshotMeta(input,
-                                                                                        extensionRegistry);
-                                                                                }
-                                                                            };
+            public SnapshotMeta parsePartialFrom(com.google.protobuf.CodedInputStream input,
+                                                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new SnapshotMeta(input,
+                        extensionRegistry);
+            }
+        };
 
         public static com.google.protobuf.Parser<SnapshotMeta> parser() {
             return PARSER;
@@ -3069,9 +3071,9 @@ public final class RaftOutter {
 
     }
 
-    private static final com.google.protobuf.Descriptors.Descriptor                internal_static_jraft_EntryMeta_descriptor;
+    private static final com.google.protobuf.Descriptors.Descriptor internal_static_jraft_EntryMeta_descriptor;
     private static final com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internal_static_jraft_EntryMeta_fieldAccessorTable;
-    private static final com.google.protobuf.Descriptors.Descriptor                internal_static_jraft_SnapshotMeta_descriptor;
+    private static final com.google.protobuf.Descriptors.Descriptor internal_static_jraft_SnapshotMeta_descriptor;
     private static final com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internal_static_jraft_SnapshotMeta_fieldAccessorTable;
 
     public static com.google.protobuf.Descriptors.FileDescriptor getDescriptor() {
@@ -3079,17 +3081,18 @@ public final class RaftOutter {
     }
 
     private static com.google.protobuf.Descriptors.FileDescriptor descriptor;
+
     static {
-        java.lang.String[] descriptorData = { "\n\nraft.proto\022\005jraft\032\nenum.proto\"\247\001\n\tEntr"
-                                              + "yMeta\022\014\n\004term\030\001 \002(\003\022\036\n\004type\030\002 \002(\0162\020.jraf"
-                                              + "t.EntryType\022\r\n\005peers\030\003 \003(\t\022\020\n\010data_len\030\004"
-                                              + " \001(\003\022\021\n\told_peers\030\005 \003(\t\022\020\n\010checksum\030\006 \001("
-                                              + "\003\022\020\n\010learners\030\007 \003(\t\022\024\n\014old_learners\030\010 \003("
-                                              + "\t\"\221\001\n\014SnapshotMeta\022\033\n\023last_included_inde"
-                                              + "x\030\001 \002(\003\022\032\n\022last_included_term\030\002 \002(\003\022\r\n\005p"
-                                              + "eers\030\003 \003(\t\022\021\n\told_peers\030\004 \003(\t\022\020\n\010learner"
-                                              + "s\030\005 \003(\t\022\024\n\014old_learners\030\006 \003(\tB*\n\034com.ali"
-                                              + "pay.sofa.jraft.entityB\nRaftOutter" };
+        java.lang.String[] descriptorData = {"\n\nraft.proto\022\005jraft\032\nenum.proto\"\247\001\n\tEntr"
+                + "yMeta\022\014\n\004term\030\001 \002(\003\022\036\n\004type\030\002 \002(\0162\020.jraf"
+                + "t.EntryType\022\r\n\005peers\030\003 \003(\t\022\020\n\010data_len\030\004"
+                + " \001(\003\022\021\n\told_peers\030\005 \003(\t\022\020\n\010checksum\030\006 \001("
+                + "\003\022\020\n\010learners\030\007 \003(\t\022\024\n\014old_learners\030\010 \003("
+                + "\t\"\221\001\n\014SnapshotMeta\022\033\n\023last_included_inde"
+                + "x\030\001 \002(\003\022\032\n\022last_included_term\030\002 \002(\003\022\r\n\005p"
+                + "eers\030\003 \003(\t\022\021\n\told_peers\030\004 \003(\t\022\020\n\010learner"
+                + "s\030\005 \003(\t\022\024\n\014old_learners\030\006 \003(\tB*\n\034com.ali"
+                + "pay.sofa.jraft.entityB\nRaftOutter"};
         com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner = new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
             public com.google.protobuf.ExtensionRegistry assignDescriptors(com.google.protobuf.Descriptors.FileDescriptor root) {
                 descriptor = root;
@@ -3097,16 +3100,16 @@ public final class RaftOutter {
             }
         };
         com.google.protobuf.Descriptors.FileDescriptor.internalBuildGeneratedFileFrom(descriptorData,
-            new com.google.protobuf.Descriptors.FileDescriptor[] { com.alipay.sofa.jraft.entity.EnumOutter
-                .getDescriptor(), }, assigner);
+                new com.google.protobuf.Descriptors.FileDescriptor[]{com.alipay.sofa.jraft.entity.EnumOutter
+                        .getDescriptor(),}, assigner);
         internal_static_jraft_EntryMeta_descriptor = getDescriptor().getMessageTypes().get(0);
         internal_static_jraft_EntryMeta_fieldAccessorTable = new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-            internal_static_jraft_EntryMeta_descriptor, new java.lang.String[] { "Term", "Type", "Peers", "DataLen",
-            "OldPeers", "Checksum", "Learners", "OldLearners", });
+                internal_static_jraft_EntryMeta_descriptor, new java.lang.String[]{"Term", "Type", "Peers", "DataLen",
+                "OldPeers", "Checksum", "Learners", "OldLearners",});
         internal_static_jraft_SnapshotMeta_descriptor = getDescriptor().getMessageTypes().get(1);
         internal_static_jraft_SnapshotMeta_fieldAccessorTable = new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-            internal_static_jraft_SnapshotMeta_descriptor, new java.lang.String[] { "LastIncludedIndex",
-            "LastIncludedTerm", "Peers", "OldPeers", "Learners", "OldLearners", });
+                internal_static_jraft_SnapshotMeta_descriptor, new java.lang.String[]{"LastIncludedIndex",
+                "LastIncludedTerm", "Peers", "OldPeers", "Learners", "OldLearners",});
         com.alipay.sofa.jraft.entity.EnumOutter.getDescriptor();
     }
 

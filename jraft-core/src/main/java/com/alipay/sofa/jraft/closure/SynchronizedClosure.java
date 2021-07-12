@@ -25,17 +25,17 @@ import com.alipay.sofa.jraft.Status;
  * A special Closure which provides synchronization primitives.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Mar-16 2:45:34 PM
  */
 public class SynchronizedClosure implements Closure {
 
-    private CountDownLatch  latch;
+    private CountDownLatch latch;
     private volatile Status status;
     /**
      * Latch count to reset
      */
-    private int             count;
+    private int count;
 
     public SynchronizedClosure() {
         this(1);

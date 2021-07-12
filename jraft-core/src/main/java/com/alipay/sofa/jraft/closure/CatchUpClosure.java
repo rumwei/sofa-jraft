@@ -25,17 +25,17 @@ import com.alipay.sofa.jraft.Status;
  * A catchup closure for peer to catch up.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-04 2:15:05 PM
  */
 public abstract class CatchUpClosure implements Closure {
 
-    private long               maxMargin;
+    private long maxMargin;
     private ScheduledFuture<?> timer;
-    private boolean            hasTimer;
-    private boolean            errorWasSet;
+    private boolean hasTimer;
+    private boolean errorWasSet;
 
-    private final Status       status = Status.OK();
+    private final Status status = Status.OK();
 
     public Status getStatus() {
         return this.status;

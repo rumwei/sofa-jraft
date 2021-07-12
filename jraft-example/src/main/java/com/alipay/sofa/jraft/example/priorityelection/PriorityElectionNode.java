@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,14 +40,14 @@ import com.alipay.sofa.jraft.util.internal.ThrowUtil;
  */
 public class PriorityElectionNode implements Lifecycle<PriorityElectionNodeOptions> {
 
-    private static final Logger              LOG       = LoggerFactory.getLogger(PriorityElectionNode.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PriorityElectionNode.class);
 
-    private final List<LeaderStateListener>  listeners = new CopyOnWriteArrayList<>();
-    private RaftGroupService                 raftGroupService;
-    private Node                             node;
+    private final List<LeaderStateListener> listeners = new CopyOnWriteArrayList<>();
+    private RaftGroupService raftGroupService;
+    private Node node;
     private PriorityElectionOnlyStateMachine fsm;
 
-    private boolean                          started;
+    private boolean started;
 
     @Override
     public boolean init(final PriorityElectionNodeOptions opts) {

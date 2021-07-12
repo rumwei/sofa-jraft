@@ -17,15 +17,15 @@
 package com.alipay.sofa.jraft.util.internal;
 
 import java.lang.reflect.Field;
+
 import sun.misc.Unsafe;
 
 /**
- *
  * @author jiachun.fjc
  */
 final class UnsafeIntegerFieldUpdater<U> implements IntegerFieldUpdater<U> {
 
-    private final long   offset;
+    private final long offset;
     private final Unsafe unsafe;
 
     UnsafeIntegerFieldUpdater(Unsafe unsafe, Class<? super U> tClass, String fieldName) throws NoSuchFieldException {

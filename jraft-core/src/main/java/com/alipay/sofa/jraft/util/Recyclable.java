@@ -17,7 +17,6 @@
 package com.alipay.sofa.jraft.util;
 
 /**
- *
  * @author jiachun.fjc
  */
 public interface Recyclable {

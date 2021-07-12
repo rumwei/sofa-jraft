@@ -25,7 +25,6 @@ import java.util.Date;
 import org.apache.commons.io.FileUtils;
 
 /**
- *
  * @author jiachun.fjc
  */
 public abstract class FileOutputSignalHandler implements JRaftSignalHandler {

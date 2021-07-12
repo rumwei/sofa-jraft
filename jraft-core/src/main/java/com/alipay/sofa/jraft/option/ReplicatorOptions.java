@@ -31,24 +31,24 @@ import com.alipay.sofa.jraft.util.Copiable;
  * Replicator options.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-04 2:59:24 PM
  */
 public class ReplicatorOptions implements Copiable<ReplicatorOptions> {
 
-    private int               dynamicHeartBeatTimeoutMs;
-    private int               electionTimeoutMs;
-    private String            groupId;
-    private PeerId            serverId;
-    private PeerId            peerId;
-    private LogManager        logManager;
-    private BallotBox         ballotBox;
-    private NodeImpl          node;
-    private long              term;
-    private SnapshotStorage   snapshotStorage;
+    private int dynamicHeartBeatTimeoutMs;
+    private int electionTimeoutMs;
+    private String groupId;
+    private PeerId serverId;
+    private PeerId peerId;
+    private LogManager logManager;
+    private BallotBox ballotBox;
+    private NodeImpl node;
+    private long term;
+    private SnapshotStorage snapshotStorage;
     private RaftClientService raftRpcService;
-    private Scheduler         timerManager;
-    private ReplicatorType    replicatorType;
+    private Scheduler timerManager;
+    private ReplicatorType replicatorType;
 
     public ReplicatorOptions() {
         super();
@@ -209,10 +209,10 @@ public class ReplicatorOptions implements Copiable<ReplicatorOptions> {
     @Override
     public String toString() {
         return "ReplicatorOptions{" + "replicatorType=" + this.replicatorType + "dynamicHeartBeatTimeoutMs="
-               + this.dynamicHeartBeatTimeoutMs + ", electionTimeoutMs=" + this.electionTimeoutMs + ", groupId='"
-               + this.groupId + '\'' + ", serverId=" + this.serverId + ", peerId=" + this.peerId + ", logManager="
-               + this.logManager + ", ballotBox=" + this.ballotBox + ", node=" + this.node + ", term=" + this.term
-               + ", snapshotStorage=" + this.snapshotStorage + ", raftRpcService=" + this.raftRpcService
-               + ", timerManager=" + this.timerManager + '}';
+                + this.dynamicHeartBeatTimeoutMs + ", electionTimeoutMs=" + this.electionTimeoutMs + ", groupId='"
+                + this.groupId + '\'' + ", serverId=" + this.serverId + ", peerId=" + this.peerId + ", logManager="
+                + this.logManager + ", ballotBox=" + this.ballotBox + ", node=" + this.node + ", term=" + this.term
+                + ", snapshotStorage=" + this.snapshotStorage + ", raftRpcService=" + this.raftRpcService
+                + ", timerManager=" + this.timerManager + '}';
     }
 }

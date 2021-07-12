@@ -31,54 +31,58 @@ import com.alipay.sofa.jraft.util.Utils;
 
 /**
  * A framework to implement a raft group service.
+ * 一个辅助编程框架类，方便地“组装”起一个 raft group 节点。
  *
- * @author boyan (boyan@alibaba-inc.com)
- *
- * 2018-Apr-08 7:53:03 PM
+ * 创建一个Raft Group节点的主要阶段包括如下步骤：
+ * 1.实现并创建状态机实例
+ * 2.创建并设置好NodeOptions实例，指定存储路径，如果是空白启动，指定初始节点列表配置
+ * 3.创建Node实例，并使用NodeOptions初始化
+ * 4.创建并启动RpcServer，提供节点之间的通讯服务
+ * 该类就是为了简化上述流程，避免应用层来实现的麻烦
  */
 public class RaftGroupService {
 
-    private static final Logger LOG     = LoggerFactory.getLogger(RaftGroupService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RaftGroupService.class);
 
     static {
         ProtobufMsgFactory.load();
     }
 
-    private volatile boolean    started = false;
+    private volatile boolean started = false;
 
     /**
      * This node serverId
      */
-    private PeerId              serverId;
+    private PeerId serverId;
 
     /**
      * Node options
      */
-    private NodeOptions         nodeOptions;
+    private NodeOptions nodeOptions;
 
     /**
      * The raft RPC server
      */
-    private RpcServer           rpcServer;
+    private RpcServer rpcServer;
 
     /**
      * If we want to share the rpcServer instance, then we can't stop it when shutdown.
      */
-    private final boolean       sharedRpcServer;
+    private final boolean sharedRpcServer;
 
     /**
      * The raft group id
      */
-    private String              groupId;
+    private String groupId;
     /**
      * The raft node.
      */
-    private Node                node;
+    private Node node;
 
     public RaftGroupService(final String groupId, final PeerId serverId, final NodeOptions nodeOptions) {
         this(groupId, serverId, nodeOptions, RaftRpcServerFactory.createRaftRpcServer(serverId.getEndpoint(),
-            JRaftUtils.createExecutor("RAFT-RPC-executor-", nodeOptions.getRaftRpcThreadPoolSize()),
-            JRaftUtils.createExecutor("CLI-RPC-executor-", nodeOptions.getCliRpcThreadPoolSize())));
+                JRaftUtils.createExecutor("RAFT-RPC-executor-", nodeOptions.getRaftRpcThreadPoolSize()),
+                JRaftUtils.createExecutor("CLI-RPC-executor-", nodeOptions.getCliRpcThreadPoolSize())));
     }
 
     public RaftGroupService(final String groupId, final PeerId serverId, final NodeOptions nodeOptions,
@@ -117,7 +121,7 @@ public class RaftGroupService {
             return this.node;
         }
         if (this.serverId == null || this.serverId.getEndpoint() == null
-            || this.serverId.getEndpoint().equals(new Endpoint(Utils.IP_ANY, 0))) {
+                || this.serverId.getEndpoint().equals(new Endpoint(Utils.IP_ANY, 0))) {
             throw new IllegalArgumentException("Blank serverId:" + this.serverId);
         }
         if (StringUtils.isBlank(this.groupId)) {
@@ -141,7 +145,7 @@ public class RaftGroupService {
      * Block thread to wait the server shutdown.
      *
      * @throws InterruptedException if the current thread is interrupted
-     *         while waiting
+     *                              while waiting
      */
     public synchronized void join() throws InterruptedException {
         if (this.node != null) {

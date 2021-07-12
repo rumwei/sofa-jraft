@@ -17,7 +17,7 @@ package com.alipay.sofa.jraft.util.timer;
 /**
  * A handle associated with a {@link TimerTask} that is returned by a
  * {@link Timer}.
- *
+ * <p>
  * Forked from <a href="https://github.com/netty/netty">Netty</a>.
  */
 public interface Timeout {

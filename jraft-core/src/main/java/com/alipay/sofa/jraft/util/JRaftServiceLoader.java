@@ -41,21 +41,21 @@ import org.slf4j.LoggerFactory;
  */
 public final class JRaftServiceLoader<S> implements Iterable<S> {
 
-    private static final Logger      LOG       = LoggerFactory.getLogger(JRaftServiceLoader.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JRaftServiceLoader.class);
 
-    private static final String      PREFIX    = "META-INF/services/";
+    private static final String PREFIX = "META-INF/services/";
 
     // the class or interface representing the service being loaded
-    private final Class<S>           service;
+    private final Class<S> service;
 
     // the class loader used to locate, load, and instantiate providers
-    private final ClassLoader        loader;
+    private final ClassLoader loader;
 
     // cached providers, in instantiation order
     private LinkedHashMap<String, S> providers = new LinkedHashMap<>();
 
     // the current lazy-lookup iterator
-    private LazyIterator             lookupIterator;
+    private LazyIterator lookupIterator;
 
     public static <S> JRaftServiceLoader<S> load(final Class<S> service) {
         return JRaftServiceLoader.load(service, Thread.currentThread().getContextClassLoader());
@@ -205,7 +205,7 @@ public final class JRaftServiceLoader<S> implements Iterable<S> {
     private Iterator<String> parse(final Class<?> service, final URL url) {
         final ArrayList<String> names = new ArrayList<>();
         try (final InputStream in = url.openStream();
-                final BufferedReader r = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
+             final BufferedReader r = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
             int lc = 1;
             // noinspection StatementWithEmptyBody
             while ((lc = parseLine(service, url, r, lc, names)) >= 0)
@@ -221,7 +221,7 @@ public final class JRaftServiceLoader<S> implements Iterable<S> {
         return new Iterator<S>() {
 
             final Iterator<Map.Entry<String, S>> knownProviders = JRaftServiceLoader.this.providers.entrySet()
-                                                                    .iterator();
+                    .iterator();
 
             @Override
             public boolean hasNext() {
@@ -248,7 +248,7 @@ public final class JRaftServiceLoader<S> implements Iterable<S> {
         return new Iterator<Class<S>>() {
 
             final Iterator<Map.Entry<String, S>> knownProviders = JRaftServiceLoader.this.providers.entrySet()
-                                                                    .iterator();
+                    .iterator();
 
             @Override
             public boolean hasNext() {
@@ -283,11 +283,11 @@ public final class JRaftServiceLoader<S> implements Iterable<S> {
     }
 
     private class LazyIterator implements Iterator<Class<S>> {
-        Class<S>         service;
-        ClassLoader      loader;
-        Enumeration<URL> configs  = null;
-        Iterator<String> pending  = null;
-        String           nextName = null;
+        Class<S> service;
+        ClassLoader loader;
+        Enumeration<URL> configs = null;
+        Iterator<String> pending = null;
+        String nextName = null;
 
         private LazyIterator(Class<S> service, ClassLoader loader) {
             this.service = service;

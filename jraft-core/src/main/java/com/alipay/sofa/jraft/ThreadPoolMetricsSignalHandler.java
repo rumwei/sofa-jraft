@@ -30,14 +30,13 @@ import com.alipay.sofa.jraft.util.SystemPropertyUtil;
 import com.alipay.sofa.jraft.util.ThreadPoolMetricRegistry;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class ThreadPoolMetricsSignalHandler extends FileOutputSignalHandler {
 
-    private static Logger       LOG       = LoggerFactory.getLogger(ThreadPoolMetricsSignalHandler.class);
+    private static Logger LOG = LoggerFactory.getLogger(ThreadPoolMetricsSignalHandler.class);
 
-    private static final String DIR       = SystemPropertyUtil.get("jraft.signal.thread.pool.metrics.dir", "");
+    private static final String DIR = SystemPropertyUtil.get("jraft.signal.thread.pool.metrics.dir", "");
     private static final String BASE_NAME = "thread_pool_metrics.log";
 
     @Override
@@ -49,9 +48,9 @@ public class ThreadPoolMetricsSignalHandler extends FileOutputSignalHandler {
 
             try (final PrintStream out = new PrintStream(new FileOutputStream(file, true))) {
                 MetricReporter.forRegistry(ThreadPoolMetricRegistry.metricRegistry()) //
-                    .outputTo(out) //
-                    .build() //
-                    .report();
+                        .outputTo(out) //
+                        .build() //
+                        .report();
             }
         } catch (final IOException e) {
             LOG.error("Fail to print thread pools metrics.", e);

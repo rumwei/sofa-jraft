@@ -21,9 +21,9 @@ import com.alipay.sofa.jraft.entity.codec.LogEntryDecoder;
 import com.alipay.sofa.jraft.entity.codec.LogEntryEncoder;
 
 /**
- *  Old V1 log entry codec implementation.
- * @author boyan(boyan@antfin.com)
+ * Old V1 log entry codec implementation.
  *
+ * @author boyan(boyan @ antfin.com)
  */
 @Deprecated
 public class LogEntryV1CodecFactory implements LogEntryCodecFactory {
@@ -38,6 +38,7 @@ public class LogEntryV1CodecFactory implements LogEntryCodecFactory {
 
     /**
      * Returns a singleton instance of DefaultLogEntryCodecFactory.
+     *
      * @return a singleton instance
      */
     public static LogEntryV1CodecFactory getInstance() {

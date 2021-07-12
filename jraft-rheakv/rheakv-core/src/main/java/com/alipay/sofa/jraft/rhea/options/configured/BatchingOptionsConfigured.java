@@ -20,7 +20,6 @@ import com.alipay.sofa.jraft.rhea.options.BatchingOptions;
 import com.alipay.sofa.jraft.rhea.util.Configured;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class BatchingOptionsConfigured implements Configured<BatchingOptions> {

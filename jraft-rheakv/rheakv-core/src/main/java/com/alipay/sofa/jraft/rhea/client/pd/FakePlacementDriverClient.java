@@ -38,7 +38,7 @@ public class FakePlacementDriverClient extends AbstractPlacementDriverClient {
 
     private static final Logger LOG = LoggerFactory.getLogger(FakePlacementDriverClient.class);
 
-    private boolean             started;
+    private boolean started;
 
     public FakePlacementDriverClient(long clusterId, String clusterName) {
         super(clusterId, clusterName);

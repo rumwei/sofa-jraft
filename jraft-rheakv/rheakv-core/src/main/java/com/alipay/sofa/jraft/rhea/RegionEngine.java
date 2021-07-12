@@ -60,19 +60,19 @@ public class RegionEngine implements Lifecycle<RegionEngineOptions>, Describer {
 
     private static final Logger LOG = LoggerFactory.getLogger(RegionEngine.class);
 
-    private final Region        region;
-    private final StoreEngine   storeEngine;
+    private final Region region;
+    private final StoreEngine storeEngine;
 
-    private RaftRawKVStore      raftRawKVStore;
-    private MetricsRawKVStore   metricsRawKVStore;
-    private RaftGroupService    raftGroupService;
-    private Node                node;
+    private RaftRawKVStore raftRawKVStore;
+    private MetricsRawKVStore metricsRawKVStore;
+    private RaftGroupService raftGroupService;
+    private Node node;
     private KVStoreStateMachine fsm;
     private RegionEngineOptions regionOpts;
 
-    private ScheduledReporter   regionMetricsReporter;
+    private ScheduledReporter regionMetricsReporter;
 
-    private boolean             started;
+    private boolean started;
 
     public RegionEngine(Region region, StoreEngine storeEngine) {
         this.region = region;
@@ -125,7 +125,7 @@ public class RegionEngine implements Lifecycle<RegionEngineOptions>, Describer {
             nodeOpts.setSnapshotUri(snapshotUri.toString());
         }
         LOG.info("[RegionEngine: {}], log uri: {}, raft meta uri: {}, snapshot uri: {}.", this.region,
-            nodeOpts.getLogUri(), nodeOpts.getRaftMetaUri(), nodeOpts.getSnapshotUri());
+                nodeOpts.getLogUri(), nodeOpts.getRaftMetaUri(), nodeOpts.getSnapshotUri());
         final Endpoint serverAddress = opts.getServerAddress();
         final PeerId serverId = new PeerId(serverAddress, 0);
         final RpcServer rpcServer = this.storeEngine.getRpcServer();
@@ -144,12 +144,12 @@ public class RegionEngine implements Lifecycle<RegionEngineOptions>, Describer {
                     final ScheduledExecutorService scheduler = this.storeEngine.getMetricsScheduler();
                     // start raft node metrics reporter
                     this.regionMetricsReporter = Slf4jReporter.forRegistry(metricRegistry) //
-                        .prefixedWith("region_" + this.region.getId()) //
-                        .withLoggingLevel(Slf4jReporter.LoggingLevel.INFO) //
-                        .outputTo(LOG) //
-                        .scheduleOn(scheduler) //
-                        .shutdownExecutorOnStop(scheduler != null) //
-                        .build();
+                            .prefixedWith("region_" + this.region.getId()) //
+                            .withLoggingLevel(Slf4jReporter.LoggingLevel.INFO) //
+                            .outputTo(LOG) //
+                            .scheduleOn(scheduler) //
+                            .shutdownExecutorOnStop(scheduler != null) //
+                            .build();
                     this.regionMetricsReporter.start(metricsReportPeriod, TimeUnit.SECONDS);
                 }
             }
@@ -187,7 +187,7 @@ public class RegionEngine implements Lifecycle<RegionEngineOptions>, Describer {
             LOG.info("Transfer-leadership succeeded: [{} --> {}].", this.storeEngine.getSelfEndpoint(), endpoint);
         } else {
             LOG.error("Transfer-leadership failed: {}, [{} --> {}].", status, this.storeEngine.getSelfEndpoint(),
-                endpoint);
+                    endpoint);
         }
         return isOk;
     }
@@ -236,11 +236,11 @@ public class RegionEngine implements Lifecycle<RegionEngineOptions>, Describer {
     @Override
     public void describe(final Printer out) {
         out.print("  RegionEngine: ") //
-            .print("regionId=") //
-            .print(this.region.getId()) //
-            .print(", isLeader=") //
-            .print(isLeader()) //
-            .print(", leaderId=") //
-            .println(getLeaderId());
+                .print("regionId=") //
+                .print(this.region.getId()) //
+                .print(", isLeader=") //
+                .print(isLeader()) //
+                .print(", leaderId=") //
+                .println(getLeaderId());
     }
 }

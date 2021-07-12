@@ -17,7 +17,6 @@
 package com.alipay.sofa.jraft.rhea.cmd.store;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class BatchPutResponse extends BaseResponse<Boolean> {

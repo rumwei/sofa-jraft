@@ -17,11 +17,11 @@
 package com.alipay.sofa.jraft.rpc.impl;
 
 /*
- * 
+ *
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- * 
+ *
  * Copyright 2007-2008 Sun Microsystems, Inc. All rights reserved.
- * 
+ *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
  * and Distribution License("CDDL") (collectively, the "License").  You
@@ -29,7 +29,7 @@ package com.alipay.sofa.jraft.rpc.impl;
  * a copy of the License at https://glassfish.dev.java.net/public/CDDL+GPL.html
  * or glassfish/bootstrap/legal/LICENSE.txt.  See the License for the specific
  * language governing permissions and limitations under the License.
- * 
+ *
  * When distributing the software, include this License Header Notice in each
  * file and include the License file at glassfish/bootstrap/legal/LICENSE.txt.
  * Sun designates this particular file as subject to the "Classpath" exception
@@ -38,9 +38,9 @@ package com.alipay.sofa.jraft.rpc.impl;
  * Header, with the fields enclosed by brackets [] replaced by your own
  * identifying information: "Portions Copyrighted [year]
  * [name of copyright owner]"
- * 
+ *
  * Contributor(s):
- * 
+ *
  * If you wish your version of this file to be governed by only the CDDL or
  * only the GPL Version 2, indicate your decision by adding "[Contributor]
  * elects to include this software in this distribution under the [CDDL or GPL
@@ -65,24 +65,23 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * Simple {@link Future} implementation, which uses {@link ReentrantLock} to
  * synchronize during the lifecycle.
- * 
+ *
+ * @author Alexey Stashok
  * @see Future
  * @see ReentrantLock
- * 
- * @author Alexey Stashok
  */
 public class FutureImpl<R> implements Future<R> {
 
     protected final ReentrantLock lock;
 
-    protected boolean             isDone;
+    protected boolean isDone;
 
-    protected CountDownLatch      latch;
+    protected CountDownLatch latch;
 
-    protected boolean             isCancelled;
-    protected Throwable           failure;
+    protected boolean isCancelled;
+    protected Throwable failure;
 
-    protected R                   result;
+    protected R result;
 
     public FutureImpl() {
         this(new ReentrantLock());
@@ -95,7 +94,7 @@ public class FutureImpl<R> implements Future<R> {
 
     /**
      * Get current result value without any blocking.
-     * 
+     *
      * @return current result value without any blocking.
      */
     public R getResult() {
@@ -118,9 +117,8 @@ public class FutureImpl<R> implements Future<R> {
 
     /**
      * Set the result value and notify about operation completion.
-     * 
-     * @param result
-     *            the result value
+     *
+     * @param result the result value
      */
     public void setResult(R result) {
         this.lock.lock();
@@ -198,7 +196,7 @@ public class FutureImpl<R> implements Future<R> {
      */
     @Override
     public R get(final long timeout, final TimeUnit unit) throws InterruptedException, ExecutionException,
-                                                         TimeoutException {
+            TimeoutException {
         final boolean isTimeOut = !latch.await(timeout, unit);
         this.lock.lock();
         try {

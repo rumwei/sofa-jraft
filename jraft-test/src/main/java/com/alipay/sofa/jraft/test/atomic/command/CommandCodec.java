@@ -21,13 +21,15 @@ import com.alipay.remoting.serialization.SerializerManager;
 
 /**
  * Command codec
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Apr-25 1:30:30 PM
  */
 public class CommandCodec {
     /**
      * encode the command,returns the byte array.
+     *
      * @param obj
      * @return
      */
@@ -41,6 +43,7 @@ public class CommandCodec {
 
     /**
      * Decode the command object from byte array.
+     *
      * @param content
      * @param clazz
      * @return

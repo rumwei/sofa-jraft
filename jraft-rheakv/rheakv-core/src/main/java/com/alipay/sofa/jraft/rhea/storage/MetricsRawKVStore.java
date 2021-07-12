@@ -45,14 +45,13 @@ import static com.alipay.sofa.jraft.rhea.storage.KVOperation.REVERSE_SCAN;
 import static com.alipay.sofa.jraft.rhea.storage.KVOperation.SCAN;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class MetricsRawKVStore implements RawKVStore {
 
-    private final String     regionId;
+    private final String regionId;
     private final RawKVStore rawKVStore;
-    private final Timer      timer;
+    private final Timer timer;
 
     public MetricsRawKVStore(long regionId, RawKVStore rawKVStore) {
         this.regionId = String.valueOf(regionId);

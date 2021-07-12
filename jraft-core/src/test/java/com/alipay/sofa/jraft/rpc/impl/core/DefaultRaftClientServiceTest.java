@@ -31,9 +31,9 @@ import com.alipay.sofa.jraft.util.Endpoint;
 public class DefaultRaftClientServiceTest {
     private DefaultRaftClientService clientService;
     @Mock
-    private ReplicatorGroup          rgGroup;
+    private ReplicatorGroup rgGroup;
 
-    private final Endpoint           endpoint = new Endpoint("localhost", 8081);
+    private final Endpoint endpoint = new Endpoint("localhost", 8081);
 
     @Before
     public void setup() {
@@ -44,11 +44,11 @@ public class DefaultRaftClientServiceTest {
     @Test
     public void testPreVote() {
         this.clientService.preVote(this.endpoint, RequestVoteRequest.newBuilder(). //
-            setGroupId("test"). //
-            setLastLogIndex(1). //
-            setLastLogTerm(1). //
-            setPeerId("localhost:1010"). //
-            setTerm(1).setServerId("localhost:1011").setPreVote(true).build(), null);
+                setGroupId("test"). //
+                setLastLogIndex(1). //
+                setLastLogTerm(1). //
+                setPeerId("localhost:1010"). //
+                setTerm(1).setServerId("localhost:1011").setPreVote(true).build(), null);
     }
 
 }

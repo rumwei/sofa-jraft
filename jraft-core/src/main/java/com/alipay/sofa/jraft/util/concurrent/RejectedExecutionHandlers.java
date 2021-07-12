@@ -21,7 +21,7 @@ import java.util.concurrent.RejectedExecutionException;
 
 /**
  * Expose helper methods which create different {@link RejectedExecutionHandler}s.
- *
+ * <p>
  * Reference from netty project.
  *
  * @author jiachun.fjc

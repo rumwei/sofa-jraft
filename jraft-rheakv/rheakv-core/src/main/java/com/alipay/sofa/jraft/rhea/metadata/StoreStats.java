@@ -19,44 +19,43 @@ package com.alipay.sofa.jraft.rhea.metadata;
 import java.io.Serializable;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class StoreStats implements Serializable {
 
     private static final long serialVersionUID = -7818958068467754379L;
 
-    private long              storeId;
+    private long storeId;
     // Capacity for the store
-    private long              capacity;
+    private long capacity;
     // Available size for the store
-    private long              available;
+    private long available;
     // Total region count in this store
-    private int               regionCount;
+    private int regionCount;
     // Leader region count in this store
-    private int               leaderRegionCount;
+    private int leaderRegionCount;
     // Current sending snapshot count
-    private int               sendingSnapCount;
+    private int sendingSnapCount;
     // Current receiving snapshot count
-    private int               receivingSnapCount;
+    private int receivingSnapCount;
     // How many region is applying snapshot
-    private int               applyingSnapCount;
+    private int applyingSnapCount;
     // When the store is started (unix timestamp in milliseconds)
-    private long              startTime;
+    private long startTime;
     // If the store is busy
-    private boolean           busy;
+    private boolean busy;
     // Actually used space by db
-    private long              usedSize;
+    private long usedSize;
     // Bytes written for the store during this period
-    private long              bytesWritten;
+    private long bytesWritten;
     // Bytes read for the store during this period
-    private long              bytesRead;
+    private long bytesRead;
     // Keys written for the store during this period
-    private long              keysWritten;
+    private long keysWritten;
     // Keys read for the store during this period
-    private long              keysRead;
+    private long keysRead;
     // Actually reported time interval
-    private TimeInterval      interval;
+    private TimeInterval interval;
 
     public long getStoreId() {
         return storeId;
@@ -189,10 +188,10 @@ public class StoreStats implements Serializable {
     @Override
     public String toString() {
         return "StoreStats{" + "storeId=" + storeId + ", capacity=" + capacity + ", available=" + available
-               + ", regionCount=" + regionCount + ", leaderRegionCount=" + leaderRegionCount + ", sendingSnapCount="
-               + sendingSnapCount + ", receivingSnapCount=" + receivingSnapCount + ", applyingSnapCount="
-               + applyingSnapCount + ", startTime=" + startTime + ", busy=" + busy + ", usedSize=" + usedSize
-               + ", bytesWritten=" + bytesWritten + ", bytesRead=" + bytesRead + ", keysWritten=" + keysWritten
-               + ", keysRead=" + keysRead + ", interval=" + interval + '}';
+                + ", regionCount=" + regionCount + ", leaderRegionCount=" + leaderRegionCount + ", sendingSnapCount="
+                + sendingSnapCount + ", receivingSnapCount=" + receivingSnapCount + ", applyingSnapCount="
+                + applyingSnapCount + ", startTime=" + startTime + ", busy=" + busy + ", usedSize=" + usedSize
+                + ", bytesWritten=" + bytesWritten + ", bytesRead=" + bytesRead + ", keysWritten=" + keysWritten
+                + ", keysRead=" + keysRead + ", interval=" + interval + '}';
     }
 }

@@ -28,8 +28,9 @@ import com.google.protobuf.Message;
 
 /**
  * RPC custom serializer based on protobuf
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Mar-26 4:43:21 PM
  */
 public class ProtobufSerializer implements CustomSerializer {
@@ -38,17 +39,17 @@ public class ProtobufSerializer implements CustomSerializer {
 
     @Override
     public <T extends RequestCommand> boolean serializeHeader(T request, InvokeContext invokeContext)
-                                                                                                     throws SerializationException {
+            throws SerializationException {
 
         final RpcRequestCommand cmd = (RpcRequestCommand) request;
         final Message msg = (Message) cmd.getRequestObject();
         if (msg instanceof RpcRequests.AppendEntriesRequest) {
             final RpcRequests.AppendEntriesRequest req = (RpcRequests.AppendEntriesRequest) msg;
             final RpcRequests.AppendEntriesRequestHeader.Builder hb = RpcRequests.AppendEntriesRequestHeader
-                .newBuilder() //
-                .setGroupId(req.getGroupId()) //
-                .setPeerId(req.getPeerId()) //
-                .setServerId(req.getServerId());
+                    .newBuilder() //
+                    .setGroupId(req.getGroupId()) //
+                    .setPeerId(req.getPeerId()) //
+                    .setServerId(req.getServerId());
             cmd.setHeader(hb.build().toByteArray());
             return true;
         }
@@ -68,7 +69,7 @@ public class ProtobufSerializer implements CustomSerializer {
         if (className.equals(RpcRequests.AppendEntriesRequest.class.getName())) {
             final byte[] header = cmd.getHeader();
             cmd.setRequestHeader(ProtobufMsgFactory.newMessageByJavaClassName(
-                RpcRequests.AppendEntriesRequestHeader.class.getName(), header));
+                    RpcRequests.AppendEntriesRequestHeader.class.getName(), header));
             return true;
         }
         return false;
@@ -76,13 +77,13 @@ public class ProtobufSerializer implements CustomSerializer {
 
     @Override
     public <T extends ResponseCommand> boolean deserializeHeader(T response, InvokeContext invokeContext)
-                                                                                                         throws DeserializationException {
+            throws DeserializationException {
         return false;
     }
 
     @Override
     public <T extends RequestCommand> boolean serializeContent(T request, InvokeContext invokeContext)
-                                                                                                      throws SerializationException {
+            throws SerializationException {
         final RpcRequestCommand cmd = (RpcRequestCommand) request;
         final Message msg = (Message) cmd.getRequestObject();
         cmd.setContent(msg.toByteArray());
@@ -108,7 +109,7 @@ public class ProtobufSerializer implements CustomSerializer {
 
     @Override
     public <T extends ResponseCommand> boolean deserializeContent(T response, InvokeContext invokeContext)
-                                                                                                          throws DeserializationException {
+            throws DeserializationException {
         final RpcResponseCommand cmd = (RpcResponseCommand) response;
         final String className = cmd.getResponseClass();
 

@@ -31,8 +31,8 @@ public final class LogOutter {
     }
 
     public interface PBLogEntryOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:jraft.PBLogEntry)
-                                        com.google.protobuf.MessageOrBuilder {
+            // @@protoc_insertion_point(interface_extends:jraft.PBLogEntry)
+            com.google.protobuf.MessageOrBuilder {
 
         /**
          * <code>required .jraft.EntryType type = 1;</code>
@@ -149,8 +149,8 @@ public final class LogOutter {
      * Protobuf type {@code jraft.PBLogEntry}
      */
     public static final class PBLogEntry extends com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:jraft.PBLogEntry)
-                                                                                       PBLogEntryOrBuilder {
+            // @@protoc_insertion_point(message_implements:jraft.PBLogEntry)
+            PBLogEntryOrBuilder {
         private static final long serialVersionUID = 0L;
 
         // Use PBLogEntry.newBuilder() to construct.
@@ -177,14 +177,14 @@ public final class LogOutter {
 
         private PBLogEntry(com.google.protobuf.CodedInputStream input,
                            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                       throws com.google.protobuf.InvalidProtocolBufferException {
+                throws com.google.protobuf.InvalidProtocolBufferException {
             this();
             if (extensionRegistry == null) {
                 throw new java.lang.NullPointerException();
             }
             int mutable_bitField0_ = 0;
             com.google.protobuf.UnknownFieldSet.Builder unknownFields = com.google.protobuf.UnknownFieldSet
-                .newBuilder();
+                    .newBuilder();
             try {
                 boolean done = false;
                 while (!done) {
@@ -202,7 +202,7 @@ public final class LogOutter {
                         case 8: {
                             int rawValue = input.readEnum();
                             com.alipay.sofa.jraft.entity.EnumOutter.EntryType value = com.alipay.sofa.jraft.entity.EnumOutter.EntryType
-                                .valueOf(rawValue);
+                                    .valueOf(rawValue);
                             if (value == null) {
                                 unknownFields.mergeVarintField(1, rawValue);
                             } else {
@@ -293,13 +293,13 @@ public final class LogOutter {
 
         protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable() {
             return com.alipay.sofa.jraft.entity.codec.v2.LogOutter.internal_static_jraft_PBLogEntry_fieldAccessorTable
-                .ensureFieldAccessorsInitialized(com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry.class,
-                    com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry.Builder.class);
+                    .ensureFieldAccessorsInitialized(com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry.class,
+                            com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry.Builder.class);
         }
 
-        private int             bitField0_;
+        private int bitField0_;
         public static final int TYPE_FIELD_NUMBER = 1;
-        private int             type_;
+        private int type_;
 
         /**
          * <code>required .jraft.EntryType type = 1;</code>
@@ -313,12 +313,12 @@ public final class LogOutter {
          */
         public com.alipay.sofa.jraft.entity.EnumOutter.EntryType getType() {
             com.alipay.sofa.jraft.entity.EnumOutter.EntryType result = com.alipay.sofa.jraft.entity.EnumOutter.EntryType
-                .valueOf(type_);
+                    .valueOf(type_);
             return result == null ? com.alipay.sofa.jraft.entity.EnumOutter.EntryType.ENTRY_TYPE_UNKNOWN : result;
         }
 
         public static final int TERM_FIELD_NUMBER = 2;
-        private long            term_;
+        private long term_;
 
         /**
          * <code>required int64 term = 2;</code>
@@ -335,7 +335,7 @@ public final class LogOutter {
         }
 
         public static final int INDEX_FIELD_NUMBER = 3;
-        private long            index_;
+        private long index_;
 
         /**
          * <code>required int64 index = 3;</code>
@@ -351,7 +351,7 @@ public final class LogOutter {
             return index_;
         }
 
-        public static final int                                PEERS_FIELD_NUMBER = 4;
+        public static final int PEERS_FIELD_NUMBER = 4;
         private java.util.List<com.google.protobuf.ByteString> peers_;
 
         /**
@@ -375,7 +375,7 @@ public final class LogOutter {
             return peers_.get(index);
         }
 
-        public static final int                                OLD_PEERS_FIELD_NUMBER = 5;
+        public static final int OLD_PEERS_FIELD_NUMBER = 5;
         private java.util.List<com.google.protobuf.ByteString> oldPeers_;
 
         /**
@@ -399,7 +399,7 @@ public final class LogOutter {
             return oldPeers_.get(index);
         }
 
-        public static final int                DATA_FIELD_NUMBER = 6;
+        public static final int DATA_FIELD_NUMBER = 6;
         private com.google.protobuf.ByteString data_;
 
         /**
@@ -417,7 +417,7 @@ public final class LogOutter {
         }
 
         public static final int CHECKSUM_FIELD_NUMBER = 7;
-        private long            checksum_;
+        private long checksum_;
 
         /**
          * <code>optional int64 checksum = 7;</code>
@@ -433,7 +433,7 @@ public final class LogOutter {
             return checksum_;
         }
 
-        public static final int                                LEARNERS_FIELD_NUMBER = 8;
+        public static final int LEARNERS_FIELD_NUMBER = 8;
         private java.util.List<com.google.protobuf.ByteString> learners_;
 
         /**
@@ -457,7 +457,7 @@ public final class LogOutter {
             return learners_.get(index);
         }
 
-        public static final int                                OLD_LEARNERS_FIELD_NUMBER = 9;
+        public static final int OLD_LEARNERS_FIELD_NUMBER = 9;
         private java.util.List<com.google.protobuf.ByteString> oldLearners_;
 
         /**
@@ -687,69 +687,69 @@ public final class LogOutter {
         }
 
         public static com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry parseFrom(java.nio.ByteBuffer data)
-                                                                                                                    throws com.google.protobuf.InvalidProtocolBufferException {
+                throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
         public static com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry parseFrom(java.nio.ByteBuffer data,
                                                                                            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                                                                                       throws com.google.protobuf.InvalidProtocolBufferException {
+                throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
         public static com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry parseFrom(com.google.protobuf.ByteString data)
-                                                                                                                               throws com.google.protobuf.InvalidProtocolBufferException {
+                throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
         public static com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry parseFrom(com.google.protobuf.ByteString data,
                                                                                            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                                                                                       throws com.google.protobuf.InvalidProtocolBufferException {
+                throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
         public static com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry parseFrom(byte[] data)
-                                                                                                       throws com.google.protobuf.InvalidProtocolBufferException {
+                throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data);
         }
 
         public static com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry parseFrom(byte[] data,
                                                                                            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                                                                                       throws com.google.protobuf.InvalidProtocolBufferException {
+                throws com.google.protobuf.InvalidProtocolBufferException {
             return PARSER.parseFrom(data, extensionRegistry);
         }
 
         public static com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry parseFrom(java.io.InputStream input)
-                                                                                                                     throws java.io.IOException {
+                throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3.parseWithIOException(PARSER, input);
         }
 
         public static com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry parseFrom(java.io.InputStream input,
                                                                                            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                                                                                       throws java.io.IOException {
+                throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3.parseWithIOException(PARSER, input, extensionRegistry);
         }
 
         public static com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry parseDelimitedFrom(java.io.InputStream input)
-                                                                                                                              throws java.io.IOException {
+                throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3.parseDelimitedWithIOException(PARSER, input);
         }
 
         public static com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry parseDelimitedFrom(java.io.InputStream input,
                                                                                                     com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                                                                                                throws java.io.IOException {
+                throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3.parseDelimitedWithIOException(PARSER, input,
-                extensionRegistry);
+                    extensionRegistry);
         }
 
         public static com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry parseFrom(com.google.protobuf.CodedInputStream input)
-                                                                                                                                      throws java.io.IOException {
+                throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3.parseWithIOException(PARSER, input);
         }
 
         public static com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry parseFrom(com.google.protobuf.CodedInputStream input,
                                                                                            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                                                                                       throws java.io.IOException {
+                throws java.io.IOException {
             return com.google.protobuf.GeneratedMessageV3.parseWithIOException(PARSER, input, extensionRegistry);
         }
 
@@ -779,17 +779,17 @@ public final class LogOutter {
          * Protobuf type {@code jraft.PBLogEntry}
          */
         public static final class Builder extends com.google.protobuf.GeneratedMessageV3.Builder<Builder>
-                                                                                                         implements
-                                                                                                         // @@protoc_insertion_point(builder_implements:jraft.PBLogEntry)
-                                                                                                         com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntryOrBuilder {
+                implements
+                // @@protoc_insertion_point(builder_implements:jraft.PBLogEntry)
+                com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntryOrBuilder {
             public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
                 return com.alipay.sofa.jraft.entity.codec.v2.LogOutter.internal_static_jraft_PBLogEntry_descriptor;
             }
 
             protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable() {
                 return com.alipay.sofa.jraft.entity.codec.v2.LogOutter.internal_static_jraft_PBLogEntry_fieldAccessorTable
-                    .ensureFieldAccessorsInitialized(com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry.class,
-                        com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry.Builder.class);
+                        .ensureFieldAccessorsInitialized(com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry.class,
+                                com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry.Builder.class);
             }
 
             // Construct using com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry.newBuilder()
@@ -848,7 +848,7 @@ public final class LogOutter {
 
             public com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry buildPartial() {
                 com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry result = new com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry(
-                    this);
+                        this);
                 int from_bitField0_ = bitField0_;
                 int to_bitField0_ = 0;
                 if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -1012,13 +1012,13 @@ public final class LogOutter {
 
             public Builder mergeFrom(com.google.protobuf.CodedInputStream input,
                                      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                                 throws java.io.IOException {
+                    throws java.io.IOException {
                 com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry parsedMessage = null;
                 try {
                     parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
                 } catch (com.google.protobuf.InvalidProtocolBufferException e) {
                     parsedMessage = (com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry) e
-                        .getUnfinishedMessage();
+                            .getUnfinishedMessage();
                     throw e.unwrapIOException();
                 } finally {
                     if (parsedMessage != null) {
@@ -1044,7 +1044,7 @@ public final class LogOutter {
              */
             public com.alipay.sofa.jraft.entity.EnumOutter.EntryType getType() {
                 com.alipay.sofa.jraft.entity.EnumOutter.EntryType result = com.alipay.sofa.jraft.entity.EnumOutter.EntryType
-                    .valueOf(type_);
+                        .valueOf(type_);
                 return result == null ? com.alipay.sofa.jraft.entity.EnumOutter.EntryType.ENTRY_TYPE_UNKNOWN : result;
             }
 
@@ -1535,6 +1535,7 @@ public final class LogOutter {
 
         // @@protoc_insertion_point(class_scope:jraft.PBLogEntry)
         private static final com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry DEFAULT_INSTANCE;
+
         static {
             DEFAULT_INSTANCE = new com.alipay.sofa.jraft.entity.codec.v2.LogOutter.PBLogEntry();
         }
@@ -1545,13 +1546,13 @@ public final class LogOutter {
 
         @java.lang.Deprecated
         public static final com.google.protobuf.Parser<PBLogEntry> PARSER = new com.google.protobuf.AbstractParser<PBLogEntry>() {
-                                                                              public PBLogEntry parsePartialFrom(com.google.protobuf.CodedInputStream input,
-                                                                                                                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                                                                                                                                                                             throws com.google.protobuf.InvalidProtocolBufferException {
-                                                                                  return new PBLogEntry(input,
-                                                                                      extensionRegistry);
-                                                                              }
-                                                                          };
+            public PBLogEntry parsePartialFrom(com.google.protobuf.CodedInputStream input,
+                                               com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new PBLogEntry(input,
+                        extensionRegistry);
+            }
+        };
 
         public static com.google.protobuf.Parser<PBLogEntry> parser() {
             return PARSER;
@@ -1568,7 +1569,7 @@ public final class LogOutter {
 
     }
 
-    private static final com.google.protobuf.Descriptors.Descriptor                internal_static_jraft_PBLogEntry_descriptor;
+    private static final com.google.protobuf.Descriptors.Descriptor internal_static_jraft_PBLogEntry_descriptor;
     private static final com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internal_static_jraft_PBLogEntry_fieldAccessorTable;
 
     public static com.google.protobuf.Descriptors.FileDescriptor getDescriptor() {
@@ -1576,14 +1577,15 @@ public final class LogOutter {
     }
 
     private static com.google.protobuf.Descriptors.FileDescriptor descriptor;
+
     static {
-        java.lang.String[] descriptorData = { "\n\tlog.proto\022\005jraft\032\nenum.proto\"\263\001\n\nPBLog"
-                                              + "Entry\022\036\n\004type\030\001 \002(\0162\020.jraft.EntryType\022\014\n"
-                                              + "\004term\030\002 \002(\003\022\r\n\005index\030\003 \002(\003\022\r\n\005peers\030\004 \003("
-                                              + "\014\022\021\n\told_peers\030\005 \003(\014\022\014\n\004data\030\006 \002(\014\022\020\n\010ch"
-                                              + "ecksum\030\007 \001(\003\022\020\n\010learners\030\010 \003(\014\022\024\n\014old_le"
-                                              + "arners\030\t \003(\014B2\n%com.alipay.sofa.jraft.en"
-                                              + "tity.codec.v2B\tLogOutter" };
+        java.lang.String[] descriptorData = {"\n\tlog.proto\022\005jraft\032\nenum.proto\"\263\001\n\nPBLog"
+                + "Entry\022\036\n\004type\030\001 \002(\0162\020.jraft.EntryType\022\014\n"
+                + "\004term\030\002 \002(\003\022\r\n\005index\030\003 \002(\003\022\r\n\005peers\030\004 \003("
+                + "\014\022\021\n\told_peers\030\005 \003(\014\022\014\n\004data\030\006 \002(\014\022\020\n\010ch"
+                + "ecksum\030\007 \001(\003\022\020\n\010learners\030\010 \003(\014\022\024\n\014old_le"
+                + "arners\030\t \003(\014B2\n%com.alipay.sofa.jraft.en"
+                + "tity.codec.v2B\tLogOutter"};
         com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner = new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
             public com.google.protobuf.ExtensionRegistry assignDescriptors(com.google.protobuf.Descriptors.FileDescriptor root) {
                 descriptor = root;
@@ -1591,12 +1593,12 @@ public final class LogOutter {
             }
         };
         com.google.protobuf.Descriptors.FileDescriptor.internalBuildGeneratedFileFrom(descriptorData,
-            new com.google.protobuf.Descriptors.FileDescriptor[] { com.alipay.sofa.jraft.entity.EnumOutter
-                .getDescriptor(), }, assigner);
+                new com.google.protobuf.Descriptors.FileDescriptor[]{com.alipay.sofa.jraft.entity.EnumOutter
+                        .getDescriptor(),}, assigner);
         internal_static_jraft_PBLogEntry_descriptor = getDescriptor().getMessageTypes().get(0);
         internal_static_jraft_PBLogEntry_fieldAccessorTable = new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-            internal_static_jraft_PBLogEntry_descriptor, new java.lang.String[] { "Type", "Term", "Index", "Peers",
-            "OldPeers", "Data", "Checksum", "Learners", "OldLearners", });
+                internal_static_jraft_PBLogEntry_descriptor, new java.lang.String[]{"Type", "Term", "Index", "Peers",
+                "OldPeers", "Data", "Checksum", "Learners", "OldLearners",});
         com.alipay.sofa.jraft.entity.EnumOutter.getDescriptor();
     }
 

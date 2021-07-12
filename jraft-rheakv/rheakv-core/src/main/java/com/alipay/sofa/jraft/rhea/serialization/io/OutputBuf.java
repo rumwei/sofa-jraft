@@ -20,7 +20,6 @@ import java.io.OutputStream;
 import java.nio.ByteBuffer;
 
 /**
- *
  * @author jiachun.fjc
  */
 public interface OutputBuf {

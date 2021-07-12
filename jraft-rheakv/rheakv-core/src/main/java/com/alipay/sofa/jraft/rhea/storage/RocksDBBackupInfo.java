@@ -30,10 +30,10 @@ public class RocksDBBackupInfo implements Serializable {
 
     private static final long serialVersionUID = -7010741841443565098L;
 
-    private int               backupId;
-    private int               numberFiles;
-    private long              timestamp;
-    private long              size;
+    private int backupId;
+    private int numberFiles;
+    private long timestamp;
+    private long size;
 
     public RocksDBBackupInfo(BackupInfo info) {
         super();
@@ -82,6 +82,6 @@ public class RocksDBBackupInfo implements Serializable {
     @Override
     public String toString() {
         return "RocksDBBackupInfo{" + "backupId=" + backupId + ", numberFiles=" + numberFiles + ", timestamp="
-               + timestamp + ", size=" + size + '}';
+                + timestamp + ", size=" + size + '}';
     }
 }

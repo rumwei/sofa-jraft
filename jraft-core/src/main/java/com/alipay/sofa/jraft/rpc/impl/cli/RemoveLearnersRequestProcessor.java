@@ -32,7 +32,6 @@ import com.google.protobuf.Message;
  * RemoveLearners request processor.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
  */
 public class RemoveLearnersRequestProcessor extends BaseCliRequestProcessor<RemoveLearnersRequest> {
 
@@ -60,14 +59,14 @@ public class RemoveLearnersRequestProcessor extends BaseCliRequestProcessor<Remo
             final PeerId peer = new PeerId();
             if (!peer.parse(peerStr)) {
                 return RpcFactoryHelper //
-                    .responseFactory() //
-                    .newResponse(defaultResp(), RaftError.EINVAL, "Fail to parse peer id %s", peerStr);
+                        .responseFactory() //
+                        .newResponse(defaultResp(), RaftError.EINVAL, "Fail to parse peer id %s", peerStr);
             }
             removeingLearners.add(peer);
         }
 
         LOG.info("Receive RemoveLearnersRequest to {} from {}, removing {}.", ctx.node.getNodeId(),
-            done.getRpcCtx().getRemoteAddress(), removeingLearners);
+                done.getRpcCtx().getRemoteAddress(), removeingLearners);
         ctx.node.removeLearners(removeingLearners, status -> {
             if (!status.isOk()) {
                 done.run(status);

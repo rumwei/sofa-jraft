@@ -19,9 +19,11 @@ package com.alipay.sofa.jraft.storage.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+
 import java.io.File;
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
+
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import com.alipay.sofa.jraft.option.LogStorageOptions;
@@ -53,7 +55,7 @@ public class RocksDBSegmentLogStorageTest extends BaseLogStorageTest {
 
             for (int j = 0; j < n; j++) {
                 this.logStorage.appendEntries(Arrays.asList(TestUtils.mockEntry(j, 1, ThreadLocalRandom.current()
-                    .nextInt(180))));
+                        .nextInt(180))));
             }
 
             int index = ThreadLocalRandom.current().nextInt(n);

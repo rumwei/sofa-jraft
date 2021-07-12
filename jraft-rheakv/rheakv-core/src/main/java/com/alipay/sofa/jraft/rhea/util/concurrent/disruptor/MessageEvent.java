@@ -17,7 +17,6 @@
 package com.alipay.sofa.jraft.rhea.util.concurrent.disruptor;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class MessageEvent<T> {

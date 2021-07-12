@@ -20,7 +20,6 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 /**
- *
  * @author jiachun.fjc
  */
 public interface SingleThreadExecutor extends Executor {
@@ -28,6 +27,7 @@ public interface SingleThreadExecutor extends Executor {
     /**
      * Shortcut method for {@link #shutdownGracefully(long, TimeUnit)} with
      * sensible default values.
+     *
      * @return true if success to shutdown
      */
     boolean shutdownGracefully();

@@ -21,7 +21,6 @@ import java.util.List;
 import com.alipay.sofa.jraft.rhea.storage.KVEntry;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class ScanResponse extends BaseResponse<List<KVEntry>> {

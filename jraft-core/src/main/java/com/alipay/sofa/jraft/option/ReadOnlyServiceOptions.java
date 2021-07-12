@@ -27,8 +27,8 @@ import com.alipay.sofa.jraft.core.NodeImpl;
 public class ReadOnlyServiceOptions {
 
     private RaftOptions raftOptions;
-    private NodeImpl    node;
-    private FSMCaller   fsmCaller;
+    private NodeImpl node;
+    private FSMCaller fsmCaller;
 
     public NodeImpl getNode() {
         return node;

@@ -20,15 +20,14 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class Pair<K, V> implements Serializable {
 
     private static final long serialVersionUID = 3390134330336111160L;
 
-    private K                 key;
-    private V                 value;
+    private K key;
+    private V value;
 
     public static <K, V> Pair<K, V> of(K key, V value) {
         return new Pair<>(key, value);

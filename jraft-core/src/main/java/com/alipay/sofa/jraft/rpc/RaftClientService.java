@@ -25,7 +25,7 @@ import com.google.protobuf.Message;
  * Raft client RPC service.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-08 5:59:52 PM
  */
 public interface RaftClientService extends ClientService {

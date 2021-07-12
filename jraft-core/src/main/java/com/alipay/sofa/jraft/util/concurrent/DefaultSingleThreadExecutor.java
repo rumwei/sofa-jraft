@@ -25,7 +25,6 @@ import com.alipay.sofa.jraft.util.NamedThreadFactory;
 import com.alipay.sofa.jraft.util.ThreadPoolUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class DefaultSingleThreadExecutor implements SingleThreadExecutor {
@@ -87,14 +86,14 @@ public final class DefaultSingleThreadExecutor implements SingleThreadExecutor {
 
     private static SingleThreadExecutor createSingleThreadExecutor(final String poolName, final int maxPendingTasks) {
         final ExecutorService singleThreadPool = ThreadPoolUtil.newBuilder() //
-            .poolName(poolName) //
-            .enableMetric(true) //
-            .coreThreads(1) //
-            .maximumThreads(1) //
-            .keepAliveSeconds(60L) //
-            .workQueue(new LinkedBlockingQueue<>(maxPendingTasks)) //
-            .threadFactory(new NamedThreadFactory(poolName, true)) //
-            .build();
+                .poolName(poolName) //
+                .enableMetric(true) //
+                .coreThreads(1) //
+                .maximumThreads(1) //
+                .keepAliveSeconds(60L) //
+                .workQueue(new LinkedBlockingQueue<>(maxPendingTasks)) //
+                .threadFactory(new NamedThreadFactory(poolName, true)) //
+                .build();
 
         return new SingleThreadExecutor() {
 

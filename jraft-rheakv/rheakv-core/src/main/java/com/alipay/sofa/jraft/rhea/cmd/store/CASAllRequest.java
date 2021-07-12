@@ -21,14 +21,13 @@ import java.util.List;
 import com.alipay.sofa.jraft.rhea.storage.CASEntry;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class CASAllRequest extends BaseRequest {
 
     private static final long serialVersionUID = -241778901444215595L;
 
-    private List<CASEntry>    casEntries;
+    private List<CASEntry> casEntries;
 
     public List<CASEntry> getCasEntries() {
         return casEntries;

@@ -35,7 +35,7 @@ import com.google.protobuf.ZeroByteStringHelper;
 /**
  * V2 log entry encoder based on protobuf, see src/main/resources/log.proto
  *
- * @author boyan(boyan@antfin.com)
+ * @author boyan(boyan @ antfin.com)
  */
 public class V2Encoder implements LogEntryEncoder {
 
@@ -79,9 +79,9 @@ public class V2Encoder implements LogEntryEncoder {
 
         final LogId logId = log.getId();
         final PBLogEntry.Builder builder = PBLogEntry.newBuilder() //
-            .setType(log.getType()) //
-            .setIndex(logId.getIndex()) //
-            .setTerm(logId.getTerm());
+                .setType(log.getType()) //
+                .setIndex(logId.getIndex()) //
+                .setTerm(logId.getTerm());
 
         final List<PeerId> peers = log.getPeers();
         if (hasPeers(peers)) {
@@ -136,7 +136,7 @@ public class V2Encoder implements LogEntryEncoder {
             output.checkNoSpaceLeft();
         } catch (final IOException e) {
             throw new LogEntryCorruptedException(
-                "Serializing PBLogEntry to a byte array threw an IOException (should never happen).", e);
+                    "Serializing PBLogEntry to a byte array threw an IOException (should never happen).", e);
         }
     }
 

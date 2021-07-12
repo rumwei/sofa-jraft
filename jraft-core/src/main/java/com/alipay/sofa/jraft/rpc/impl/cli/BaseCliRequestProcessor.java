@@ -35,10 +35,11 @@ import com.google.protobuf.Message;
 
 /**
  * Base template to handle cli requests.
- * @author boyan (boyan@alibaba-inc.com)
  *
- * 2018-Apr-09 11:51:42 AM 
  * @param <T>
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
+ * 2018-Apr-09 11:51:42 AM
  */
 public abstract class BaseCliRequestProcessor<T extends Message> extends RpcRequestProcessor<T> {
 
@@ -65,8 +66,9 @@ public abstract class BaseCliRequestProcessor<T extends Message> extends RpcRequ
 
     /**
      * Cli request context
-     * @author boyan (boyan@alibaba-inc.com)
      *
+     * @author boyan (boyan@alibaba-inc.com)
+     * <p>
      * 2018-Apr-09 11:55:45 AM
      */
     public static class CliRequestContext {
@@ -74,7 +76,7 @@ public abstract class BaseCliRequestProcessor<T extends Message> extends RpcRequ
         /**
          * The found node.
          */
-        public final Node   node;
+        public final Node node;
         /**
          * The peerId in returns by {@link BaseCliRequestProcessor#getPeerId(Message)}, null if absent.
          */
@@ -104,8 +106,8 @@ public abstract class BaseCliRequestProcessor<T extends Message> extends RpcRequ
             peerId = new PeerId();
             if (!peerId.parse(peerIdStr)) {
                 return RpcFactoryHelper //
-                    .responseFactory() //
-                    .newResponse(defaultResp(), RaftError.EINVAL, "Fail to parse peer: %s", peerIdStr);
+                        .responseFactory() //
+                        .newResponse(defaultResp(), RaftError.EINVAL, "Fail to parse peer: %s", peerIdStr);
             }
         }
 
@@ -113,8 +115,8 @@ public abstract class BaseCliRequestProcessor<T extends Message> extends RpcRequ
         Node node = getNode(groupId, peerId, st);
         if (!st.isOk()) {
             return RpcFactoryHelper //
-                .responseFactory() //
-                .newResponse(defaultResp(), st.getCode(), st.getErrorMsg());
+                    .responseFactory() //
+                    .newResponse(defaultResp(), st.getCode(), st.getErrorMsg());
         } else {
             return processRequest0(new CliRequestContext(node, groupId, peerId), request, done);
         }
@@ -134,7 +136,7 @@ public abstract class BaseCliRequestProcessor<T extends Message> extends RpcRequ
                 st.setError(RaftError.ENOENT, "Empty nodes in group %s", groupId);
             } else if (nodes.size() > 1) {
                 st.setError(RaftError.EINVAL, "Peer must be specified since there're %d nodes in group %s",
-                    nodes.size(), groupId);
+                        nodes.size(), groupId);
             } else {
                 node = nodes.get(0);
             }

@@ -21,13 +21,14 @@ import java.util.Collection;
 /**
  * Checksum for entity.
  *
- * @author boyan(boyan@antfin.com)
+ * @author boyan(boyan @ antfin.com)
  * @since 1.2.6
  */
 public interface Checksum {
 
     /**
      * Calculate a checksum value for this entity.
+     *
      * @return checksum value
      */
     long checksum();
@@ -47,7 +48,7 @@ public interface Checksum {
      * Returns the checksum value of act on factors.
      *
      * @param factors checksum collection
-     * @param v origin checksum
+     * @param v       origin checksum
      * @return checksum value
      */
     default long checksum(final Collection<? extends Checksum> factors, long v) {

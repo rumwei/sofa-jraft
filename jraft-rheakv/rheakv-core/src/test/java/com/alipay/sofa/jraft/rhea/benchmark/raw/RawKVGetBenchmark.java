@@ -48,24 +48,24 @@ import static com.alipay.sofa.jraft.rhea.benchmark.BenchmarkUtil.VALUE_BYTES;
 @State(Scope.Benchmark)
 public class RawKVGetBenchmark extends BaseRawStoreBenchmark {
     /**
-     //
-     // 100w keys, each value is 100 bytes.
-     //
-     // get tps = 1034.823 * 1000 = 1034823 ops/second
-     //
-     Benchmark                            Mode       Cnt     Score     Error   Units
-     RawKVGetBenchmark.get               thrpt         3  1034.823 ± 914.022  ops/ms
-     RawKVGetBenchmark.get                avgt         3     0.032 ±   0.007   ms/op
-     RawKVGetBenchmark.get              sample  14885516     0.047 ±   0.001   ms/op
-     RawKVGetBenchmark.get:get·p0.00    sample               0.003             ms/op
-     RawKVGetBenchmark.get:get·p0.50    sample               0.007             ms/op
-     RawKVGetBenchmark.get:get·p0.90    sample               0.008             ms/op
-     RawKVGetBenchmark.get:get·p0.95    sample               0.009             ms/op
-     RawKVGetBenchmark.get:get·p0.99    sample               0.016             ms/op
-     RawKVGetBenchmark.get:get·p0.999   sample               4.526             ms/op
-     RawKVGetBenchmark.get:get·p0.9999  sample              69.599             ms/op
-     RawKVGetBenchmark.get:get·p1.00    sample             248.775             ms/op
-     RawKVGetBenchmark.get                  ss         3     0.039 ±   0.100   ms/op
+     * //
+     * // 100w keys, each value is 100 bytes.
+     * //
+     * // get tps = 1034.823 * 1000 = 1034823 ops/second
+     * //
+     * Benchmark                            Mode       Cnt     Score     Error   Units
+     * RawKVGetBenchmark.get               thrpt         3  1034.823 ± 914.022  ops/ms
+     * RawKVGetBenchmark.get                avgt         3     0.032 ±   0.007   ms/op
+     * RawKVGetBenchmark.get              sample  14885516     0.047 ±   0.001   ms/op
+     * RawKVGetBenchmark.get:get·p0.00    sample               0.003             ms/op
+     * RawKVGetBenchmark.get:get·p0.50    sample               0.007             ms/op
+     * RawKVGetBenchmark.get:get·p0.90    sample               0.008             ms/op
+     * RawKVGetBenchmark.get:get·p0.95    sample               0.009             ms/op
+     * RawKVGetBenchmark.get:get·p0.99    sample               0.016             ms/op
+     * RawKVGetBenchmark.get:get·p0.999   sample               4.526             ms/op
+     * RawKVGetBenchmark.get:get·p0.9999  sample              69.599             ms/op
+     * RawKVGetBenchmark.get:get·p1.00    sample             248.775             ms/op
+     * RawKVGetBenchmark.get                  ss         3     0.039 ±   0.100   ms/op
      */
 
     @Setup
@@ -114,14 +114,14 @@ public class RawKVGetBenchmark extends BaseRawStoreBenchmark {
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder() //
-            .include(RawKVGetBenchmark.class.getSimpleName()) //
-            .warmupIterations(1) //
-            .warmupTime(TimeValue.seconds(10)) //
-            .measurementIterations(3) //
-            .measurementTime(TimeValue.seconds(10)) //
-            .threads(CONCURRENCY) //
-            .forks(1) //
-            .build();
+                .include(RawKVGetBenchmark.class.getSimpleName()) //
+                .warmupIterations(1) //
+                .warmupTime(TimeValue.seconds(10)) //
+                .measurementIterations(3) //
+                .measurementTime(TimeValue.seconds(10)) //
+                .threads(CONCURRENCY) //
+                .forks(1) //
+                .build();
 
         new Runner(opt).run();
     }

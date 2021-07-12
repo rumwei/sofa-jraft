@@ -57,24 +57,23 @@ import com.alipay.sofa.jraft.util.timer.Timeout;
 import com.alipay.sofa.jraft.util.timer.TimerTask;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class HeartbeatSender implements Lifecycle<HeartbeatOptions> {
 
-    private static final Logger         LOG = LoggerFactory.getLogger(HeartbeatSender.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HeartbeatSender.class);
 
-    private final StoreEngine           storeEngine;
+    private final StoreEngine storeEngine;
     private final PlacementDriverClient pdClient;
-    private final RpcClient             rpcClient;
+    private final RpcClient rpcClient;
 
-    private StatsCollector              statsCollector;
-    private InstructionProcessor        instructionProcessor;
-    private int                         heartbeatRpcTimeoutMillis;
-    private ThreadPoolExecutor          heartbeatRpcCallbackExecutor;
-    private HashedWheelTimer            heartbeatTimer;
+    private StatsCollector statsCollector;
+    private InstructionProcessor instructionProcessor;
+    private int heartbeatRpcTimeoutMillis;
+    private ThreadPoolExecutor heartbeatRpcCallbackExecutor;
+    private HashedWheelTimer heartbeatTimer;
 
-    private boolean                     started;
+    private boolean started;
 
     public HeartbeatSender(StoreEngine storeEngine) {
         this.storeEngine = storeEngine;
@@ -91,37 +90,37 @@ public class HeartbeatSender implements Lifecycle<HeartbeatOptions> {
         this.statsCollector = new StatsCollector(this.storeEngine);
         this.instructionProcessor = new InstructionProcessor(this.storeEngine);
         this.heartbeatTimer = new HashedWheelTimer(new NamedThreadFactory("heartbeat-timer", true), 50,
-            TimeUnit.MILLISECONDS, 4096);
+                TimeUnit.MILLISECONDS, 4096);
         this.heartbeatRpcTimeoutMillis = opts.getHeartbeatRpcTimeoutMillis();
         if (this.heartbeatRpcTimeoutMillis <= 0) {
             throw new IllegalArgumentException("Heartbeat rpc timeout millis must > 0, "
-                                               + this.heartbeatRpcTimeoutMillis);
+                    + this.heartbeatRpcTimeoutMillis);
         }
         final String name = "rheakv-heartbeat-callback";
         this.heartbeatRpcCallbackExecutor = ThreadPoolUtil.newBuilder() //
-            .poolName(name) //
-            .enableMetric(true) //
-            .coreThreads(4) //
-            .maximumThreads(4) //
-            .keepAliveSeconds(120L) //
-            .workQueue(new ArrayBlockingQueue<>(1024)) //
-            .threadFactory(new NamedThreadFactory(name, true)) //
-            .rejectedHandler(new DiscardOldPolicyWithReport(name)) //
-            .build();
+                .poolName(name) //
+                .enableMetric(true) //
+                .coreThreads(4) //
+                .maximumThreads(4) //
+                .keepAliveSeconds(120L) //
+                .workQueue(new ArrayBlockingQueue<>(1024)) //
+                .threadFactory(new NamedThreadFactory(name, true)) //
+                .rejectedHandler(new DiscardOldPolicyWithReport(name)) //
+                .build();
         final long storeHeartbeatIntervalSeconds = opts.getStoreHeartbeatIntervalSeconds();
         final long regionHeartbeatIntervalSeconds = opts.getRegionHeartbeatIntervalSeconds();
         if (storeHeartbeatIntervalSeconds <= 0) {
             throw new IllegalArgumentException("Store heartbeat interval seconds must > 0, "
-                                               + storeHeartbeatIntervalSeconds);
+                    + storeHeartbeatIntervalSeconds);
         }
         if (regionHeartbeatIntervalSeconds <= 0) {
             throw new IllegalArgumentException("Region heartbeat interval seconds must > 0, "
-                                               + regionHeartbeatIntervalSeconds);
+                    + regionHeartbeatIntervalSeconds);
         }
         final long now = System.currentTimeMillis();
         final StoreHeartbeatTask storeHeartbeatTask = new StoreHeartbeatTask(storeHeartbeatIntervalSeconds, now, false);
         final RegionHeartbeatTask regionHeartbeatTask = new RegionHeartbeatTask(regionHeartbeatIntervalSeconds, now,
-            false);
+                false);
         this.heartbeatTimer.newTimeout(storeHeartbeatTask, storeHeartbeatTask.getNextDelay(), TimeUnit.SECONDS);
         this.heartbeatTimer.newTimeout(regionHeartbeatTask, regionHeartbeatTask.getNextDelay(), TimeUnit.SECONDS);
         LOG.info("[HeartbeatSender] start successfully, options: {}.", opts);
@@ -169,7 +168,7 @@ public class HeartbeatSender implements Lifecycle<HeartbeatOptions> {
             this.heartbeatTimer.newTimeout(nextTask, nextTask.getNextDelay(), TimeUnit.SECONDS);
             if (LOG.isInfoEnabled()) {
                 LOG.info("So sad, there is no even a region leader on [clusterId:{}, storeId: {}, endpoint:{}].",
-                    this.storeEngine.getClusterId(), this.storeEngine.getStoreId(), this.storeEngine.getSelfEndpoint());
+                        this.storeEngine.getClusterId(), this.storeEngine.getStoreId(), this.storeEngine.getSelfEndpoint());
             }
             return;
         }
@@ -255,8 +254,8 @@ public class HeartbeatSender implements Lifecycle<HeartbeatOptions> {
 
     private final class StoreHeartbeatTask implements TimerTask {
 
-        private final long    nextDelay;
-        private final long    lastTime;
+        private final long nextDelay;
+        private final long lastTime;
         private final boolean forceRefreshLeader;
 
         private StoreHeartbeatTask(long nextDelay, long lastTime, boolean forceRefreshLeader) {
@@ -281,8 +280,8 @@ public class HeartbeatSender implements Lifecycle<HeartbeatOptions> {
 
     private final class RegionHeartbeatTask implements TimerTask {
 
-        private final long    nextDelay;
-        private final long    lastTime;
+        private final long nextDelay;
+        private final long lastTime;
         private final boolean forceRefreshLeader;
 
         private RegionHeartbeatTask(long nextDelay, long lastTime, boolean forceRefreshLeader) {

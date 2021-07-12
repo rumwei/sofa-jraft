@@ -17,7 +17,7 @@ package com.alipay.sofa.jraft.util.timer;
 /**
  * A task which is executed after the delay specified with
  * Timer#newTimeout(TimerTask, long, TimeUnit).
- *
+ * <p>
  * Forked from <a href="https://github.com/netty/netty">Netty</a>.
  */
 public interface TimerTask {

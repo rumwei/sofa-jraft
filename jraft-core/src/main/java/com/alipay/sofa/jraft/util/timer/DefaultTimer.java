@@ -36,11 +36,11 @@ public class DefaultTimer implements Timer {
 
     public DefaultTimer(int workerNum, String name) {
         this.scheduledExecutorService = ThreadPoolUtil.newScheduledBuilder() //
-            .coreThreads(workerNum) //
-            .poolName(name) //
-            .enableMetric(true) //
-            .threadFactory(new NamedThreadFactory(name, true)) //
-            .build();
+                .coreThreads(workerNum) //
+                .poolName(name) //
+                .enableMetric(true) //
+                .threadFactory(new NamedThreadFactory(name, true)) //
+                .build();
     }
 
     @Override
@@ -62,8 +62,8 @@ public class DefaultTimer implements Timer {
 
     private class TimeoutTask implements Runnable {
 
-        private final TimerTask             task;
-        private final Timeout               timeout;
+        private final TimerTask task;
+        private final Timeout timeout;
         private volatile ScheduledFuture<?> future;
 
         private TimeoutTask(TimerTask task) {

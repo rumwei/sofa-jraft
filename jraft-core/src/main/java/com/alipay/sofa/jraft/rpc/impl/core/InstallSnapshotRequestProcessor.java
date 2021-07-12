@@ -28,7 +28,7 @@ import com.google.protobuf.Message;
  * Handle install snapshot request.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-08 6:09:34 PM
  */
 public class InstallSnapshotRequestProcessor extends NodeRequestProcessor<InstallSnapshotRequest> {

@@ -44,7 +44,6 @@ import com.alipay.sofa.jraft.util.Endpoint;
 import com.google.protobuf.Message;
 
 /**
- *
  * @author boyan (boyan@alibaba-inc.com)
  * @author jiachun.fjc
  */

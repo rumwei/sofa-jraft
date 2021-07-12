@@ -31,13 +31,13 @@ abstract class AbstractHandlerContext implements HandlerContext {
     volatile AbstractHandlerContext next;
     volatile AbstractHandlerContext prev;
 
-    private final boolean           inbound;
-    private final boolean           outbound;
-    private final DefaultPipeline   pipeline;
-    private final String            name;
-    private boolean                 removed;
+    private final boolean inbound;
+    private final boolean outbound;
+    private final DefaultPipeline pipeline;
+    private final String name;
+    private boolean removed;
 
-    final HandlerInvoker            invoker;
+    final HandlerInvoker invoker;
 
     public AbstractHandlerContext(DefaultPipeline pipeline, HandlerInvoker invoker, String name, boolean inbound,
                                   boolean outbound) {

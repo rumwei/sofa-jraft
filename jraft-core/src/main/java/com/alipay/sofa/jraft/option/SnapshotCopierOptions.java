@@ -23,15 +23,15 @@ import com.alipay.sofa.jraft.rpc.RaftClientService;
  * Snapshot copier options.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-17 2:38:22 PM
  */
 public class SnapshotCopierOptions {
 
     private RaftClientService raftClientService;
-    private Scheduler         timerManager;
-    private RaftOptions       raftOptions;
-    private NodeOptions       nodeOptions;
+    private Scheduler timerManager;
+    private RaftOptions raftOptions;
+    private NodeOptions nodeOptions;
 
     public SnapshotCopierOptions() {
         super();

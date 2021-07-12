@@ -19,7 +19,6 @@ package com.alipay.sofa.jraft.rpc.impl;
 import com.alipay.sofa.jraft.rpc.Connection;
 
 /**
- *
  * @author jiachun.fjc
  */
 public interface ConnectionClosedEventListener {

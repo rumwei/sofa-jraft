@@ -25,7 +25,7 @@ import com.alipay.sofa.jraft.rhea.serialization.impl.protostuff.ProtoStuffSerial
  */
 public final class Serializers {
 
-    public static final byte    PROTO_STUFF = 0x01;
+    public static final byte PROTO_STUFF = 0x01;
 
     private static Serializer[] serializers = new Serializer[5];
 

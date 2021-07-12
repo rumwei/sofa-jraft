@@ -29,9 +29,9 @@ public abstract class BaseResponse<T> implements Serializable {
 
     private static final long serialVersionUID = 7595480549808409921L;
 
-    private Errors            error            = Errors.NONE;
-    private long              clusterId;
-    private T                 value;
+    private Errors error = Errors.NONE;
+    private long clusterId;
+    private T value;
 
     public boolean isSuccess() {
         return error == Errors.NONE;

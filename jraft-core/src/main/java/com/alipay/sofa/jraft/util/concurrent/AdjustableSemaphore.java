@@ -23,16 +23,16 @@ import com.alipay.sofa.jraft.util.Requires;
 
 /**
  * An implementation of adjustable semaphore.
- *
+ * <p>
  * Written by Marshall Pierce and released to the public domain
  * See: http://blog.teamlazerbeez.com/2009/04/20/javas-semaphore-resizing/
  */
 public final class AdjustableSemaphore implements Serializable {
 
-    private static final long         serialVersionUID = -266635933115069924L;
+    private static final long serialVersionUID = -266635933115069924L;
 
-    private final ResizeableSemaphore semaphore        = new ResizeableSemaphore(0);
-    private volatile int              maxPermits       = 0;
+    private final ResizeableSemaphore semaphore = new ResizeableSemaphore(0);
+    private volatile int maxPermits = 0;
 
     public AdjustableSemaphore() {
     }

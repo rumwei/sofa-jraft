@@ -41,11 +41,11 @@ import static org.junit.Assert.assertTrue;
 @RunWith(value = MockitoJUnitRunner.class)
 public class LocalSnapshotReaderTest extends BaseStorageTest {
 
-    private LocalSnapshotReader    reader;
+    private LocalSnapshotReader reader;
     @Mock
-    private LocalSnapshotStorage   snapshotStorage;
+    private LocalSnapshotStorage snapshotStorage;
     private LocalSnapshotMetaTable table;
-    private final int              snapshotIndex = 99;
+    private final int snapshotIndex = 99;
 
     @Override
     @Before
@@ -57,7 +57,7 @@ public class LocalSnapshotReaderTest extends BaseStorageTest {
         this.table.addFile("testFile", LocalFileMetaOutter.LocalFileMeta.newBuilder().setChecksum("test").build());
         table.saveToFile(path + File.separator + Snapshot.JRAFT_SNAPSHOT_META_FILE);
         this.reader = new LocalSnapshotReader(snapshotStorage, null, new Endpoint("localhost", 8081),
-            new RaftOptions(), path);
+                new RaftOptions(), path);
         assertTrue(this.reader.init(null));
     }
 

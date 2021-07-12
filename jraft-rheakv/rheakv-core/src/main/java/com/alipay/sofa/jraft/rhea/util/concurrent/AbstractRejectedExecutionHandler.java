@@ -32,16 +32,15 @@ import com.alipay.sofa.jraft.rhea.util.StackTraceUtil;
 import com.alipay.sofa.jraft.util.Utils;
 
 /**
- *
  * @author jiachun.fjc
  */
 public abstract class AbstractRejectedExecutionHandler implements RejectedExecutionHandler {
 
     protected static final Logger LOG = LoggerFactory.getLogger(AbstractRejectedExecutionHandler.class);
 
-    protected final String        threadPoolName;
-    private final AtomicBoolean   dumpNeeded;
-    private final String          dumpPrefixName;
+    protected final String threadPoolName;
+    private final AtomicBoolean dumpNeeded;
+    private final String dumpPrefixName;
 
     public AbstractRejectedExecutionHandler(String threadPoolName, boolean dumpNeeded, String dumpPrefixName) {
         this.threadPoolName = threadPoolName;
@@ -54,7 +53,7 @@ public abstract class AbstractRejectedExecutionHandler implements RejectedExecut
             final String now = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date());
             final String name = this.threadPoolName + "_" + now;
             try (final FileOutputStream fileOutput = new FileOutputStream(new File(this.dumpPrefixName + "_dump_"
-                                                                                   + name + ".log"))) {
+                    + name + ".log"))) {
 
                 final List<String> stacks = JvmTools.jStack();
                 for (final String s : stacks) {

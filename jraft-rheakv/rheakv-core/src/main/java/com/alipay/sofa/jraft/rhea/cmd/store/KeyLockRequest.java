@@ -20,15 +20,14 @@ import com.alipay.sofa.jraft.rhea.util.concurrent.DistributedLock;
 import com.alipay.sofa.jraft.util.BytesUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class KeyLockRequest extends BaseRequest {
 
-    private static final long        serialVersionUID = -2378291429837556797L;
+    private static final long serialVersionUID = -2378291429837556797L;
 
-    private byte[]                   key;
-    private boolean                  keepLease;
+    private byte[] key;
+    private boolean keepLease;
     private DistributedLock.Acquirer acquirer;
 
     public byte[] getKey() {
@@ -63,6 +62,6 @@ public class KeyLockRequest extends BaseRequest {
     @Override
     public String toString() {
         return "KeyLockRequest{" + "key=" + BytesUtil.toHex(key) + ", keepLease=" + keepLease + ", acquirer="
-               + acquirer + "} " + super.toString();
+                + acquirer + "} " + super.toString();
     }
 }

@@ -33,7 +33,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public class SnapshotFileReaderTest extends BaseStorageTest {
-    private SnapshotFileReader     reader;
+    private SnapshotFileReader reader;
     private LocalSnapshotMetaTable metaTable;
 
     @Override
@@ -60,7 +60,7 @@ public class SnapshotFileReaderTest extends BaseStorageTest {
 
     private LocalFileMetaOutter.LocalFileMeta addDataMeta() {
         final LocalFileMetaOutter.LocalFileMeta meta = LocalFileMetaOutter.LocalFileMeta.newBuilder()
-            .setChecksum("test").setSource(LocalFileMetaOutter.FileSource.FILE_SOURCE_LOCAL).build();
+                .setChecksum("test").setSource(LocalFileMetaOutter.FileSource.FILE_SOURCE_LOCAL).build();
         this.metaTable.addFile("data", meta);
         return meta;
     }

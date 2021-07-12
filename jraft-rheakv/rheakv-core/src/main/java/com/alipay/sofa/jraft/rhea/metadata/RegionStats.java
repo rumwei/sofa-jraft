@@ -20,34 +20,33 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class RegionStats implements Serializable {
 
     private static final long serialVersionUID = -4790131346095689335L;
 
-    private long              regionId;
+    private long regionId;
     // Leader Peer sending the heartbeat
-    private Peer              leader;
+    private Peer leader;
     // Leader considers that these peers are down
-    private List<PeerStats>   downPeers;
+    private List<PeerStats> downPeers;
     // Pending peers are the peers that the leader can't consider as working followers
-    private List<PeerStats>   pendingPeers;
+    private List<PeerStats> pendingPeers;
     // Bytes written for the region during this period
-    private long              bytesWritten;
+    private long bytesWritten;
     // Bytes read for the region during this period
-    private long              bytesRead;
+    private long bytesRead;
     // Keys written for the region during this period
-    private long              keysWritten;
+    private long keysWritten;
     // Keys read for the region during this period
-    private long              keysRead;
+    private long keysRead;
     // Approximate region size
-    private long              approximateSize;
+    private long approximateSize;
     // Approximate number of keys
-    private long              approximateKeys;
+    private long approximateKeys;
     // Actually reported time interval
-    private TimeInterval      interval;
+    private TimeInterval interval;
 
     public long getRegionId() {
         return regionId;
@@ -140,8 +139,8 @@ public class RegionStats implements Serializable {
     @Override
     public String toString() {
         return "RegionStats{" + "regionId=" + regionId + ", leader=" + leader + ", downPeers=" + downPeers
-               + ", pendingPeers=" + pendingPeers + ", bytesWritten=" + bytesWritten + ", bytesRead=" + bytesRead
-               + ", keysWritten=" + keysWritten + ", keysRead=" + keysRead + ", approximateSize=" + approximateSize
-               + ", approximateKeys=" + approximateKeys + ", interval=" + interval + '}';
+                + ", pendingPeers=" + pendingPeers + ", bytesWritten=" + bytesWritten + ", bytesRead=" + bytesRead
+                + ", keysWritten=" + keysWritten + ", keysRead=" + keysRead + ", approximateSize=" + approximateSize
+                + ", approximateKeys=" + approximateKeys + ", interval=" + interval + '}';
     }
 }

@@ -100,15 +100,15 @@ import com.alipay.sofa.jraft.util.Utils;
  */
 public class PlacementDriverServer implements Lifecycle<PlacementDriverServerOptions> {
 
-    private static final Logger      LOG = LoggerFactory.getLogger(PlacementDriverServer.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PlacementDriverServer.class);
 
     private final ThreadPoolExecutor pdExecutor;
 
-    private PlacementDriverService   placementDriverService;
-    private RheaKVStore              rheaKVStore;
-    private RegionEngine             regionEngine;
+    private PlacementDriverService placementDriverService;
+    private RheaKVStore rheaKVStore;
+    private RegionEngine regionEngine;
 
-    private boolean                  started;
+    private boolean started;
 
     public PlacementDriverServer() {
         this(null);
@@ -148,7 +148,7 @@ public class PlacementDriverServer implements Lifecycle<PlacementDriverServerOpt
         }
         this.regionEngine = regionEngines.get(0);
         this.rheaKVStore.addLeaderStateListener(this.regionEngine.getRegion().getId(),
-            ((DefaultPlacementDriverService) this.placementDriverService));
+                ((DefaultPlacementDriverService) this.placementDriverService));
         addPlacementDriverProcessor(storeEngine.getRpcServer());
         LOG.info("[PlacementDriverServer] start successfully, options: {}.", opts);
         return this.started = true;
@@ -202,33 +202,33 @@ public class PlacementDriverServer implements Lifecycle<PlacementDriverServerOpt
 
     private void addPlacementDriverProcessor(final RpcServer rpcServer) {
         rpcServer.registerProcessor(new PlacementDriverProcessor<>(RegionHeartbeatRequest.class,
-            this.placementDriverService, this.pdExecutor));
+                this.placementDriverService, this.pdExecutor));
         rpcServer.registerProcessor(new PlacementDriverProcessor<>(StoreHeartbeatRequest.class,
-            this.placementDriverService, this.pdExecutor));
+                this.placementDriverService, this.pdExecutor));
         rpcServer.registerProcessor(new PlacementDriverProcessor<>(GetClusterInfoRequest.class,
-            this.placementDriverService, this.pdExecutor));
+                this.placementDriverService, this.pdExecutor));
         rpcServer.registerProcessor(new PlacementDriverProcessor<>(GetStoreIdRequest.class,
-            this.placementDriverService, this.pdExecutor));
+                this.placementDriverService, this.pdExecutor));
         rpcServer.registerProcessor(new PlacementDriverProcessor<>(GetStoreInfoRequest.class,
-            this.placementDriverService, this.pdExecutor));
+                this.placementDriverService, this.pdExecutor));
         rpcServer.registerProcessor(new PlacementDriverProcessor<>(SetStoreInfoRequest.class,
-            this.placementDriverService, this.pdExecutor));
+                this.placementDriverService, this.pdExecutor));
         rpcServer.registerProcessor(new PlacementDriverProcessor<>(CreateRegionIdRequest.class,
-            this.placementDriverService, this.pdExecutor));
+                this.placementDriverService, this.pdExecutor));
     }
 
     private ThreadPoolExecutor createDefaultPdExecutor() {
         final int corePoolSize = Math.max(Utils.cpus() << 2, 32);
         final String name = "rheakv-pd-executor";
         return ThreadPoolUtil.newBuilder() //
-            .poolName(name) //
-            .enableMetric(true) //
-            .coreThreads(corePoolSize) //
-            .maximumThreads(corePoolSize << 2) //
-            .keepAliveSeconds(120L) //
-            .workQueue(new ArrayBlockingQueue<>(4096)) //
-            .threadFactory(new NamedThreadFactory(name, true)) //
-            .rejectedHandler(new CallerRunsPolicyWithReport(name, name)) //
-            .build();
+                .poolName(name) //
+                .enableMetric(true) //
+                .coreThreads(corePoolSize) //
+                .maximumThreads(corePoolSize << 2) //
+                .keepAliveSeconds(120L) //
+                .workQueue(new ArrayBlockingQueue<>(4096)) //
+                .threadFactory(new NamedThreadFactory(name, true)) //
+                .rejectedHandler(new CallerRunsPolicyWithReport(name, name)) //
+                .build();
     }
 }

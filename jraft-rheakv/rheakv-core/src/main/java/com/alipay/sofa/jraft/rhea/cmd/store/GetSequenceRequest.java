@@ -19,15 +19,14 @@ package com.alipay.sofa.jraft.rhea.cmd.store;
 import com.alipay.sofa.jraft.util.BytesUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class GetSequenceRequest extends BaseRequest {
 
     private static final long serialVersionUID = 8409861577121335137L;
 
-    private byte[]            seqKey;
-    private int               step;
+    private byte[] seqKey;
+    private int step;
 
     public byte[] getSeqKey() {
         return seqKey;

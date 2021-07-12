@@ -26,32 +26,31 @@ import com.alipay.sofa.jraft.rhea.util.StackTraceUtil;
 import com.alipay.sofa.jraft.util.internal.UnsafeUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class UnsafeDirectBufferUtil {
 
-    private static final Logger                    LOG                           = LoggerFactory
-                                                                                     .getLogger(UnsafeDirectBufferUtil.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(UnsafeDirectBufferUtil.class);
 
-    private static final UnsafeUtil.UnsafeAccessor UNSAFE_ACCESSOR               = UnsafeUtil.getUnsafeAccessor();
+    private static final UnsafeUtil.UnsafeAccessor UNSAFE_ACCESSOR = UnsafeUtil.getUnsafeAccessor();
 
-    private static final long                      BYTE_ARRAY_BASE_OFFSET        = UnsafeUtil
-                                                                                     .arrayBaseOffset(byte[].class);
+    private static final long BYTE_ARRAY_BASE_OFFSET = UnsafeUtil
+            .arrayBaseOffset(byte[].class);
 
     // Limits the number of bytes to copy per {@link Unsafe#copyMemory(long, long, long)} to allow safepoint polling
     // during a large copy.
-    private static final long                      UNSAFE_COPY_THRESHOLD         = 1024L * 1024L;
+    private static final long UNSAFE_COPY_THRESHOLD = 1024L * 1024L;
 
     // These numbers represent the point at which we have empirically
     // determined that the average cost of a JNI call exceeds the expense
     // of an element by element copy.  These numbers may change over time.
-    private static final int                       JNI_COPY_TO_ARRAY_THRESHOLD   = 6;
-    private static final int                       JNI_COPY_FROM_ARRAY_THRESHOLD = 6;
+    private static final int JNI_COPY_TO_ARRAY_THRESHOLD = 6;
+    private static final int JNI_COPY_FROM_ARRAY_THRESHOLD = 6;
 
-    private static final boolean                   BIG_ENDIAN_NATIVE_ORDER       = ByteOrder.nativeOrder() == ByteOrder.BIG_ENDIAN;
+    private static final boolean BIG_ENDIAN_NATIVE_ORDER = ByteOrder.nativeOrder() == ByteOrder.BIG_ENDIAN;
     // Unaligned-access capability
-    private static final boolean                   UNALIGNED;
+    private static final boolean UNALIGNED;
 
     static {
         boolean _unaligned;
@@ -96,9 +95,9 @@ public final class UnsafeDirectBufferUtil {
             return BIG_ENDIAN_NATIVE_ORDER ? v : Integer.reverseBytes(v);
         }
         return UNSAFE_ACCESSOR.getByte(address) << 24 //
-               | (UNSAFE_ACCESSOR.getByte(address + 1) & 0xff) << 16 //
-               | (UNSAFE_ACCESSOR.getByte(address + 2) & 0xff) << 8 //
-               | UNSAFE_ACCESSOR.getByte(address + 3) & 0xff;
+                | (UNSAFE_ACCESSOR.getByte(address + 1) & 0xff) << 16 //
+                | (UNSAFE_ACCESSOR.getByte(address + 2) & 0xff) << 8 //
+                | UNSAFE_ACCESSOR.getByte(address + 3) & 0xff;
     }
 
     public static int getIntLE(long address) {
@@ -107,9 +106,9 @@ public final class UnsafeDirectBufferUtil {
             return BIG_ENDIAN_NATIVE_ORDER ? Integer.reverseBytes(v) : v;
         }
         return UNSAFE_ACCESSOR.getByte(address) & 0xff //
-               | (UNSAFE_ACCESSOR.getByte(address + 1) & 0xff) << 8 //
-               | (UNSAFE_ACCESSOR.getByte(address + 2) & 0xff) << 16 //
-               | UNSAFE_ACCESSOR.getByte(address + 3) << 24;
+                | (UNSAFE_ACCESSOR.getByte(address + 1) & 0xff) << 8 //
+                | (UNSAFE_ACCESSOR.getByte(address + 2) & 0xff) << 16 //
+                | UNSAFE_ACCESSOR.getByte(address + 3) << 24;
     }
 
     public static long getLong(long address) {
@@ -118,13 +117,13 @@ public final class UnsafeDirectBufferUtil {
             return BIG_ENDIAN_NATIVE_ORDER ? v : Long.reverseBytes(v);
         }
         return ((long) UNSAFE_ACCESSOR.getByte(address)) << 56 //
-               | (UNSAFE_ACCESSOR.getByte(address + 1) & 0xffL) << 48 //
-               | (UNSAFE_ACCESSOR.getByte(address + 2) & 0xffL) << 40 //
-               | (UNSAFE_ACCESSOR.getByte(address + 3) & 0xffL) << 32 //
-               | (UNSAFE_ACCESSOR.getByte(address + 4) & 0xffL) << 24 //
-               | (UNSAFE_ACCESSOR.getByte(address + 5) & 0xffL) << 16 //
-               | (UNSAFE_ACCESSOR.getByte(address + 6) & 0xffL) << 8 //
-               | (UNSAFE_ACCESSOR.getByte(address + 7)) & 0xffL;
+                | (UNSAFE_ACCESSOR.getByte(address + 1) & 0xffL) << 48 //
+                | (UNSAFE_ACCESSOR.getByte(address + 2) & 0xffL) << 40 //
+                | (UNSAFE_ACCESSOR.getByte(address + 3) & 0xffL) << 32 //
+                | (UNSAFE_ACCESSOR.getByte(address + 4) & 0xffL) << 24 //
+                | (UNSAFE_ACCESSOR.getByte(address + 5) & 0xffL) << 16 //
+                | (UNSAFE_ACCESSOR.getByte(address + 6) & 0xffL) << 8 //
+                | (UNSAFE_ACCESSOR.getByte(address + 7)) & 0xffL;
     }
 
     public static long getLongLE(long address) {
@@ -133,13 +132,13 @@ public final class UnsafeDirectBufferUtil {
             return BIG_ENDIAN_NATIVE_ORDER ? Long.reverseBytes(v) : v;
         }
         return (UNSAFE_ACCESSOR.getByte(address)) & 0xffL //
-               | (UNSAFE_ACCESSOR.getByte(address + 1) & 0xffL) << 8 //
-               | (UNSAFE_ACCESSOR.getByte(address + 2) & 0xffL) << 16 //
-               | (UNSAFE_ACCESSOR.getByte(address + 3) & 0xffL) << 24 //
-               | (UNSAFE_ACCESSOR.getByte(address + 4) & 0xffL) << 32 //
-               | (UNSAFE_ACCESSOR.getByte(address + 5) & 0xffL) << 40 //
-               | (UNSAFE_ACCESSOR.getByte(address + 6) & 0xffL) << 48 //
-               | ((long) UNSAFE_ACCESSOR.getByte(address + 7)) << 56;
+                | (UNSAFE_ACCESSOR.getByte(address + 1) & 0xffL) << 8 //
+                | (UNSAFE_ACCESSOR.getByte(address + 2) & 0xffL) << 16 //
+                | (UNSAFE_ACCESSOR.getByte(address + 3) & 0xffL) << 24 //
+                | (UNSAFE_ACCESSOR.getByte(address + 4) & 0xffL) << 32 //
+                | (UNSAFE_ACCESSOR.getByte(address + 5) & 0xffL) << 40 //
+                | (UNSAFE_ACCESSOR.getByte(address + 6) & 0xffL) << 48 //
+                | ((long) UNSAFE_ACCESSOR.getByte(address + 7)) << 56;
     }
 
     public static void getBytes(long address, byte[] dst, int dstIndex, int length) {
@@ -160,7 +159,7 @@ public final class UnsafeDirectBufferUtil {
     public static void setShort(long address, int value) {
         if (UNALIGNED) {
             UNSAFE_ACCESSOR.putShort(address,
-                BIG_ENDIAN_NATIVE_ORDER ? (short) value : Short.reverseBytes((short) value));
+                    BIG_ENDIAN_NATIVE_ORDER ? (short) value : Short.reverseBytes((short) value));
         } else {
             UNSAFE_ACCESSOR.putByte(address, (byte) (value >>> 8));
             UNSAFE_ACCESSOR.putByte(address + 1, (byte) value);
@@ -170,7 +169,7 @@ public final class UnsafeDirectBufferUtil {
     public static void setShortLE(long address, int value) {
         if (UNALIGNED) {
             UNSAFE_ACCESSOR.putShort(address, BIG_ENDIAN_NATIVE_ORDER ? Short.reverseBytes((short) value)
-                : (short) value);
+                    : (short) value);
         } else {
             UNSAFE_ACCESSOR.putByte(address, (byte) value);
             UNSAFE_ACCESSOR.putByte(address + 1, (byte) (value >>> 8));

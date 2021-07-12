@@ -33,9 +33,9 @@ public class ResetPeersRequestProcessorTest extends AbstractCliRequestProcessorT
     @Override
     public ResetPeerRequest createRequest(String groupId, PeerId peerId) {
         return ResetPeerRequest.newBuilder(). //
-            setGroupId(groupId). //
-            setPeerId(peerId.toString()). //
-            addNewPeers("localhost:8084").addNewPeers("localhost:8085").build();
+                setGroupId(groupId). //
+                setPeerId(peerId.toString()). //
+                addNewPeers("localhost:8084").addNewPeers("localhost:8085").build();
     }
 
     @Override

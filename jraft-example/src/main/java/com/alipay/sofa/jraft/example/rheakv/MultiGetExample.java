@@ -31,7 +31,6 @@ import static com.alipay.sofa.jraft.util.BytesUtil.readUtf8;
 import static com.alipay.sofa.jraft.util.BytesUtil.writeUtf8;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class MultiGetExample {
@@ -59,11 +58,11 @@ public class MultiGetExample {
         CompletableFuture.allOf(f1, f2).join();
         for (Map.Entry<ByteArray, byte[]> entry : f1.join().entrySet()) {
             LOG.info("Async multiGet: key={}, value={}", readUtf8(entry.getKey().getBytes()),
-                readUtf8(entry.getValue()));
+                    readUtf8(entry.getValue()));
         }
         for (Map.Entry<ByteArray, byte[]> entry : f2.join().entrySet()) {
             LOG.info("Async multiGet: key={}, value={}", readUtf8(entry.getKey().getBytes()),
-                readUtf8(entry.getValue()));
+                    readUtf8(entry.getValue()));
         }
 
         // async multiGet

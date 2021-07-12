@@ -24,7 +24,6 @@ import com.alipay.sofa.jraft.rhea.client.RheaKVStore;
 import static com.alipay.sofa.jraft.util.BytesUtil.writeUtf8;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class DeleteRangeExample {
@@ -49,7 +48,7 @@ public class DeleteRangeExample {
             rheaKVStore.bPut("delete_range_example_" + i, writeUtf8("1"));
         }
         final CompletableFuture<Boolean> f2 = rheaKVStore.deleteRange("delete_range_example_0",
-            "delete_range_example_9");
+                "delete_range_example_9");
         FutureHelper.get(f2);
 
         for (int i = 0; i < 10; i++) {

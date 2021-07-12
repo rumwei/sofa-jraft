@@ -28,7 +28,6 @@ import static io.protostuff.WireFormat.WIRETYPE_LENGTH_DELIMITED;
 import static io.protostuff.WireFormat.makeTag;
 
 /**
- *
  * @author jiachun.fjc
  */
 class UnsafeNioBufOutput extends NioBufOutput {
@@ -114,21 +113,21 @@ class UnsafeNioBufOutput extends NioBufOutput {
         } else if ((value & (~0 << 21)) == 0) {
             // size == 3
             UnsafeDirectBufferUtil.setShort(address(position), (((value & 0x7F) | 0x80) << 8)
-                                                               | ((value >>> 7 & 0x7F) | 0x80));
+                    | ((value >>> 7 & 0x7F) | 0x80));
             position += 2;
             UnsafeDirectBufferUtil.setByte(address(position++), (byte) (value >>> 14));
         } else if ((value & (~0 << 28)) == 0) {
             // size == 4
             UnsafeDirectBufferUtil.setInt(address(position), (((value & 0x7F) | 0x80) << 24)
-                                                             | (((value >>> 7 & 0x7F) | 0x80) << 16)
-                                                             | (((value >>> 14 & 0x7F) | 0x80) << 8) | (value >>> 21));
+                    | (((value >>> 7 & 0x7F) | 0x80) << 16)
+                    | (((value >>> 14 & 0x7F) | 0x80) << 8) | (value >>> 21));
             position += 4;
         } else {
             // size == 5
             UnsafeDirectBufferUtil.setInt(address(position), (((value & 0x7F) | 0x80) << 24)
-                                                             | (((value >>> 7 & 0x7F) | 0x80) << 16)
-                                                             | (((value >>> 14 & 0x7F) | 0x80) << 8)
-                                                             | ((value >>> 21 & 0x7F) | 0x80));
+                    | (((value >>> 7 & 0x7F) | 0x80) << 16)
+                    | (((value >>> 14 & 0x7F) | 0x80) << 8)
+                    | ((value >>> 21 & 0x7F) | 0x80));
             position += 4;
             UnsafeDirectBufferUtil.setByte(address(position++), (byte) (value >>> 28));
         }
@@ -162,86 +161,86 @@ class UnsafeNioBufOutput extends NioBufOutput {
         } else if (value < 0L) {
             // size == 10
             UnsafeDirectBufferUtil.setLong(address(position), (((value & 0x7F) | 0x80) << 56)
-                                                              | (((value >>> 7 & 0x7F) | 0x80) << 48)
-                                                              | (((value >>> 14 & 0x7F) | 0x80) << 40)
-                                                              | (((value >>> 21 & 0x7F) | 0x80) << 32)
-                                                              | (((value >>> 28 & 0x7F) | 0x80) << 24)
-                                                              | (((value >>> 35 & 0x7F) | 0x80) << 16)
-                                                              | (((value >>> 42 & 0x7F) | 0x80) << 8)
-                                                              | ((value >>> 49 & 0x7F) | 0x80));
+                    | (((value >>> 7 & 0x7F) | 0x80) << 48)
+                    | (((value >>> 14 & 0x7F) | 0x80) << 40)
+                    | (((value >>> 21 & 0x7F) | 0x80) << 32)
+                    | (((value >>> 28 & 0x7F) | 0x80) << 24)
+                    | (((value >>> 35 & 0x7F) | 0x80) << 16)
+                    | (((value >>> 42 & 0x7F) | 0x80) << 8)
+                    | ((value >>> 49 & 0x7F) | 0x80));
             position += 8;
             UnsafeDirectBufferUtil.setShort(address(position), ((((int) (value >>> 56) & 0x7F) | 0x80) << 8)
-                                                               | (int) (value >>> 63));
+                    | (int) (value >>> 63));
             position += 2;
         }
         // ... leaving us with 8 remaining [2, 3, 4, 5, 6, 7, 8, 9]
         else if ((value & (~0L << 14)) == 0) {
             // size == 2
             UnsafeDirectBufferUtil.setShort(address(position), ((((int) value & 0x7F) | 0x80) << 8)
-                                                               | (byte) (value >>> 7));
+                    | (byte) (value >>> 7));
             position += 2;
         } else if ((value & (~0L << 21)) == 0) {
             // size == 3
             UnsafeDirectBufferUtil.setShort(address(position), ((((int) value & 0x7F) | 0x80) << 8)
-                                                               | (((int) value >>> 7 & 0x7F) | 0x80));
+                    | (((int) value >>> 7 & 0x7F) | 0x80));
             position += 2;
             UnsafeDirectBufferUtil.setByte(address(position++), (byte) (value >>> 14));
         } else if ((value & (~0L << 28)) == 0) {
             // size == 4
             UnsafeDirectBufferUtil.setInt(address(position), ((((int) value & 0x7F) | 0x80) << 24)
-                                                             | ((((int) value >>> 7 & 0x7F) | 0x80) << 16)
-                                                             | ((((int) value >>> 14 & 0x7F) | 0x80) << 8)
-                                                             | ((int) (value >>> 21)));
+                    | ((((int) value >>> 7 & 0x7F) | 0x80) << 16)
+                    | ((((int) value >>> 14 & 0x7F) | 0x80) << 8)
+                    | ((int) (value >>> 21)));
             position += 4;
         } else if ((value & (~0L << 35)) == 0) {
             // size == 5
             UnsafeDirectBufferUtil.setInt(address(position), ((((int) value & 0x7F) | 0x80) << 24)
-                                                             | ((((int) value >>> 7 & 0x7F) | 0x80) << 16)
-                                                             | ((((int) value >>> 14 & 0x7F) | 0x80) << 8)
-                                                             | (((int) value >>> 21 & 0x7F) | 0x80));
+                    | ((((int) value >>> 7 & 0x7F) | 0x80) << 16)
+                    | ((((int) value >>> 14 & 0x7F) | 0x80) << 8)
+                    | (((int) value >>> 21 & 0x7F) | 0x80));
             position += 4;
             UnsafeDirectBufferUtil.setByte(address(position++), (byte) (value >>> 28));
         } else if ((value & (~0L << 42)) == 0) {
             // size == 6
             UnsafeDirectBufferUtil.setInt(address(position), ((((int) value & 0x7F) | 0x80) << 24)
-                                                             | ((((int) value >>> 7 & 0x7F) | 0x80) << 16)
-                                                             | ((((int) value >>> 14 & 0x7F) | 0x80) << 8)
-                                                             | (((int) value >>> 21 & 0x7F) | 0x80));
+                    | ((((int) value >>> 7 & 0x7F) | 0x80) << 16)
+                    | ((((int) value >>> 14 & 0x7F) | 0x80) << 8)
+                    | (((int) value >>> 21 & 0x7F) | 0x80));
             position += 4;
             UnsafeDirectBufferUtil.setShort(address(position), ((((int) (value >>> 28) & 0x7F) | 0x80) << 8)
-                                                               | (int) (value >>> 35));
+                    | (int) (value >>> 35));
             position += 2;
         } else if ((value & (~0L << 49)) == 0) {
             // size == 7
             UnsafeDirectBufferUtil.setInt(address(position), ((((int) value & 0x7F) | 0x80) << 24)
-                                                             | ((((int) value >>> 7 & 0x7F) | 0x80) << 16)
-                                                             | ((((int) value >>> 14 & 0x7F) | 0x80) << 8)
-                                                             | (((int) value >>> 21 & 0x7F) | 0x80));
+                    | ((((int) value >>> 7 & 0x7F) | 0x80) << 16)
+                    | ((((int) value >>> 14 & 0x7F) | 0x80) << 8)
+                    | (((int) value >>> 21 & 0x7F) | 0x80));
             position += 4;
             UnsafeDirectBufferUtil.setShort(address(position), ((((int) (value >>> 28) & 0x7F) | 0x80) << 8)
-                                                               | (((int) (value >>> 35) & 0x7F) | 0x80));
+                    | (((int) (value >>> 35) & 0x7F) | 0x80));
             position += 2;
             UnsafeDirectBufferUtil.setByte(address(position++), (byte) (value >>> 42));
         } else if ((value & (~0L << 56)) == 0) {
             // size == 8
             UnsafeDirectBufferUtil.setLong(address(position), (((value & 0x7F) | 0x80) << 56)
-                                                              | (((value >>> 7 & 0x7F) | 0x80) << 48)
-                                                              | (((value >>> 14 & 0x7F) | 0x80) << 40)
-                                                              | (((value >>> 21 & 0x7F) | 0x80) << 32)
-                                                              | (((value >>> 28 & 0x7F) | 0x80) << 24)
-                                                              | (((value >>> 35 & 0x7F) | 0x80) << 16)
-                                                              | (((value >>> 42 & 0x7F) | 0x80) << 8) | (value >>> 49));
+                    | (((value >>> 7 & 0x7F) | 0x80) << 48)
+                    | (((value >>> 14 & 0x7F) | 0x80) << 40)
+                    | (((value >>> 21 & 0x7F) | 0x80) << 32)
+                    | (((value >>> 28 & 0x7F) | 0x80) << 24)
+                    | (((value >>> 35 & 0x7F) | 0x80) << 16)
+                    | (((value >>> 42 & 0x7F) | 0x80) << 8) | (value >>> 49));
             position += 8;
         } else {
             // size == 9 (value & (~0L << 63)) == 0
             UnsafeDirectBufferUtil.setLong(address(position), (((value & 0x7F) | 0x80) << 56)
-                                                              | (((value >>> 7 & 0x7F) | 0x80) << 48)
-                                                              | (((value >>> 14 & 0x7F) | 0x80) << 40)
-                                                              | (((value >>> 21 & 0x7F) | 0x80) << 32)
-                                                              | (((value >>> 28 & 0x7F) | 0x80) << 24)
-                                                              | (((value >>> 35 & 0x7F) | 0x80) << 16)
-                                                              | (((value >>> 42 & 0x7F) | 0x80) << 8)
-                                                              | ((value >>> 49 & 0x7F) | 0x80));
+                    | (((value >>> 7 & 0x7F) | 0x80) << 48)
+                    | (((value >>> 14 & 0x7F) | 0x80) << 40)
+                    | (((value >>> 21 & 0x7F) | 0x80) << 32)
+                    | (((value >>> 28 & 0x7F) | 0x80) << 24)
+                    | (((value >>> 35 & 0x7F) | 0x80) << 16)
+                    | (((value >>> 42 & 0x7F) | 0x80) << 8)
+                    | ((value >>> 49 & 0x7F) | 0x80));
             position += 8;
             UnsafeDirectBufferUtil.setByte(address(position++), (byte) (value >>> 56));
         }
@@ -288,7 +287,7 @@ class UnsafeNioBufOutput extends NioBufOutput {
             while (capacity - position < required) {
                 if (capacity == maxCapacity) {
                     throw new ProtocolException("Buffer overflow. Available: " + (capacity - position) + ", required: "
-                                                + required);
+                            + required);
                 }
                 capacity = Math.min(capacity << 1, maxCapacity);
                 if (capacity < 0) {

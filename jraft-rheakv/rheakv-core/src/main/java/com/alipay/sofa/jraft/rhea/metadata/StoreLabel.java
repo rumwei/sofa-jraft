@@ -29,8 +29,8 @@ public class StoreLabel implements Copiable<StoreLabel>, Serializable {
 
     private static final long serialVersionUID = 5672444723199723795L;
 
-    private String            key;
-    private String            value;
+    private String key;
+    private String value;
 
     public StoreLabel() {
     }

@@ -28,12 +28,11 @@ import com.alipay.sofa.jraft.rhea.util.pipeline.event.OutboundMessageEvent;
 import com.alipay.sofa.jraft.util.ExecutorServiceHelper;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class DefaultHandlerInvoker implements HandlerInvoker {
 
-    private static final Logger   LOG = LoggerFactory.getLogger(DefaultHandlerInvoker.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultHandlerInvoker.class);
 
     private final ExecutorService executor;
 
@@ -83,7 +82,7 @@ public class DefaultHandlerInvoker implements HandlerInvoker {
                 if (LOG.isWarnEnabled()) {
                     LOG.warn("Failed to submit an exceptionCaught() event: {}.", StackTraceUtil.stackTrace(t));
                     LOG.warn("The exceptionCaught() event that was failed to submit was: {}.",
-                        StackTraceUtil.stackTrace(cause));
+                            StackTraceUtil.stackTrace(cause));
                 }
             }
         }

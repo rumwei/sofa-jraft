@@ -23,7 +23,6 @@ import com.alipay.sofa.jraft.option.RpcOptions;
 import com.alipay.sofa.jraft.util.Endpoint;
 
 /**
- *
  * @author jiachun.fjc
  */
 public interface RpcClient extends Lifecycle<RpcOptions> {
@@ -38,6 +37,7 @@ public interface RpcClient extends Lifecycle<RpcOptions> {
 
     /**
      * Check connection for given address and async to create a new one if there is no connection.
+     *
      * @param endpoint       target address
      * @param createIfAbsent create a new one if there is no connection
      * @return true if there is a connection and the connection is active and writable.

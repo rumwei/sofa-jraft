@@ -28,31 +28,31 @@ import com.alipay.sofa.jraft.util.internal.Updaters;
 /**
  * A list implementation based on segments. Only supports removing elements from start or end.
  * The list keep the elements in a segment list, every segment contains at most 128 elements.
+ * <p>
+ * [segment, segment, segment ...]
+ * /                 |                    \
+ * segment             segment              segment
+ * [0, 1 ... 127]    [128, 129 ... 255]    [256, 257 ... 383]
  *
- *                [segment, segment, segment ...]
- *             /                 |                    \
- *         segment             segment              segment
- *      [0, 1 ... 127]    [128, 129 ... 255]    [256, 257 ... 383]
- *
- * @author boyan(boyan@antfin.com)
+ * @author boyan(boyan @ antfin.com)
  * @since 1.3.1
- *
  */
 public class SegmentList<T> {
-    private static final int             SEGMENT_SHIFT = 7;
-    public static final int              SEGMENT_SIZE  = 2 << (SEGMENT_SHIFT - 1);
+    private static final int SEGMENT_SHIFT = 7;
+    public static final int SEGMENT_SIZE = 2 << (SEGMENT_SHIFT - 1);
 
     private final ArrayDeque<Segment<T>> segments;
 
-    private int                          size;
+    private int size;
 
     // Cached offset in first segment.
-    private int                          firstOffset;
+    private int firstOffset;
 
-    private final boolean                recycleSegment;
+    private final boolean recycleSegment;
 
     /**
      * Create a new SegmentList
+     *
      * @param recycleSegment true to enable recycling segment, only effective in same thread.
      */
     public SegmentList(final boolean recycleSegment) {
@@ -64,18 +64,18 @@ public class SegmentList<T> {
 
     /**
      * A recyclable segment.
-     * @author boyan(boyan@antfin.com)
      *
      * @param <T>
+     * @author boyan(boyan @ antfin.com)
      */
     private final static class Segment<T> implements Recyclable {
         private static final Recyclers<Segment<?>> recyclers = new Recyclers<Segment<?>>(16_382 / SEGMENT_SIZE) {
 
-                                                                 @Override
-                                                                 protected Segment<?> newObject(final Handle handle) {
-                                                                     return new Segment<>(handle);
-                                                                 }
-                                                             };
+            @Override
+            protected Segment<?> newObject(final Handle handle) {
+                return new Segment<>(handle);
+            }
+        };
 
         public static Segment<?> newInstance(final boolean recycleSegment) {
             if (recycleSegment) {
@@ -87,9 +87,9 @@ public class SegmentList<T> {
 
         private transient Recyclers.Handle handle;
 
-        final T[]                          elements;
-        int                                pos;     // end offset(exclusive)
-        int                                offset;  // start offset(inclusive)
+        final T[] elements;
+        int pos;     // end offset(exclusive)
+        int offset;  // start offset(inclusive)
 
         Segment() {
             this(Recyclers.NOOP_HANDLE);
@@ -318,7 +318,6 @@ public class SegmentList<T> {
     }
 
     /**
-     *
      * Removes from this list all of the elements whose index is between
      * 0, inclusive, and {@code toIndex}, exclusive.
      * Shifts any succeeding elements to the left (reduces their index).
@@ -348,9 +347,9 @@ public class SegmentList<T> {
     }
 
     private static final ReferenceFieldUpdater<ArrayList<?>, Object[]> LIST_ARRAY_GETTER = Updaters
-                                                                                             .newReferenceFieldUpdater(
-                                                                                                 ArrayList.class,
-                                                                                                 "elementData");
+            .newReferenceFieldUpdater(
+                    ArrayList.class,
+                    "elementData");
 
     @SuppressWarnings("unchecked")
     public void addAll(final Collection<T> coll) {
@@ -386,7 +385,7 @@ public class SegmentList<T> {
     @Override
     public String toString() {
         return "SegmentList [segments=" + this.segments + ", size=" + this.size + ", firstOffset=" + this.firstOffset
-               + "]";
+                + "]";
     }
 
 }

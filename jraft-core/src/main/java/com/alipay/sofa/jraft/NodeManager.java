@@ -35,16 +35,16 @@ import com.alipay.sofa.jraft.util.concurrent.ConcurrentHashSet;
  * Raft nodes manager.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Mar-22 5:58:23 PM
  */
 public class NodeManager {
 
-    private static final NodeManager                INSTANCE = new NodeManager();
+    private static final NodeManager INSTANCE = new NodeManager();
 
-    private final ConcurrentMap<NodeId, Node>       nodeMap  = new ConcurrentHashMap<>();
+    private final ConcurrentMap<NodeId, Node> nodeMap = new ConcurrentHashMap<>();
     private final ConcurrentMap<String, List<Node>> groupMap = new ConcurrentHashMap<>();
-    private final ConcurrentHashSet<Endpoint>       addrSet  = new ConcurrentHashSet<>();
+    private final ConcurrentHashSet<Endpoint> addrSet = new ConcurrentHashSet<>();
 
     public static NodeManager getInstance() {
         return INSTANCE;

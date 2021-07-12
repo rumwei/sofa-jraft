@@ -41,9 +41,9 @@ import com.google.protobuf.Message;
 @RunWith(value = MockitoJUnitRunner.class)
 public abstract class AbstractCliRequestProcessorTest<T extends Message> {
     @Mock
-    private Node               node;
-    private final String       groupId   = "test";
-    private final String       peerIdStr = "localhost:8081";
+    private Node node;
+    private final String groupId = "test";
+    private final String peerIdStr = "localhost:8081";
     protected MockAsyncContext asyncContext;
 
     public abstract T createRequest(String groupId, PeerId peerId);

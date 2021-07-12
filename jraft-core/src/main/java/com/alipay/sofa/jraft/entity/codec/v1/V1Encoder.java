@@ -30,8 +30,8 @@ import com.alipay.sofa.jraft.util.Bits;
 
 /**
  * V1 log entry encoder
- * @author boyan(boyan@antfin.com)
  *
+ * @author boyan(boyan @ antfin.com)
  */
 @Deprecated
 public final class V1Encoder implements LogEntryEncoder {

@@ -67,7 +67,7 @@ public class ConfigurationManagerTest {
         assertSame(confEntry2, this.confManager.get(2));
 
         ConfigurationEntry confEntry3 = TestUtils.getConfEntry("localhost:8080,localhost:8081,localhost:8082",
-            "localhost:8080,localhost:8081");
+                "localhost:8080,localhost:8081");
         confEntry3.setId(new LogId(2, 1));
         assertTrue(this.confManager.add(confEntry3));
 

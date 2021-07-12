@@ -30,7 +30,7 @@ public class AtomicClientTest {
     public static void main(String[] args) throws Exception {
         final RouteTable table = RouteTable.getInstance();
         table.updateConfiguration("atomic_0",
-            JRaftUtils.getConfiguration("127.0.0.1:8609,127.0.0.1:8610,127.0.0.1:8611"));
+                JRaftUtils.getConfiguration("127.0.0.1:8609,127.0.0.1:8610,127.0.0.1:8611"));
         final CliClientServiceImpl cliClientService = new CliClientServiceImpl();
         cliClientService.init(new CliOptions());
         final Status st = table.refreshLeader(cliClientService, "atomic_0", 10000);

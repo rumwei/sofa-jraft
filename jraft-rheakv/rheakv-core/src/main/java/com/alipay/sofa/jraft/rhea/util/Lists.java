@@ -65,7 +65,7 @@ public final class Lists {
     public static <E> ArrayList<E> newArrayList(final Iterable<? extends E> elements) {
         Requires.requireNonNull(elements, "elements");
         return elements instanceof Collection ? new ArrayList((Collection<E>) elements) : newArrayList(elements
-            .iterator());
+                .iterator());
     }
 
     /**
@@ -95,14 +95,14 @@ public final class Lists {
      */
     public static <F, T> List<T> transform(final List<F> fromList, final Function<? super F, ? extends T> function) {
         return (fromList instanceof RandomAccess) ? new TransformingRandomAccessList<>(fromList, function)
-            : new TransformingSequentialList<>(fromList, function);
+                : new TransformingSequentialList<>(fromList, function);
     }
 
     private static class TransformingRandomAccessList<F, T> extends AbstractList<T> implements RandomAccess,
-                                                                                   Serializable {
-        private static final long              serialVersionUID = 0;
+            Serializable {
+        private static final long serialVersionUID = 0;
 
-        final List<F>                          fromList;
+        final List<F> fromList;
         final Function<? super F, ? extends T> function;
 
         TransformingRandomAccessList(List<F> fromList, Function<? super F, ? extends T> function) {
@@ -137,9 +137,9 @@ public final class Lists {
     }
 
     private static class TransformingSequentialList<F, T> extends AbstractSequentialList<T> implements Serializable {
-        private static final long              serialVersionUID = 0;
+        private static final long serialVersionUID = 0;
 
-        final List<F>                          fromList;
+        final List<F> fromList;
         final Function<? super F, ? extends T> function;
 
         TransformingSequentialList(List<F> fromList, Function<? super F, ? extends T> function) {

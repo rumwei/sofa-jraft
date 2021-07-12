@@ -19,7 +19,6 @@ package com.alipay.sofa.jraft.rhea.util.pipeline.future;
 import java.util.concurrent.CompletionStage;
 
 /**
- *
  * @author jiachun.fjc
  */
 public interface PipelineFuture<V> extends CompletionStage<V> {

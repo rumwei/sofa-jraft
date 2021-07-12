@@ -24,7 +24,7 @@ import com.alipay.sofa.jraft.storage.snapshot.SnapshotWriter;
  * Save snapshot closure
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-04 2:21:30 PM
  */
 public interface SaveSnapshotClosure extends Closure {

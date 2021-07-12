@@ -18,7 +18,7 @@ package com.alipay.sofa.jraft.util.concurrent;
 
 /**
  * Similar to {@link java.util.concurrent.RejectedExecutionHandler} but specific to {@link SingleThreadExecutor}.
- *
+ * <p>
  * Reference from netty project.
  *
  * @author jiachun.fjc

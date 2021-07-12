@@ -19,15 +19,14 @@ package com.alipay.sofa.jraft.rhea.cmd.store;
 import com.alipay.sofa.jraft.util.BytesUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class GetRequest extends BaseRequest {
 
     private static final long serialVersionUID = -864939889102077919L;
 
-    private byte[]            key;
-    private boolean           readOnlySafe     = true;
+    private byte[] key;
+    private boolean readOnlySafe = true;
 
     public byte[] getKey() {
         return key;
@@ -53,6 +52,6 @@ public class GetRequest extends BaseRequest {
     @Override
     public String toString() {
         return "GetRequest{" + "key=" + BytesUtil.toHex(key) + ", readOnlySafe=" + readOnlySafe + "} "
-               + super.toString();
+                + super.toString();
     }
 }

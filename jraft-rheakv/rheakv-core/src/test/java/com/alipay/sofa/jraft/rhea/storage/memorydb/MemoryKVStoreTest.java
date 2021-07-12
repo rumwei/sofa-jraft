@@ -830,7 +830,7 @@ public class MemoryKVStoreTest extends BaseKVStoreTest {
         approximateKeys = this.kvStore.getApproximateKeysInRange(null, makeKey("approximate_test" + 9999));
         assertEquals(10000, approximateKeys, 1);
         approximateKeys = this.kvStore.getApproximateKeysInRange(makeKey("approximate_test" + 9990),
-            makeKey("approximate_test" + 9999));
+                makeKey("approximate_test" + 9999));
         assertEquals(10, approximateKeys, 1);
     }
 
@@ -849,7 +849,7 @@ public class MemoryKVStoreTest extends BaseKVStoreTest {
     @Test
     public void initFencingTokenTest() throws Exception {
         final Method getNextFencingMethod = MemoryRawKVStore.class.getDeclaredMethod("getNextFencingToken",
-            byte[].class);
+                byte[].class);
         getNextFencingMethod.setAccessible(true);
         final List<byte[]> parentKeys = Lists.newArrayList();
         parentKeys.add(null); // startKey == null

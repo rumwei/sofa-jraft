@@ -25,7 +25,7 @@ public class CreateRegionIdRequest extends BaseRequest {
 
     private static final long serialVersionUID = -2166959562654571711L;
 
-    private Endpoint          endpoint;
+    private Endpoint endpoint;
 
     public Endpoint getEndpoint() {
         return endpoint;

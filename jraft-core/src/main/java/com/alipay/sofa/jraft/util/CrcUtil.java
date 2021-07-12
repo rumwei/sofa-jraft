@@ -21,7 +21,7 @@ import java.nio.ByteBuffer;
 /**
  * CRC utilities to compute CRC64 checksum.
  *
- * @author boyan(boyan@antfin.com)
+ * @author boyan(boyan @ antfin.com)
  */
 public final class CrcUtil {
 

@@ -20,7 +20,6 @@ import com.alipay.sofa.jraft.rhea.options.RocksDBOptions;
 import com.alipay.sofa.jraft.rhea.util.Configured;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class RocksDBOptionsConfigured implements Configured<RocksDBOptions> {

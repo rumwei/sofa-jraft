@@ -17,7 +17,6 @@
 package com.alipay.sofa.jraft.error;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class JRaftException extends RuntimeException {

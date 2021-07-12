@@ -21,20 +21,19 @@ import java.util.List;
 import com.alipay.sofa.jraft.option.CliOptions;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class PlacementDriverOptions {
 
-    private boolean                       fake;
-    private CliOptions                    cliOptions;
-    private RpcOptions                    pdRpcOptions;
+    private boolean fake;
+    private CliOptions cliOptions;
+    private RpcOptions pdRpcOptions;
     // placement driver raft group id
-    private String                        pdGroupId;
+    private String pdGroupId;
     private List<RegionRouteTableOptions> regionRouteTableOptionsList;
-    private String                        initialServerList;
+    private String initialServerList;
     // placement driver server address list, with ',' as a separator
-    private String                        initialPdServerList;
+    private String initialPdServerList;
 
     public boolean isFake() {
         return fake;
@@ -95,8 +94,8 @@ public class PlacementDriverOptions {
     @Override
     public String toString() {
         return "PlacementDriverOptions{" + "fake=" + fake + ", cliOptions=" + cliOptions + ", pdRpcOptions="
-               + pdRpcOptions + ", pdGroupId='" + pdGroupId + '\'' + ", regionRouteTableOptionsList="
-               + regionRouteTableOptionsList + ", initialServerList='" + initialServerList + '\''
-               + ", initialPdServerList='" + initialPdServerList + '\'' + '}';
+                + pdRpcOptions + ", pdGroupId='" + pdGroupId + '\'' + ", regionRouteTableOptionsList="
+                + regionRouteTableOptionsList + ", initialServerList='" + initialServerList + '\''
+                + ", initialPdServerList='" + initialPdServerList + '\'' + '}';
     }
 }

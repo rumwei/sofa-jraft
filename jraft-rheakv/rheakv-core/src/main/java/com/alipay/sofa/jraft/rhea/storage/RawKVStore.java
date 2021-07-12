@@ -31,7 +31,7 @@ public interface RawKVStore {
     /**
      * Returns a heap-allocated iterator over the contents of the
      * database.
-     *
+     * <p>
      * Caller should close the iterator when it is no longer needed.
      * The returned iterator should be closed before this db is closed.
      *
@@ -55,7 +55,7 @@ public interface RawKVStore {
      * Get which returns a new byte array storing the value associated
      * with the specified input key if any.  null will be returned if
      * the specified key is not found.
-     *
+     * <p>
      * Provide consistent reading if {@code readOnlySafe} is true.
      */
     void get(final byte[] key, final boolean readOnlySafe, final KVStoreClosure closure);
@@ -67,10 +67,10 @@ public interface RawKVStore {
 
     /**
      * Returns a map of keys for which values were found in DB.
-     *
+     * <p>
      * The performance is similar to get(), multiGet() reads from the
      * same consistent view, but it is not faster.
-     *
+     * <p>
      * Provide consistent reading if {@code readOnlySafe} is true.
      */
     void multiGet(final List<byte[]> keys, final boolean readOnlySafe, final KVStoreClosure closure);
@@ -110,9 +110,9 @@ public interface RawKVStore {
     /**
      * Query all data in the key range of [startKey, endKey),
      * {@code limit} is the max number of keys.
-     *
+     * <p>
      * Provide consistent reading if {@code readOnlySafe} is true.
-     *
+     * <p>
      * Only return keys(ignore values) if {@code returnValue} is false.
      */
     void scan(final byte[] startKey, final byte[] endKey, final int limit, final boolean readOnlySafe,
@@ -149,9 +149,9 @@ public interface RawKVStore {
     /**
      * Reverse query all data in the key range of [startKey, endKey),
      * {@code limit} is the max number of keys.
-     *
+     * <p>
      * Provide consistent reading if {@code readOnlySafe} is true.
-     *
+     * <p>
      * Only return keys(ignore values) if {@code returnValue} is false.
      */
     void reverseScan(final byte[] startKey, final byte[] endKey, final int limit, final boolean readOnlySafe,
@@ -159,7 +159,7 @@ public interface RawKVStore {
 
     /**
      * Get a globally unique auto-increment sequence.
-     *
+     * <p>
      * Be careful do not to try to get or update the value of {@code seqKey}
      * by other methods, you won't get it.
      */
@@ -191,7 +191,7 @@ public interface RawKVStore {
     /**
      * Add merge operand for key/value pair.
      *
-     *  <pre>
+     * <pre>
      *     // Writing aa under key
      *     db.put("key", "aa");
      *

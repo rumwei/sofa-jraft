@@ -36,9 +36,9 @@ public class ChangePeersRequestProcessorTest extends AbstractCliRequestProcessor
     @Override
     public ChangePeersRequest createRequest(String groupId, PeerId peerId) {
         return ChangePeersRequest.newBuilder(). //
-            setGroupId(groupId). //
-            setLeaderId(peerId.toString()). //
-            addNewPeers("localhost:8084").addNewPeers("localhost:8085").build();
+                setGroupId(groupId). //
+                setLeaderId(peerId.toString()). //
+                addNewPeers("localhost:8084").addNewPeers("localhost:8085").build();
     }
 
     @Override
@@ -50,15 +50,15 @@ public class ChangePeersRequestProcessorTest extends AbstractCliRequestProcessor
     public void verify(String interest, Node node, ArgumentCaptor<Closure> doneArg) {
         assertEquals(interest, ChangePeersRequest.class.getName());
         Mockito.verify(node).changePeers(eq(JRaftUtils.getConfiguration("localhost:8084,localhost:8085")),
-            doneArg.capture());
+                doneArg.capture());
         Closure done = doneArg.getValue();
         assertNotNull(done);
         done.run(Status.OK());
         assertNotNull(this.asyncContext.getResponseObject());
         assertEquals("[localhost:8081, localhost:8082, localhost:8083]", this.asyncContext
-            .as(ChangePeersResponse.class).getOldPeersList().toString());
+                .as(ChangePeersResponse.class).getOldPeersList().toString());
         assertEquals("[localhost:8084, localhost:8085]", this.asyncContext.as(ChangePeersResponse.class)
-            .getNewPeersList().toString());
+                .getNewPeersList().toString());
     }
 
 }

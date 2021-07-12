@@ -39,7 +39,7 @@ import com.alipay.sofa.jraft.util.internal.UnsafeUtil;
 public final class Maps {
 
     private static final boolean USE_NON_BLOCKING_HASH = SystemPropertyUtil.getBoolean("rhea.use.non_blocking_hash",
-                                                           true);
+            true);
 
     /**
      * Creates a mutable, empty {@code HashMap} instance.

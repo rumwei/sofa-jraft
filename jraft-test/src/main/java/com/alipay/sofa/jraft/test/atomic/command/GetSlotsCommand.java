@@ -20,14 +20,15 @@ import java.io.Serializable;
 
 /**
  * Get total slots command
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-May-02 11:36:30 AM
  */
 public class GetSlotsCommand implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -2970750203095468019L;
 

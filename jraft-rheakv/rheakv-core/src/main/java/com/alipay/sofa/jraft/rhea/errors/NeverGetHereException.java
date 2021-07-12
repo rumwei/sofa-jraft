@@ -21,9 +21,9 @@ package com.alipay.sofa.jraft.rhea.errors;
  */
 public final class NeverGetHereException extends RuntimeException {
 
-    private static final long                 serialVersionUID = 1526796993531347794L;
+    private static final long serialVersionUID = 1526796993531347794L;
 
-    public static final NeverGetHereException INSTANCE         = new NeverGetHereException();
+    public static final NeverGetHereException INSTANCE = new NeverGetHereException();
 
     private NeverGetHereException() {
     }

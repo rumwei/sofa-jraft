@@ -18,10 +18,12 @@ package com.alipay.sofa.jraft.example.counter;
 
 import static com.alipay.sofa.jraft.example.counter.CounterOperation.GET;
 import static com.alipay.sofa.jraft.example.counter.CounterOperation.INCREMENT;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.concurrent.atomic.AtomicLong;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.alipay.remoting.exception.CodecException;
@@ -41,21 +43,21 @@ import com.alipay.sofa.jraft.util.Utils;
  * Counter state machine.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-09 4:52:31 PM
  */
 public class CounterStateMachine extends StateMachineAdapter {
 
-    private static final Logger LOG        = LoggerFactory.getLogger(CounterStateMachine.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CounterStateMachine.class);
 
     /**
      * Counter value
      */
-    private final AtomicLong    value      = new AtomicLong(0);
+    private final AtomicLong value = new AtomicLong(0);
     /**
      * Leader term
      */
-    private final AtomicLong    leaderTerm = new AtomicLong(-1);
+    private final AtomicLong leaderTerm = new AtomicLong(-1);
 
     public boolean isLeader() {
         return this.leaderTerm.get() > 0;
@@ -84,7 +86,7 @@ public class CounterStateMachine extends StateMachineAdapter {
                 final ByteBuffer data = iter.getData();
                 try {
                     counterOperation = SerializerManager.getSerializer(SerializerManager.Hessian2).deserialize(
-                        data.array(), CounterOperation.class.getName());
+                            data.array(), CounterOperation.class.getName());
                 } catch (final CodecException e) {
                     LOG.error("Fail to decode IncrementAndGetRequest", e);
                 }
@@ -113,21 +115,21 @@ public class CounterStateMachine extends StateMachineAdapter {
     }
 
     @Override
-  public void onSnapshotSave(final SnapshotWriter writer, final Closure done) {
-    final long currVal = this.value.get();
-    Utils.runInThread(() -> {
-      final CounterSnapshotFile snapshot = new CounterSnapshotFile(writer.getPath() + File.separator + "data");
-      if (snapshot.save(currVal)) {
-        if (writer.addFile("data")) {
-          done.run(Status.OK());
-        } else {
-          done.run(new Status(RaftError.EIO, "Fail to add file to writer"));
-        }
-      } else {
-        done.run(new Status(RaftError.EIO, "Fail to save counter snapshot %s", snapshot.getPath()));
-      }
-    });
-  }
+    public void onSnapshotSave(final SnapshotWriter writer, final Closure done) {
+        final long currVal = this.value.get();
+        Utils.runInThread(() -> {
+            final CounterSnapshotFile snapshot = new CounterSnapshotFile(writer.getPath() + File.separator + "data");
+            if (snapshot.save(currVal)) {
+                if (writer.addFile("data")) {
+                    done.run(Status.OK());
+                } else {
+                    done.run(new Status(RaftError.EIO, "Fail to add file to writer"));
+                }
+            } else {
+                done.run(new Status(RaftError.EIO, "Fail to save counter snapshot %s", snapshot.getPath()));
+            }
+        });
+    }
 
     @Override
     public void onError(final RaftException e) {

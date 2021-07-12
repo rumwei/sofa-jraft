@@ -17,7 +17,6 @@
 package com.alipay.sofa.jraft.rhea.cmd.pd;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class StoreHeartbeatResponse extends BaseResponse<Object> {

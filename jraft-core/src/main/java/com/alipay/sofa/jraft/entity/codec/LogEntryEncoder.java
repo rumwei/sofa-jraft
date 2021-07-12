@@ -21,13 +21,14 @@ import com.alipay.sofa.jraft.entity.LogEntry;
 /**
  * Log entry encoder
  *
- * @author boyan(boyan@antfin.com)
+ * @author boyan(boyan @ antfin.com)
  * @since 1.2.6
  */
 public interface LogEntryEncoder {
 
     /**
      * Encode a log entry into a byte array.
+     *
      * @param log log entry
      * @return encoded byte array
      */

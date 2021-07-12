@@ -17,7 +17,6 @@
 package com.alipay.sofa.jraft.rhea.cmd.store;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class DeleteRangeResponse extends BaseResponse<Boolean> {

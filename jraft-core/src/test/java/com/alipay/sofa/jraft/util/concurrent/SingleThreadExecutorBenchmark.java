@@ -45,7 +45,6 @@ import com.alipay.sofa.jraft.util.NamedThreadFactory;
 import com.alipay.sofa.jraft.util.ThreadPoolUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 @State(Scope.Benchmark)
@@ -53,10 +52,10 @@ import com.alipay.sofa.jraft.util.ThreadPoolUtil;
 @OutputTimeUnit(TimeUnit.SECONDS)
 public class SingleThreadExecutorBenchmark {
 
-    private static final int TIMES   = 1000000;
+    private static final int TIMES = 1000000;
     private static final int THREADS = 32;
 
-    private ExecutorService  producers;
+    private ExecutorService producers;
 
     /*
      * Benchmark                                                                         Mode  Cnt  Score   Error  Units
@@ -78,11 +77,11 @@ public class SingleThreadExecutorBenchmark {
 
     public static void main(String[] args) throws RunnerException {
         final Options opt = new OptionsBuilder() //
-            .include(SingleThreadExecutorBenchmark.class.getSimpleName()) //
-            .warmupIterations(3) //
-            .measurementIterations(10) //
-            .forks(1) //
-            .build();
+                .include(SingleThreadExecutorBenchmark.class.getSimpleName()) //
+                .warmupIterations(3) //
+                .measurementIterations(10) //
+                .forks(1) //
+                .build();
 
         new Runner(opt).run();
     }
@@ -100,7 +99,7 @@ public class SingleThreadExecutorBenchmark {
     @Benchmark
     public void nettyDefaultEventExecutor() throws InterruptedException {
         execute(new DefaultSingleThreadExecutor(
-            new DefaultEventExecutor(new NamedThreadFactory("netty_executor", true))));
+                new DefaultEventExecutor(new NamedThreadFactory("netty_executor", true))));
     }
 
     @Benchmark
@@ -156,13 +155,13 @@ public class SingleThreadExecutorBenchmark {
 
     private static ExecutorService newProducers() {
         return ThreadPoolUtil.newBuilder() //
-            .coreThreads(THREADS) //
-            .maximumThreads(THREADS) //
-            .poolName("benchmark") //
-            .enableMetric(false) //
-            .workQueue(new ArrayBlockingQueue<>(TIMES)) //
-            .keepAliveSeconds(60L) //
-            .threadFactory(new NamedThreadFactory("benchmark", true)) //
-            .build();
+                .coreThreads(THREADS) //
+                .maximumThreads(THREADS) //
+                .poolName("benchmark") //
+                .enableMetric(false) //
+                .workQueue(new ArrayBlockingQueue<>(TIMES)) //
+                .keepAliveSeconds(60L) //
+                .threadFactory(new NamedThreadFactory("benchmark", true)) //
+                .build();
     }
 }

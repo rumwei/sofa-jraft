@@ -51,7 +51,7 @@ import com.google.protobuf.Message;
 
 /**
  * Abstract RPC client service based.
-
+ *
  * @author boyan (boyan@alibaba-inc.com)
  * @author jiachun.fjc
  */
@@ -63,9 +63,9 @@ public abstract class AbstractClientService implements ClientService {
         ProtobufMsgFactory.load();
     }
 
-    protected volatile RpcClient  rpcClient;
-    protected ThreadPoolExecutor  rpcExecutor;
-    protected RpcOptions          rpcOptions;
+    protected volatile RpcClient rpcClient;
+    protected ThreadPoolExecutor rpcExecutor;
+    protected RpcOptions rpcOptions;
 
     public RpcClient getRpcClient() {
         return this.rpcClient;
@@ -109,17 +109,17 @@ public abstract class AbstractClientService implements ClientService {
         configRpcClient(this.rpcClient);
         this.rpcClient.init(null);
         this.rpcExecutor = ThreadPoolUtil.newBuilder() //
-            .poolName("JRaft-RPC-Processor") //
-            .enableMetric(true) //
-            .coreThreads(rpcProcessorThreadPoolSize / 3) //
-            .maximumThreads(rpcProcessorThreadPoolSize) //
-            .keepAliveSeconds(60L) //
-            .workQueue(new ArrayBlockingQueue<>(10000)) //
-            .threadFactory(new NamedThreadFactory("JRaft-RPC-Processor-", true)) //
-            .build();
+                .poolName("JRaft-RPC-Processor") //
+                .enableMetric(true) //
+                .coreThreads(rpcProcessorThreadPoolSize / 3) //
+                .maximumThreads(rpcProcessorThreadPoolSize) //
+                .keepAliveSeconds(60L) //
+                .workQueue(new ArrayBlockingQueue<>(10000)) //
+                .threadFactory(new NamedThreadFactory("JRaft-RPC-Processor-", true)) //
+                .build();
         if (this.rpcOptions.getMetricRegistry() != null) {
             this.rpcOptions.getMetricRegistry().register("raft-rpc-client-thread-pool",
-                new ThreadPoolMetricSet(this.rpcExecutor));
+                    new ThreadPoolMetricSet(this.rpcExecutor));
             Utils.registerClosureExecutorMetrics(this.rpcOptions.getMetricRegistry());
         }
         return true;
@@ -145,10 +145,10 @@ public abstract class AbstractClientService implements ClientService {
         }
         try {
             final PingRequest req = PingRequest.newBuilder() //
-                .setSendTimestamp(System.currentTimeMillis()) //
-                .build();
+                    .setSendTimestamp(System.currentTimeMillis()) //
+                    .build();
             final ErrorResponse resp = (ErrorResponse) rc.invokeSync(endpoint, req,
-                this.rpcOptions.getRpcConnectTimeoutMs());
+                    this.rpcOptions.getRpcConnectTimeoutMs());
             return resp.getErrorCode() == 0;
         } catch (final InterruptedException e) {
             Thread.currentThread().interrupt();
@@ -200,13 +200,13 @@ public abstract class AbstractClientService implements ClientService {
                 future.failure(new IllegalStateException("Client service is uninitialized."));
                 // should be in another thread to avoid dead locking.
                 RpcUtils.runClosureInExecutor(currExecutor, done, new Status(RaftError.EINTERNAL,
-                    "Client service is uninitialized."));
+                        "Client service is uninitialized."));
                 return future;
             }
 
             rc.invokeAsync(endpoint, request, ctx, new InvokeCallback() {
 
-                @SuppressWarnings({ "unchecked", "ConstantConditions" })
+                @SuppressWarnings({"unchecked", "ConstantConditions"})
                 @Override
                 public void complete(final Object result, final Throwable err) {
                     if (future.isCancelled()) {
@@ -222,7 +222,7 @@ public abstract class AbstractClientService implements ClientService {
                             msg = (Message) result;
                         } else if (result instanceof Message) {
                             final Descriptors.FieldDescriptor fd = ((Message) result).getDescriptorForType() //
-                                .findFieldByNumber(RpcResponseFactory.ERROR_RESPONSE_NUM);
+                                    .findFieldByNumber(RpcResponseFactory.ERROR_RESPONSE_NUM);
                             if (fd != null && ((Message) result).hasField(fd)) {
                                 final ErrorResponse eResp = (ErrorResponse) ((Message) result).getField(fd);
                                 status = handleErrorResponse(eResp);
@@ -250,7 +250,7 @@ public abstract class AbstractClientService implements ClientService {
                         if (done != null) {
                             try {
                                 done.run(new Status(err instanceof InvokeTimeoutException ? RaftError.ETIMEDOUT
-                                    : RaftError.EINTERNAL, "RPC exception:" + err.getMessage()));
+                                        : RaftError.EINTERNAL, "RPC exception:" + err.getMessage()));
                             } catch (final Throwable t) {
                                 LOG.error("Fail to run RpcResponseClosure, the request is {}.", request, t);
                             }
@@ -271,12 +271,12 @@ public abstract class AbstractClientService implements ClientService {
             future.failure(e);
             // should be in another thread to avoid dead locking.
             RpcUtils.runClosureInExecutor(currExecutor, done,
-                new Status(RaftError.EINTR, "Sending rpc was interrupted"));
+                    new Status(RaftError.EINTR, "Sending rpc was interrupted"));
         } catch (final RemotingException e) {
             future.failure(e);
             // should be in another thread to avoid dead locking.
             RpcUtils.runClosureInExecutor(currExecutor, done, new Status(RaftError.EINTERNAL,
-                "Fail to send a RPC request:" + e.getMessage()));
+                    "Fail to send a RPC request:" + e.getMessage()));
 
         }
 

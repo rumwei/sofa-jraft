@@ -26,14 +26,14 @@ import java.util.List;
  */
 public class AdaptiveBufAllocator {
 
-    private static final int                 DEFAULT_MINIMUM = 64;
-    private static final int                 DEFAULT_INITIAL = 512;
-    private static final int                 DEFAULT_MAXIMUM = 524288;
+    private static final int DEFAULT_MINIMUM = 64;
+    private static final int DEFAULT_INITIAL = 512;
+    private static final int DEFAULT_MAXIMUM = 524288;
 
-    private static final int                 INDEX_INCREMENT = 4;
-    private static final int                 INDEX_DECREMENT = 1;
+    private static final int INDEX_INCREMENT = 4;
+    private static final int INDEX_DECREMENT = 1;
 
-    private static final int[]               SIZE_TABLE;
+    private static final int[] SIZE_TABLE;
 
     static {
         final List<Integer> sizeTable = new ArrayList<>();
@@ -51,10 +51,10 @@ public class AdaptiveBufAllocator {
         }
     }
 
-    public static final AdaptiveBufAllocator DEFAULT         = new AdaptiveBufAllocator();
+    public static final AdaptiveBufAllocator DEFAULT = new AdaptiveBufAllocator();
 
     private static int getSizeTableIndex(final int size) {
-        for (int low = 0, high = SIZE_TABLE.length - 1;;) {
+        for (int low = 0, high = SIZE_TABLE.length - 1; ; ) {
             if (high < low) {
                 return low;
             }
@@ -110,9 +110,9 @@ public class AdaptiveBufAllocator {
 
         private final int minIndex;
         private final int maxIndex;
-        private int       index;
-        private int       nextAllocateBufSize;
-        private boolean   decreaseNow;
+        private int index;
+        private int nextAllocateBufSize;
+        private boolean decreaseNow;
 
         HandleImpl(int minIndex, int maxIndex, int initial) {
             this.minIndex = minIndex;

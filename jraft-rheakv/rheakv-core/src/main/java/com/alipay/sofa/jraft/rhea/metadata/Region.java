@@ -40,19 +40,19 @@ import com.alipay.sofa.jraft.util.Copiable;
  */
 public class Region implements Copiable<Region>, Serializable {
 
-    private static final long serialVersionUID        = -2610978803578899118L;
+    private static final long serialVersionUID = -2610978803578899118L;
 
     // To distinguish the id automatically assigned by the PD,
     // the manually configured id ranges from [-1, 1000000L).
-    public static final long  MIN_ID_WITH_MANUAL_CONF = -1L;
-    public static final long  MAX_ID_WITH_MANUAL_CONF = 1000000L;
+    public static final long MIN_ID_WITH_MANUAL_CONF = -1L;
+    public static final long MAX_ID_WITH_MANUAL_CONF = 1000000L;
 
-    private long              id;                                             // region id
+    private long id;                                             // region id
     // Region key range [startKey, endKey)
-    private byte[]            startKey;                                       // inclusive
-    private byte[]            endKey;                                         // exclusive
-    private RegionEpoch       regionEpoch;                                    // region term
-    private List<Peer>        peers;                                          // all peers in the region
+    private byte[] startKey;                                       // inclusive
+    private byte[] endKey;                                         // exclusive
+    private RegionEpoch regionEpoch;                                    // region term
+    private List<Peer> peers;                                          // all peers in the region
 
     public Region() {
     }
@@ -139,6 +139,6 @@ public class Region implements Copiable<Region>, Serializable {
     @Override
     public String toString() {
         return "Region{" + "id=" + id + ", startKey=" + BytesUtil.toHex(startKey) + ", endKey="
-               + BytesUtil.toHex(endKey) + ", regionEpoch=" + regionEpoch + ", peers=" + peers + '}';
+                + BytesUtil.toHex(endKey) + ", regionEpoch=" + regionEpoch + ", peers=" + peers + '}';
     }
 }

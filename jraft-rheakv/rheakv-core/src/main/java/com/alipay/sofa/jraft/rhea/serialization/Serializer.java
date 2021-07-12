@@ -36,7 +36,7 @@ public abstract class Serializer {
     /**
      * The default buffer size for a {@link Serializer}.
      */
-    public static final int DEFAULT_BUF_SIZE    = 512;
+    public static final int DEFAULT_BUF_SIZE = 512;
 
     public abstract <T> OutputBuf writeObject(final OutputBuf outputBuf, final T obj);
 

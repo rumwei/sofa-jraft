@@ -57,7 +57,7 @@ public final class HandlerInvokerUtil {
         } catch (final Throwable t) {
             if (LOG.isWarnEnabled()) {
                 LOG.warn("An exception was thrown by a user handler's exceptionCaught() method: {}.",
-                    StackTraceUtil.stackTrace(t));
+                        StackTraceUtil.stackTrace(t));
                 LOG.warn(".. and the cause of the exceptionCaught() was: {}.", StackTraceUtil.stackTrace(cause));
             }
         }
@@ -68,7 +68,7 @@ public final class HandlerInvokerUtil {
         if (inExceptionCaught(cause)) {
             if (LOG.isWarnEnabled()) {
                 LOG.warn("An exception was thrown by a user handler " + "while handling an exceptionCaught event: {}.",
-                    StackTraceUtil.stackTrace(cause));
+                        StackTraceUtil.stackTrace(cause));
             }
             return;
         }

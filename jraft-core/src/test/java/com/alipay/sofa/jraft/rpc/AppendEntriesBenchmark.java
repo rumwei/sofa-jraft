@@ -42,7 +42,6 @@ import com.google.protobuf.ZeroByteStringHelper;
 import static com.alipay.sofa.jraft.rpc.RpcRequests.AppendEntriesRequest;
 
 /**
- *
  * @author jiachun.fjc
  */
 @State(Scope.Benchmark)
@@ -56,8 +55,8 @@ public class AppendEntriesBenchmark {
      * AppendEntriesBenchmark.copy               thrpt    3  0.148 ± 0.027  ops/ms
      * AppendEntriesBenchmark.pooled             thrpt    3  3.730 ± 0.355  ops/ms
      * AppendEntriesBenchmark.zeroCopy           thrpt    3  3.069 ± 3.563  ops/ms
-     *
-     *
+     * <p>
+     * <p>
      * entryCount=256, sizeOfEntry=1024
      * ---------------------------------------------------------------------------
      * Benchmark                                  Mode  Cnt  Score   Error   Units
@@ -65,16 +64,16 @@ public class AppendEntriesBenchmark {
      * AppendEntriesBenchmark.copy               thrpt    3  0.326 ± 0.137  ops/ms
      * AppendEntriesBenchmark.pooled             thrpt    3  7.559 ± 1.245  ops/ms
      * AppendEntriesBenchmark.zeroCopy           thrpt    3  6.602 ± 0.859  ops/ms
-     *
+     * <p>
      * entryCount=256, sizeOfEntry=512
      * ---------------------------------------------------------------------------
-     *
+     * <p>
      * Benchmark                                  Mode  Cnt   Score   Error   Units
      * AppendEntriesBenchmark.adaptiveAndPooled  thrpt    3  14.358 ± 8.622  ops/ms
      * AppendEntriesBenchmark.copy               thrpt    3   1.625 ± 0.058  ops/ms
      * AppendEntriesBenchmark.pooled             thrpt    3  15.332 ± 1.531  ops/ms
      * AppendEntriesBenchmark.zeroCopy           thrpt    3  12.614 ± 5.904  ops/ms
-     *
+     * <p>
      * entryCount=256, sizeOfEntry=256
      * ---------------------------------------------------------------------------
      * Benchmark                                  Mode  Cnt   Score    Error   Units
@@ -82,7 +81,7 @@ public class AppendEntriesBenchmark {
      * AppendEntriesBenchmark.copy               thrpt    3   6.595 ±  5.772  ops/ms
      * AppendEntriesBenchmark.pooled             thrpt    3  27.847 ± 14.010  ops/ms
      * AppendEntriesBenchmark.zeroCopy           thrpt    3  26.427 ±  5.187  ops/ms
-     *
+     * <p>
      * entryCount=256, sizeOfEntry=128
      * ---------------------------------------------------------------------------
      * Benchmark                                  Mode  Cnt   Score    Error   Units
@@ -90,7 +89,7 @@ public class AppendEntriesBenchmark {
      * AppendEntriesBenchmark.copy               thrpt    3  22.884 ±  3.286  ops/ms
      * AppendEntriesBenchmark.pooled             thrpt    3  57.373 ±  8.201  ops/ms
      * AppendEntriesBenchmark.zeroCopy           thrpt    3  43.923 ±  7.133  ops/ms
-     *
+     * <p>
      * entryCount=256, sizeOfEntry=64
      * ---------------------------------------------------------------------------
      * Benchmark                                  Mode  Cnt    Score    Error   Units
@@ -98,7 +97,7 @@ public class AppendEntriesBenchmark {
      * AppendEntriesBenchmark.copy               thrpt    3   71.699 ± 19.016  ops/ms
      * AppendEntriesBenchmark.pooled             thrpt    3  107.714 ±  7.944  ops/ms
      * AppendEntriesBenchmark.zeroCopy           thrpt    3   71.767 ± 14.510  ops/ms
-     *
+     * <p>
      * entryCount=256, sizeOfEntry=16
      * ---------------------------------------------------------------------------
      * Benchmark                                  Mode  Cnt    Score     Error   Units
@@ -109,10 +108,10 @@ public class AppendEntriesBenchmark {
      */
 
     private static final ThreadLocal<AdaptiveBufAllocator.Handle> handleThreadLocal = ThreadLocal
-                                                                                        .withInitial(AdaptiveBufAllocator.DEFAULT::newHandle);
+            .withInitial(AdaptiveBufAllocator.DEFAULT::newHandle);
 
-    private int                                                   entryCount;
-    private int                                                   sizeOfEntry;
+    private int entryCount;
+    private int sizeOfEntry;
 
     @Setup
     public void setup() {
@@ -128,14 +127,14 @@ public class AppendEntriesBenchmark {
         System.out.println(sendEntries4(256, size).length);
 
         Options opt = new OptionsBuilder() //
-            .include(AppendEntriesBenchmark.class.getSimpleName()) //
-            .warmupIterations(1) //
-            .warmupTime(TimeValue.seconds(5)) //
-            .measurementIterations(3) //
-            .measurementTime(TimeValue.seconds(10)) //
-            .threads(8) //
-            .forks(1) //
-            .build();
+                .include(AppendEntriesBenchmark.class.getSimpleName()) //
+                .warmupIterations(1) //
+                .warmupTime(TimeValue.seconds(5)) //
+                .measurementIterations(3) //
+                .measurementTime(TimeValue.seconds(10)) //
+                .threads(8) //
+                .forks(1) //
+                .build();
 
         new Runner(opt).run();
     }
@@ -247,11 +246,11 @@ public class AppendEntriesBenchmark {
 
     private static void fillCommonFields(final AppendEntriesRequest.Builder rb) {
         rb.setTerm(1) //
-            .setGroupId("1") //
-            .setServerId("test") //
-            .setPeerId("127.0.0.1:8080") //
-            .setPrevLogIndex(2) //
-            .setPrevLogTerm(3) //
-            .setCommittedIndex(4);
+                .setGroupId("1") //
+                .setServerId("test") //
+                .setPeerId("127.0.0.1:8080") //
+                .setPrevLogIndex(2) //
+                .setPrevLogTerm(3) //
+                .setCommittedIndex(4);
     }
 }

@@ -20,14 +20,15 @@ import java.io.Serializable;
 
 /**
  * compareAndSet(key, expect, newVal)
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Apr-25 1:25:48 PM
  */
 public class CompareAndSetCommand extends BaseRequestCommand implements Serializable {
     private static final long serialVersionUID = 9094660933580602829L;
-    private long              expect;
-    private long              newValue;
+    private long expect;
+    private long newValue;
 
     public long getExpect() {
         return this.expect;

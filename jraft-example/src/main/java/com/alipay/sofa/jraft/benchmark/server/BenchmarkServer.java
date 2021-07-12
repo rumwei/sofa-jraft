@@ -28,7 +28,6 @@ import com.alipay.sofa.jraft.rhea.options.RheaKVStoreOptions;
 import com.codahale.metrics.ConsoleReporter;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class BenchmarkServer {

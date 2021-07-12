@@ -24,7 +24,6 @@ import com.alipay.sofa.jraft.rhea.errors.InvalidParameterException;
 import com.alipay.sofa.jraft.rhea.metadata.RegionEpoch;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class KVParameterRequires {

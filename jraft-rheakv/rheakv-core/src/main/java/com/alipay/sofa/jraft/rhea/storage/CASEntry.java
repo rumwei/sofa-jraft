@@ -21,16 +21,15 @@ import java.io.Serializable;
 import com.alipay.sofa.jraft.util.BytesUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class CASEntry implements Serializable {
 
     private static final long serialVersionUID = -8024887237976722615L;
 
-    private byte[]            key;
-    private byte[]            expect;
-    private byte[]            update;
+    private byte[] key;
+    private byte[] expect;
+    private byte[] update;
 
     public CASEntry() {
     }
@@ -67,12 +66,12 @@ public class CASEntry implements Serializable {
 
     public int length() {
         return (this.key == null ? 0 : this.key.length) + (this.expect == null ? 0 : this.expect.length)
-               + (this.update == null ? 0 : this.update.length);
+                + (this.update == null ? 0 : this.update.length);
     }
 
     @Override
     public String toString() {
         return "CASEntry{" + "key=" + BytesUtil.toHex(key) + ", expect=" + BytesUtil.toHex(expect) + ", update="
-               + BytesUtil.toHex(update) + '}';
+                + BytesUtil.toHex(update) + '}';
     }
 }

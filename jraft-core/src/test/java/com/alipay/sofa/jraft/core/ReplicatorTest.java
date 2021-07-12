@@ -69,21 +69,21 @@ import static org.mockito.Matchers.same;
 @RunWith(value = MockitoJUnitRunner.class)
 public class ReplicatorTest {
 
-    private ThreadId          id;
+    private ThreadId id;
     private final RaftOptions raftOptions = new RaftOptions();
-    private TimerManager      timerManager;
+    private TimerManager timerManager;
     @Mock
     private RaftClientService rpcService;
     @Mock
-    private NodeImpl          node;
+    private NodeImpl node;
     @Mock
-    private BallotBox         ballotBox;
+    private BallotBox ballotBox;
     @Mock
-    private LogManager        logManager;
+    private LogManager logManager;
     @Mock
-    private SnapshotStorage   snapshotStorage;
+    private SnapshotStorage snapshotStorage;
     private ReplicatorOptions opts;
-    private final PeerId      peerId      = new PeerId("localhost", 8081);
+    private final PeerId peerId = new PeerId("localhost", 8081);
 
     @Before
     public void setup() {
@@ -119,7 +119,7 @@ public class ReplicatorTest {
     private void mockSendEmptyEntries(final boolean isHeartbeat) {
         final RpcRequests.AppendEntriesRequest request = createEmptyEntriesRequest(isHeartbeat);
         Mockito.when(this.rpcService.appendEntries(eq(this.peerId.getEndpoint()), eq(request), eq(-1), Mockito.any()))
-            .thenReturn(new FutureImpl<>());
+                .thenReturn(new FutureImpl<>());
     }
 
     private RpcRequests.AppendEntriesRequest createEmptyEntriesRequest() {
@@ -128,13 +128,13 @@ public class ReplicatorTest {
 
     private RpcRequests.AppendEntriesRequest createEmptyEntriesRequest(final boolean isHeartbeat) {
         RpcRequests.AppendEntriesRequest.Builder rb = RpcRequests.AppendEntriesRequest.newBuilder() //
-            .setGroupId("test") //
-            .setServerId(new PeerId("localhost", 8082).toString()) //
-            .setPeerId(this.peerId.toString()) //
-            .setTerm(1) //
-            .setPrevLogIndex(10) //
-            .setPrevLogTerm(1) //
-            .setCommittedIndex(0);
+                .setGroupId("test") //
+                .setServerId(new PeerId("localhost", 8082).toString()) //
+                .setPeerId(this.peerId.toString()) //
+                .setTerm(1) //
+                .setPrevLogIndex(10) //
+                .setPrevLogTerm(1) //
+                .setCommittedIndex(0);
         if (!isHeartbeat) {
             rb.setData(ByteString.EMPTY);
         }
@@ -189,14 +189,14 @@ public class ReplicatorTest {
         assertNull(r.getBlockTimer());
         final RpcRequests.AppendEntriesRequest request = createEmptyEntriesRequest();
         final RpcRequests.AppendEntriesResponse response = RpcRequests.AppendEntriesResponse.newBuilder() //
-            .setSuccess(false) //
-            .setLastLogIndex(12) //
-            .setTerm(2) //
-            .build();
+                .setSuccess(false) //
+                .setLastLogIndex(12) //
+                .setTerm(2) //
+                .build();
         this.id.unlock();
 
         Replicator.onRpcReturned(this.id, Replicator.RequestType.AppendEntries, new Status(-1, "test error"), request,
-            response, 0, 0, Utils.monotonicMs());
+                response, 0, 0, Utils.monotonicMs());
         assertEquals(r.statInfo.runningState, Replicator.RunningState.BLOCKING);
         assertNotNull(r.getBlockTimer());
         return r;
@@ -210,13 +210,13 @@ public class ReplicatorTest {
 
         final RpcRequests.AppendEntriesRequest request = createEmptyEntriesRequest();
         final RpcRequests.AppendEntriesResponse response = RpcRequests.AppendEntriesResponse.newBuilder() //
-            .setSuccess(false) //
-            .setLastLogIndex(12) //
-            .setTerm(2) //
-            .build();
+                .setSuccess(false) //
+                .setLastLogIndex(12) //
+                .setTerm(2) //
+                .build();
         r.getInflights().add(new Replicator.Inflight(RequestType.AppendEntries, r.getNextSendIndex(), 0, 0, 1, null));
         Replicator.onRpcReturned(this.id, Replicator.RequestType.AppendEntries, new Status(-1, "test error"), request,
-            response, 1, 1, Utils.monotonicMs());
+                response, 1, 1, Utils.monotonicMs());
         assertEquals(r.statInfo.runningState, Replicator.RunningState.BLOCKING);
         assertNotNull(r.getBlockTimer());
         // the same timer
@@ -225,7 +225,7 @@ public class ReplicatorTest {
         Thread.sleep(r.getOpts().getDynamicHeartBeatTimeoutMs() * 2);
         r.getInflights().add(new Replicator.Inflight(RequestType.AppendEntries, r.getNextSendIndex(), 0, 0, 1, null));
         Replicator.onRpcReturned(this.id, Replicator.RequestType.AppendEntries, new Status(-1, "test error"), request,
-            response, 1, 2, Utils.monotonicMs());
+                response, 1, 2, Utils.monotonicMs());
         assertEquals(r.statInfo.runningState, Replicator.RunningState.BLOCKING);
         assertNotNull(r.getBlockTimer());
         // the same timer
@@ -237,18 +237,18 @@ public class ReplicatorTest {
         final Replicator r = getReplicator();
         final RpcRequests.AppendEntriesRequest request = createEmptyEntriesRequest();
         final RpcRequests.AppendEntriesResponse response = RpcRequests.AppendEntriesResponse.newBuilder() //
-            .setSuccess(false) //
-            .setLastLogIndex(12) //
-            .setTerm(2) //
-            .build();
+                .setSuccess(false) //
+                .setLastLogIndex(12) //
+                .setTerm(2) //
+                .build();
         this.id.unlock();
 
         Replicator.onRpcReturned(this.id, Replicator.RequestType.AppendEntries, Status.OK(), request, response, 0, 0,
-            Utils.monotonicMs());
+                Utils.monotonicMs());
         Mockito.verify(this.node).increaseTermTo(
-            2,
-            new Status(RaftError.EHIGHERTERMRESPONSE, "Leader receives higher term heartbeat_response from peer:%s",
-                this.peerId));
+                2,
+                new Status(RaftError.EHIGHERTERMRESPONSE, "Leader receives higher term heartbeat_response from peer:%s",
+                        this.peerId));
         assertNull(r.id);
     }
 
@@ -258,29 +258,29 @@ public class ReplicatorTest {
         assertEquals(11, r.getRealNextIndex());
         final RpcRequests.AppendEntriesRequest request = createEmptyEntriesRequest();
         final RpcRequests.AppendEntriesResponse response = RpcRequests.AppendEntriesResponse.newBuilder() //
-            .setSuccess(false) //
-            .setLastLogIndex(12) //
-            .setTerm(1) //
-            .build();
+                .setSuccess(false) //
+                .setLastLogIndex(12) //
+                .setTerm(1) //
+                .build();
         this.id.unlock();
         final Future<Message> rpcInFly = r.getRpcInFly();
         assertNotNull(rpcInFly);
 
         Mockito.when(this.logManager.getTerm(9)).thenReturn(1L);
         final RpcRequests.AppendEntriesRequest newReq = RpcRequests.AppendEntriesRequest.newBuilder(). //
-            setGroupId("test"). //
-            setServerId(new PeerId("localhost", 8082).toString()). //
-            setPeerId(this.peerId.toString()). //
-            setTerm(1). //
-            setPrevLogIndex(9). //
-            setData(ByteString.EMPTY). //
-            setPrevLogTerm(1). //
-            setCommittedIndex(0).build();
+                setGroupId("test"). //
+                setServerId(new PeerId("localhost", 8082).toString()). //
+                setPeerId(this.peerId.toString()). //
+                setTerm(1). //
+                setPrevLogIndex(9). //
+                setData(ByteString.EMPTY). //
+                setPrevLogTerm(1). //
+                setCommittedIndex(0).build();
         Mockito.when(this.rpcService.appendEntries(eq(this.peerId.getEndpoint()), eq(newReq), eq(-1), Mockito.any()))
-            .thenReturn(new FutureImpl<>());
+                .thenReturn(new FutureImpl<>());
 
         Replicator.onRpcReturned(this.id, Replicator.RequestType.AppendEntries, Status.OK(), request, response, 0, 0,
-            Utils.monotonicMs());
+                Utils.monotonicMs());
 
         assertNotNull(r.getRpcInFly());
         assertNotSame(r.getRpcInFly(), rpcInFly);
@@ -296,30 +296,30 @@ public class ReplicatorTest {
         assertEquals(11, r.getRealNextIndex());
         final RpcRequests.AppendEntriesRequest request = createEmptyEntriesRequest();
         final RpcRequests.AppendEntriesResponse response = RpcRequests.AppendEntriesResponse.newBuilder() //
-            .setSuccess(false) //
-            .setLastLogIndex(8) //
-            .setTerm(1) //
-            .build();
+                .setSuccess(false) //
+                .setLastLogIndex(8) //
+                .setTerm(1) //
+                .build();
         this.id.unlock();
         final Future<Message> rpcInFly = r.getRpcInFly();
         assertNotNull(rpcInFly);
 
         Mockito.when(this.logManager.getTerm(8)).thenReturn(1L);
         final RpcRequests.AppendEntriesRequest newReq = RpcRequests.AppendEntriesRequest.newBuilder() //
-            .setGroupId("test") //
-            .setServerId(new PeerId("localhost", 8082).toString()) //
-            .setPeerId(this.peerId.toString()) //
-            .setTerm(1) //
-            .setPrevLogIndex(8) //
-            .setPrevLogTerm(1) //
-            .setData(ByteString.EMPTY) //
-            .setCommittedIndex(0) //
-            .build();
+                .setGroupId("test") //
+                .setServerId(new PeerId("localhost", 8082).toString()) //
+                .setPeerId(this.peerId.toString()) //
+                .setTerm(1) //
+                .setPrevLogIndex(8) //
+                .setPrevLogTerm(1) //
+                .setData(ByteString.EMPTY) //
+                .setCommittedIndex(0) //
+                .build();
         Mockito.when(this.rpcService.appendEntries(eq(this.peerId.getEndpoint()), eq(newReq), eq(-1), Mockito.any()))
-            .thenReturn(new FutureImpl<>());
+                .thenReturn(new FutureImpl<>());
 
         Replicator.onRpcReturned(this.id, Replicator.RequestType.AppendEntries, Status.OK(), request, response, 0, 0,
-            Utils.monotonicMs());
+                Utils.monotonicMs());
 
         assertNotNull(r.getRpcInFly());
         assertNotSame(r.getRpcInFly(), rpcInFly);
@@ -336,10 +336,10 @@ public class ReplicatorTest {
 
         final RpcRequests.AppendEntriesRequest request = createEmptyEntriesRequest();
         final RpcRequests.AppendEntriesResponse response = RpcRequests.AppendEntriesResponse.newBuilder() //
-            .setSuccess(true) //
-            .setLastLogIndex(10) //
-            .setTerm(1) //
-            .build();
+                .setSuccess(true) //
+                .setLastLogIndex(10) //
+                .setTerm(1) //
+                .build();
         this.id.unlock();
         Mockito.when(this.logManager.wait(eq(10L), Mockito.any(), same(this.id))).thenReturn(99L);
 
@@ -354,7 +354,7 @@ public class ReplicatorTest {
         });
 
         Replicator.onRpcReturned(this.id, Replicator.RequestType.AppendEntries, Status.OK(), request, response, 0, 0,
-            Utils.monotonicMs());
+                Utils.monotonicMs());
 
         assertEquals(r.statInfo.runningState, Replicator.RunningState.IDLE);
         this.id.unlock();
@@ -411,13 +411,13 @@ public class ReplicatorTest {
         assertNotNull(rpcInFly);
 
         final RpcRequests.AppendEntriesRequest.Builder rb = RpcRequests.AppendEntriesRequest.newBuilder() //
-            .setGroupId("test") //
-            .setServerId(new PeerId("localhost", 8082).toString()) //
-            .setPeerId(this.peerId.toString()) //
-            .setTerm(1) //
-            .setPrevLogIndex(10) //
-            .setPrevLogTerm(1) //
-            .setCommittedIndex(0);
+                .setGroupId("test") //
+                .setServerId(new PeerId("localhost", 8082).toString()) //
+                .setPeerId(this.peerId.toString()) //
+                .setTerm(1) //
+                .setPrevLogIndex(10) //
+                .setPrevLogTerm(1) //
+                .setCommittedIndex(0);
 
         int totalDataLen = 0;
         for (int i = 0; i < 10; i++) {
@@ -428,13 +428,13 @@ public class ReplicatorTest {
             value.setId(new LogId(11 + i, 1));
             Mockito.when(this.logManager.getEntry(11 + i)).thenReturn(value);
             rb.addEntries(RaftOutter.EntryMeta.newBuilder().setTerm(1).setType(EnumOutter.EntryType.ENTRY_TYPE_DATA)
-                .setDataLen(i));
+                    .setDataLen(i));
         }
         rb.setData(ByteString.copyFrom(new byte[totalDataLen]));
 
         final RpcRequests.AppendEntriesRequest request = rb.build();
         Mockito.when(this.rpcService.appendEntries(eq(this.peerId.getEndpoint()), eq(request), eq(-1), Mockito.any()))
-            .thenReturn(new FutureImpl<>());
+                .thenReturn(new FutureImpl<>());
 
         assertEquals(11, r.statInfo.firstLogIndex);
         assertEquals(10, r.statInfo.lastLogIndex);
@@ -455,8 +455,8 @@ public class ReplicatorTest {
         assertNull(r.getHeartbeatInFly());
         final RpcRequests.AppendEntriesRequest request = createEmptyEntriesRequest(true);
         Mockito.when(
-            this.rpcService.appendEntries(eq(this.peerId.getEndpoint()), eq(request),
-                eq(this.opts.getElectionTimeoutMs() / 2), Mockito.any())).thenReturn(new FutureImpl<>());
+                this.rpcService.appendEntries(eq(this.peerId.getEndpoint()), eq(request),
+                        eq(this.opts.getElectionTimeoutMs() / 2), Mockito.any())).thenReturn(new FutureImpl<>());
         this.id.setError(RaftError.ETIMEDOUT.getNumber());
         Thread.sleep(this.opts.getElectionTimeoutMs() + 1000);
         assertNotNull(r.getHeartbeatInFly());
@@ -469,7 +469,7 @@ public class ReplicatorTest {
         final ScheduledFuture<?> timer = r.getHeartbeatTimer();
         assertNotNull(timer);
         Replicator.onHeartbeatReturned(this.id, new Status(-1, "test"), createEmptyEntriesRequest(), null,
-            Utils.monotonicMs());
+                Utils.monotonicMs());
         assertNotNull(r.getHeartbeatTimer());
         assertNotSame(timer, r.getHeartbeatTimer());
     }
@@ -481,10 +481,10 @@ public class ReplicatorTest {
         final ScheduledFuture<?> timer = r.getHeartbeatTimer();
         assertNotNull(timer);
         final RpcRequests.AppendEntriesResponse response = RpcRequests.AppendEntriesResponse.newBuilder(). //
-            setSuccess(false). //
-            setLastLogIndex(10).setTerm(1).build();
+                setSuccess(false). //
+                setLastLogIndex(10).setTerm(1).build();
         Replicator
-            .onHeartbeatReturned(this.id, Status.OK(), createEmptyEntriesRequest(), response, Utils.monotonicMs());
+                .onHeartbeatReturned(this.id, Status.OK(), createEmptyEntriesRequest(), response, Utils.monotonicMs());
         assertNotNull(r.getHeartbeatTimer());
         assertNotSame(timer, r.getHeartbeatTimer());
     }
@@ -494,17 +494,17 @@ public class ReplicatorTest {
         final Replicator r = getReplicator();
         final RpcRequests.AppendEntriesRequest request = createEmptyEntriesRequest();
         final RpcRequests.AppendEntriesResponse response = RpcRequests.AppendEntriesResponse.newBuilder() //
-            .setSuccess(false) //
-            .setLastLogIndex(12) //
-            .setTerm(2) //
-            .build();
+                .setSuccess(false) //
+                .setLastLogIndex(12) //
+                .setTerm(2) //
+                .build();
         this.id.unlock();
 
         Replicator.onHeartbeatReturned(this.id, Status.OK(), request, response, Utils.monotonicMs());
         Mockito.verify(this.node).increaseTermTo(
-            2,
-            new Status(RaftError.EHIGHERTERMRESPONSE, "Leader receives higher term heartbeat_response from peer:%s",
-                this.peerId));
+                2,
+                new Status(RaftError.EHIGHERTERMRESPONSE, "Leader receives higher term heartbeat_response from peer:%s",
+                        this.peerId));
         assertNull(r.id);
     }
 
@@ -538,8 +538,8 @@ public class ReplicatorTest {
 
         final RpcRequests.TimeoutNowRequest request = createTimeoutnowRequest();
         Mockito.when(
-            this.rpcService.timeoutNow(Matchers.eq(this.opts.getPeerId().getEndpoint()), eq(request), eq(-1),
-                Mockito.any())).thenReturn(new FutureImpl<>());
+                this.rpcService.timeoutNow(Matchers.eq(this.opts.getPeerId().getEndpoint()), eq(request), eq(-1),
+                        Mockito.any())).thenReturn(new FutureImpl<>());
 
         assertTrue(Replicator.transferLeadership(this.id, 10));
         assertEquals(0, r.getTimeoutNowIndex());
@@ -554,8 +554,8 @@ public class ReplicatorTest {
         assertNull(r.getHeartbeatInFly());
         final RpcRequests.AppendEntriesRequest request = createEmptyEntriesRequest(true);
         Mockito.when(
-            this.rpcService.appendEntries(eq(this.peerId.getEndpoint()), eq(request),
-                eq(this.opts.getElectionTimeoutMs() / 2), Mockito.any())).thenReturn(new FutureImpl<>());
+                this.rpcService.appendEntries(eq(this.peerId.getEndpoint()), eq(request),
+                        eq(this.opts.getElectionTimeoutMs() / 2), Mockito.any())).thenReturn(new FutureImpl<>());
         Replicator.sendHeartbeat(this.id, new RpcResponseClosureAdapter<RpcRequests.AppendEntriesResponse>() {
 
             @Override
@@ -583,7 +583,7 @@ public class ReplicatorTest {
         assertNull(r.getTimeoutNowInFly());
         final RpcRequests.TimeoutNowRequest request = createTimeoutnowRequest();
         Mockito.verify(this.rpcService).timeoutNow(Matchers.eq(this.opts.getPeerId().getEndpoint()), eq(request),
-            eq(10), Mockito.any());
+                eq(10), Mockito.any());
     }
 
     private RpcRequests.TimeoutNowRequest createTimeoutnowRequest() {
@@ -631,9 +631,9 @@ public class ReplicatorTest {
         final String uri = "remote://localhost:8081/99";
         Mockito.when(reader.generateURIForCopy()).thenReturn(uri);
         final RaftOutter.SnapshotMeta meta = RaftOutter.SnapshotMeta.newBuilder() //
-            .setLastIncludedIndex(11) //
-            .setLastIncludedTerm(1) //
-            .build();
+                .setLastIncludedIndex(11) //
+                .setLastIncludedTerm(1) //
+                .build();
         Mockito.when(reader.load()).thenReturn(meta);
 
         assertEquals(0, r.statInfo.lastLogIncluded);
@@ -648,8 +648,8 @@ public class ReplicatorTest {
         rb.setUri(uri);
 
         Mockito.when(
-            this.rpcService.installSnapshot(Matchers.eq(this.opts.getPeerId().getEndpoint()), eq(rb.build()),
-                Mockito.any())).thenReturn(new FutureImpl<>());
+                this.rpcService.installSnapshot(Matchers.eq(this.opts.getPeerId().getEndpoint()), eq(rb.build()),
+                        Mockito.any())).thenReturn(new FutureImpl<>());
 
         r.installSnapshot();
         assertNotNull(r.getRpcInFly());
@@ -665,16 +665,16 @@ public class ReplicatorTest {
         this.id.unlock();
         final RpcRequests.TimeoutNowRequest request = createTimeoutnowRequest();
         final RpcRequests.TimeoutNowResponse response = RpcRequests.TimeoutNowResponse.newBuilder() //
-            .setSuccess(false) //
-            .setTerm(12) //
-            .build();
+                .setSuccess(false) //
+                .setTerm(12) //
+                .build();
         this.id.unlock();
 
         Replicator.onTimeoutNowReturned(this.id, Status.OK(), request, response, false);
         Mockito.verify(this.node).increaseTermTo(
-            12,
-            new Status(RaftError.EHIGHERTERMRESPONSE, "Leader receives higher term timeout_now_response from peer:%s",
-                this.peerId));
+                12,
+                new Status(RaftError.EHIGHERTERMRESPONSE, "Leader receives higher term timeout_now_response from peer:%s",
+                        this.peerId));
         assertNull(r.id);
     }
 
@@ -686,7 +686,7 @@ public class ReplicatorTest {
 
         final RpcRequests.InstallSnapshotRequest request = createInstallSnapshotRequest();
         final RpcRequests.InstallSnapshotResponse response = RpcRequests.InstallSnapshotResponse.newBuilder()
-            .setSuccess(true).setTerm(1).build();
+                .setSuccess(true).setTerm(1).build();
         assertEquals(-1, r.getWaitId());
         Mockito.when(this.logManager.getTerm(11)).thenReturn(1L);
         Replicator.onRpcReturned(this.id, Replicator.RequestType.Snapshot, Status.OK(), request, response, 0, 0, -1);
@@ -702,11 +702,11 @@ public class ReplicatorTest {
 
         final RpcRequests.InstallSnapshotRequest request = createInstallSnapshotRequest();
         final RpcRequests.InstallSnapshotResponse response = RpcRequests.InstallSnapshotResponse.newBuilder()
-            .setSuccess(true).setTerm(1).build();
+                .setSuccess(true).setTerm(1).build();
         assertEquals(-1, r.getWaitId());
         Mockito.when(this.logManager.getTerm(11)).thenReturn(1L);
         Replicator.onRpcReturned(this.id, Replicator.RequestType.Snapshot, new Status(-1, "test"), request, response,
-            0, 0, -1);
+                0, 0, -1);
         assertNotNull(r.getBlockTimer());
         assertEquals(-1, r.getWaitId());
     }
@@ -719,7 +719,7 @@ public class ReplicatorTest {
 
         final RpcRequests.InstallSnapshotRequest request = createInstallSnapshotRequest();
         final RpcRequests.InstallSnapshotResponse response = RpcRequests.InstallSnapshotResponse.newBuilder()
-            .setSuccess(false).setTerm(1).build();
+                .setSuccess(false).setTerm(1).build();
         assertEquals(-1, r.getWaitId());
         Mockito.when(this.logManager.getTerm(11)).thenReturn(1L);
         Replicator.onRpcReturned(this.id, Replicator.RequestType.Snapshot, Status.OK(), request, response, 0, 0, -1);
@@ -734,17 +734,17 @@ public class ReplicatorTest {
 
         final RpcRequests.AppendEntriesRequest request = createEmptyEntriesRequest();
         final RpcRequests.AppendEntriesResponse response = RpcRequests.AppendEntriesResponse.newBuilder(). //
-            setSuccess(true). //
-            setLastLogIndex(10).setTerm(1).build();
+                setSuccess(true). //
+                setLastLogIndex(10).setTerm(1).build();
         assertNull(r.getBlockTimer());
         this.id.unlock();
 
         assertTrue(r.getPendingResponses().isEmpty());
         Replicator.onRpcReturned(this.id, Replicator.RequestType.AppendEntries, Status.OK(), request, response, 1, 0,
-            Utils.monotonicMs());
+                Utils.monotonicMs());
         assertEquals(1, r.getPendingResponses().size());
         Replicator.onRpcReturned(this.id, Replicator.RequestType.AppendEntries, Status.OK(), request, response, 0, 0,
-            Utils.monotonicMs());
+                Utils.monotonicMs());
         assertTrue(r.getPendingResponses().isEmpty());
         assertEquals(0, r.getWaitId());
         assertEquals(11, r.getRealNextIndex());
@@ -754,18 +754,18 @@ public class ReplicatorTest {
     private void mockSendEntries(@SuppressWarnings("SameParameterValue") final int n) {
         final RpcRequests.AppendEntriesRequest request = createEntriesRequest(n);
         Mockito.when(this.rpcService.appendEntries(eq(this.peerId.getEndpoint()), eq(request), eq(-1), Mockito.any()))
-            .thenReturn(new FutureImpl<>());
+                .thenReturn(new FutureImpl<>());
     }
 
     private RpcRequests.AppendEntriesRequest createEntriesRequest(final int n) {
         final RpcRequests.AppendEntriesRequest.Builder rb = RpcRequests.AppendEntriesRequest.newBuilder() //
-            .setGroupId("test") //
-            .setServerId(new PeerId("localhost", 8082).toString()) //
-            .setPeerId(this.peerId.toString()) //
-            .setTerm(1) //
-            .setPrevLogIndex(10) //
-            .setPrevLogTerm(1) //
-            .setCommittedIndex(0);
+                .setGroupId("test") //
+                .setServerId(new PeerId("localhost", 8082).toString()) //
+                .setPeerId(this.peerId.toString()) //
+                .setTerm(1) //
+                .setPrevLogIndex(10) //
+                .setPrevLogTerm(1) //
+                .setCommittedIndex(0);
 
         for (int i = 0; i < n; i++) {
             final LogEntry log = new LogEntry(EnumOutter.EntryType.ENTRY_TYPE_DATA);
@@ -774,7 +774,7 @@ public class ReplicatorTest {
             Mockito.when(this.logManager.getEntry(i + 11)).thenReturn(log);
             Mockito.when(this.logManager.getTerm(i + 11)).thenReturn(1L);
             rb.addEntries(RaftOutter.EntryMeta.newBuilder().setDataLen(i).setTerm(1)
-                .setType(EnumOutter.EntryType.ENTRY_TYPE_DATA).build());
+                    .setType(EnumOutter.EntryType.ENTRY_TYPE_DATA).build());
         }
 
         return rb.build();
@@ -794,9 +794,9 @@ public class ReplicatorTest {
     private RpcRequests.InstallSnapshotRequest createInstallSnapshotRequest() {
         final String uri = "remote://localhost:8081/99";
         final RaftOutter.SnapshotMeta meta = RaftOutter.SnapshotMeta.newBuilder() //
-            .setLastIncludedIndex(11) //
-            .setLastIncludedTerm(1) //
-            .build();
+                .setLastIncludedIndex(11) //
+                .setLastIncludedTerm(1) //
+                .build();
         final RpcRequests.InstallSnapshotRequest.Builder rb = RpcRequests.InstallSnapshotRequest.newBuilder();
         rb.setTerm(this.opts.getTerm());
         rb.setGroupId(this.opts.getGroupId());

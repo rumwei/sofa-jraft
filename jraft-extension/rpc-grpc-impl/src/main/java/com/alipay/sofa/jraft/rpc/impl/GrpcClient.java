@@ -60,16 +60,16 @@ import com.google.protobuf.Message;
  */
 public class GrpcClient implements RpcClient {
 
-    private static final Logger                 LOG                = LoggerFactory.getLogger(GrpcClient.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GrpcClient.class);
 
-    private static final int                    MAX_FAILURES       = SystemPropertyUtil.getInt(
-                                                                       "jraft.grpc.max.connect.failures", 20);
+    private static final int MAX_FAILURES = SystemPropertyUtil.getInt(
+            "jraft.grpc.max.connect.failures", 20);
 
     private final Map<Endpoint, ManagedChannel> managedChannelPool = new ConcurrentHashMap<>();
-    private final Map<Endpoint, AtomicInteger>  transientFailures  = new ConcurrentHashMap<>();
-    private final Map<String, Message>          parserClasses;
-    private final MarshallerRegistry            marshallerRegistry;
-    private volatile ReplicatorGroup            replicatorGroup;
+    private final Map<Endpoint, AtomicInteger> transientFailures = new ConcurrentHashMap<>();
+    private final Map<String, Message> parserClasses;
+    private final MarshallerRegistry marshallerRegistry;
+    private volatile ReplicatorGroup replicatorGroup;
 
     public GrpcClient(Map<String, Message> parserClasses, MarshallerRegistry marshallerRegistry) {
         this.parserClasses = parserClasses;
@@ -167,24 +167,24 @@ public class GrpcClient implements RpcClient {
     private MethodDescriptor<Message, Message> getCallMethod(final Object request) {
         final String interest = request.getClass().getName();
         final Message reqIns = Requires.requireNonNull(this.parserClasses.get(interest), "null default instance: "
-                                                                                         + interest);
+                + interest);
         return MethodDescriptor //
-            .<Message, Message> newBuilder() //
-            .setType(MethodDescriptor.MethodType.UNARY) //
-            .setFullMethodName(MethodDescriptor.generateFullMethodName(interest, GrpcRaftRpcFactory.FIXED_METHOD_NAME)) //
-            .setRequestMarshaller(ProtoUtils.marshaller(reqIns)) //
-            .setResponseMarshaller(
-                ProtoUtils.marshaller(this.marshallerRegistry.findResponseInstanceByRequest(interest))) //
-            .build();
+                .<Message, Message>newBuilder() //
+                .setType(MethodDescriptor.MethodType.UNARY) //
+                .setFullMethodName(MethodDescriptor.generateFullMethodName(interest, GrpcRaftRpcFactory.FIXED_METHOD_NAME)) //
+                .setRequestMarshaller(ProtoUtils.marshaller(reqIns)) //
+                .setResponseMarshaller(
+                        ProtoUtils.marshaller(this.marshallerRegistry.findResponseInstanceByRequest(interest))) //
+                .build();
     }
 
     private ManagedChannel getChannel(final Endpoint endpoint) {
         return this.managedChannelPool.computeIfAbsent(endpoint, ep -> {
             final ManagedChannel ch = ManagedChannelBuilder.forAddress(ep.getIp(), ep.getPort()) //
-                .usePlaintext() //
-                .directExecutor() //
-                .maxInboundMessageSize(GrpcRaftRpcFactory.RPC_MAX_INBOUND_MESSAGE_SIZE) //
-                .build();
+                    .usePlaintext() //
+                    .directExecutor() //
+                    .maxInboundMessageSize(GrpcRaftRpcFactory.RPC_MAX_INBOUND_MESSAGE_SIZE) //
+                    .build();
             // channel connection event
             ch.notifyWhenStateChanged(ConnectivityState.READY, () -> {
                 final ReplicatorGroup rpGroup = replicatorGroup;
@@ -205,9 +205,9 @@ public class GrpcClient implements RpcClient {
                 }
             });
             ch.notifyWhenStateChanged(ConnectivityState.TRANSIENT_FAILURE,
-                () -> LOG.warn("Channel in TRANSIENT_FAILURE state: {}.", ep));
+                    () -> LOG.warn("Channel in TRANSIENT_FAILURE state: {}.", ep));
             ch.notifyWhenStateChanged(ConnectivityState.SHUTDOWN,
-                () -> LOG.warn("Channel in SHUTDOWN state: {}.", ep));
+                    () -> LOG.warn("Channel in SHUTDOWN state: {}.", ep));
 
             return ch;
         });

@@ -46,21 +46,20 @@ import com.alipay.sofa.jraft.util.Requires;
 import com.alipay.sofa.jraft.util.ThreadPoolUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class DefaultRheaKVRpcService implements RheaKVRpcService {
 
-    private static final Logger         LOG = LoggerFactory.getLogger(DefaultRheaKVRpcService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultRheaKVRpcService.class);
 
     private final PlacementDriverClient pdClient;
-    private final RpcClient             rpcClient;
-    private final Endpoint              selfEndpoint;
+    private final RpcClient rpcClient;
+    private final Endpoint selfEndpoint;
 
-    private ThreadPoolExecutor          rpcCallbackExecutor;
-    private int                         rpcTimeoutMillis;
+    private ThreadPoolExecutor rpcCallbackExecutor;
+    private int rpcTimeoutMillis;
 
-    private boolean                     started;
+    private boolean started;
 
     public DefaultRheaKVRpcService(PlacementDriverClient pdClient, Endpoint selfEndpoint) {
         this.pdClient = pdClient;
@@ -99,7 +98,7 @@ public class DefaultRheaKVRpcService implements RheaKVRpcService {
                                                      final Errors lastCause, final boolean requireLeader) {
         final boolean forceRefresh = ErrorsHelper.isInvalidPeer(lastCause);
         final Endpoint endpoint = getRpcEndpoint(request.getRegionId(), forceRefresh, this.rpcTimeoutMillis,
-            requireLeader);
+                requireLeader);
         internalCallAsyncWithRpc(endpoint, request, closure);
         return closure.future();
     }
@@ -165,14 +164,14 @@ public class DefaultRheaKVRpcService implements RheaKVRpcService {
 
         final String name = "rheakv-rpc-callback";
         return ThreadPoolUtil.newBuilder() //
-            .poolName(name) //
-            .enableMetric(true) //
-            .coreThreads(callbackExecutorCorePoolSize) //
-            .maximumThreads(callbackExecutorMaximumPoolSize) //
-            .keepAliveSeconds(120L) //
-            .workQueue(new ArrayBlockingQueue<>(opts.getCallbackExecutorQueueCapacity())) //
-            .threadFactory(new NamedThreadFactory(name, true)) //
-            .rejectedHandler(new CallerRunsPolicyWithReport(name)) //
-            .build();
+                .poolName(name) //
+                .enableMetric(true) //
+                .coreThreads(callbackExecutorCorePoolSize) //
+                .maximumThreads(callbackExecutorMaximumPoolSize) //
+                .keepAliveSeconds(120L) //
+                .workQueue(new ArrayBlockingQueue<>(opts.getCallbackExecutorQueueCapacity())) //
+                .threadFactory(new NamedThreadFactory(name, true)) //
+                .rejectedHandler(new CallerRunsPolicyWithReport(name)) //
+                .build();
     }
 }

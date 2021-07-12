@@ -25,7 +25,7 @@ import com.alipay.sofa.jraft.util.ByteBufferCollector;
  * Read data from a file, all the method should be thread-safe.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Mar-13 11:48:34 AM
  */
 public interface FileReader {
@@ -47,11 +47,11 @@ public interface FileReader {
      * @param offset   the offset of file
      * @param maxCount max read bytes
      * @return -1 if reaches end, else return read count.
-     * @throws IOException if some I/O error occurs
+     * @throws IOException         if some I/O error occurs
      * @throws RetryAgainException if it's not allowed to read partly
-     * or it's allowed but throughput is throttled to 0, try again.
+     *                             or it's allowed but throughput is throttled to 0, try again.
      */
     int readFile(final ByteBufferCollector buf, final String fileName, final long offset, final long maxCount)
-                                                                                                              throws IOException,
-                                                                                                              RetryAgainException;
+            throws IOException,
+            RetryAgainException;
 }

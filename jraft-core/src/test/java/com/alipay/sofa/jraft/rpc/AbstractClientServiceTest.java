@@ -58,12 +58,12 @@ public class AbstractClientServiceTest {
         }
     }
 
-    private RpcOptions         rpcOptions;
-    private MockClientService  clientService;
+    private RpcOptions rpcOptions;
+    private MockClientService clientService;
     @Mock
-    private RpcClient          rpcClient;
+    private RpcClient rpcClient;
     private RpcResponseFactory rpcResponseFactory = RpcFactoryHelper.responseFactory();
-    private final Endpoint     endpoint           = new Endpoint("localhost", 8081);
+    private final Endpoint endpoint = new Endpoint("localhost", 8081);
 
     @Before
     public void setup() {
@@ -77,27 +77,27 @@ public class AbstractClientServiceTest {
     @Test
     public void testConnect() throws Exception {
         Mockito.when(
-            this.rpcClient.invokeSync(eq(this.endpoint), Mockito.any(),
-                eq((long) this.rpcOptions.getRpcConnectTimeoutMs()))) //
-            .thenReturn(this.rpcResponseFactory.newResponse(null, Status.OK()));
+                this.rpcClient.invokeSync(eq(this.endpoint), Mockito.any(),
+                        eq((long) this.rpcOptions.getRpcConnectTimeoutMs()))) //
+                .thenReturn(this.rpcResponseFactory.newResponse(null, Status.OK()));
         assertTrue(this.clientService.connect(this.endpoint));
     }
 
     @Test
     public void testConnectFailure() throws Exception {
         Mockito.when(
-            this.rpcClient.invokeSync(eq(this.endpoint), Mockito.any(),
-                eq((long) this.rpcOptions.getRpcConnectTimeoutMs()))) //
-            .thenReturn(this.rpcResponseFactory.newResponse(null, new Status(-1, "test")));
+                this.rpcClient.invokeSync(eq(this.endpoint), Mockito.any(),
+                        eq((long) this.rpcOptions.getRpcConnectTimeoutMs()))) //
+                .thenReturn(this.rpcResponseFactory.newResponse(null, new Status(-1, "test")));
         assertFalse(this.clientService.connect(this.endpoint));
     }
 
     @Test
     public void testConnectException() throws Exception {
         Mockito.when(
-            this.rpcClient.invokeSync(eq(this.endpoint), Mockito.any(),
-                eq((long) this.rpcOptions.getRpcConnectTimeoutMs()))) //
-            .thenThrow(new RemotingException("test"));
+                this.rpcClient.invokeSync(eq(this.endpoint), Mockito.any(),
+                        eq((long) this.rpcOptions.getRpcConnectTimeoutMs()))) //
+                .thenThrow(new RemotingException("test"));
         assertFalse(this.clientService.connect(this.endpoint));
     }
 
@@ -111,7 +111,7 @@ public class AbstractClientServiceTest {
 
         CountDownLatch latch = new CountDownLatch(1);
 
-        Status         status;
+        Status status;
 
         @Override
         public void run(final Status status) {
@@ -129,7 +129,7 @@ public class AbstractClientServiceTest {
         MockRpcResponseClosure<ErrorResponse> done = new MockRpcResponseClosure<>();
         Future<Message> future = this.clientService.invokeWithDone(this.endpoint, request, done, -1);
         Mockito.verify(this.rpcClient).invokeAsync(eq(this.endpoint), eq(request), Mockito.any(),
-            callbackArg.capture(), eq((long) this.rpcOptions.getRpcDefaultTimeout()));
+                callbackArg.capture(), eq((long) this.rpcOptions.getRpcDefaultTimeout()));
         InvokeCallback cb = callbackArg.getValue();
         assertNotNull(cb);
         assertNotNull(future);
@@ -156,7 +156,7 @@ public class AbstractClientServiceTest {
         MockRpcResponseClosure<ErrorResponse> done = new MockRpcResponseClosure<>();
         Future<Message> future = this.clientService.invokeWithDone(this.endpoint, request, done, -1);
         Mockito.verify(this.rpcClient).invokeAsync(eq(this.endpoint), eq(request), Mockito.any(),
-            callbackArg.capture(), eq((long) this.rpcOptions.getRpcDefaultTimeout()));
+                callbackArg.capture(), eq((long) this.rpcOptions.getRpcDefaultTimeout()));
         InvokeCallback cb = callbackArg.getValue();
         assertNotNull(cb);
         assertNotNull(future);
@@ -186,10 +186,10 @@ public class AbstractClientServiceTest {
         PingRequest request = TestUtils.createPingRequest();
 
         Mockito
-            .doThrow(new RemotingException())
-            .when(this.rpcClient)
-            .invokeAsync(eq(this.endpoint), eq(request), eq(invokeCtx), callbackArg.capture(),
-                eq((long) this.rpcOptions.getRpcDefaultTimeout()));
+                .doThrow(new RemotingException())
+                .when(this.rpcClient)
+                .invokeAsync(eq(this.endpoint), eq(request), eq(invokeCtx), callbackArg.capture(),
+                        eq((long) this.rpcOptions.getRpcDefaultTimeout()));
 
         MockRpcResponseClosure<ErrorResponse> done = new MockRpcResponseClosure<>();
         Future<Message> future = this.clientService.invokeWithDone(this.endpoint, request, invokeCtx, done, -1);
@@ -221,7 +221,7 @@ public class AbstractClientServiceTest {
         MockRpcResponseClosure<ErrorResponse> done = new MockRpcResponseClosure<>();
         Future<Message> future = this.clientService.invokeWithDone(this.endpoint, request, invokeCtx, done, -1);
         Mockito.verify(this.rpcClient).invokeAsync(eq(this.endpoint), eq(request), eq(invokeCtx),
-            callbackArg.capture(), eq((long) this.rpcOptions.getRpcDefaultTimeout()));
+                callbackArg.capture(), eq((long) this.rpcOptions.getRpcDefaultTimeout()));
         InvokeCallback cb = callbackArg.getValue();
         assertNotNull(cb);
         assertNotNull(future);
@@ -250,14 +250,14 @@ public class AbstractClientServiceTest {
         invokeCtx.put(InvokeContext.CRC_SWITCH, false);
         final ArgumentCaptor<InvokeCallback> callbackArg = ArgumentCaptor.forClass(InvokeCallback.class);
         final CliRequests.GetPeersRequest request = CliRequests.GetPeersRequest.newBuilder() //
-            .setGroupId("id") //
-            .setLeaderId("127.0.0.1:8001") //
-            .build();
+                .setGroupId("id") //
+                .setLeaderId("127.0.0.1:8001") //
+                .build();
 
         MockRpcResponseClosure<ErrorResponse> done = new MockRpcResponseClosure<>();
         Future<Message> future = this.clientService.invokeWithDone(this.endpoint, request, invokeCtx, done, -1);
         Mockito.verify(this.rpcClient).invokeAsync(eq(this.endpoint), eq(request), eq(invokeCtx),
-            callbackArg.capture(), eq((long) this.rpcOptions.getRpcDefaultTimeout()));
+                callbackArg.capture(), eq((long) this.rpcOptions.getRpcDefaultTimeout()));
         InvokeCallback cb = callbackArg.getValue();
         assertNotNull(cb);
         assertNotNull(future);
@@ -267,7 +267,7 @@ public class AbstractClientServiceTest {
         assertFalse(future.isDone());
 
         final Message resp = this.rpcResponseFactory.newResponse(CliRequests.GetPeersResponse.getDefaultInstance(),
-            new Status(-1, "failed"));
+                new Status(-1, "failed"));
         cb.complete(resp, null);
 
         final Message msg = future.get();

@@ -37,21 +37,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class RheaKVTestCluster {
 
-    private static final Logger   LOG            = LoggerFactory.getLogger(RheaKVTestCluster.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RheaKVTestCluster.class);
 
-    public static String          DB_PATH        = "rhea_db";
-    public static String          RAFT_DATA_PATH = "rhea_raft";
-    public static Long[]          REGION_IDS     = new Long[] { 1L, 2L };
+    public static String DB_PATH = "rhea_db";
+    public static String RAFT_DATA_PATH = "rhea_raft";
+    public static Long[] REGION_IDS = new Long[]{1L, 2L};
 
-    private static final String[] CONF           = { "/conf/rhea_test_cluster_1.yaml",
-            "/conf/rhea_test_cluster_2.yaml", "/conf/rhea_test_cluster_3.yaml" };
+    private static final String[] CONF = {"/conf/rhea_test_cluster_1.yaml",
+            "/conf/rhea_test_cluster_2.yaml", "/conf/rhea_test_cluster_3.yaml"};
 
-    private List<RheaKVStore>     stores         = new CopyOnWriteArrayList<>();
+    private List<RheaKVStore> stores = new CopyOnWriteArrayList<>();
 
     protected void start(final StorageType storageType) throws Exception {
         start(storageType, true);

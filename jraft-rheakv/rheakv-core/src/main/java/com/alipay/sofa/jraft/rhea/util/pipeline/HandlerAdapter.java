@@ -30,7 +30,7 @@ import com.alipay.sofa.jraft.rhea.util.pipeline.event.MessageEvent;
 public abstract class HandlerAdapter implements Handler {
 
     // Not using volatile because it's used only for a sanity check.
-    boolean                                               added;
+    boolean added;
 
     private static final ConcurrentMap<Class<?>, Boolean> cache = Maps.newConcurrentMap();
 
@@ -67,12 +67,12 @@ public abstract class HandlerAdapter implements Handler {
     /**
      * Calls {@link HandlerContext#fireExceptionCaught(MessageEvent, Throwable)} to forward
      * to the next {@link Handler} in the {@link Pipeline}.
-     *
+     * <p>
      * Sub-classes may override this method to change behavior.
      */
     @Override
     public void exceptionCaught(final HandlerContext ctx, final MessageEvent<?> event, final Throwable cause)
-                                                                                                             throws Exception {
+            throws Exception {
         ctx.fireExceptionCaught(event, cause);
     }
 }

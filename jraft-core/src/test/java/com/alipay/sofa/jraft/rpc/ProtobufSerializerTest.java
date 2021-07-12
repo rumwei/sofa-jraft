@@ -39,7 +39,7 @@ public class ProtobufSerializerTest {
 
     private final ProtobufSerializer serializer = ProtobufSerializer.INSTANCE;
 
-    final RpcCommandFactory          cmdFactory = new RpcCommandFactory();
+    final RpcCommandFactory cmdFactory = new RpcCommandFactory();
 
     @Test
     public void testEncodeDecodeRequestContent() throws Exception {
@@ -58,13 +58,13 @@ public class ProtobufSerializerTest {
     @Test
     public void testEncodeDecodeAppendEntiresRequestHeader() throws Exception {
         final AppendEntriesRequest reqObject = AppendEntriesRequest.newBuilder() //
-            .setGroupId("testGroup") //
-            .setPeerId("testPeer")//
-            .setServerId("testServer") //
-            .setTerm(1)//
-            .setPrevLogIndex(1)//
-            .setPrevLogTerm(0) //
-            .setCommittedIndex(1).build();
+                .setGroupId("testGroup") //
+                .setPeerId("testPeer")//
+                .setServerId("testServer") //
+                .setTerm(1)//
+                .setPrevLogIndex(1)//
+                .setPrevLogTerm(0) //
+                .setCommittedIndex(1).build();
         final RpcCommandFactory cmdFactory = new RpcCommandFactory();
         final RpcRequestCommand request = cmdFactory.createRequestCommand(reqObject);
         request.setRequestClass(AppendEntriesRequest.class.getName());
@@ -94,7 +94,7 @@ public class ProtobufSerializerTest {
         final PingRequest reqObject = TestUtils.createPingRequest();
         final RpcRequestCommand request = cmdFactory.createRequestCommand(reqObject);
         final ErrorResponse respObject = (ErrorResponse) RpcFactoryHelper.responseFactory().newResponse(null,
-            new Status(-1, "test"));
+                new Status(-1, "test"));
         final RpcResponseCommand response = cmdFactory.createResponse(respObject, request);
         response.setResponseClass(ErrorResponse.class.getName());
         assertTrue(serializer.serializeContent(response));

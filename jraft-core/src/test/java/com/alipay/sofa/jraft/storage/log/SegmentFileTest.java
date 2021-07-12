@@ -40,8 +40,8 @@ import com.alipay.sofa.jraft.storage.log.SegmentFile.SegmentFileOptions;
 import com.alipay.sofa.jraft.util.ThreadPoolUtil;
 
 public class SegmentFileTest extends BaseStorageTest {
-    private static final int   FILE_SIZE = 64 + SegmentFile.HEADER_SIZE;
-    private SegmentFile        segmentFile;
+    private static final int FILE_SIZE = 64 + SegmentFile.HEADER_SIZE;
+    private SegmentFile segmentFile;
     private ThreadPoolExecutor writeExecutor;
 
     @Override
@@ -49,7 +49,7 @@ public class SegmentFileTest extends BaseStorageTest {
     public void setup() throws Exception {
         super.setup();
         this.writeExecutor = ThreadPoolUtil.newThreadPool("test", false, 10, 10, 60, new SynchronousQueue<Runnable>(),
-            new NamedThreadFactory("test"));
+                new NamedThreadFactory("test"));
         String filePath = this.path + File.separator + "SegmentFileTest";
         this.segmentFile = new SegmentFile(FILE_SIZE, filePath, this.writeExecutor);
     }
@@ -83,11 +83,11 @@ public class SegmentFileTest extends BaseStorageTest {
 
     private boolean init() {
         SegmentFileOptions opts = SegmentFileOptions.builder() //
-            .setRecover(false) //
-            .setLastFile(true) //
-            .setNewFile(true) //
-            .setSync(true) //
-            .setPos(0).build();
+                .setRecover(false) //
+                .setLastFile(true) //
+                .setNewFile(true) //
+                .setSync(true) //
+                .setPos(0).build();
         return this.segmentFile.init(opts);
     }
 
@@ -140,11 +140,11 @@ public class SegmentFileTest extends BaseStorageTest {
         int firstWritePos = SegmentFile.HEADER_SIZE;
 
         SegmentFileOptions opts = SegmentFileOptions.builder() //
-            .setRecover(true) //
-            .setLastFile(true) //
-            .setNewFile(false) //
-            .setSync(true) //
-            .setPos(0).build();
+                .setRecover(true) //
+                .setLastFile(true) //
+                .setNewFile(false) //
+                .setSync(true) //
+                .setPos(0).build();
         {
             // Restart segment file, all data is valid.
             this.segmentFile.shutdown();
@@ -169,11 +169,11 @@ public class SegmentFileTest extends BaseStorageTest {
         testWriteRead();
 
         SegmentFileOptions opts = SegmentFileOptions.builder() //
-            .setRecover(true) //
-            .setLastFile(true) //
-            .setNewFile(false) //
-            .setSync(true) //
-            .setPos(0).build();
+                .setRecover(true) //
+                .setLastFile(true) //
+                .setNewFile(false) //
+                .setSync(true) //
+                .setPos(0).build();
         int firstWritePos = SegmentFile.HEADER_SIZE;
         {
             // Restart segment file, all data is valid.
@@ -186,7 +186,7 @@ public class SegmentFileTest extends BaseStorageTest {
         {
             this.segmentFile.shutdown();
             try (FileOutputStream out = new FileOutputStream(new File(this.segmentFile.getPath()), true);
-                    FileChannel outChan = out.getChannel()) {
+                 FileChannel outChan = out.getChannel()) {
                 // Cleared data after pos=62, the second data will be truncated when recovering.
                 outChan.truncate(44 + SegmentFile.HEADER_SIZE);
             }

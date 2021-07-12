@@ -25,7 +25,7 @@ import com.google.protobuf.Message;
  * Cli RPC client service.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-09 11:15:13 AM
  */
 public interface CliClientService extends ClientService {
@@ -33,9 +33,9 @@ public interface CliClientService extends ClientService {
     /**
      * Adds a peer.
      *
-     * @param endpoint  server address
-     * @param request   request data
-     * @param done      callback
+     * @param endpoint server address
+     * @param request  request data
+     * @param done     callback
      * @return a future with result
      */
     Future<Message> addPeer(Endpoint endpoint, CliRequests.AddPeerRequest request,
@@ -44,9 +44,9 @@ public interface CliClientService extends ClientService {
     /**
      * Removes a peer.
      *
-     * @param endpoint  server address
-     * @param request   request data
-     * @param done      callback
+     * @param endpoint server address
+     * @param request  request data
+     * @param done     callback
      * @return a future with result
      */
     Future<Message> removePeer(Endpoint endpoint, CliRequests.RemovePeerRequest request,
@@ -55,9 +55,9 @@ public interface CliClientService extends ClientService {
     /**
      * Reset a peer.
      *
-     * @param endpoint  server address
-     * @param request   request data
-     * @param done      callback
+     * @param endpoint server address
+     * @param request  request data
+     * @param done     callback
      * @return a future with result
      */
     Future<Message> resetPeer(Endpoint endpoint, CliRequests.ResetPeerRequest request,
@@ -66,9 +66,9 @@ public interface CliClientService extends ClientService {
     /**
      * Do a snapshot.
      *
-     * @param endpoint  server address
-     * @param request   request data
-     * @param done      callback
+     * @param endpoint server address
+     * @param request  request data
+     * @param done     callback
      * @return a future with result
      */
     Future<Message> snapshot(Endpoint endpoint, CliRequests.SnapshotRequest request,
@@ -77,9 +77,9 @@ public interface CliClientService extends ClientService {
     /**
      * Change peers.
      *
-     * @param endpoint  server address
-     * @param request   request data
-     * @param done      callback
+     * @param endpoint server address
+     * @param request  request data
+     * @param done     callback
      * @return a future with result
      */
     Future<Message> changePeers(Endpoint endpoint, CliRequests.ChangePeersRequest request,
@@ -88,9 +88,9 @@ public interface CliClientService extends ClientService {
     /**
      * Add learners
      *
-     * @param endpoint  server address
-     * @param request   request data
-     * @param done      callback
+     * @param endpoint server address
+     * @param request  request data
+     * @param done     callback
      * @return a future with result
      * @since 1.3.0
      */
@@ -100,9 +100,9 @@ public interface CliClientService extends ClientService {
     /**
      * Remove learners
      *
-     * @param endpoint  server address
-     * @param request   request data
-     * @param done      callback
+     * @param endpoint server address
+     * @param request  request data
+     * @param done     callback
      * @return a future with result
      * @since 1.3.0
      */
@@ -112,9 +112,9 @@ public interface CliClientService extends ClientService {
     /**
      * Reset learners
      *
-     * @param endpoint  server address
-     * @param request   request data
-     * @param done      callback
+     * @param endpoint server address
+     * @param request  request data
+     * @param done     callback
      * @return a future with result
      * @since 1.3.0
      */
@@ -124,9 +124,9 @@ public interface CliClientService extends ClientService {
     /**
      * Get the group leader.
      *
-     * @param endpoint  server address
-     * @param request   request data
-     * @param done      callback
+     * @param endpoint server address
+     * @param request  request data
+     * @param done     callback
      * @return a future with result
      */
     Future<Message> getLeader(Endpoint endpoint, CliRequests.GetLeaderRequest request,
@@ -135,9 +135,9 @@ public interface CliClientService extends ClientService {
     /**
      * Transfer leadership to other peer.
      *
-     * @param endpoint  server address
-     * @param request   request data
-     * @param done      callback
+     * @param endpoint server address
+     * @param request  request data
+     * @param done     callback
      * @return a future with result
      */
     Future<Message> transferLeader(Endpoint endpoint, CliRequests.TransferLeaderRequest request,
@@ -146,9 +146,9 @@ public interface CliClientService extends ClientService {
     /**
      * Get all peers of the replication group.
      *
-     * @param endpoint  server address
-     * @param request   request data
-     * @param done      callback
+     * @param endpoint server address
+     * @param request  request data
+     * @param done     callback
      * @return a future with result
      */
     Future<Message> getPeers(Endpoint endpoint, CliRequests.GetPeersRequest request,

@@ -19,7 +19,6 @@ package com.alipay.sofa.jraft.rhea.cmd.store;
 import com.alipay.sofa.jraft.rhea.util.concurrent.DistributedLock;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class KeyLockResponse extends BaseResponse<DistributedLock.Owner> {

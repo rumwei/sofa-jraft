@@ -20,14 +20,15 @@ import java.io.Serializable;
 
 /**
  * set value command
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Apr-25 1:28:54 PM
  */
 public class SetCommand extends BaseRequestCommand implements Serializable {
     private static final long serialVersionUID = 5942385417491201345L;
 
-    private long              value;
+    private long value;
 
     public long getValue() {
         return this.value;

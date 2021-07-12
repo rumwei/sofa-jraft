@@ -48,25 +48,24 @@ import static com.alipay.sofa.jraft.rhea.benchmark.BenchmarkUtil.VALUE_BYTES;
 public class RheaKVPutBenchmark extends RheaBenchmarkCluster {
 
     /**
-     //
-     // 100w keys, each value is 100 bytes.
-     //
-     // put tps = 24.548 * 1000 = 24548 ops/second
-     //
-     Benchmark                             Mode     Cnt   Score    Error   Units
-     RheaKVPutBenchmark.put               thrpt       3  24.548 ± 20.413  ops/ms
-     RheaKVPutBenchmark.put                avgt       3   1.282 ±  0.651   ms/op
-     RheaKVPutBenchmark.put              sample  750138   1.279 ±  0.005   ms/op
-     RheaKVPutBenchmark.put:put·p0.00    sample           0.403            ms/op
-     RheaKVPutBenchmark.put:put·p0.50    sample           1.163            ms/op
-     RheaKVPutBenchmark.put:put·p0.90    sample           1.798            ms/op
-     RheaKVPutBenchmark.put:put·p0.95    sample           2.032            ms/op
-     RheaKVPutBenchmark.put:put·p0.99    sample           2.712            ms/op
-     RheaKVPutBenchmark.put:put·p0.999   sample           7.717            ms/op
-     RheaKVPutBenchmark.put:put·p0.9999  sample          71.303            ms/op
-     RheaKVPutBenchmark.put:put·p1.00    sample          85.197            ms/op
-     RheaKVPutBenchmark.put                  ss       3   4.422 ±  4.274   ms/op
-
+     * //
+     * // 100w keys, each value is 100 bytes.
+     * //
+     * // put tps = 24.548 * 1000 = 24548 ops/second
+     * //
+     * Benchmark                             Mode     Cnt   Score    Error   Units
+     * RheaKVPutBenchmark.put               thrpt       3  24.548 ± 20.413  ops/ms
+     * RheaKVPutBenchmark.put                avgt       3   1.282 ±  0.651   ms/op
+     * RheaKVPutBenchmark.put              sample  750138   1.279 ±  0.005   ms/op
+     * RheaKVPutBenchmark.put:put·p0.00    sample           0.403            ms/op
+     * RheaKVPutBenchmark.put:put·p0.50    sample           1.163            ms/op
+     * RheaKVPutBenchmark.put:put·p0.90    sample           1.798            ms/op
+     * RheaKVPutBenchmark.put:put·p0.95    sample           2.032            ms/op
+     * RheaKVPutBenchmark.put:put·p0.99    sample           2.712            ms/op
+     * RheaKVPutBenchmark.put:put·p0.999   sample           7.717            ms/op
+     * RheaKVPutBenchmark.put:put·p0.9999  sample          71.303            ms/op
+     * RheaKVPutBenchmark.put:put·p1.00    sample          85.197            ms/op
+     * RheaKVPutBenchmark.put                  ss       3   4.422 ±  4.274   ms/op
      */
 
     private RheaKVStore kvStore;
@@ -101,14 +100,14 @@ public class RheaKVPutBenchmark extends RheaBenchmarkCluster {
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder() //
-            .include(RheaKVPutBenchmark.class.getSimpleName()) //
-            .warmupIterations(1) //
-            .warmupTime(TimeValue.seconds(10)) //
-            .measurementIterations(3) //
-            .measurementTime(TimeValue.seconds(10)) //
-            .threads(CONCURRENCY) //
-            .forks(1) //
-            .build();
+                .include(RheaKVPutBenchmark.class.getSimpleName()) //
+                .warmupIterations(1) //
+                .warmupTime(TimeValue.seconds(10)) //
+                .measurementIterations(3) //
+                .measurementTime(TimeValue.seconds(10)) //
+                .threads(CONCURRENCY) //
+                .forks(1) //
+                .build();
 
         new Runner(opt).run();
     }

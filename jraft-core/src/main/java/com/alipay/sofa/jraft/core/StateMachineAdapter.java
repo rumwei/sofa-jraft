@@ -33,7 +33,7 @@ import com.alipay.sofa.jraft.storage.snapshot.SnapshotWriter;
  * except {@link #onApply(com.alipay.sofa.jraft.Iterator)}.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Mar-30 10:32:27 AM
  */
 public abstract class StateMachineAdapter implements StateMachine {
@@ -70,8 +70,8 @@ public abstract class StateMachineAdapter implements StateMachine {
     @Override
     public void onError(final RaftException e) {
         LOG.error(
-            "Encountered an error={} on StateMachine {}, it's highly recommended to implement this method as raft stops working since some error occurs, you should figure out the cause and repair or remove this node.",
-            e.getStatus(), getClassName(), e);
+                "Encountered an error={} on StateMachine {}, it's highly recommended to implement this method as raft stops working since some error occurs, you should figure out the cause and repair or remove this node.",
+                e.getStatus(), getClassName(), e);
     }
 
     @Override

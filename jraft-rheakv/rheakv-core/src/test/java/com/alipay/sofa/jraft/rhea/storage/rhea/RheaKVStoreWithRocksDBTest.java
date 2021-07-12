@@ -19,7 +19,6 @@ package com.alipay.sofa.jraft.rhea.storage.rhea;
 import com.alipay.sofa.jraft.rhea.storage.StorageType;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class RheaKVStoreWithRocksDBTest extends AbstractRheaKVStoreTest {

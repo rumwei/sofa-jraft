@@ -30,31 +30,24 @@ import com.alipay.sofa.jraft.util.Endpoint;
 import com.alipay.sofa.jraft.util.Utils;
 
 /**
- * Represent a participant in a replicating group.
- *
- * @author boyan (boyan@alibaba-inc.com)
- *
- * 2018-Mar-12 3:27:37 PM
+ * PeerId表示Raft协议的参与者，即为leader/follower/candidate之一
+ * 它由三元素组成： ip:port:index， IP 就是节点的 IP， port 就是端口， index 表示同一个端口的序列号，
+ * 目前没有用到，总被认为是 0。预留此字段是为了支持同一个端口启动不同的 raft 节点，通过 index 区分。
  */
 public class PeerId implements Copiable<PeerId>, Serializable, Checksum {
 
-    private static final long   serialVersionUID = 8083529734784884641L;
+    private static final long serialVersionUID = 8083529734784884641L;
 
-    private static final Logger LOG              = LoggerFactory.getLogger(PeerId.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PeerId.class);
 
-    /** Peer address. */
-    private Endpoint            endpoint         = new Endpoint(Utils.IP_ANY, 0);
-    /** Index in same addr, default is 0. */
-    private int                 idx;
-    /** Cached toString result. */
-    private String              str;
+    private Endpoint endpoint = new Endpoint(Utils.IP_ANY, 0); //Peer address.
+    private int idx; //Index in same addr, default is 0.
+    private String str; //Cached toString result.
+    private int priority = ElectionPriority.Disabled; //Node's local priority value, if node don't support priority election, this value is -1.
 
-    /** Node's local priority value, if node don't support priority election, this value is -1. */
-    private int                 priority         = ElectionPriority.Disabled;
+    public static final PeerId ANY_PEER = new PeerId();
 
-    public static final PeerId  ANY_PEER         = new PeerId();
-
-    private long                checksum;
+    private long checksum;
 
     public PeerId() {
         super();
@@ -70,6 +63,7 @@ public class PeerId implements Copiable<PeerId>, Serializable, Checksum {
 
     /**
      * Create an empty peer.
+     *
      * @return empty peer
      */
     public static PeerId emptyPeer() {
@@ -189,7 +183,6 @@ public class PeerId implements Copiable<PeerId>, Serializable, Checksum {
      * PeerId.parse("a:b::d")       = new PeerId("a", "b", 0, "d")
      * PeerId.parse("a:b:c:d")      = new PeerId("a", "b", "c", "d")
      * </pre>
-     *
      */
     public boolean parse(final String s) {
         if (StringUtils.isEmpty(s)) {

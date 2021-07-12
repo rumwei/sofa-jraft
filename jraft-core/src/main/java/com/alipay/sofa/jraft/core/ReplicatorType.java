@@ -18,8 +18,8 @@ package com.alipay.sofa.jraft.core;
 
 /**
  * Replicator role
- * @author boyan(boyan@antfin.com)
  *
+ * @author boyan(boyan @ antfin.com)
  */
 public enum ReplicatorType {
     Follower, Learner;

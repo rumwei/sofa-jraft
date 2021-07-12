@@ -20,8 +20,8 @@ package com.alipay.sofa.jraft.storage;
  * Common interface for storage.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
- * 2018-Mar-12 3:52:36 PM 
+ * <p>
+ * 2018-Mar-12 3:52:36 PM
  */
 public interface Storage {
 }

@@ -37,19 +37,18 @@ import com.alipay.sofa.jraft.rpc.RpcServer;
 import com.alipay.sofa.jraft.util.internal.ThrowUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class ElectionNode implements Lifecycle<ElectionNodeOptions> {
 
-    private static final Logger             LOG       = LoggerFactory.getLogger(ElectionNode.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ElectionNode.class);
 
     private final List<LeaderStateListener> listeners = new CopyOnWriteArrayList<>();
-    private RaftGroupService                raftGroupService;
-    private Node                            node;
-    private ElectionOnlyStateMachine        fsm;
+    private RaftGroupService raftGroupService;
+    private Node node;
+    private ElectionOnlyStateMachine fsm;
 
-    private boolean                         started;
+    private boolean started;
 
     @Override
     public boolean init(final ElectionNodeOptions opts) {

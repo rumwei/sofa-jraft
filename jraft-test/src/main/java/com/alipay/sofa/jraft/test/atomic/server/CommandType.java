@@ -18,8 +18,9 @@ package com.alipay.sofa.jraft.test.atomic.server;
 
 /**
  * command type
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Apr-25 1:34:15 PM
  */
 public enum CommandType {

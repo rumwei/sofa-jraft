@@ -27,7 +27,6 @@ import com.alipay.sofa.jraft.rhea.util.Maps;
 import com.alipay.sofa.jraft.util.Requires;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class MultiRegionEngineOptionsConfigured implements Configured<List<RegionEngineOptions>> {

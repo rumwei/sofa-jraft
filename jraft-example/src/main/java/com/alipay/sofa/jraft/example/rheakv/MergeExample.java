@@ -26,7 +26,6 @@ import com.alipay.sofa.jraft.rhea.client.RheaKVStore;
 import static com.alipay.sofa.jraft.util.BytesUtil.readUtf8;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class MergeExample {

@@ -37,16 +37,16 @@ import com.google.protobuf.Message;
  * Snapshot writer to write snapshot into local file system.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-08 11:51:43 AM
  */
 public class LocalSnapshotWriter extends SnapshotWriter {
 
-    private static final Logger          LOG = LoggerFactory.getLogger(LocalSnapshotWriter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LocalSnapshotWriter.class);
 
     private final LocalSnapshotMetaTable metaTable;
-    private final String                 path;
-    private final LocalSnapshotStorage   snapshotStorage;
+    private final String path;
+    private final LocalSnapshotStorage snapshotStorage;
 
     public LocalSnapshotWriter(String path, LocalSnapshotStorage snapshotStorage, RaftOptions raftOptions) {
         super();

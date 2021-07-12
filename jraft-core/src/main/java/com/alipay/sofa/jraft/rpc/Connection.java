@@ -17,8 +17,8 @@
 package com.alipay.sofa.jraft.rpc;
 
 /**
- *
  * RPC connection
+ *
  * @author jiachun.fjc
  */
 public interface Connection {
@@ -45,7 +45,7 @@ public interface Connection {
      * @param key   the attribute key
      * @param value the attribute value
      * @return the previous value associated with the specified key, or
-     *         <tt>null</tt> if there was no mapping for the key.
+     * <tt>null</tt> if there was no mapping for the key.
      */
     Object setAttributeIfAbsent(final String key, final Object value);
 

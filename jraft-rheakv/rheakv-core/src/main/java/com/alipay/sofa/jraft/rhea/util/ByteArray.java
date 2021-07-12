@@ -31,9 +31,9 @@ public final class ByteArray implements Comparable<ByteArray>, Serializable {
 
     private static final long serialVersionUID = 3030232535108421145L;
 
-    private final byte[]      bytes;
+    private final byte[] bytes;
     // Cache the hash code, default to 0
-    private int               hashCode;
+    private int hashCode;
 
     public static ByteArray wrap(final byte[] bytes) {
         return new ByteArray(bytes);

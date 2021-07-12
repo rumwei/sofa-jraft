@@ -32,18 +32,17 @@ import static com.alipay.sofa.jraft.rhea.metrics.KVMetricNames.REGION_KEYS_WRITT
 import static com.alipay.sofa.jraft.rhea.metrics.KVMetricNames.RPC_REQUEST_HANDLE_TIMER;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class MetricsKVClosureAdapter implements KVStoreClosure {
 
     private final KVStoreClosure done;
-    private final String         regionId;
-    private final byte           kvOp;
-    private final long           keysCount;
-    private final long           bytesWritten;
-    private final Timer.Context  ctx;
-    private final Timer.Context  opCtx;
+    private final String regionId;
+    private final byte kvOp;
+    private final long keysCount;
+    private final long bytesWritten;
+    private final Timer.Context ctx;
+    private final Timer.Context opCtx;
 
     public MetricsKVClosureAdapter(KVStoreClosure done, String regionId, byte kvOp, long keysCount, long bytesWritten,
                                    Timer.Context ctx) {

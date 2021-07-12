@@ -39,9 +39,9 @@ import static org.junit.Assert.fail;
 
 @RunWith(value = MockitoJUnitRunner.class)
 public class BallotBoxTest {
-    private BallotBox        box;
+    private BallotBox box;
     @Mock
-    private FSMCaller        waiter;
+    private FSMCaller waiter;
     private ClosureQueueImpl closureQueue;
 
     @Before
@@ -73,24 +73,24 @@ public class BallotBoxTest {
         assertTrue(this.box.getPendingMetaQueue().isEmpty());
         assertTrue(this.closureQueue.getQueue().isEmpty());
         assertFalse(this.box.appendPendingTask(
-            JRaftUtils.getConfiguration("localhost:8081,localhost:8082,localhost:8083"),
-            JRaftUtils.getConfiguration("localhost:8081"), new Closure() {
+                JRaftUtils.getConfiguration("localhost:8081,localhost:8082,localhost:8083"),
+                JRaftUtils.getConfiguration("localhost:8081"), new Closure() {
 
-                @Override
-                public void run(Status status) {
+                    @Override
+                    public void run(Status status) {
 
-                }
-            }));
+                    }
+                }));
         assertTrue(box.resetPendingIndex(1));
         assertTrue(this.box.appendPendingTask(
-            JRaftUtils.getConfiguration("localhost:8081,localhost:8082,localhost:8083"),
-            JRaftUtils.getConfiguration("localhost:8081"), new Closure() {
+                JRaftUtils.getConfiguration("localhost:8081,localhost:8082,localhost:8083"),
+                JRaftUtils.getConfiguration("localhost:8081"), new Closure() {
 
-                @Override
-                public void run(Status status) {
+                    @Override
+                    public void run(Status status) {
 
-                }
-            }));
+                    }
+                }));
 
         assertEquals(1, this.box.getPendingMetaQueue().size());
         assertEquals(1, this.closureQueue.getQueue().size());
@@ -110,14 +110,14 @@ public class BallotBoxTest {
         assertFalse(this.box.commitAt(1, 3, new PeerId("localhost", 8081)));
         assertTrue(box.resetPendingIndex(1));
         assertTrue(this.box.appendPendingTask(
-            JRaftUtils.getConfiguration("localhost:8081,localhost:8082,localhost:8083"),
-            JRaftUtils.getConfiguration("localhost:8081"), new Closure() {
+                JRaftUtils.getConfiguration("localhost:8081,localhost:8082,localhost:8083"),
+                JRaftUtils.getConfiguration("localhost:8081"), new Closure() {
 
-                @Override
-                public void run(Status status) {
+                    @Override
+                    public void run(Status status) {
 
-                }
-            }));
+                    }
+                }));
         assertEquals(0, this.box.getLastCommittedIndex());
         try {
             this.box.commitAt(1, 3, new PeerId("localhost", 8081));

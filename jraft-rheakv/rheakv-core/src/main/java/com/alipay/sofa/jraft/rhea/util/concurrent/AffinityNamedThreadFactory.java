@@ -30,22 +30,22 @@ import com.alipay.sofa.jraft.util.Requires;
 
 /**
  * This is a ThreadFactory which assigns threads based the strategies provided.
- *
+ * <p>
  * If no strategies are provided AffinityStrategies.ANY is used.
  *
  * @author jiachun.fjc
  */
 public class AffinityNamedThreadFactory implements ThreadFactory {
 
-    private static final Logger      LOG              = LoggerFactory.getLogger(AffinityNamedThreadFactory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AffinityNamedThreadFactory.class);
 
-    private final AtomicInteger      id               = new AtomicInteger();
-    private final String             name;
-    private final boolean            daemon;
-    private final int                priority;
-    private final ThreadGroup        group;
+    private final AtomicInteger id = new AtomicInteger();
+    private final String name;
+    private final boolean daemon;
+    private final int priority;
+    private final ThreadGroup group;
     private final AffinityStrategy[] strategies;
-    private AffinityLock             lastAffinityLock = null;
+    private AffinityLock lastAffinityLock = null;
 
     public AffinityNamedThreadFactory(String name, AffinityStrategy... strategies) {
         this(name, false, Thread.NORM_PRIORITY, strategies);
@@ -65,7 +65,7 @@ public class AffinityNamedThreadFactory implements ThreadFactory {
         this.priority = priority;
         final SecurityManager s = System.getSecurityManager();
         this.group = (s == null) ? Thread.currentThread().getThreadGroup() : s.getThreadGroup();
-        this.strategies = strategies.length == 0 ? new AffinityStrategy[] { AffinityStrategies.ANY } : strategies;
+        this.strategies = strategies.length == 0 ? new AffinityStrategy[]{AffinityStrategies.ANY} : strategies;
     }
 
     @SuppressWarnings("all")
@@ -132,7 +132,7 @@ public class AffinityNamedThreadFactory implements ThreadFactory {
 
     private synchronized AffinityLock acquireLockBasedOnLast() {
         final AffinityLock al = this.lastAffinityLock == null ? AffinityLock.acquireLock() : lastAffinityLock
-            .acquireLock(this.strategies);
+                .acquireLock(this.strategies);
         if (al.cpuId() >= 0) {
             if (!al.isBound()) {
                 al.bind();

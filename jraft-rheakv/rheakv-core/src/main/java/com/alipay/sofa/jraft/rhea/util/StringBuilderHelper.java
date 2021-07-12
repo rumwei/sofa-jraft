@@ -21,23 +21,23 @@ import com.alipay.sofa.jraft.util.internal.Updaters;
 
 /**
  * Reuse {@link StringBuilder} based on {@link ThreadLocal}.
- *
+ * <p>
  * Be careful that do not to nest in the same thread.
  *
  * @author jiachun.fjc
  */
 public class StringBuilderHelper {
 
-    private static final ReferenceFieldUpdater<StringBuilder, char[]> valueUpdater      = Updaters
-                                                                                            .newReferenceFieldUpdater(
-                                                                                                StringBuilder.class
-                                                                                                    .getSuperclass(),
-                                                                                                "value");
+    private static final ReferenceFieldUpdater<StringBuilder, char[]> valueUpdater = Updaters
+            .newReferenceFieldUpdater(
+                    StringBuilder.class
+                            .getSuperclass(),
+                    "value");
 
-    private static final int                                          DISCARD_LIMIT     = 1024 << 3;     // 8k
+    private static final int DISCARD_LIMIT = 1024 << 3;     // 8k
 
-    private static final ThreadLocal<StringBuilderHolder>             holderThreadLocal = ThreadLocal
-                                                                                            .withInitial(StringBuilderHolder::new);
+    private static final ThreadLocal<StringBuilderHolder> holderThreadLocal = ThreadLocal
+            .withInitial(StringBuilderHolder::new);
 
     public static StringBuilder get() {
         final StringBuilderHolder holder = holderThreadLocal.get();

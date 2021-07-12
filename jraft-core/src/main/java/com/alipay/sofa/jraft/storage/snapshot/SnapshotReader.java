@@ -25,7 +25,7 @@ import com.alipay.sofa.jraft.entity.RaftOutter.SnapshotMeta;
  * Snapshot reader.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Mar-12 4:53:40 PM
  */
 public abstract class SnapshotReader extends Snapshot implements Closeable, Lifecycle<Void> {

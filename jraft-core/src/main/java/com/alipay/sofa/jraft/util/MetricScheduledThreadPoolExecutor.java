@@ -52,7 +52,7 @@ public class MetricScheduledThreadPoolExecutor extends LogScheduledThreadPoolExe
         super.beforeExecute(t, r);
         try {
             ThreadPoolMetricRegistry.timerThreadLocal() //
-                .set(ThreadPoolMetricRegistry.metricRegistry().timer("scheduledThreadPool." + getName()).time());
+                    .set(ThreadPoolMetricRegistry.metricRegistry().timer("scheduledThreadPool." + getName()).time());
         } catch (final Throwable ignored) {
             // ignored
         }

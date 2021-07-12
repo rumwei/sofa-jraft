@@ -32,14 +32,14 @@ import com.google.protobuf.Message;
  * Read a file data form local dir by fileName.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-06 9:25:12 PM
  */
 public class LocalDirReader implements FileReader {
 
     private static final Logger LOG = LoggerFactory.getLogger(LocalDirReader.class);
 
-    private final String        path;
+    private final String path;
 
     public LocalDirReader(String path) {
         super();
@@ -53,8 +53,8 @@ public class LocalDirReader implements FileReader {
 
     @Override
     public int readFile(final ByteBufferCollector buf, final String fileName, final long offset, final long maxCount)
-                                                                                                                     throws IOException,
-                                                                                                                     RetryAgainException {
+            throws IOException,
+            RetryAgainException {
         return readFileWithMeta(buf, fileName, null, offset, maxCount);
     }
 

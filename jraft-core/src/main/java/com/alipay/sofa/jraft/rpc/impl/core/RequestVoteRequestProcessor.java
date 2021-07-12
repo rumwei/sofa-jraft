@@ -28,7 +28,7 @@ import com.google.protobuf.Message;
  * Handle PreVote and RequestVote requests.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-08 6:11:09 PM
  */
 public class RequestVoteRequestProcessor extends NodeRequestProcessor<RequestVoteRequest> {

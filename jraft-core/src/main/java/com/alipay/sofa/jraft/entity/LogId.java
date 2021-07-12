@@ -26,15 +26,15 @@ import com.alipay.sofa.jraft.util.CrcUtil;
  * Log identifier.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Mar-12 3:12:29 PM
  */
 public class LogId implements Comparable<LogId>, Copiable<LogId>, Serializable, Checksum {
 
     private static final long serialVersionUID = -6680425579347357313L;
 
-    private long              index;
-    private long              term;
+    private long index;
+    private long term;
 
     @Override
     public LogId copy() {

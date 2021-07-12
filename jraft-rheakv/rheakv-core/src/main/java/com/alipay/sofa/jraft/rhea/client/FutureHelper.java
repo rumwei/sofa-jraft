@@ -30,7 +30,6 @@ import com.alipay.sofa.jraft.util.internal.ThrowUtil;
 import com.alipay.sofa.jraft.util.SystemPropertyUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class FutureHelper {

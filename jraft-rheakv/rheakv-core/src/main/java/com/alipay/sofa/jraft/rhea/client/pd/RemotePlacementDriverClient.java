@@ -35,17 +35,16 @@ import com.alipay.sofa.jraft.rhea.util.Strings;
 import com.alipay.sofa.jraft.util.Endpoint;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class RemotePlacementDriverClient extends AbstractPlacementDriverClient {
 
     private static final Logger LOG = LoggerFactory.getLogger(RemotePlacementDriverClient.class);
 
-    private String              pdGroupId;
-    private MetadataRpcClient   metadataRpcClient;
+    private String pdGroupId;
+    private MetadataRpcClient metadataRpcClient;
 
-    private boolean             started;
+    private boolean started;
 
     public RemotePlacementDriverClient(long clusterId, String clusterName) {
         super(clusterId, clusterName);

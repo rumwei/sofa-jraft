@@ -35,11 +35,11 @@ public class Store implements Copiable<Store>, Serializable {
 
     private static final long serialVersionUID = 8566110829366373797L;
 
-    private long              id;                                     // store id
-    private Endpoint          endpoint;                               // address
-    private StoreState        state;                                  // store's state
-    private List<Region>      regions;                                // list of included regions
-    private List<StoreLabel>  labels;                                 // key/value label
+    private long id;                                     // store id
+    private Endpoint endpoint;                               // address
+    private StoreState state;                                  // store's state
+    private List<Region> regions;                                // list of included regions
+    private List<StoreLabel> labels;                                 // key/value label
 
     public Store() {
     }
@@ -121,6 +121,6 @@ public class Store implements Copiable<Store>, Serializable {
     @Override
     public String toString() {
         return "Store{" + "id=" + id + ", endpoint=" + endpoint + ", state=" + state + ", regions=" + regions
-               + ", labels=" + labels + '}';
+                + ", labels=" + labels + '}';
     }
 }

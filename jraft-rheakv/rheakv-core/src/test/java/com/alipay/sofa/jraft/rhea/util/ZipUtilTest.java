@@ -31,7 +31,6 @@ import org.junit.Test;
 import com.alipay.sofa.jraft.util.CRC64;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class ZipUtilTest {

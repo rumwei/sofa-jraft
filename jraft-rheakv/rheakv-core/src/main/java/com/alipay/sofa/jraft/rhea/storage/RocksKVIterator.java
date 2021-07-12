@@ -23,15 +23,14 @@ import org.rocksdb.RocksIterator;
 import com.alipay.sofa.jraft.rhea.errors.InvalidIteratorVersion;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class RocksKVIterator implements KVIterator {
 
     private final RocksRawKVStore rocksRawKVStore;
-    private final RocksIterator   it;
-    private final Lock            dbReadLock;
-    private final long            dbVersion;
+    private final RocksIterator it;
+    private final Lock dbReadLock;
+    private final long dbVersion;
 
     public RocksKVIterator(RocksRawKVStore rocksRawKVStore, RocksIterator it, Lock dbReadLock, long dbVersion) {
         this.rocksRawKVStore = rocksRawKVStore;
@@ -163,7 +162,7 @@ public class RocksKVIterator implements KVIterator {
     private void ensureSafety() {
         if (this.dbVersion != this.rocksRawKVStore.getDatabaseVersion()) {
             throw new InvalidIteratorVersion("current iterator is belong to the older version of db: " + this.dbVersion
-                                             + ", the newest db version: " + this.rocksRawKVStore.getDatabaseVersion());
+                    + ", the newest db version: " + this.rocksRawKVStore.getDatabaseVersion());
         }
     }
 }

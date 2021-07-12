@@ -20,6 +20,7 @@ import com.alipay.sofa.jraft.Closure;
 
 /**
  * Closure for task applying.
+ *
  * @author dennis
  */
 public interface TaskClosure extends Closure {
@@ -27,7 +28,7 @@ public interface TaskClosure extends Closure {
     /**
      * Called when task is committed to majority peers of the
      * RAFT group but before it is applied to state machine.
-     * 
+     *
      * <strong>Note: user implementation should not block
      * this method and throw any exceptions.</strong>
      */

@@ -32,14 +32,13 @@ import com.alipay.sofa.jraft.util.FileOutputSignalHandler;
 import com.alipay.sofa.jraft.util.SystemPropertyUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class NodeDescribeSignalHandler extends FileOutputSignalHandler {
 
-    private static Logger       LOG       = LoggerFactory.getLogger(NodeDescribeSignalHandler.class);
+    private static Logger LOG = LoggerFactory.getLogger(NodeDescribeSignalHandler.class);
 
-    private static final String DIR       = SystemPropertyUtil.get("jraft.signal.node.describe.dir", "");
+    private static final String DIR = SystemPropertyUtil.get("jraft.signal.node.describe.dir", "");
     private static final String BASE_NAME = "node_describe.log";
 
     @Override
@@ -55,7 +54,7 @@ public class NodeDescribeSignalHandler extends FileOutputSignalHandler {
             LOG.info("Describing raft nodes with signal: {} to file: {}.", signalName, file);
 
             try (final PrintWriter out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file, true),
-                StandardCharsets.UTF_8))) {
+                    StandardCharsets.UTF_8))) {
                 final Describer.Printer printer = new Describer.DefaultPrinter(out);
                 for (final Node node : nodes) {
                     node.describe(printer);

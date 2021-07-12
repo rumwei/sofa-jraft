@@ -26,7 +26,6 @@ import com.alipay.sofa.jraft.rhea.util.RegionHelper;
 import static com.alipay.sofa.jraft.entity.LocalFileMetaOutter.LocalFileMeta;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class RocksKVStoreSnapshotFile extends AbstractKVStoreSnapshotFile {
@@ -67,7 +66,7 @@ public class RocksKVStoreSnapshotFile extends AbstractKVStoreSnapshotFile {
             final Region snapshotRegion = readMetadata(meta, Region.class);
             if (!RegionHelper.isSameRange(region, snapshotRegion)) {
                 throw new StorageException("Invalid snapshot region: " + snapshotRegion + " current region is: "
-                                           + region);
+                        + region);
             }
             this.kvStore.readSstSnapshot(snapshotPath);
             return;

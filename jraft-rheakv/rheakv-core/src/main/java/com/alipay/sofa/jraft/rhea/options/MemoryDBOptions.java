@@ -17,7 +17,6 @@
 package com.alipay.sofa.jraft.rhea.options;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class MemoryDBOptions {

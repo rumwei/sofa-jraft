@@ -26,7 +26,6 @@ import com.alipay.sofa.jraft.rhea.serialization.io.InputBuf;
 import com.alipay.sofa.jraft.util.internal.UnsafeUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class Inputs {

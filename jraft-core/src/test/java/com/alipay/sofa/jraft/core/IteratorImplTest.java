@@ -45,13 +45,13 @@ import static org.junit.Assert.assertTrue;
 @RunWith(value = MockitoJUnitRunner.class)
 public class IteratorImplTest {
 
-    private IteratorImpl  iter;
+    private IteratorImpl iter;
     @Mock
-    private StateMachine  fsm;
+    private StateMachine fsm;
     @Mock
-    private LogManager    logManager;
+    private LogManager logManager;
     private List<Closure> closures;
-    private AtomicLong    applyingIndex;
+    private AtomicLong applyingIndex;
 
     @Before
     public void setup() {
@@ -113,8 +113,8 @@ public class IteratorImplTest {
                 final Status s = mc.s;
                 Assert.assertEquals(RaftError.ESTATEMACHINE.getNumber(), s.getCode());
                 assertEquals(
-                    "StateMachine meet critical error when applying one or more tasks since index=6, Status[UNKNOWN<-1>: test]",
-                    s.getErrorMsg());
+                        "StateMachine meet critical error when applying one or more tasks since index=6, Status[UNKNOWN<-1>: test]",
+                        s.getErrorMsg());
             }
         }
     }
@@ -128,9 +128,9 @@ public class IteratorImplTest {
         Assert.assertEquals(EnumOutter.ErrorType.ERROR_TYPE_STATE_MACHINE, iter.getError().getType());
         Assert.assertEquals(RaftError.ESTATEMACHINE.getNumber(), iter.getError().getStatus().getCode());
         Assert
-            .assertEquals(
-                "StateMachine meet critical error when applying one or more tasks since index=6, Status[UNKNOWN<-1>: test]",
-                iter.getError().getStatus().getErrorMsg());
+                .assertEquals(
+                        "StateMachine meet critical error when applying one or more tasks since index=6, Status[UNKNOWN<-1>: test]",
+                        iter.getError().getStatus().getErrorMsg());
         assertEquals(6, iter.getIndex());
     }
 

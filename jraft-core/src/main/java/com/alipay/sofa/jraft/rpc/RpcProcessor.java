@@ -51,7 +51,6 @@ public interface RpcProcessor<T> {
     }
 
     /**
-     *
      * @return the executor selector
      */
     default ExecutorSelector executorSelector() {

@@ -24,7 +24,6 @@ import org.junit.Test;
 import com.alipay.sofa.jraft.rhea.util.Lists;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class RoundRobinLoadBalancerTest {

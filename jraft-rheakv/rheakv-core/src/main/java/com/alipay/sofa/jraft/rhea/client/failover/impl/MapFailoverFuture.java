@@ -38,11 +38,11 @@ import com.alipay.sofa.jraft.rhea.util.StackTraceUtil;
  */
 public final class MapFailoverFuture<K, V> extends CompletableFuture<Map<K, V>> implements Attachable<Object> {
 
-    private static final Logger            LOG = LoggerFactory.getLogger(MapFailoverFuture.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MapFailoverFuture.class);
 
-    private final int                      retriesLeft;
+    private final int retriesLeft;
     private final RetryCallable<Map<K, V>> retryCallable;
-    private final Object                   attachments;
+    private final Object attachments;
 
     public MapFailoverFuture(int retriesLeft, RetryCallable<Map<K, V>> retryCallable) {
         this(retriesLeft, retryCallable, null);

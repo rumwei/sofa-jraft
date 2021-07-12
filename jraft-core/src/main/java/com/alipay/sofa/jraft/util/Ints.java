@@ -42,12 +42,12 @@ public final class Ints {
      */
     public static int saturatedCast(final long value) {
         return value > Integer.MAX_VALUE ? Integer.MAX_VALUE : value < Integer.MIN_VALUE ? Integer.MIN_VALUE
-            : (int) value;
+                : (int) value;
     }
 
     /**
      * Fast method of finding the next power of 2 greater than or equal to the supplied value.
-     *
+     * <p>
      * If the value is {@code <= 0} then 1 will be returned.
      * This method is not suitable for {@link Integer#MIN_VALUE} or numbers greater than 2^30.
      *

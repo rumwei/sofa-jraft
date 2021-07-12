@@ -23,7 +23,6 @@ import com.alipay.sofa.jraft.rhea.util.StackTraceUtil;
 import com.lmax.disruptor.ExceptionHandler;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class LoggingExceptionHandler implements ExceptionHandler<Object> {

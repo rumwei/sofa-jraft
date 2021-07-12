@@ -26,20 +26,20 @@ public interface ZipStrategy {
     /**
      * Compress files to zip
      *
-     * @param rootDir    the origin file root dir
-     * @param sourceDir  the origin file source dir
+     * @param rootDir       the origin file root dir
+     * @param sourceDir     the origin file source dir
      * @param outputZipFile the target zip file
-     * @param checksum   checksum
+     * @param checksum      checksum
      */
     void compress(final String rootDir, final String sourceDir, final String outputZipFile, final Checksum checksum)
-                                                                                                                    throws Throwable;
+            throws Throwable;
 
     /**
      * Decompress zip to files
      *
      * @param sourceZipFile the origin zip file
-     * @param outputDir  the target file dir
-     * @param checksum   checksum
+     * @param outputDir     the target file dir
+     * @param checksum      checksum
      */
     void deCompress(final String sourceZipFile, final String outputDir, final Checksum checksum) throws Throwable;
 

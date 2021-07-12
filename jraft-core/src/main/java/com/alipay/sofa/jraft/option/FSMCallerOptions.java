@@ -27,20 +27,20 @@ import com.alipay.sofa.jraft.storage.LogManager;
  * FSM caller options.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-04 2:59:02 PM
  */
 public class FSMCallerOptions {
-    private LogManager   logManager;
+    private LogManager logManager;
     private StateMachine fsm;
-    private Closure      afterShutdown;
-    private LogId        bootstrapId;
+    private Closure afterShutdown;
+    private LogId bootstrapId;
     private ClosureQueue closureQueue;
-    private NodeImpl     node;
+    private NodeImpl node;
     /**
      * disruptor buffer size.
      */
-    private int          disruptorBufferSize = 1024;
+    private int disruptorBufferSize = 1024;
 
     public int getDisruptorBufferSize() {
         return this.disruptorBufferSize;

@@ -23,19 +23,18 @@ import com.alipay.sofa.jraft.util.internal.ReferenceFieldUpdater;
 import com.alipay.sofa.jraft.util.internal.Updaters;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class OutputStreams {
 
-    private static final ReferenceFieldUpdater<ByteArrayOutputStream, byte[]> bufUpdater     = Updaters
-                                                                                                 .newReferenceFieldUpdater(
-                                                                                                     ByteArrayOutputStream.class,
-                                                                                                     "buf");
+    private static final ReferenceFieldUpdater<ByteArrayOutputStream, byte[]> bufUpdater = Updaters
+            .newReferenceFieldUpdater(
+                    ByteArrayOutputStream.class,
+                    "buf");
 
     // Reuse the byte[] in ByteArrayOutputStream
-    private static final ThreadLocal<ByteArrayOutputStream>                   bufThreadLocal = ThreadLocal.withInitial(
-                                                                                                 () -> new ByteArrayOutputStream(Serializer.DEFAULT_BUF_SIZE));
+    private static final ThreadLocal<ByteArrayOutputStream> bufThreadLocal = ThreadLocal.withInitial(
+            () -> new ByteArrayOutputStream(Serializer.DEFAULT_BUF_SIZE));
 
     public static ByteArrayOutputStream getByteArrayOutputStream() {
         return bufThreadLocal.get();

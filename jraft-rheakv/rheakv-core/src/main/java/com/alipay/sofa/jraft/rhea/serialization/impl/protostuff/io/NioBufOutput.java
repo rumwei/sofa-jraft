@@ -29,6 +29,7 @@ import com.alipay.sofa.jraft.rhea.util.VarInts;
 import com.alipay.sofa.jraft.util.internal.ReferenceFieldUpdater;
 import com.alipay.sofa.jraft.util.internal.UnsafeUtf8Util;
 import com.alipay.sofa.jraft.util.internal.Updaters;
+
 import static io.protostuff.ProtobufOutput.encodeZigZag32;
 import static io.protostuff.ProtobufOutput.encodeZigZag64;
 import static io.protostuff.WireFormat.WIRETYPE_END_GROUP;
@@ -40,20 +41,19 @@ import static io.protostuff.WireFormat.WIRETYPE_VARINT;
 import static io.protostuff.WireFormat.makeTag;
 
 /**
- *
  * @author jiachun.fjc
  */
 class NioBufOutput implements Output {
 
     private static final ReferenceFieldUpdater<ByteString, byte[]> byteStringBytesGetter = Updaters
-                                                                                             .newReferenceFieldUpdater(
-                                                                                                 ByteString.class,
-                                                                                                 "bytes");
+            .newReferenceFieldUpdater(
+                    ByteString.class,
+                    "bytes");
 
-    protected final OutputBuf                                      outputBuf;
-    protected final int                                            maxCapacity;
-    protected ByteBuffer                                           nioBuffer;
-    protected int                                                  capacity;
+    protected final OutputBuf outputBuf;
+    protected final int maxCapacity;
+    protected ByteBuffer nioBuffer;
+    protected int capacity;
 
     NioBufOutput(OutputBuf outputBuf, int minWritableBytes, int maxCapacity) {
         this.outputBuf = outputBuf;
@@ -197,7 +197,7 @@ class NioBufOutput implements Output {
             } else {
                 int pos = nioBuffer.position();
                 UnsafeUtf8Util.encodeUtf8(value, nioBuffer.array(), nioBuffer.arrayOffset() + pos,
-                    nioBuffer.remaining());
+                        nioBuffer.remaining());
                 nioBuffer.position(pos + length);
             }
         }
@@ -231,7 +231,7 @@ class NioBufOutput implements Output {
     @Override
     public void writeBytes(int fieldNumber, ByteBuffer value, boolean repeated) throws IOException {
         writeByteRange(false, fieldNumber, value.array(), value.arrayOffset() + value.position(), value.remaining(),
-            repeated);
+                repeated);
     }
 
     protected void writeVarInt32(int value) throws IOException {
@@ -287,7 +287,7 @@ class NioBufOutput implements Output {
             while (capacity - position < required) {
                 if (capacity == maxCapacity) {
                     throw new ProtocolException("Buffer overflow. Available: " + (capacity - position) + ", required: "
-                                                + required);
+                            + required);
                 }
                 capacity = Math.min(capacity << 1, maxCapacity);
                 if (capacity < 0) {

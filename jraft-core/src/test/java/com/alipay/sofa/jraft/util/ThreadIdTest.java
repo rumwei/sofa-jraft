@@ -28,7 +28,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ThreadIdTest implements ThreadId.OnError {
-    private ThreadId     id;
+    private ThreadId id;
     private volatile int errorCode = -1;
 
     @Override

@@ -36,18 +36,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class RheaKVTestCluster {
 
-    private static final String[]             CONF   = { "/pd_conf/rhea_pd_test_1.yaml", //
+    private static final String[] CONF = {"/pd_conf/rhea_pd_test_1.yaml", //
             "/pd_conf/rhea_pd_test_2.yaml", //
             "/pd_conf/rhea_pd_test_3.yaml" //
-                                                     };
+    };
 
-    private volatile String                   tempDbPath;
-    private volatile String                   tempRaftPath;
+    private volatile String tempDbPath;
+    private volatile String tempRaftPath;
     private CopyOnWriteArrayList<RheaKVStore> stores = new CopyOnWriteArrayList<>();
 
     protected void start() throws IOException, InterruptedException {

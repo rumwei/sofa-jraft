@@ -23,7 +23,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class ByteBufferCollectorTest {

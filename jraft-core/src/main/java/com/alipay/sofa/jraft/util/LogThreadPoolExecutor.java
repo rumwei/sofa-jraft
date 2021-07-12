@@ -38,7 +38,7 @@ public class LogThreadPoolExecutor extends ThreadPoolExecutor {
 
     private static final Logger LOG = LoggerFactory.getLogger(LogThreadPoolExecutor.class);
 
-    private final String        name;
+    private final String name;
 
     public LogThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit,
                                  BlockingQueue<Runnable> workQueue, String name) {

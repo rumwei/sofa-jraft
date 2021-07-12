@@ -52,33 +52,34 @@ import com.google.protobuf.Message;
 
 /**
  * Copy session.
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Apr-08 12:01:23 PM
  */
 @ThreadSafe
 public class CopySession implements Session {
 
-    private static final Logger          LOG         = LoggerFactory.getLogger(CopySession.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CopySession.class);
 
-    private final Lock                   lock        = new ReentrantLock();
-    private final Status                 st          = Status.OK();
-    private final CountDownLatch         finishLatch = new CountDownLatch(1);
-    private final GetFileResponseClosure done        = new GetFileResponseClosure();
-    private final RaftClientService      rpcService;
+    private final Lock lock = new ReentrantLock();
+    private final Status st = Status.OK();
+    private final CountDownLatch finishLatch = new CountDownLatch(1);
+    private final GetFileResponseClosure done = new GetFileResponseClosure();
+    private final RaftClientService rpcService;
     private final GetFileRequest.Builder requestBuilder;
-    private final Endpoint               endpoint;
-    private final Scheduler              timerManager;
-    private final SnapshotThrottle       snapshotThrottle;
-    private final RaftOptions            raftOptions;
-    private int                          retryTimes  = 0;
-    private boolean                      finished;
-    private ByteBufferCollector          destBuf;
-    private CopyOptions                  copyOptions = new CopyOptions();
-    private OutputStream                 outputStream;
-    private ScheduledFuture<?>           timer;
-    private String                       destPath;
-    private Future<Message>              rpcCall;
+    private final Endpoint endpoint;
+    private final Scheduler timerManager;
+    private final SnapshotThrottle snapshotThrottle;
+    private final RaftOptions raftOptions;
+    private int retryTimes = 0;
+    private boolean finished;
+    private ByteBufferCollector destBuf;
+    private CopyOptions copyOptions = new CopyOptions();
+    private OutputStream outputStream;
+    private ScheduledFuture<?> timer;
+    private String destPath;
+    private Future<Message> rpcCall;
 
     /**
      * Get file response closure to answer client.
@@ -188,8 +189,8 @@ public class CopySession implements Session {
         if (!this.finished) {
             if (!this.st.isOk()) {
                 LOG.error("Fail to copy data, readerId={} fileName={} offset={} status={}",
-                    this.requestBuilder.getReaderId(), this.requestBuilder.getFilename(),
-                    this.requestBuilder.getOffset(), this.st);
+                        this.requestBuilder.getReaderId(), this.requestBuilder.getFilename(),
+                        this.requestBuilder.getOffset(), this.st);
             }
             if (this.outputStream != null) {
                 Utils.closeQuietly(this.outputStream);
@@ -238,7 +239,7 @@ public class CopySession implements Session {
                     }
                 }
                 this.timer = this.timerManager.schedule(this::onTimer, this.copyOptions.getRetryIntervalMs(),
-                    TimeUnit.MILLISECONDS);
+                        TimeUnit.MILLISECONDS);
                 return;
             }
             this.retryTimes = 0;
@@ -291,7 +292,7 @@ public class CopySession implements Session {
                     // Reset count to make next rpc retry the previous one
                     this.requestBuilder.setCount(0);
                     this.timer = this.timerManager.schedule(this::onTimer, this.copyOptions.getRetryIntervalMs(),
-                        TimeUnit.MILLISECONDS);
+                            TimeUnit.MILLISECONDS);
                     return;
                 }
             }

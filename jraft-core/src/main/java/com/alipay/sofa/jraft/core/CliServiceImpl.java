@@ -74,8 +74,8 @@ public class CliServiceImpl implements CliService {
 
     private static final Logger LOG = LoggerFactory.getLogger(CliServiceImpl.class);
 
-    private CliOptions          cliOptions;
-    private CliClientService    cliClientService;
+    private CliOptions cliOptions;
+    private CliClientService cliClientService;
 
     @Override
     public synchronized boolean init(final CliOptions opts) {
@@ -114,9 +114,9 @@ public class CliServiceImpl implements CliService {
             return new Status(-1, "Fail to init channel to leader %s", leaderId);
         }
         final AddPeerRequest.Builder rb = AddPeerRequest.newBuilder() //
-            .setGroupId(groupId) //
-            .setLeaderId(leaderId.toString()) //
-            .setPeerId(peer.toString());
+                .setGroupId(groupId) //
+                .setLeaderId(leaderId.toString()) //
+                .setPeerId(peer.toString());
 
         try {
             final Message result = this.cliClientService.addPeer(leaderId.getEndpoint(), rb.build(), null).get();
@@ -169,9 +169,9 @@ public class CliServiceImpl implements CliService {
         }
 
         final RemovePeerRequest.Builder rb = RemovePeerRequest.newBuilder() //
-            .setGroupId(groupId) //
-            .setLeaderId(leaderId.toString()) //
-            .setPeerId(peer.toString());
+                .setGroupId(groupId) //
+                .setLeaderId(leaderId.toString()) //
+                .setPeerId(peer.toString());
 
         try {
             final Message result = this.cliClientService.removePeer(leaderId.getEndpoint(), rb.build(), null).get();
@@ -219,8 +219,8 @@ public class CliServiceImpl implements CliService {
         }
 
         final ChangePeersRequest.Builder rb = ChangePeersRequest.newBuilder() //
-            .setGroupId(groupId) //
-            .setLeaderId(leaderId.toString());
+                .setGroupId(groupId) //
+                .setLeaderId(leaderId.toString());
         for (final PeerId peer : newPeers) {
             rb.addNewPeers(peer.toString());
         }
@@ -264,8 +264,8 @@ public class CliServiceImpl implements CliService {
         }
 
         final ResetPeerRequest.Builder rb = ResetPeerRequest.newBuilder() //
-            .setGroupId(groupId) //
-            .setPeerId(peerId.toString());
+                .setGroupId(groupId) //
+                .setPeerId(peerId.toString());
         for (final PeerId peer : newPeers) {
             rb.addNewPeers(peer.toString());
         }
@@ -298,8 +298,8 @@ public class CliServiceImpl implements CliService {
             return new Status(-1, "Fail to init channel to leader %s", leaderId);
         }
         final AddLearnersRequest.Builder rb = AddLearnersRequest.newBuilder() //
-            .setGroupId(groupId) //
-            .setLeaderId(leaderId.toString());
+                .setGroupId(groupId) //
+                .setLeaderId(leaderId.toString());
         for (final PeerId peer : learners) {
             rb.addLearners(peer.toString());
         }
@@ -338,7 +338,7 @@ public class CliServiceImpl implements CliService {
             }
 
             LOG.info("Learners of replication group {} changed from {} to {} after {}.", groupId, oldConf, newConf,
-                String.format(fmt, formatArgs));
+                    String.format(fmt, formatArgs));
             return Status.OK();
         } else {
             return statusFromResponse(result);
@@ -359,8 +359,8 @@ public class CliServiceImpl implements CliService {
             return new Status(-1, "Fail to init channel to leader %s", leaderId);
         }
         final RemoveLearnersRequest.Builder rb = RemoveLearnersRequest.newBuilder() //
-            .setGroupId(groupId) //
-            .setLeaderId(leaderId.toString());
+                .setGroupId(groupId) //
+                .setLeaderId(leaderId.toString());
         for (final PeerId peer : learners) {
             rb.addLearners(peer.toString());
         }
@@ -397,8 +397,8 @@ public class CliServiceImpl implements CliService {
             return new Status(-1, "Fail to init channel to leader %s", leaderId);
         }
         final ResetLearnersRequest.Builder rb = ResetLearnersRequest.newBuilder() //
-            .setGroupId(groupId) //
-            .setLeaderId(leaderId.toString());
+                .setGroupId(groupId) //
+                .setLeaderId(leaderId.toString());
         for (final PeerId peer : learners) {
             rb.addLearners(peer.toString());
         }
@@ -429,8 +429,8 @@ public class CliServiceImpl implements CliService {
         }
 
         final TransferLeaderRequest.Builder rb = TransferLeaderRequest.newBuilder() //
-            .setGroupId(groupId) //
-            .setLeaderId(leaderId.toString());
+                .setGroupId(groupId) //
+                .setLeaderId(leaderId.toString());
         if (!peer.isEmpty()) {
             rb.setPeerId(peer.toString());
         }
@@ -453,8 +453,8 @@ public class CliServiceImpl implements CliService {
         }
 
         final SnapshotRequest.Builder rb = SnapshotRequest.newBuilder() //
-            .setGroupId(groupId) //
-            .setPeerId(peer.toString());
+                .setGroupId(groupId) //
+                .setPeerId(peer.toString());
 
         try {
             final Message result = this.cliClientService.snapshot(peer.getEndpoint(), rb.build(), null).get();
@@ -481,15 +481,15 @@ public class CliServiceImpl implements CliService {
             }
 
             final GetLeaderRequest.Builder rb = GetLeaderRequest.newBuilder() //
-                .setGroupId(groupId) //
-                .setPeerId(peer.toString());
+                    .setGroupId(groupId) //
+                    .setPeerId(peer.toString());
 
             final Future<Message> result = this.cliClientService.getLeader(peer.getEndpoint(), rb.build(), null);
             try {
 
                 final Message msg = result.get(
-                    this.cliOptions.getTimeoutMs() <= 0 ? this.cliOptions.getRpcDefaultTimeout() : this.cliOptions
-                        .getTimeoutMs(), TimeUnit.MILLISECONDS);
+                        this.cliOptions.getTimeoutMs() <= 0 ? this.cliOptions.getRpcDefaultTimeout() : this.cliOptions
+                                .getTimeoutMs(), TimeUnit.MILLISECONDS);
                 if (msg instanceof ErrorResponse) {
                     if (st.isOk()) {
                         st.setError(-1, ((ErrorResponse) msg).getErrorMsg());
@@ -554,7 +554,7 @@ public class CliServiceImpl implements CliService {
         Status failedStatus = null;
         final Queue<String> groupDeque = new ArrayDeque<>(balanceGroupIds);
         final LeaderCounter leaderCounter = new LeaderCounter(balanceGroupIds.size(), conf.size());
-        for (;;) {
+        for (; ; ) {
             final String groupId = groupDeque.poll();
             if (groupId == null) { // well done
                 break;
@@ -600,8 +600,8 @@ public class CliServiceImpl implements CliService {
         final Status status = failedStatus != null ? failedStatus : Status.OK();
         if (LOG.isInfoEnabled()) {
             LOG.info(
-                "Rebalanced raft groups={}, status={}, number of transfers={}, elapsed time={} ms, rebalanced result={}.",
-                balanceGroupIds, status, transfers, Utils.monotonicMs() - start, rebalancedLeaderIds);
+                    "Rebalanced raft groups={}, status={}, number of transfers={}, elapsed time={} ms, rebalanced result={}.",
+                    balanceGroupIds, status, transfers, Utils.monotonicMs() - start, rebalancedLeaderIds);
         }
         return status;
     }
@@ -636,14 +636,14 @@ public class CliServiceImpl implements CliService {
         }
 
         final GetPeersRequest.Builder rb = GetPeersRequest.newBuilder() //
-            .setGroupId(groupId) //
-            .setLeaderId(leaderId.toString()) //
-            .setOnlyAlive(onlyGetAlive);
+                .setGroupId(groupId) //
+                .setLeaderId(leaderId.toString()) //
+                .setOnlyAlive(onlyGetAlive);
 
         try {
             final Message result = this.cliClientService.getPeers(leaderId.getEndpoint(), rb.build(), null).get(
-                this.cliOptions.getTimeoutMs() <= 0 ? this.cliOptions.getRpcDefaultTimeout()
-                    : this.cliOptions.getTimeoutMs(), TimeUnit.MILLISECONDS);
+                    this.cliOptions.getTimeoutMs() <= 0 ? this.cliOptions.getRpcDefaultTimeout()
+                            : this.cliOptions.getTimeoutMs(), TimeUnit.MILLISECONDS);
             if (result instanceof GetPeersResponse) {
                 final GetPeersResponse resp = (GetPeersResponse) result;
                 final List<PeerId> peerIdList = new ArrayList<>();
@@ -673,7 +673,7 @@ public class CliServiceImpl implements CliService {
 
         private final Map<PeerId, Integer> counter = new HashMap<>();
         // The expected average leader number on every peerId
-        private final int                  expectedAverage;
+        private final int expectedAverage;
 
         public LeaderCounter(final int groupCount, final int peerCount) {
             this.expectedAverage = (int) Math.ceil((double) groupCount / peerCount);

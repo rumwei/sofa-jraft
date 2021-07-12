@@ -42,14 +42,14 @@ import com.google.protobuf.Message;
  * Maintain routes to raft groups.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-09 10:41:21 AM
  */
 public class RouteTable implements Describer {
 
-    private static final Logger                    LOG            = LoggerFactory.getLogger(RouteTable.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RouteTable.class);
 
-    private static final RouteTable                INSTANCE       = new RouteTable();
+    private static final RouteTable INSTANCE = new RouteTable();
 
     // Map<groupId, groupConf>
     private final ConcurrentMap<String, GroupConf> groupConfTable = new ConcurrentHashMap<>();
@@ -225,15 +225,15 @@ public class RouteTable implements Describer {
      * @return operation status
      */
     public Status refreshLeader(final CliClientService cliClientService, final String groupId, final int timeoutMs)
-                                                                                                                   throws InterruptedException,
-                                                                                                                   TimeoutException {
+            throws InterruptedException,
+            TimeoutException {
         Requires.requireTrue(!StringUtils.isBlank(groupId), "Blank group id");
         Requires.requireTrue(timeoutMs > 0, "Invalid timeout: " + timeoutMs);
 
         final Configuration conf = getConfiguration(groupId);
         if (conf == null) {
             return new Status(RaftError.ENOENT,
-                "Group %s is not registered in RouteTable, forgot to call updateConfiguration?", groupId);
+                    "Group %s is not registered in RouteTable, forgot to call updateConfiguration?", groupId);
         }
         final Status st = Status.OK();
         final CliRequests.GetLeaderRequest.Builder rb = CliRequests.GetLeaderRequest.newBuilder();
@@ -291,7 +291,7 @@ public class RouteTable implements Describer {
         final Configuration conf = getConfiguration(groupId);
         if (conf == null) {
             return new Status(RaftError.ENOENT,
-                "Group %s is not registered in RouteTable, forgot to call updateConfiguration?", groupId);
+                    "Group %s is not registered in RouteTable, forgot to call updateConfiguration?", groupId);
         }
         final Status st = Status.OK();
         PeerId leaderId = selectLeader(groupId);
@@ -312,7 +312,7 @@ public class RouteTable implements Describer {
         rb.setLeaderId(leaderId.toString());
         try {
             final Message result = cliClientService.getPeers(leaderId.getEndpoint(), rb.build(), null).get(timeoutMs,
-                TimeUnit.MILLISECONDS);
+                    TimeUnit.MILLISECONDS);
             if (result instanceof CliRequests.GetPeersResponse) {
                 final CliRequests.GetPeersResponse resp = (CliRequests.GetPeersResponse) result;
                 final Configuration newConf = new Configuration();
@@ -365,16 +365,16 @@ public class RouteTable implements Describer {
     @Override
     public void describe(final Printer out) {
         out.println("RouteTable:") //
-            .print("  ") //
-            .println(toString());
+                .print("  ") //
+                .println(toString());
     }
 
     private static class GroupConf {
 
         private final StampedLock stampedLock = new StampedLock();
 
-        private Configuration     conf;
-        private PeerId            leader;
+        private Configuration conf;
+        private PeerId leader;
 
         @Override
         public String toString() {

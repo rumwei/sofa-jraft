@@ -17,15 +17,14 @@
 package com.alipay.sofa.jraft.rhea.storage;
 
 /**
- *
  * @author jiachun.fjc
  */
 public abstract class LongSequence {
 
     private final long base;
 
-    private Sequence   sequence;
-    private long       value;
+    private Sequence sequence;
+    private long value;
 
     public LongSequence() {
         this(0);

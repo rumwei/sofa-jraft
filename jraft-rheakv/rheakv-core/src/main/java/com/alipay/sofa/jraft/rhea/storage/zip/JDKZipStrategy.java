@@ -17,6 +17,7 @@
 package com.alipay.sofa.jraft.rhea.storage.zip;
 
 import com.alipay.sofa.jraft.rhea.util.ZipUtil;
+
 import java.util.zip.Checksum;
 
 /**
@@ -32,7 +33,7 @@ public class JDKZipStrategy implements ZipStrategy {
 
     @Override
     public void deCompress(final String sourceZipFile, final String outputDir, final Checksum checksum)
-                                                                                                       throws Throwable {
+            throws Throwable {
         ZipUtil.decompress(sourceZipFile, outputDir, checksum);
     }
 

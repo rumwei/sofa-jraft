@@ -23,55 +23,54 @@ import com.alipay.sofa.jraft.storage.snapshot.SnapshotReader;
 import com.alipay.sofa.jraft.storage.snapshot.SnapshotWriter;
 
 /**
+ * 业务逻辑实现的主要接口，状态机运行在每个 raft 节点上，提交的 task 如果成功，最终都会复制应用到每个节点的状态机上。
  * |StateMachine| is the sink of all the events of a very raft node.
  * Implement a specific StateMachine for your own business logic.
  * NOTE: All the interfaces are not guaranteed to be thread safe and they are
  * called sequentially, saying that every single operation will block all the
  * following ones.
  *
- * @author boyan (boyan@alibaba-inc.com)
- *
- * 2018-Apr-08 5:43:21 PM
+ * 因StateMachine接口的方法比较多，并且大多数方法可能不需要做一些业务处理，因此jraft提供了一个
+ * {@link com.alipay.sofa.jraft.core.StateMachineAdapter}桥接类，方便适配实现状态机，
+ * 除了强制要实现 onApply 方法外，其他方法都提供了默认实现，也就是简单地打印日志，用户可以选择实现特定的方法
  */
 public interface StateMachine {
 
     /**
-     * Update the StateMachine with a batch a tasks that can be accessed
-     * through |iterator|.
-     *
-     * Invoked when one or more tasks that were passed to Node#apply(Task) have been
-     * committed to the raft group (quorum of the group peers have received
-     * those tasks and stored them on the backing storage).
-     *
-     * Once this function returns to the caller, we will regard all the iterated
-     * tasks through |iter| have been successfully applied. And if you didn't
-     * apply all the the given tasks, we would regard this as a critical error
-     * and report a error whose type is ERROR_TYPE_STATE_MACHINE.
-     *
-     * @param iter iterator of states
+     * 最核心的方法，应用{@link com.alipay.sofa.jraft.entity.Task}任务列表(通过|iterator|来遍历)到状态机,任务将按照提交顺序应用
+     * <p>
+     * 当传递给Node#apply(Task)的一个或多个任务被committed到raft group中(quorum of the group peers have received
+     *      * those tasks and stored them on the backing storage)后，将会调用该onApply方法
+     * <p>
+     * 请注意，一旦该方法返回给了caller，我们就认为这一批任务都已经成功地应用到了状态机上，如果因错误、异常等导致存在应用失败的任务，
+     * 则这会被当做一个critical级别的错误，报告给状态机的onError方法，错误类型为ERROR_TYPE_STATE_MACHINE
+     * @param iter iterator of states 将要被应用到状态机上的状态
      */
     void onApply(final Iterator iter);
 
     /**
-     * Invoked once when the raft node was shut down.
+     * 当状态机所在 raft 节点被关闭的时候调用，可以用于一些状态机的资源清理工作，比如关闭文件等。
      * Default do nothing
      */
     void onShutdown();
 
     /**
-     * User defined snapshot generate function, this method will block StateMachine#onApply(Iterator).
-     * user can make snapshot async when fsm can be cow(copy-on-write).
-     * call done.run(status) when snapshot finished.
-     * Default: Save nothing and returns error.
+     * 用户自定义快照产生方法，该方法将会阻塞StateMachine#onApply(Iterator)方法，以保证用户可以捕获当前状态机的状态
+     * 当fsm支持cow(copy-on-write)时，用户可以以异步地的方式来产生快照
      *
+     * 快照保存完成切记调用done.run(status)方法
+     * Default: Save nothing and returns error.
      * @param writer snapshot writer
      * @param done   callback
      */
     void onSnapshotSave(final SnapshotWriter writer, final Closure done);
 
     /**
-     * User defined snapshot load function
-     * get and load snapshot
+     * 用户自定义snapshot加载函数，将从SnapshotReader中读取出来的snapshot文件应用到当前状态机中
+     *
+     * 需要注意的是，程序启动会调用该方法，因此业务状态机在启动之前应该保持状态为空，如果状态机持久化了数据，则在启动之前应先清除数据
+     * 然后依赖raft snapshot + reply raft log两步来恢复状态机数据
+     *
      * Default: Load nothing and returns error.
      *
      * @param reader snapshot reader
@@ -80,33 +79,27 @@ public interface StateMachine {
     boolean onSnapshotLoad(final SnapshotReader reader);
 
     /**
-     * Invoked when the belonging node becomes the leader of the group at |term|
-     * Default: Do nothing
-     *
-     * @param term new term num
+     * 当前状态机所属的raft节点成为leader时会调用该方法，默认do nothing
+     * @param term 该leader所属任期
      */
     void onLeaderStart(final long term);
 
     /**
-     * Invoked when this node steps down from the leader of the replication
-     * group and |status| describes detailed information
+     * 当前状态机所属的raft节点失去leader资格时会调用该方法
      *
-     * @param status status info
+     * @param status 描述了失去leader资格的原因，比如主动转移 leadership、重新发生选举等
      */
     void onLeaderStop(final Status status);
 
     /**
-     * This method is called when a critical error was encountered, after this
-     * point, no any further modification is allowed to applied to this node
-     * until the error is fixed and this node restarts.
-     *
+     * 当发生critical错误时，会调用该方法，入参RaftException包含了status等详细的错误信息
+     * 该方法被调用后，就不允许再修改该node的状态机了，直到错误被修复并重启该node
      * @param e raft error message
      */
     void onError(final RaftException e);
 
     /**
-     * Invoked when a configuration has been committed to the group.
-     *
+     *  当一个 raft group 的节点配置提交到 raft group 日志的时候调用，通常不需要实现此方法，或者打印个日志即可。
      * @param conf committed configuration
      */
     void onConfigurationCommitted(final Configuration conf);
@@ -116,9 +109,9 @@ public interface StateMachine {
      * situations including:
      * 1. handle election timeout and start preVote
      * 2. receive requests with higher term such as VoteRequest from a candidate
-     *    or appendEntries request from a new leader
+     * or appendEntries request from a new leader
      * 3. receive timeoutNow request from current leader and start request vote.
-     * 
+     * <p>
      * the parameter ctx gives the information(leaderId, term and status) about the
      * very leader whom the follower followed before.
      * User can reset the node's information as it stops following some leader.
@@ -128,12 +121,11 @@ public interface StateMachine {
     void onStopFollowing(final LeaderChangeContext ctx);
 
     /**
-     * This method is called when a follower or candidate starts following a leader and its leaderId
-     * (should be NULL before the method is called) is set to the leader's id,
+     * 当一个follower或者candidate开始follow一个leader时调用。该方法调用前，node的leaderId应该为null，调用后，会被设置为leader的id
      * situations including:
-     * 1. a candidate receives appendEntries request from a leader
-     * 2. a follower(without leader) receives appendEntries from a leader
-     * 
+     * 1. a candidate receives appendEntries request from a leader. Then the candidate become a follower
+     * 2. a follower(without leader) receives first appendEntries from a leader
+     * <p>
      * the parameter ctx gives the information(leaderId, term and status) about
      * the very leader whom the follower starts to follow.
      * User can reset the node's information as it starts to follow some leader.

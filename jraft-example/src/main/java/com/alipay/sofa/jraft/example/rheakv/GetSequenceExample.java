@@ -27,7 +27,6 @@ import com.alipay.sofa.jraft.rhea.storage.Sequence;
 import static com.alipay.sofa.jraft.util.BytesUtil.writeUtf8;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class GetSequenceExample {

@@ -19,15 +19,14 @@ package com.alipay.sofa.jraft.rhea.cmd.store;
 import com.alipay.sofa.jraft.util.BytesUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class DeleteRangeRequest extends BaseRequest {
 
     private static final long serialVersionUID = -5457684744947827779L;
 
-    private byte[]            startKey;
-    private byte[]            endKey;
+    private byte[] startKey;
+    private byte[] endKey;
 
     public byte[] getStartKey() {
         return startKey;
@@ -53,6 +52,6 @@ public class DeleteRangeRequest extends BaseRequest {
     @Override
     public String toString() {
         return "DeleteRangeRequest{" + "startKey=" + BytesUtil.toHex(startKey) + ", endKey=" + BytesUtil.toHex(endKey)
-               + "} " + super.toString();
+                + "} " + super.toString();
     }
 }

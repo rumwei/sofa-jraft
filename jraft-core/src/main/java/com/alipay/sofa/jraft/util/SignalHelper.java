@@ -22,16 +22,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class SignalHelper {
 
-    private static final Logger         LOG             = LoggerFactory.getLogger(SignalHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SignalHelper.class);
 
     private static final SignalAccessor SIGNAL_ACCESSOR = getSignalAccessor0();
 
-    public static final String          SIG_USR2        = "USR2";
+    public static final String SIG_USR2 = "USR2";
 
     public static boolean supportSignal() {
         return SIGNAL_ACCESSOR != null;
@@ -82,7 +81,7 @@ public final class SignalHelper {
 
     static class SignalHandlerAdapter implements sun.misc.SignalHandler {
 
-        private final sun.misc.Signal          target;
+        private final sun.misc.Signal target;
         private final List<JRaftSignalHandler> handlers;
 
         public static void addSignal(final SignalHandlerAdapter adapter) {

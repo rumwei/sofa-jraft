@@ -33,13 +33,12 @@ import com.alipay.sofa.jraft.rhea.metadata.Store;
 import com.alipay.sofa.jraft.util.Endpoint;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class MetadataRpcClient {
 
     private final PlacementDriverRpcService pdRpcService;
-    private final int                       failoverRetries;
+    private final int failoverRetries;
 
     public MetadataRpcClient(PlacementDriverRpcService pdRpcService, int failoverRetries) {
         this.pdRpcService = pdRpcService;

@@ -22,7 +22,6 @@ import com.alipay.sofa.jraft.rhea.errors.Errors;
 import com.alipay.sofa.jraft.rhea.storage.KVStoreClosure;
 
 /**
- *
  * @author jiachun.fjc
  */
 public interface FailoverClosure<T> extends KVStoreClosure {

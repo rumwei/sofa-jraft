@@ -54,7 +54,7 @@ import com.alipay.sofa.jraft.util.Requires;
  */
 public class KVCommandProcessor<T extends BaseRequest> implements RpcProcessor<T> {
 
-    private final Class<T>    reqClazz;
+    private final Class<T> reqClazz;
     private final StoreEngine storeEngine;
 
     public KVCommandProcessor(Class<T> reqClazz, StoreEngine storeEngine) {

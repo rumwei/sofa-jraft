@@ -25,7 +25,7 @@ import com.alipay.sofa.jraft.rpc.RpcResponseFactory;
 public class RpcFactoryHelper {
 
     private static final RaftRpcFactory RPC_FACTORY = JRaftServiceLoader.load(RaftRpcFactory.class) //
-                                                        .first();
+            .first();
 
     public static RaftRpcFactory rpcFactory() {
         return RPC_FACTORY;

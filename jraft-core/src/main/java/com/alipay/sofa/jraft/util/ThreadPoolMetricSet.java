@@ -38,6 +38,7 @@ public final class ThreadPoolMetricSet implements MetricSet {
 
     /**
      * Return thread pool metrics
+     *
      * @return thread pool metrics map
      */
     @Override

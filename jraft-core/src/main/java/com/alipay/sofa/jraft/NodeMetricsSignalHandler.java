@@ -32,14 +32,13 @@ import com.alipay.sofa.jraft.util.SystemPropertyUtil;
 import com.codahale.metrics.MetricRegistry;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class NodeMetricsSignalHandler extends FileOutputSignalHandler {
 
-    private static Logger       LOG       = LoggerFactory.getLogger(NodeMetricsSignalHandler.class);
+    private static Logger LOG = LoggerFactory.getLogger(NodeMetricsSignalHandler.class);
 
-    private static final String DIR       = SystemPropertyUtil.get("jraft.signal.node.metrics.dir", "");
+    private static final String DIR = SystemPropertyUtil.get("jraft.signal.node.metrics.dir", "");
     private static final String BASE_NAME = "node_metrics.log";
 
     @Override
@@ -60,13 +59,13 @@ public class NodeMetricsSignalHandler extends FileOutputSignalHandler {
                     final MetricRegistry registry = nodeMetrics.getMetricRegistry();
                     if (registry == null) {
                         LOG.warn("Node: {} received a signal to print metric, but it does not have metric enabled.",
-                            node);
+                                node);
                         continue;
                     }
                     final MetricReporter reporter = MetricReporter.forRegistry(registry) //
-                        .outputTo(out) //
-                        .prefixedWith("-- " + node.getNodeId()) //
-                        .build();
+                            .outputTo(out) //
+                            .prefixedWith("-- " + node.getNodeId()) //
+                            .build();
                     reporter.report();
                 }
             }

@@ -162,7 +162,7 @@ public class ConfigurationTest {
     public void testDiff() {
         final Configuration conf1 = JRaftUtils.getConfiguration("localhost:8081,localhost:8082,localhost:8083");
         final Configuration conf2 = JRaftUtils
-            .getConfiguration("localhost:8081,localhost:8083,localhost:8085,localhost:8086");
+                .getConfiguration("localhost:8081,localhost:8083,localhost:8085,localhost:8086");
         final Configuration included = new Configuration();
         final Configuration excluded = new Configuration();
         conf1.diff(conf2, included, excluded);

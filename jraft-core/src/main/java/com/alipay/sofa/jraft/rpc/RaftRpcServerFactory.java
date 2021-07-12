@@ -64,9 +64,9 @@ public class RaftRpcServerFactory {
     /**
      * Creates a raft RPC server with executors to handle requests.
      *
-     * @param endpoint      server address to bind
-     * @param raftExecutor  executor to handle RAFT requests.
-     * @param cliExecutor   executor to handle CLI service requests.
+     * @param endpoint     server address to bind
+     * @param raftExecutor executor to handle RAFT requests.
+     * @param cliExecutor  executor to handle CLI service requests.
      * @return a rpc server instance
      */
     public static RpcServer createRaftRpcServer(final Endpoint endpoint, final Executor raftExecutor,
@@ -96,7 +96,7 @@ public class RaftRpcServerFactory {
                                                 final Executor cliExecutor) {
         // raft core processors
         final AppendEntriesRequestProcessor appendEntriesRequestProcessor = new AppendEntriesRequestProcessor(
-            raftExecutor);
+                raftExecutor);
         rpcServer.registerConnectionClosedEventListener(appendEntriesRequestProcessor);
         rpcServer.registerProcessor(appendEntriesRequestProcessor);
         rpcServer.registerProcessor(new GetFileRequestProcessor(raftExecutor));

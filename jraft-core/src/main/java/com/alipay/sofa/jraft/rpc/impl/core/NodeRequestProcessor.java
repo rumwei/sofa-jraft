@@ -32,7 +32,6 @@ import com.google.protobuf.Message;
  * Node handle requests processor template.
  *
  * @param <T> Message
- *
  * @author boyan (boyan@alibaba-inc.com)
  * @author jiachun.fjc
  */
@@ -60,14 +59,14 @@ public abstract class NodeRequestProcessor<T extends Message> extends RpcRequest
                 return processRequest0((RaftServerService) node, request, done);
             } else {
                 return RpcFactoryHelper //
-                    .responseFactory() //
-                    .newResponse(defaultResp(), RaftError.ENOENT, "Peer id not found: %s, group: %s", peerIdStr,
-                        groupId);
+                        .responseFactory() //
+                        .newResponse(defaultResp(), RaftError.ENOENT, "Peer id not found: %s, group: %s", peerIdStr,
+                                groupId);
             }
         } else {
             return RpcFactoryHelper //
-                .responseFactory() //
-                .newResponse(defaultResp(), RaftError.EINVAL, "Fail to parse peerId: %s", peerIdStr);
+                    .responseFactory() //
+                    .newResponse(defaultResp(), RaftError.EINVAL, "Fail to parse peerId: %s", peerIdStr);
         }
     }
 }

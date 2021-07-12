@@ -26,7 +26,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class JRaftServiceLoaderTest {
@@ -38,15 +37,15 @@ public class JRaftServiceLoaderTest {
             fail("fail");
         } catch (final ServiceConfigurationError e) {
             assertEquals(
-                "com.alipay.sofa.jraft.util.JRaftServiceLoaderTest$NoImplTest: could not find any implementation for class",
-                e.getMessage());
+                    "com.alipay.sofa.jraft.util.JRaftServiceLoaderTest$NoImplTest: could not find any implementation for class",
+                    e.getMessage());
         }
     }
 
     @Test
     public void serviceSortTest() {
         final List<SortTest> serviceList = JRaftServiceLoader.load(SortTest.class) //
-            .sort();
+                .sort();
         assertEquals(3, serviceList.size());
         assertEquals(SortImpl9Test.class, serviceList.get(0).getClass());
         assertEquals(SortImpl2Test.class, serviceList.get(1).getClass());
@@ -56,7 +55,7 @@ public class JRaftServiceLoaderTest {
     @Test
     public void serviceGetFirstTest() {
         final SortTest service = JRaftServiceLoader.load(SortTest.class) //
-            .first();
+                .first();
         assertNotNull(service);
         assertEquals(SortImpl9Test.class, service.getClass());
     }
@@ -64,7 +63,7 @@ public class JRaftServiceLoaderTest {
     @Test
     public void serviceFindTest() {
         final SortTest service = JRaftServiceLoader.load(SortTest.class) //
-            .find("sort2");
+                .find("sort2");
         assertNotNull(service);
         assertEquals(SortImpl2Test.class, service.getClass());
     }

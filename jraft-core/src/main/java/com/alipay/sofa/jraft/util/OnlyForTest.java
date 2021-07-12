@@ -31,7 +31,7 @@ import javax.annotation.concurrent.NotThreadSafe;
  * @see NotThreadSafe
  */
 @Documented
-@Target({ ElementType.TYPE, ElementType.METHOD, ElementType.FIELD, ElementType.CONSTRUCTOR })
+@Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD, ElementType.CONSTRUCTOR})
 @Retention(RetentionPolicy.CLASS)
 public @interface OnlyForTest {
 }

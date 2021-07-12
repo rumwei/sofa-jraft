@@ -45,24 +45,23 @@ import static io.protostuff.WireFormat.getTagWireType;
 import static io.protostuff.WireFormat.makeTag;
 
 /**
- *
  * @author jiachun.fjc
  */
 class NioBufInput implements Input {
 
-    static final int         TAG_TYPE_BITS = 3;
-    static final int         TAG_TYPE_MASK = (1 << TAG_TYPE_BITS) - 1;
+    static final int TAG_TYPE_BITS = 3;
+    static final int TAG_TYPE_MASK = (1 << TAG_TYPE_BITS) - 1;
 
-    static final Method      byteStringWrapMethod;
+    static final Method byteStringWrapMethod;
 
     private final ByteBuffer nioBuffer;
-    private int              lastTag       = 0;
-    private int              packedLimit   = 0;
+    private int lastTag = 0;
+    private int packedLimit = 0;
 
     /**
      * If true, the nested messages are group-encoded
      */
-    public final boolean     decodeNestedMessageAsGroup;
+    public final boolean decodeNestedMessageAsGroup;
 
     /**
      * An input for a ByteBuffer
@@ -566,7 +565,7 @@ class NioBufInput implements Input {
         nioBuffer.get(bs);
 
         return (((int) bs[0] & 0xff)) | (((int) bs[1] & 0xff) << 8) | (((int) bs[2] & 0xff) << 16)
-               | (((int) bs[3] & 0xff) << 24);
+                | (((int) bs[3] & 0xff) << 24);
     }
 
     /**
@@ -577,13 +576,13 @@ class NioBufInput implements Input {
         nioBuffer.get(bs);
 
         return (((long) bs[0] & 0xff)) | (((long) bs[1] & 0xff) << 8) | (((long) bs[2] & 0xff) << 16)
-               | (((long) bs[3] & 0xff) << 24) | (((long) bs[4] & 0xff) << 32) | (((long) bs[5] & 0xff) << 40)
-               | (((long) bs[6] & 0xff) << 48) | (((long) bs[7] & 0xff) << 56);
+                | (((long) bs[3] & 0xff) << 24) | (((long) bs[4] & 0xff) << 32) | (((long) bs[5] & 0xff) << 40)
+                | (((long) bs[6] & 0xff) << 48) | (((long) bs[7] & 0xff) << 56);
     }
 
     @Override
     public void transferByteRangeTo(Output output, boolean utf8String, int fieldNumber, boolean repeated)
-                                                                                                         throws IOException {
+            throws IOException {
         final int length = readRawVarInt32();
         if (length < 0) {
             throw ProtocolException.negativeSize();
@@ -594,7 +593,7 @@ class NioBufInput implements Input {
 
             if (nioBuffer.hasArray()) {
                 output.writeByteRange(true, fieldNumber, nioBuffer.array(),
-                    nioBuffer.arrayOffset() + nioBuffer.position(), length, repeated);
+                        nioBuffer.arrayOffset() + nioBuffer.position(), length, repeated);
                 nioBuffer.position(nioBuffer.position() + length);
             } else {
                 byte[] bytes = new byte[length];

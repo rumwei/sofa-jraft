@@ -44,24 +44,24 @@ import static com.alipay.sofa.jraft.rhea.benchmark.BenchmarkUtil.VALUE_BYTES;
 public class RawKVApproximateBenchmark extends BaseRawStoreBenchmark {
 
     /**
-     //
-     // 100w keys, each value is 100 bytes.
-     //
-     // tps = 0.025 * 1000 = 25 ops/second
-     //
-     Benchmark                                                                                Mode  Cnt     Score     Error   Units
-     RawKVApproximateBenchmark.getApproximateKeysInRange                                     thrpt    3     0.025 ±   0.001  ops/ms
-     RawKVApproximateBenchmark.getApproximateKeysInRange                                      avgt    3  1304.013 ± 115.808   ms/op
-     RawKVApproximateBenchmark.getApproximateKeysInRange                                    sample  693  1308.347 ±   5.718   ms/op
-     RawKVApproximateBenchmark.getApproximateKeysInRange:getApproximateKeysInRange·p0.00    sample       1153.434             ms/op
-     RawKVApproximateBenchmark.getApproximateKeysInRange:getApproximateKeysInRange·p0.50    sample       1308.623             ms/op
-     RawKVApproximateBenchmark.getApproximateKeysInRange:getApproximateKeysInRange·p0.90    sample       1366.504             ms/op
-     RawKVApproximateBenchmark.getApproximateKeysInRange:getApproximateKeysInRange·p0.95    sample       1384.120             ms/op
-     RawKVApproximateBenchmark.getApproximateKeysInRange:getApproximateKeysInRange·p0.99    sample       1415.703             ms/op
-     RawKVApproximateBenchmark.getApproximateKeysInRange:getApproximateKeysInRange·p0.999   sample       1457.521             ms/op
-     RawKVApproximateBenchmark.getApproximateKeysInRange:getApproximateKeysInRange·p0.9999  sample       1457.521             ms/op
-     RawKVApproximateBenchmark.getApproximateKeysInRange:getApproximateKeysInRange·p1.00    sample       1457.521             ms/op
-     RawKVApproximateBenchmark.getApproximateKeysInRange                                        ss    3  1158.760 ± 894.444   ms/op
+     * //
+     * // 100w keys, each value is 100 bytes.
+     * //
+     * // tps = 0.025 * 1000 = 25 ops/second
+     * //
+     * Benchmark                                                                                Mode  Cnt     Score     Error   Units
+     * RawKVApproximateBenchmark.getApproximateKeysInRange                                     thrpt    3     0.025 ±   0.001  ops/ms
+     * RawKVApproximateBenchmark.getApproximateKeysInRange                                      avgt    3  1304.013 ± 115.808   ms/op
+     * RawKVApproximateBenchmark.getApproximateKeysInRange                                    sample  693  1308.347 ±   5.718   ms/op
+     * RawKVApproximateBenchmark.getApproximateKeysInRange:getApproximateKeysInRange·p0.00    sample       1153.434             ms/op
+     * RawKVApproximateBenchmark.getApproximateKeysInRange:getApproximateKeysInRange·p0.50    sample       1308.623             ms/op
+     * RawKVApproximateBenchmark.getApproximateKeysInRange:getApproximateKeysInRange·p0.90    sample       1366.504             ms/op
+     * RawKVApproximateBenchmark.getApproximateKeysInRange:getApproximateKeysInRange·p0.95    sample       1384.120             ms/op
+     * RawKVApproximateBenchmark.getApproximateKeysInRange:getApproximateKeysInRange·p0.99    sample       1415.703             ms/op
+     * RawKVApproximateBenchmark.getApproximateKeysInRange:getApproximateKeysInRange·p0.999   sample       1457.521             ms/op
+     * RawKVApproximateBenchmark.getApproximateKeysInRange:getApproximateKeysInRange·p0.9999  sample       1457.521             ms/op
+     * RawKVApproximateBenchmark.getApproximateKeysInRange:getApproximateKeysInRange·p1.00    sample       1457.521             ms/op
+     * RawKVApproximateBenchmark.getApproximateKeysInRange                                        ss    3  1158.760 ± 894.444   ms/op
      */
 
     private static final int KEY_COUNT = 1000000;
@@ -98,14 +98,14 @@ public class RawKVApproximateBenchmark extends BaseRawStoreBenchmark {
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder() //
-            .include(RawKVApproximateBenchmark.class.getSimpleName()) //
-            .warmupIterations(3) //
-            .warmupTime(TimeValue.seconds(10)) //
-            .measurementIterations(3) //
-            .measurementTime(TimeValue.seconds(10)) //
-            .threads(CONCURRENCY) //
-            .forks(1) //
-            .build();
+                .include(RawKVApproximateBenchmark.class.getSimpleName()) //
+                .warmupIterations(3) //
+                .warmupTime(TimeValue.seconds(10)) //
+                .measurementIterations(3) //
+                .measurementTime(TimeValue.seconds(10)) //
+                .threads(CONCURRENCY) //
+                .forks(1) //
+                .build();
 
         new Runner(opt).run();
     }

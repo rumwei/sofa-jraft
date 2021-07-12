@@ -46,15 +46,15 @@ import static org.junit.Assert.assertTrue;
 @RunWith(value = MockitoJUnitRunner.class)
 public class IteratorTest {
 
-    private IteratorImpl  iterImpl;
-    private Iterator      iter;
+    private IteratorImpl iterImpl;
+    private Iterator iter;
 
     @Mock
-    private StateMachine  fsm;
+    private StateMachine fsm;
     @Mock
-    private LogManager    logManager;
+    private LogManager logManager;
     private List<Closure> closures;
-    private AtomicLong    applyingIndex;
+    private AtomicLong applyingIndex;
 
     @Before
     public void setup() {
@@ -106,9 +106,9 @@ public class IteratorTest {
         Assert.assertEquals(EnumOutter.ErrorType.ERROR_TYPE_STATE_MACHINE, iterImpl.getError().getType());
         Assert.assertEquals(RaftError.ESTATEMACHINE.getNumber(), iterImpl.getError().getStatus().getCode());
         Assert
-            .assertEquals(
-                "StateMachine meet critical error when applying one or more tasks since index=6, Status[UNKNOWN<-1>: test]",
-                iterImpl.getError().getStatus().getErrorMsg());
+                .assertEquals(
+                        "StateMachine meet critical error when applying one or more tasks since index=6, Status[UNKNOWN<-1>: test]",
+                        iterImpl.getError().getStatus().getErrorMsg());
         assertEquals(6, iter.getIndex());
     }
 }

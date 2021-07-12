@@ -19,7 +19,7 @@ package com.alipay.sofa.jraft.rhea.util.pipeline;
 /**
  * A {@link RuntimeException} which is thrown when a {@link Pipeline}
  * failed to execute an operation.
- *
+ * <p>
  * Most of the code references the pipeline design of
  * <a href="https://github.com/netty/netty">Netty</a>.
  *

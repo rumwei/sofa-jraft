@@ -24,7 +24,7 @@ import com.alipay.sofa.jraft.rhea.util.pipeline.event.OutboundMessageEvent;
  * Enables a {@link Handler} to interact with its {@link Pipeline}
  * and other handlers. Among other things a handler can notify the next {@link Handler} in the
  * {@link Pipeline} as well as modify the {@link Pipeline} it belongs to dynamically.
- *
+ * <p>
  * Most of the code references the pipeline design of
  * <a href="https://github.com/netty/netty">Netty</a>.
  *

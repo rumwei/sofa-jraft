@@ -19,14 +19,13 @@ package com.alipay.sofa.jraft.rhea.cmd.store;
 import com.alipay.sofa.jraft.util.BytesUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class DeleteRequest extends BaseRequest {
 
     private static final long serialVersionUID = -6230976612126054651L;
 
-    private byte[]            key;
+    private byte[] key;
 
     public byte[] getKey() {
         return key;

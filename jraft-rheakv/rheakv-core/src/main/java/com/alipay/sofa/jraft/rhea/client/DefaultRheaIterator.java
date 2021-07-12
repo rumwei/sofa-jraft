@@ -26,21 +26,20 @@ import com.alipay.sofa.jraft.rhea.storage.KVEntry;
 import com.alipay.sofa.jraft.util.BytesUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class DefaultRheaIterator implements RheaIterator<KVEntry> {
 
-    private final DefaultRheaKVStore    rheaKVStore;
+    private final DefaultRheaKVStore rheaKVStore;
     private final PlacementDriverClient pdClient;
-    private final byte[]                startKey;
-    private final byte[]                endKey;
-    private final boolean               readOnlySafe;
-    private final boolean               returnValue;
-    private final int                   bufSize;
-    private final Queue<KVEntry>        buf;
+    private final byte[] startKey;
+    private final byte[] endKey;
+    private final boolean readOnlySafe;
+    private final boolean returnValue;
+    private final int bufSize;
+    private final Queue<KVEntry> buf;
 
-    private byte[]                      cursorKey;
+    private byte[] cursorKey;
 
     public DefaultRheaIterator(DefaultRheaKVStore rheaKVStore, byte[] startKey, byte[] endKey, int bufSize,
                                boolean readOnlySafe, boolean returnValue) {
@@ -60,7 +59,7 @@ public class DefaultRheaIterator implements RheaIterator<KVEntry> {
         if (this.buf.isEmpty()) {
             while (this.endKey == null || BytesUtil.compare(this.cursorKey, this.endKey) < 0) {
                 final List<KVEntry> kvEntries = this.rheaKVStore.singleRegionScan(this.cursorKey, this.endKey,
-                    this.bufSize, this.readOnlySafe, this.returnValue);
+                        this.bufSize, this.readOnlySafe, this.returnValue);
                 if (kvEntries.isEmpty()) {
                     // cursorKey jump to next region's startKey
                     this.cursorKey = this.pdClient.findStartKeyOfNextRegion(this.cursorKey, false);

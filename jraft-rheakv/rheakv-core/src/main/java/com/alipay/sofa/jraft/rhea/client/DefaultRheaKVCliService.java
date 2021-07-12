@@ -35,18 +35,17 @@ import com.alipay.sofa.jraft.rpc.impl.AbstractClientService;
 import com.alipay.sofa.jraft.util.Requires;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class DefaultRheaKVCliService implements RheaKVCliService {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultRheaKVCliService.class);
 
-    private RpcClient           rpcClient;
-    private CliService          cliService;
-    private CliOptions          opts;
+    private RpcClient rpcClient;
+    private CliService cliService;
+    private CliOptions opts;
 
-    private boolean             started;
+    private boolean started;
 
     @Override
     public boolean init(final CliOptions opts) {
@@ -80,7 +79,7 @@ public class DefaultRheaKVCliService implements RheaKVCliService {
         request.setNewRegionId(newRegionId);
         try {
             final BaseResponse<?> response = (BaseResponse<?>) this.rpcClient.invokeSync(leaderId.getEndpoint(),
-                request, this.opts.getTimeoutMs());
+                    request, this.opts.getTimeoutMs());
             if (response.isSuccess()) {
                 return Status.OK();
             }

@@ -59,12 +59,12 @@ import static org.junit.Assert.assertTrue;
  */
 public class KVStateMachineTest {
 
-    private static final int APPLY_COUNT   = 100;
+    private static final int APPLY_COUNT = 100;
     private static final int SUCCESS_COUNT = 10;
 
     private RaftGroupService raftGroupService;
-    private RaftRawKVStore   raftRawKVStore;
-    private File             raftDataPath;
+    private RaftRawKVStore raftRawKVStore;
+    private File raftDataPath;
 
     @Before
     public void setup() throws IOException, InterruptedException {
@@ -223,7 +223,7 @@ public class KVStateMachineTest {
 
         @Override
         void doSnapshotSave(MemoryKVStoreSnapshotFile snapshotFile, String snapshotPath, Region region)
-                                                                                                       throws Exception {
+                throws Exception {
             super.doSnapshotSave(snapshotFile, snapshotPath, region);
             snapshotFile.writeToFile(snapshotPath, "putIndex", new PutIndex(this.putIndex));
         }
@@ -245,7 +245,7 @@ public class KVStateMachineTest {
 
     static class MockStoreEngine extends StoreEngine {
 
-        private final MockKVStore     mockKVStore        = new MockKVStore();
+        private final MockKVStore mockKVStore = new MockKVStore();
         private final ExecutorService leaderStateTrigger = Executors.newSingleThreadExecutor();
 
         public MockStoreEngine() {

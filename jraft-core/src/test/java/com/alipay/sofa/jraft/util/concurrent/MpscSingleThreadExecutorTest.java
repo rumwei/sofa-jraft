@@ -136,7 +136,8 @@ public class MpscSingleThreadExecutorTest {
 
         // fill the task queue
         for (int i = 0; i < minMaxPendingTasks; i++) {
-            executor.execute(() -> {});
+            executor.execute(() -> {
+            });
         }
 
         executeShouldFail(executor);

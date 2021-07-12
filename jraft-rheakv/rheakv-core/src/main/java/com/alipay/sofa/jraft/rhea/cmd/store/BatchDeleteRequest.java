@@ -19,14 +19,13 @@ package com.alipay.sofa.jraft.rhea.cmd.store;
 import java.util.List;
 
 /**
- *
  * @author nicholas.jxf
  */
 public class BatchDeleteRequest extends BaseRequest {
 
     private static final long serialVersionUID = -472951628397420368L;
 
-    private List<byte[]>      keys;
+    private List<byte[]> keys;
 
     public List<byte[]> getKeys() {
         return keys;

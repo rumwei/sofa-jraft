@@ -22,14 +22,14 @@ import com.alipay.sofa.jraft.rpc.RpcRequests.ReadIndexRequest;
 
 /**
  * ReadIndex requests statuses.
- * @author dennis
  *
+ * @author dennis
  */
 public class ReadIndexStatus {
 
-    private final ReadIndexRequest     request; // raw request
+    private final ReadIndexRequest request; // raw request
     private final List<ReadIndexState> states; // read index requests in batch.
-    private final long                 index;  // committed log index.
+    private final long index;  // committed log index.
 
     public ReadIndexStatus(List<ReadIndexState> states, ReadIndexRequest request, long index) {
         super();

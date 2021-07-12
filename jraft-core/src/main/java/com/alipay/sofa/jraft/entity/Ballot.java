@@ -25,7 +25,7 @@ import com.alipay.sofa.jraft.conf.Configuration;
  * A ballot to vote.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Mar-15 2:29:11 PM
  */
 public class Ballot {
@@ -36,9 +36,9 @@ public class Ballot {
     }
 
     public static class UnfoundPeerId {
-        PeerId  peerId;
+        PeerId peerId;
         boolean found;
-        int     index;
+        int index;
 
         public UnfoundPeerId(PeerId peerId, int index, boolean found) {
             super();
@@ -48,10 +48,10 @@ public class Ballot {
         }
     }
 
-    private final List<UnfoundPeerId> peers    = new ArrayList<>();
-    private int                       quorum;
+    private final List<UnfoundPeerId> peers = new ArrayList<>();
+    private int quorum;
     private final List<UnfoundPeerId> oldPeers = new ArrayList<>();
-    private int                       oldQuorum;
+    private int oldQuorum;
 
     /**
      * Init the ballot with current conf and old conf.

@@ -33,7 +33,7 @@ public class ProtobufMsgFactoryTest {
     public void testNewMessageByJavaClassName() {
         SnapshotMeta meta = SnapshotMeta.newBuilder().setLastIncludedIndex(99).setLastIncludedTerm(1).build();
         SnapshotMeta pMeta = ProtobufMsgFactory
-            .newMessageByJavaClassName(meta.getClass().getName(), meta.toByteArray());
+                .newMessageByJavaClassName(meta.getClass().getName(), meta.toByteArray());
         assertNotNull(pMeta);
         assertNotSame(pMeta, meta);
         assertEquals(pMeta, meta);

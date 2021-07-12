@@ -28,24 +28,24 @@ import org.slf4j.LoggerFactory;
  * Replicator id with lock.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Mar-29 10:59:47 AM
  */
 public class ThreadId {
 
-    private static final Logger    LOG                 = LoggerFactory.getLogger(ThreadId.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ThreadId.class);
 
-    private static final int       TRY_LOCK_TIMEOUT_MS = 10;
+    private static final int TRY_LOCK_TIMEOUT_MS = 10;
 
-    private final Object           data;
-    private final NonReentrantLock lock                = new NonReentrantLock();
-    private final List<Integer>    pendingErrors       = Collections.synchronizedList(new ArrayList<>());
-    private final OnError          onError;
-    private volatile boolean       destroyed;
+    private final Object data;
+    private final NonReentrantLock lock = new NonReentrantLock();
+    private final List<Integer> pendingErrors = Collections.synchronizedList(new ArrayList<>());
+    private final OnError onError;
+    private volatile boolean destroyed;
 
     /**
      * @author boyan (boyan@alibaba-inc.com)
-     *
+     * <p>
      * 2018-Mar-29 11:01:54 AM
      */
     public interface OnError {
@@ -97,7 +97,7 @@ public class ThreadId {
     public void unlock() {
         if (!this.lock.isHeldByCurrentThread()) {
             LOG.warn("Fail to unlock with {}, the lock is held by {} and current thread is {}.", this.data,
-                this.lock.getOwner(), Thread.currentThread());
+                    this.lock.getOwner(), Thread.currentThread());
             return;
         }
         // calls all pending errors before unlock
@@ -140,7 +140,7 @@ public class ThreadId {
         this.destroyed = true;
         if (!this.lock.isHeldByCurrentThread()) {
             LOG.warn("Fail to unlockAndDestroy with {}, the lock is held by {} and current thread is {}.", this.data,
-                this.lock.getOwner(), Thread.currentThread());
+                    this.lock.getOwner(), Thread.currentThread());
             return;
         }
         this.lock.unlock();

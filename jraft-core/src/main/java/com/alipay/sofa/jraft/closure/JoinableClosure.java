@@ -30,7 +30,7 @@ import com.alipay.sofa.jraft.util.Requires;
 public class JoinableClosure implements Closure {
 
     private final CountDownLatch latch = new CountDownLatch(1);
-    private final Closure        closure;
+    private final Closure closure;
 
     public JoinableClosure(Closure closure) {
         this.closure = Requires.requireNonNull(closure, "closure");

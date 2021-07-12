@@ -27,7 +27,7 @@ import com.alipay.sofa.jraft.util.Describer;
  * Finite state machine caller.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-03 11:07:52 AM
  */
 public interface FSMCaller extends Lifecycle<FSMCallerOptions>, Describer {
@@ -117,7 +117,7 @@ public interface FSMCaller extends Lifecycle<FSMCallerOptions>, Describer {
      * Called after shutdown to wait it terminates.
      *
      * @throws InterruptedException if the current thread is interrupted
-     *         while waiting
+     *                              while waiting
      */
     void join() throws InterruptedException;
 }

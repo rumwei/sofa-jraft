@@ -27,17 +27,17 @@ import com.alipay.sofa.jraft.storage.LogStorage;
  * Options for log manager.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Mar-13 5:15:15 PM
  */
 public class LogManagerOptions {
 
-    private LogStorage           logStorage;
+    private LogStorage logStorage;
     private ConfigurationManager configurationManager;
-    private FSMCaller            fsmCaller;
-    private int                  disruptorBufferSize  = 1024;
-    private RaftOptions          raftOptions;
-    private NodeMetrics          nodeMetrics;
+    private FSMCaller fsmCaller;
+    private int disruptorBufferSize = 1024;
+    private RaftOptions raftOptions;
+    private NodeMetrics nodeMetrics;
     private LogEntryCodecFactory logEntryCodecFactory = LogEntryV2CodecFactory.getInstance();
 
     public LogEntryCodecFactory getLogEntryCodecFactory() {

@@ -19,15 +19,14 @@ package com.alipay.sofa.jraft.rhea.cmd.store;
 import java.util.List;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class MultiGetRequest extends BaseRequest {
 
     private static final long serialVersionUID = 586927459257448933L;
 
-    private List<byte[]>      keys;
-    private boolean           readOnlySafe     = true;
+    private List<byte[]> keys;
+    private boolean readOnlySafe = true;
 
     public List<byte[]> getKeys() {
         return keys;

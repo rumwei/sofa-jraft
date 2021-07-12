@@ -54,7 +54,7 @@ public interface Handler {
      * Indicates that the same instance of the annotated {@link Handler}
      * can be added to one or more {@link Pipeline}s multiple times
      * without a race condition.
-     *
+     * <p>
      * If this annotation is not specified, you have to create a new handler
      * instance every time you add it to a pipeline because it has unshared
      * state such as member variables.

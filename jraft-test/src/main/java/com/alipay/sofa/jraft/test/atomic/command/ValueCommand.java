@@ -18,13 +18,14 @@ package com.alipay.sofa.jraft.test.atomic.command;
 
 /**
  * Value response command
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Apr-25 1:29:03 PM
  */
 public class ValueCommand extends BooleanCommand {
     private static final long serialVersionUID = -4313480716428249772L;
-    private long              vlaue;
+    private long vlaue;
 
     public ValueCommand() {
         super();

@@ -24,7 +24,7 @@ import com.alipay.sofa.jraft.example.counter.rpc.ValueResponse;
  */
 public abstract class CounterClosure implements Closure {
 
-    private ValueResponse    valueResponse;
+    private ValueResponse valueResponse;
     private CounterOperation counterOperation;
 
     public void setCounterOperation(CounterOperation counterOperation) {

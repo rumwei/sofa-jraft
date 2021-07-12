@@ -17,7 +17,6 @@
 package com.alipay.sofa.jraft.rhea.util;
 
 /**
- *
  * @author jiachun.fjc
  */
 @SuppressWarnings("all")

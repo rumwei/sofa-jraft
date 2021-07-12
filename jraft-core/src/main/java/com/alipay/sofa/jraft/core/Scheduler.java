@@ -20,7 +20,6 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
- *
  * @author jiachun.fjc
  */
 public interface Scheduler {
@@ -33,9 +32,9 @@ public interface Scheduler {
      * @param delay   the time from now to delay execution
      * @param unit    the time unit of the delay parameter
      * @return a ScheduledFuture representing pending completion of
-     *         the task and whose {@code get()} method will return
-     *         {@code null} upon completion
-     *         scheduled for execution
+     * the task and whose {@code get()} method will return
+     * {@code null} upon completion
+     * scheduled for execution
      */
     ScheduledFuture<?> schedule(final Runnable command, final long delay, final TimeUnit unit);
 
@@ -57,8 +56,8 @@ public interface Scheduler {
      * @param period       the period between successive executions
      * @param unit         the time unit of the initialDelay and period parameters
      * @return a ScheduledFuture representing pending completion of
-     *         the task, and whose {@code get()} method will throw an
-     *         exception upon cancellation
+     * the task, and whose {@code get()} method will throw an
+     * exception upon cancellation
      */
     ScheduledFuture<?> scheduleAtFixedRate(final Runnable command, final long initialDelay, final long period,
                                            final TimeUnit unit);
@@ -78,8 +77,8 @@ public interface Scheduler {
      *                     execution and the commencement of the next
      * @param unit         the time unit of the initialDelay and delay parameters
      * @return a ScheduledFuture representing pending completion of
-     *         the task, and whose {@code get()} method will throw an
-     *         exception upon cancellation
+     * the task, and whose {@code get()} method will throw an
+     * exception upon cancellation
      */
     ScheduledFuture<?> scheduleWithFixedDelay(final Runnable command, final long initialDelay, final long delay,
                                               final TimeUnit unit);

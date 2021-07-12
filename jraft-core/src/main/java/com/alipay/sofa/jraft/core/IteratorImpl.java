@@ -35,20 +35,20 @@ import com.alipay.sofa.jraft.util.Utils;
  * The iterator implementation.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-03 3:28:37 PM
  */
 public class IteratorImpl {
 
-    private final StateMachine  fsm;
-    private final LogManager    logManager;
+    private final StateMachine fsm;
+    private final LogManager logManager;
     private final List<Closure> closures;
-    private final long          firstClosureIndex;
-    private long                currentIndex;
-    private final long          committedIndex;
-    private LogEntry            currEntry = new LogEntry(); // blank entry
-    private final AtomicLong    applyingIndex;
-    private RaftException       error;
+    private final long firstClosureIndex;
+    private long currentIndex;
+    private final long committedIndex;
+    private LogEntry currEntry = new LogEntry(); // blank entry
+    private final AtomicLong applyingIndex;
+    private RaftException error;
 
     public IteratorImpl(final StateMachine fsm, final LogManager logManager, final List<Closure> closures,
                         final long firstClosureIndex, final long lastAppliedIndex, final long committedIndex,
@@ -67,9 +67,9 @@ public class IteratorImpl {
     @Override
     public String toString() {
         return "IteratorImpl [fsm=" + this.fsm + ", logManager=" + this.logManager + ", closures=" + this.closures
-               + ", firstClosureIndex=" + this.firstClosureIndex + ", currentIndex=" + this.currentIndex
-               + ", committedIndex=" + this.committedIndex + ", currEntry=" + this.currEntry + ", applyingIndex="
-               + this.applyingIndex + ", error=" + this.error + "]";
+                + ", firstClosureIndex=" + this.firstClosureIndex + ", currentIndex=" + this.currentIndex
+                + ", committedIndex=" + this.committedIndex + ", currEntry=" + this.currEntry + ", applyingIndex="
+                + this.applyingIndex + ", error=" + this.error + "]";
     }
 
     public LogEntry entry() {
@@ -102,8 +102,8 @@ public class IteratorImpl {
                     if (this.currEntry == null) {
                         getOrCreateError().setType(EnumOutter.ErrorType.ERROR_TYPE_LOG);
                         getOrCreateError().getStatus().setError(-1,
-                            "Fail to get entry at index=%d while committed_index=%d", this.currentIndex,
-                            this.committedIndex);
+                                "Fail to get entry at index=%d while committed_index=%d", this.currentIndex,
+                                this.committedIndex);
                     }
                 } catch (final LogEntryCorruptedException e) {
                     getOrCreateError().setType(EnumOutter.ErrorType.ERROR_TYPE_LOG);
@@ -147,8 +147,8 @@ public class IteratorImpl {
         this.currEntry = null;
         getOrCreateError().setType(EnumOutter.ErrorType.ERROR_TYPE_STATE_MACHINE);
         getOrCreateError().getStatus().setError(RaftError.ESTATEMACHINE,
-            "StateMachine meet critical error when applying one or more tasks since index=%d, %s", this.currentIndex,
-            st != null ? st.toString() : "none");
+                "StateMachine meet critical error when applying one or more tasks since index=%d, %s", this.currentIndex,
+                st != null ? st.toString() : "none");
 
     }
 

@@ -25,7 +25,7 @@ public class SetStoreInfoRequest extends BaseRequest {
 
     private static final long serialVersionUID = 6928334353055874540L;
 
-    private Store             store;
+    private Store store;
 
     public Store getStore() {
         return store;

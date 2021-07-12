@@ -88,22 +88,22 @@ import com.alipay.sofa.jraft.util.internal.UnsafeUtil;
  * @param <TypeV> the type of mapped values
  * @author Cliff Click
  * @since 1.5
- *
+ * <p>
  * Forked from <a href="https://github.com/JCTools/JCTools">JCTools</a>.
  */
 public class NonBlockingHashMap<TypeK, TypeV> extends AbstractMap<TypeK, TypeV> implements ConcurrentMap<TypeK, TypeV>,
-                                                                               Cloneable, Serializable {
+        Cloneable, Serializable {
 
     private static final long serialVersionUID = 1234123412341234123L;
 
-    private static Unsafe     unsafe           = UnsafeUtil.getUnsafeAccessor().getUnsafe();
+    private static Unsafe unsafe = UnsafeUtil.getUnsafeAccessor().getUnsafe();
 
-    private static final int  REPROBE_LIMIT    = 10;                                          // Too many reprobes then force a table-resize
+    private static final int REPROBE_LIMIT = 10;                                          // Too many reprobes then force a table-resize
 
     // --- Bits to allow Unsafe access to arrays
-    private static final int  _Obase           = unsafe.arrayBaseOffset(Object[].class);
-    private static final int  _Oscale          = unsafe.arrayIndexScale(Object[].class);
-    private static final int  _Olog            = _Oscale == 4 ? 2 : (_Oscale == 8 ? 3 : 9999);
+    private static final int _Obase = unsafe.arrayBaseOffset(Object[].class);
+    private static final int _Oscale = unsafe.arrayIndexScale(Object[].class);
+    private static final int _Olog = _Oscale == 4 ? 2 : (_Oscale == 8 ? 3 : 9999);
 
     private static long rawIndex(final Object[] ary, final int idx) {
         assert idx >= 0 && idx < ary.length;
@@ -178,13 +178,13 @@ public class NonBlockingHashMap<TypeK, TypeV> extends AbstractMap<TypeK, TypeV> 
     }
 
     // Time since last resize
-    private transient long      _last_resize_milli;
+    private transient long _last_resize_milli;
 
     // --- Minimum table size ----------------
     // Pick size 8 K/V pairs, which turns into (8*2+2)*4+12 = 84 bytes on a
     // standard 32-bit HotSpot, and (8*2+2)*8+12 = 156 bytes on 64-bit Azul.
-    private static final int    MIN_SIZE_LOG = 3;                   //
-    private static final int    MIN_SIZE     = (1 << MIN_SIZE_LOG); // Must be power of 2
+    private static final int MIN_SIZE_LOG = 3;                   //
+    private static final int MIN_SIZE = (1 << MIN_SIZE_LOG); // Must be power of 2
 
     // --- Sentinels -------------------------
     // No-Match-Old - putIfMatch does updates only if it matches the old value,
@@ -192,15 +192,15 @@ public class NonBlockingHashMap<TypeK, TypeV> extends AbstractMap<TypeK, TypeV> 
     private static final Object NO_MATCH_OLD = new Object();        // Sentinel
     // Match-Any-not-null - putIfMatch does updates only if it find a real old
     // value.
-    private static final Object MATCH_ANY    = new Object();        // Sentinel
+    private static final Object MATCH_ANY = new Object();        // Sentinel
     // This K/V pair has been deleted (but the Key slot is forever claimed).
     // The same Key can be reinserted with a new value later.
-    public static final Object  TOMBSTONE    = new Object();
+    public static final Object TOMBSTONE = new Object();
     // Prime'd or box'd version of TOMBSTONE.  This K/V pair was deleted, then a
     // table resize started.  The K/V pair has been marked so that no new
     // updates can happen to the old table (and since the K/V pair was deleted
     // nothing was copied to the new table).
-    private static final Prime  TOMBPRIME    = new Prime(TOMBSTONE);
+    private static final Prime TOMBPRIME = new Prime(TOMBSTONE);
 
     // --- key,val -------------------------------------------------------------
     // Access K,V for a given idx
@@ -265,7 +265,7 @@ public class NonBlockingHashMap<TypeK, TypeV> extends AbstractMap<TypeK, TypeV> 
             Object val = val(kvs, i);
             Object U = Prime.unbox(val);
             if (key != null && key != TOMBSTONE && // key is sane
-                val != null && U != TOMBSTONE) { // val is sane
+                    val != null && U != TOMBSTONE) { // val is sane
                 String p = (val == U) ? "" : "prime_";
                 System.out.println("" + i + " (" + key + "," + p + val + ")"); // NOPMD
             }
@@ -594,7 +594,7 @@ public class NonBlockingHashMap<TypeK, TypeV> extends AbstractMap<TypeK, TypeV> 
 
         StringBuilder sb = new StringBuilder();
         sb.append('{');
-        for (;;) {
+        for (; ; ) {
             Entry<TypeK, TypeV> e = i.next();
             TypeK key = e.getKey();
             TypeV value = e.getValue();
@@ -613,19 +613,19 @@ public class NonBlockingHashMap<TypeK, TypeV> extends AbstractMap<TypeK, TypeV> 
     // 'equals' v-call.
     private static boolean keyeq(Object K, Object key, int[] hashes, int hash, int fullhash) {
         return K == key || // Either keys match exactly OR
-               // hash exists and matches?  hash can be zero during the install of a
-               // new key/value pair.
-               ((hashes[hash] == 0 || hashes[hash] == fullhash) &&
-               // Do not call the users' "equals()" call with a Tombstone, as this can
-               // surprise poorly written "equals()" calls that throw exceptions
-               // instead of simply returning false.
-                K != TOMBSTONE && // Do not call users' equals call with a Tombstone
-               // Do the match the hard way - with the users' key being the loop-
-               // invariant "this" pointer.  I could have flipped the order of
-               // operands (since equals is commutative), but I'm making mega-morphic
-               // v-calls in a reprobing loop and nailing down the 'this' argument
-               // gives both the JIT and the hardware a chance to prefetch the call target.
-               key.equals(K)); // Finally do the hard match
+                // hash exists and matches?  hash can be zero during the install of a
+                // new key/value pair.
+                ((hashes[hash] == 0 || hashes[hash] == fullhash) &&
+                        // Do not call the users' "equals()" call with a Tombstone, as this can
+                        // surprise poorly written "equals()" calls that throw exceptions
+                        // instead of simply returning false.
+                        K != TOMBSTONE && // Do not call users' equals call with a Tombstone
+                        // Do the match the hard way - with the users' key being the loop-
+                        // invariant "this" pointer.  I could have flipped the order of
+                        // operands (since equals is commutative), but I'm making mega-morphic
+                        // v-calls in a reprobing loop and nailing down the 'this' argument
+                        // gives both the JIT and the hardware a chance to prefetch the call target.
+                        key.equals(K)); // Finally do the hard match
     }
 
     // --- get -----------------------------------------------------------------
@@ -692,7 +692,7 @@ public class NonBlockingHashMap<TypeK, TypeV> extends AbstractMap<TypeK, TypeV> 
             // needs to force a table-resize for a too-long key-reprobe sequence.
             // Check for too-many-reprobes on get - and flip to the new table.
             if (++reprobe_cnt >= reprobe_limit(len) || // too many probes
-                K == TOMBSTONE) // found a TOMBSTONE key, means no more keys in this table
+                    K == TOMBSTONE) // found a TOMBSTONE key, means no more keys in this table
                 return newkvs == null ? null : get_impl(topmap, topmap.help_copy(newkvs), key); // Retry in the new table
 
             idx = (idx + 1) & (len - 1); // Reprobe by 1!  (could now prefetch)
@@ -748,7 +748,7 @@ public class NonBlockingHashMap<TypeK, TypeV> extends AbstractMap<TypeK, TypeV> 
             // needs to force a table-resize for a too-long key-reprobe sequence.
             // Check for too-many-reprobes on get - and flip to the new table.
             if (++reprobe_cnt >= reprobe_limit(len) || // too many probes
-                K == TOMBSTONE) { // found a TOMBSTONE key, means no more keys in this table
+                    K == TOMBSTONE) { // found a TOMBSTONE key, means no more keys in this table
                 return newkvs == null ? null : getk_impl(topmap, topmap.help_copy(newkvs), key); // Retry in the new table
             }
 
@@ -832,7 +832,7 @@ public class NonBlockingHashMap<TypeK, TypeV> extends AbstractMap<TypeK, TypeV> 
             // up looking too soon.
             //topmap._reprobes.add(1);
             if (++reprobe_cnt >= reprobe_limit(len) || // too many probes or
-                K == TOMBSTONE) { // found a TOMBSTONE key, means no more keys
+                    K == TOMBSTONE) { // found a TOMBSTONE key, means no more keys
                 // We simply must have a new table to do a 'put'.  At this point a
                 // 'get' will also go to the new table (if any).  We do not need
                 // to claim a key slot (indeed, we cannot find a free one to claim!).
@@ -859,16 +859,16 @@ public class NonBlockingHashMap<TypeK, TypeV> extends AbstractMap<TypeK, TypeV> 
         // of newkvs once per key-compare (not really free, but paid-for by the
         // time we get here).
         if (newkvs == null && // New table-copy already spotted?
-            // Once per fresh key-insert check the hard way
-            ((V == null && chm.tableFull(reprobe_cnt, len)) ||
-            // Or we found a Prime, but the JMM allowed reordering such that we
-            // did not spot the new table (very rare race here: the writing
-            // thread did a CAS of _newkvs then a store of a Prime.  This thread
-            // reads the Prime, then reads _newkvs - but the read of Prime was so
-            // delayed (or the read of _newkvs was so accelerated) that they
-            // swapped and we still read a null _newkvs.  The resize call below
-            // will do a CAS on _newkvs forcing the read.
-            V instanceof Prime))
+                // Once per fresh key-insert check the hard way
+                ((V == null && chm.tableFull(reprobe_cnt, len)) ||
+                        // Or we found a Prime, but the JMM allowed reordering such that we
+                        // did not spot the new table (very rare race here: the writing
+                        // thread did a CAS of _newkvs then a store of a Prime.  This thread
+                        // reads the Prime, then reads _newkvs - but the read of Prime was so
+                        // delayed (or the read of _newkvs was so accelerated) that they
+                        // swapped and we still read a null _newkvs.  The resize call below
+                        // will do a CAS on _newkvs forcing the read.
+                        V instanceof Prime))
             newkvs = chm.resize(topmap, kvs); // Force the new table copy to start
         // See if we are moving to a new table.
         // If so, copy our slot and retry in the new table.
@@ -885,9 +885,9 @@ public class NonBlockingHashMap<TypeK, TypeV> extends AbstractMap<TypeK, TypeV> 
         // copy_slot.
 
         if (expVal != NO_MATCH_OLD && // Do we care about expected-Value at all?
-            V != expVal && // No instant match already?
-            (expVal != MATCH_ANY || V == TOMBSTONE || V == null) && !(V == null && expVal == TOMBSTONE) && // Match on null/TOMBSTONE combo
-            (expVal == null || !expVal.equals(V))) // Expensive equals check at the last
+                V != expVal && // No instant match already?
+                (expVal != MATCH_ANY || V == TOMBSTONE || V == null) && !(V == null && expVal == TOMBSTONE) && // Match on null/TOMBSTONE combo
+                (expVal == null || !expVal.equals(V))) // Expensive equals check at the last
             return V; // Do not update!
 
         // Actually change the Value in the Key,Value pair
@@ -967,11 +967,11 @@ public class NonBlockingHashMap<TypeK, TypeV> extends AbstractMap<TypeK, TypeV> 
         // volatile variable that is read as we cross from one table to the next,
         // to get the required memory orderings.  It monotonically transits from
         // null to set (once).
-        volatile Object[]                                               _newkvs;
+        volatile Object[] _newkvs;
         private static final AtomicReferenceFieldUpdater<CHM, Object[]> _newkvsUpdater = AtomicReferenceFieldUpdater
-                                                                                           .newUpdater(CHM.class,
-                                                                                               Object[].class,
-                                                                                               "_newkvs");
+                .newUpdater(CHM.class,
+                        Object[].class,
+                        "_newkvs");
 
         // Set the _next field if we can.
         boolean CAS_newkvs(Object[] newkvs) {
@@ -993,9 +993,9 @@ public class NonBlockingHashMap<TypeK, TypeV> extends AbstractMap<TypeK, TypeV> 
         // virtual-address and not real memory - and after Somebody wins then we
         // could in parallel initialize the array.  Java does not allow
         // un-initialized array creation (especially of ref arrays!).
-        volatile long                                    _resizers;                       // count of threads attempting an initial resize
+        volatile long _resizers;                       // count of threads attempting an initial resize
         private static final AtomicLongFieldUpdater<CHM> _resizerUpdater = AtomicLongFieldUpdater.newUpdater(CHM.class,
-                                                                             "_resizers");
+                "_resizers");
 
         // ---
         // Simple constructor
@@ -1015,10 +1015,10 @@ public class NonBlockingHashMap<TypeK, TypeV> extends AbstractMap<TypeK, TypeV> 
         //   slots.estimate_sum >= max_reprobe_cnt >= reprobe_limit(len)
         private boolean tableFull(int reprobe_cnt, int len) {
             return
-            // Do the cheap check first: we allow some number of reprobes always
-            reprobe_cnt >= REPROBE_LIMIT && (reprobe_cnt >= reprobe_limit(len) ||
-            // More expensive check: see if the table is > 1/2 full.
-                    _slots.estimate_get() >= (len >> 1));
+                    // Do the cheap check first: we allow some number of reprobes always
+                    reprobe_cnt >= REPROBE_LIMIT && (reprobe_cnt >= reprobe_limit(len) ||
+                            // More expensive check: see if the table is > 1/2 full.
+                            _slots.estimate_get() >= (len >> 1));
         }
 
         // --- resize ------------------------------------------------------------
@@ -1027,7 +1027,7 @@ public class NonBlockingHashMap<TypeK, TypeV> extends AbstractMap<TypeK, TypeV> 
         // Since this routine has a fast cutout for copy-already-started, callers
         // MUST 'help_copy' lest we have a path which forever runs through
         // 'resize' only to discover a copy-in-progress which never progresses.
-        @SuppressWarnings({ "StatementWithEmptyBody", "unused", "UnusedAssignment" })
+        @SuppressWarnings({"StatementWithEmptyBody", "unused", "UnusedAssignment"})
         private Object[] resize(NonBlockingHashMap topmap, Object[] kvs) {
             assert chm(kvs) == this;
 
@@ -1060,8 +1060,8 @@ public class NonBlockingHashMap<TypeK, TypeV> extends AbstractMap<TypeK, TypeV> 
             long tm = System.currentTimeMillis();
             long q = 0;
             if (newsz <= oldlen && // New table would shrink or hold steady?
-                (tm <= topmap._last_resize_milli + 10000 || // Recent resize (less than 10 sec ago)
-                (q = _slots.estimate_get()) >= (sz << 1))) // 1/2 of keys are dead?
+                    (tm <= topmap._last_resize_milli + 10000 || // Recent resize (less than 10 sec ago)
+                            (q = _slots.estimate_get()) >= (sz << 1))) // 1/2 of keys are dead?
                 newsz = oldlen << 1; // Double the existing size
 
             // Do not shrink, ever
@@ -1142,16 +1142,16 @@ public class NonBlockingHashMap<TypeK, TypeV> extends AbstractMap<TypeK, TypeV> 
         // table to the new table.  Workers are not required to finish any chunk;
         // the counter simply wraps and work is copied duplicately until somebody
         // somewhere completes the count.
-        volatile long                                    _copyIdx         = 0;
-        static private final AtomicLongFieldUpdater<CHM> _copyIdxUpdater  = AtomicLongFieldUpdater.newUpdater(
-                                                                              CHM.class, "_copyIdx");
+        volatile long _copyIdx = 0;
+        static private final AtomicLongFieldUpdater<CHM> _copyIdxUpdater = AtomicLongFieldUpdater.newUpdater(
+                CHM.class, "_copyIdx");
 
         // Work-done reporting.  Used to efficiently signal when we can move to
         // the new table.  From 0 to len(oldkvs) refers to copying from the old
         // table to the new.
-        volatile long                                    _copyDone        = 0;
+        volatile long _copyDone = 0;
         static private final AtomicLongFieldUpdater<CHM> _copyDoneUpdater = AtomicLongFieldUpdater.newUpdater(
-                                                                              CHM.class, "_copyDone");
+                CHM.class, "_copyDone");
 
         // --- help_copy_impl ----------------------------------------------------
         // Help along an existing resize operation.  We hope its the top-level
@@ -1251,9 +1251,9 @@ public class NonBlockingHashMap<TypeK, TypeV> extends AbstractMap<TypeK, TypeV> 
             // nested in-progress copies and manage to finish a nested copy before
             // finishing the top-level copy.  We only promote top-level copies.
             if (copyDone + workdone == oldlen && // Ready to promote this table?
-                topmap._kvs == oldkvs && // Looking at the top-level table?
-                // Attempt to promote
-                topmap.CAS_kvs(oldkvs, _newkvs)) {
+                    topmap._kvs == oldkvs && // Looking at the top-level table?
+                    // Attempt to promote
+                    topmap.CAS_kvs(oldkvs, _newkvs)) {
                 topmap._last_resize_milli = System.currentTimeMillis(); // Record resize time for next check
                 //long nano = System.nanoTime();
                 //System.out.println(" "+nano+" Promote table to "+len(_newkvs));
@@ -1365,7 +1365,7 @@ public class NonBlockingHashMap<TypeK, TypeV> extends AbstractMap<TypeK, TypeV> 
 
         private int _idx; // Varies from 0-keys.length
         private Object _nextK, _prevK; // Last 2 keys found
-        private TypeV  _nextV, _prevV; // Last 2 values found
+        private TypeV _nextV, _prevV; // Last 2 values found
 
         public boolean hasNext() {
             return _nextV != null;
@@ -1387,7 +1387,7 @@ public class NonBlockingHashMap<TypeK, TypeV> extends AbstractMap<TypeK, TypeV> 
             while (_idx < length()) { // Scan array
                 _nextK = key(_idx++); // Get a key that definitely is in the set (for the moment!)
                 if (_nextK != null && // Found something?
-                    _nextK != TOMBSTONE && (_nextV = get(_nextK)) != null)
+                        _nextK != TOMBSTONE && (_nextV = get(_nextK)) != null)
                     break; // Got it!  _nextK is a valid Key
             } // Else keep scanning
             return _prevV; // Return current value.
@@ -1666,7 +1666,7 @@ public class NonBlockingHashMap<TypeK, TypeV> extends AbstractMap<TypeK, TypeV> 
     private void readObject(java.io.ObjectInputStream s) throws IOException, ClassNotFoundException {
         s.defaultReadObject(); // Read nothing
         initialize(MIN_SIZE);
-        for (;;) {
+        for (; ; ) {
             final TypeK K = (TypeK) s.readObject();
             final TypeV V = (TypeV) s.readObject();
             if (K == null)

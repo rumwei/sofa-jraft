@@ -33,11 +33,11 @@ public class NamedThreadFactory implements ThreadFactory {
 
     private static final Logger LOG = LoggerFactory.getLogger(NamedThreadFactory.class);
 
-    private final AtomicInteger id  = new AtomicInteger();
-    private final String        name;
-    private final boolean       daemon;
-    private final int           priority;
-    private final ThreadGroup   group;
+    private final AtomicInteger id = new AtomicInteger();
+    private final String name;
+    private final boolean daemon;
+    private final int priority;
+    private final ThreadGroup group;
 
     public NamedThreadFactory(String name) {
         this(name, false, Thread.NORM_PRIORITY);

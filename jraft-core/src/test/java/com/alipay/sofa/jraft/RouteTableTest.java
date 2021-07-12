@@ -45,11 +45,11 @@ import static org.junit.Assert.assertTrue;
 
 public class RouteTableTest {
 
-    static final Logger  LOG     = LoggerFactory.getLogger(RouteTableTest.class);
+    static final Logger LOG = LoggerFactory.getLogger(RouteTableTest.class);
 
-    private String       dataPath;
+    private String dataPath;
 
-    private TestCluster  cluster;
+    private TestCluster cluster;
     private final String groupId = "RouteTableTest";
 
     CliClientServiceImpl cliClientService;

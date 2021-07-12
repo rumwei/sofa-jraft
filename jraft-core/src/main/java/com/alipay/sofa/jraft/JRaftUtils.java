@@ -34,16 +34,17 @@ import com.alipay.sofa.jraft.util.ThreadPoolUtil;
 import com.alipay.sofa.jraft.util.timer.RaftTimerFactory;
 
 /**
- * Some helper methods for jraft usage.
- *
- * @author boyan (boyan@alibaba-inc.com)
- *
- * 2018-Apr-23 3:48:45 PM
+ * 为了方便创建 Endpoint/PeerId/Configuration 等对象， jraft 提供了 JRaftUtils 来快捷地从字符串创建出所需要的对象
+ * 示例：
+ *  Endpoint addr = JRaftUtils.getEndpoint("localhost:8080");
+ *  PeerId peer = JRaftUtils.getPeerId("localhost:8080");
+ *  // 三个节点组成的 raft group 配置，注意节点之间用逗号隔开
+ *  Configuration conf = JRaftUtils.getConfiguration("localhost:8081,localhost:8082,localhost:8083");
  */
 public final class JRaftUtils {
 
     private final static RaftTimerFactory TIMER_FACTORY = JRaftServiceLoader.load(RaftTimerFactory.class) //
-                                                            .first();
+            .first();
 
     /**
      * Get raft timer factory.
@@ -80,14 +81,14 @@ public final class JRaftUtils {
             return null;
         }
         return ThreadPoolUtil.newBuilder() //
-            .poolName(prefix) //
-            .enableMetric(true) //
-            .coreThreads(number) //
-            .maximumThreads(number) //
-            .keepAliveSeconds(60L) //
-            .workQueue(new SynchronousQueue<>()) //
-            .threadFactory(createThreadFactory(prefix)) //
-            .build();
+                .poolName(prefix) //
+                .enableMetric(true) //
+                .coreThreads(number) //
+                .maximumThreads(number) //
+                .keepAliveSeconds(60L) //
+                .workQueue(new SynchronousQueue<>()) //
+                .threadFactory(createThreadFactory(prefix)) //
+                .build();
     }
 
     /**
@@ -95,7 +96,6 @@ public final class JRaftUtils {
      *
      * @param prefixName the prefix name of thread
      * @return a new {@link ThreadFactory} instance
-     *
      * @since 0.0.3
      */
     public static ThreadFactory createThreadFactory(final String prefixName) {

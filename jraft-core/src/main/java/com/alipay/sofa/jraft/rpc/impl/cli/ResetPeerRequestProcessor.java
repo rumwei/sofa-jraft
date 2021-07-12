@@ -60,16 +60,16 @@ public class ResetPeerRequestProcessor extends BaseCliRequestProcessor<ResetPeer
                 newConf.addPeer(peer);
             } else {
                 return RpcFactoryHelper //
-                    .responseFactory() //
-                    .newResponse(defaultResp(), RaftError.EINVAL, "Fail to parse peer id %s", peerIdStr);
+                        .responseFactory() //
+                        .newResponse(defaultResp(), RaftError.EINVAL, "Fail to parse peer id %s", peerIdStr);
             }
         }
         LOG.info("Receive ResetPeerRequest to {} from {}, new conf is {}", ctx.node.getNodeId(), done.getRpcCtx()
-            .getRemoteAddress(), newConf);
+                .getRemoteAddress(), newConf);
         final Status st = ctx.node.resetPeers(newConf);
         return RpcFactoryHelper //
-            .responseFactory() //
-            .newResponse(defaultResp(), st);
+                .responseFactory() //
+                .newResponse(defaultResp(), st);
     }
 
     @Override

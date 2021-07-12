@@ -20,13 +20,14 @@ import java.io.Serializable;
 
 /**
  * Increment with detal and get the latest value.
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Apr-25 1:28:42 PM
  */
 public class IncrementAndGetCommand extends BaseRequestCommand implements Serializable {
     private static final long serialVersionUID = -1232443841104358771L;
-    private long              detal;
+    private long detal;
 
     public long getDetal() {
         return this.detal;

@@ -20,14 +20,13 @@ import com.alipay.sofa.jraft.rhea.metadata.Region;
 import com.alipay.sofa.jraft.util.BytesUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class RegionHelper {
 
     public static boolean isSingleGroup(final Region region) {
         return BytesUtil.nullToEmpty(region.getStartKey()).length == 0
-               && BytesUtil.nullToEmpty(region.getEndKey()).length == 0;
+                && BytesUtil.nullToEmpty(region.getEndKey()).length == 0;
     }
 
     public static boolean isMultiGroup(final Region region) {

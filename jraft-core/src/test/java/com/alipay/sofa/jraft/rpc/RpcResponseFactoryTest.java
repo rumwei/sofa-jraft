@@ -36,7 +36,7 @@ public class RpcResponseFactoryTest {
     @Test
     public void testNewResponseWithErrorStatus() {
         ErrorResponse response = (ErrorResponse) RpcFactoryHelper.responseFactory().newResponse(null,
-            new Status(300, "test"));
+                new Status(300, "test"));
         assertEquals(response.getErrorCode(), 300);
         assertEquals(response.getErrorMsg(), "test");
     }
@@ -44,7 +44,7 @@ public class RpcResponseFactoryTest {
     @Test
     public void testNewResponseWithVaridicArgs() {
         ErrorResponse response = (ErrorResponse) RpcFactoryHelper.responseFactory().newResponse(null, 300,
-            "hello %s %d", "world", 99);
+                "hello %s %d", "world", 99);
         assertEquals(response.getErrorCode(), 300);
         assertEquals(response.getErrorMsg(), "hello world 99");
     }
@@ -52,7 +52,7 @@ public class RpcResponseFactoryTest {
     @Test
     public void testNewResponseWithArgs() {
         ErrorResponse response = (ErrorResponse) RpcFactoryHelper.responseFactory().newResponse(null, 300,
-            "hello world");
+                "hello world");
         assertEquals(response.getErrorCode(), 300);
         assertEquals(response.getErrorMsg(), "hello world");
     }
@@ -60,7 +60,7 @@ public class RpcResponseFactoryTest {
     @Test
     public void testNewResponseWithRaftError() {
         ErrorResponse response = (ErrorResponse) RpcFactoryHelper.responseFactory().newResponse(null, RaftError.EAGAIN,
-            "hello world");
+                "hello world");
         assertEquals(response.getErrorCode(), RaftError.EAGAIN.getNumber());
         assertEquals(response.getErrorMsg(), "hello world");
     }

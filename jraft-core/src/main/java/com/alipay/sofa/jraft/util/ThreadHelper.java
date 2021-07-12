@@ -34,12 +34,11 @@ import static org.objectweb.asm.Opcodes.RETURN;
 import static org.objectweb.asm.Opcodes.V1_1;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class ThreadHelper {
 
-    private static final Logger  LOG = LoggerFactory.getLogger(ThreadHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ThreadHelper.class);
 
     private static final Spinner SPINNER;
 

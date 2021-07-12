@@ -44,23 +44,26 @@ import com.alipay.sofa.jraft.util.ThreadId;
 
 /**
  * Replicator group for a raft group.
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Apr-04 1:54:51 PM
  */
 public class ReplicatorGroupImpl implements ReplicatorGroup {
 
-    private static final Logger                   LOG                = LoggerFactory
-                                                                         .getLogger(ReplicatorGroupImpl.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(ReplicatorGroupImpl.class);
 
     // <peerId, replicatorId>
-    private final ConcurrentMap<PeerId, ThreadId> replicatorMap      = new ConcurrentHashMap<>();
-    /** common replicator options */
-    private ReplicatorOptions                     commonOptions;
-    private int                                   dynamicTimeoutMs   = -1;
-    private int                                   electionTimeoutMs  = -1;
-    private RaftOptions                           raftOptions;
-    private final Map<PeerId, ReplicatorType>     failureReplicators = new ConcurrentHashMap<>();
+    private final ConcurrentMap<PeerId, ThreadId> replicatorMap = new ConcurrentHashMap<>();
+    /**
+     * common replicator options
+     */
+    private ReplicatorOptions commonOptions;
+    private int dynamicTimeoutMs = -1;
+    private int electionTimeoutMs = -1;
+    private RaftOptions raftOptions;
+    private final Map<PeerId, ReplicatorType> failureReplicators = new ConcurrentHashMap<>();
 
     @Override
     public boolean init(final NodeId nodeId, final ReplicatorGroupOptions opts) {
@@ -305,8 +308,8 @@ public class ReplicatorGroupImpl implements ReplicatorGroup {
     @Override
     public void describe(final Printer out) {
         out.print("  replicators: ") //
-            .println(this.replicatorMap.values());
+                .println(this.replicatorMap.values());
         out.print("  failureReplicators: ") //
-            .println(this.failureReplicators);
+                .println(this.failureReplicators);
     }
 }

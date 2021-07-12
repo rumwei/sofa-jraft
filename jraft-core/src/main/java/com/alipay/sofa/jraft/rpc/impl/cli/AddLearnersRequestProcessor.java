@@ -61,14 +61,14 @@ public class AddLearnersRequestProcessor extends BaseCliRequestProcessor<AddLear
             final PeerId peer = new PeerId();
             if (!peer.parse(peerStr)) {
                 return RpcFactoryHelper //
-                    .responseFactory() //
-                    .newResponse(defaultResp(), RaftError.EINVAL, "Fail to parse peer id %s", peerStr);
+                        .responseFactory() //
+                        .newResponse(defaultResp(), RaftError.EINVAL, "Fail to parse peer id %s", peerStr);
             }
             addingLearners.add(peer);
         }
 
         LOG.info("Receive AddLearnersRequest to {} from {}, adding {}.", ctx.node.getNodeId(),
-            done.getRpcCtx().getRemoteAddress(), addingLearners);
+                done.getRpcCtx().getRemoteAddress(), addingLearners);
         ctx.node.addLearners(addingLearners, status -> {
             if (!status.isOk()) {
                 done.run(status);

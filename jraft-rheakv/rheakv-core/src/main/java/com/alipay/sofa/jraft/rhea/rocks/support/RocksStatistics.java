@@ -35,13 +35,13 @@ import com.alipay.sofa.jraft.util.internal.Updaters;
 public final class RocksStatistics {
 
     private static final ReferenceFieldUpdater<RocksRawKVStore, DebugStatistics> statisticsGetter = Updaters
-                                                                                                      .newReferenceFieldUpdater(
-                                                                                                          RocksRawKVStore.class,
-                                                                                                          "statistics");
-    private static final ReferenceFieldUpdater<RocksRawKVStore, RocksDB>         dbGetter         = Updaters
-                                                                                                      .newReferenceFieldUpdater(
-                                                                                                          RocksRawKVStore.class,
-                                                                                                          "db");
+            .newReferenceFieldUpdater(
+                    RocksRawKVStore.class,
+                    "statistics");
+    private static final ReferenceFieldUpdater<RocksRawKVStore, RocksDB> dbGetter = Updaters
+            .newReferenceFieldUpdater(
+                    RocksRawKVStore.class,
+                    "db");
 
     /**
      * Get the count for a ticker.

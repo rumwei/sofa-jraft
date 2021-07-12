@@ -31,8 +31,8 @@ public class ThroughputSnapshotThrottle implements SnapshotThrottle {
 
     private final long throttleThroughputBytes;
     private final long checkCycleSecs;
-    private long       lastThroughputCheckTimeUs;
-    private long       currThroughputBytes;
+    private long lastThroughputCheckTimeUs;
+    private long currThroughputBytes;
     private final Lock lock = new ReentrantLock();
     private final long baseAligningTimeUs;
 

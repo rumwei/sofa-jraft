@@ -32,8 +32,8 @@ public class GetPeersRequestProcessorTest extends AbstractCliRequestProcessorTes
     @Override
     public GetPeersRequest createRequest(final String groupId, final PeerId peerId) {
         return GetPeersRequest.newBuilder(). //
-            setGroupId(groupId). //
-            build();
+                setGroupId(groupId). //
+                build();
     }
 
     @Override
@@ -46,9 +46,9 @@ public class GetPeersRequestProcessorTest extends AbstractCliRequestProcessorTes
         assertEquals(interest, GetPeersRequest.class.getName());
         assertNotNull(this.asyncContext.getResponseObject());
         assertEquals("[localhost:8081, localhost:8082, localhost:8083]", this.asyncContext.as(GetPeersResponse.class)
-            .getPeersList().toString());
+                .getPeersList().toString());
         assertEquals("[learner:8081, learner:8082, learner:8083]", this.asyncContext.as(GetPeersResponse.class)
-            .getLearnersList().toString());
+                .getLearnersList().toString());
     }
 
 }

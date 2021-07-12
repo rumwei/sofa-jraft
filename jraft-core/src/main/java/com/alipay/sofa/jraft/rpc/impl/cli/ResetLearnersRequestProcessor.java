@@ -32,7 +32,6 @@ import com.google.protobuf.Message;
  * ResetLearners request processor.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
  */
 public class ResetLearnersRequestProcessor extends BaseCliRequestProcessor<ResetLearnersRequest> {
 
@@ -60,14 +59,14 @@ public class ResetLearnersRequestProcessor extends BaseCliRequestProcessor<Reset
             final PeerId peer = new PeerId();
             if (!peer.parse(peerStr)) {
                 return RpcFactoryHelper
-                    .responseFactory()
-                    .newResponse(defaultResp(), RaftError.EINVAL, "Fail to parse peer id %s", peerStr);
+                        .responseFactory()
+                        .newResponse(defaultResp(), RaftError.EINVAL, "Fail to parse peer id %s", peerStr);
             }
             newLearners.add(peer);
         }
 
         LOG.info("Receive ResetLearnersRequest to {} from {}, resetting into {}.", ctx.node.getNodeId(),
-            done.getRpcCtx().getRemoteAddress(), newLearners);
+                done.getRpcCtx().getRemoteAddress(), newLearners);
         ctx.node.resetLearners(newLearners, status -> {
             if (!status.isOk()) {
                 done.run(status);

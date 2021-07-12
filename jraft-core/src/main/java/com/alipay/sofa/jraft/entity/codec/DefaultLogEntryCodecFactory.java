@@ -20,8 +20,8 @@ import com.alipay.sofa.jraft.entity.LogEntry;
 
 /**
  * Default log entry codec factory
- * @author boyan(boyan@antfin.com)
  *
+ * @author boyan(boyan @ antfin.com)
  */
 public class DefaultLogEntryCodecFactory implements LogEntryCodecFactory {
 
@@ -32,6 +32,7 @@ public class DefaultLogEntryCodecFactory implements LogEntryCodecFactory {
 
     /**
      * Returns a singleton instance of DefaultLogEntryCodecFactory.
+     *
      * @return a singleton instance
      */
     public static DefaultLogEntryCodecFactory getInstance() {

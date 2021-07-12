@@ -25,14 +25,15 @@ import com.alipay.sofa.jraft.Status;
  * <li>term: the leader term.</li>
  * <li>Status: context status.</li>
  * </ul>
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Mar-13 3:23:48 PM
  */
 public class LeaderChangeContext {
 
     private PeerId leaderId;
-    private long   term;
+    private long term;
     private Status status;
 
     public LeaderChangeContext(PeerId leaderId, long term, Status status) {
@@ -108,7 +109,7 @@ public class LeaderChangeContext {
     @Override
     public String toString() {
         return "LeaderChangeContext [leaderId=" + this.leaderId + ", term=" + this.term + ", status=" + this.status
-               + "]";
+                + "]";
     }
 
 }

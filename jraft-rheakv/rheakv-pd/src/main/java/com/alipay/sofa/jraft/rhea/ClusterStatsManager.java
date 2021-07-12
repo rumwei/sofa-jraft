@@ -32,21 +32,20 @@ import com.alipay.sofa.jraft.rhea.util.Maps;
 import com.alipay.sofa.jraft.rhea.util.Pair;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class ClusterStatsManager {
 
     private static final ConcurrentMap<Long, ClusterStatsManager> clusterStatsManagerTable = Maps
-                                                                                               .newConcurrentMapLong();
+            .newConcurrentMapLong();
 
-    private final long                                            clusterId;
+    private final long clusterId;
     // Map<StoreId, Set<RegionId>>
-    private final ConcurrentMap<Long, Set<Long>>                  leaderTable              = Maps
-                                                                                               .newConcurrentMapLong();
+    private final ConcurrentMap<Long, Set<Long>> leaderTable = Maps
+            .newConcurrentMapLong();
     // Map<RegionId, Pair<Region, RegionStats>>
-    private final ConcurrentMap<Long, Pair<Region, RegionStats>>  regionStatsTable         = Maps
-                                                                                               .newConcurrentMapLong();
+    private final ConcurrentMap<Long, Pair<Region, RegionStats>> regionStatsTable = Maps
+            .newConcurrentMapLong();
 
     private ClusterStatsManager(long clusterId) {
         this.clusterId = clusterId;

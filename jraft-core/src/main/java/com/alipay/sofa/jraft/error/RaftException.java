@@ -23,19 +23,21 @@ import com.alipay.sofa.jraft.entity.EnumOutter;
  * A raft exception.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Mar-14 10:41:21 AM
  */
 public class RaftException extends Throwable {
 
-    private static final long    serialVersionUID = -1533343555230409704L;
+    private static final long serialVersionUID = -1533343555230409704L;
 
     /**
      * Error type
      */
     private EnumOutter.ErrorType type;
-    /** Error status*/
-    private Status               status           = Status.OK();
+    /**
+     * Error status
+     */
+    private Status status = Status.OK();
 
     public RaftException(EnumOutter.ErrorType type) {
         super(type.name());

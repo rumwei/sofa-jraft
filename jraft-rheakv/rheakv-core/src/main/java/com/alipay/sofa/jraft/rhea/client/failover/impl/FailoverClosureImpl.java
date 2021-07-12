@@ -38,12 +38,12 @@ import com.alipay.sofa.jraft.rhea.storage.BaseKVStoreClosure;
  */
 public final class FailoverClosureImpl<T> extends BaseKVStoreClosure implements FailoverClosure<T> {
 
-    private static final Logger        LOG = LoggerFactory.getLogger(FailoverClosureImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FailoverClosureImpl.class);
 
     private final CompletableFuture<T> future;
-    private final boolean              retryOnInvalidEpoch;
-    private final int                  retriesLeft;
-    private final RetryRunner          retryRunner;
+    private final boolean retryOnInvalidEpoch;
+    private final int retriesLeft;
+    private final RetryRunner retryRunner;
 
     public FailoverClosureImpl(CompletableFuture<T> future, int retriesLeft, RetryRunner retryRunner) {
         this(future, true, retriesLeft, retryRunner);
@@ -67,13 +67,13 @@ public final class FailoverClosureImpl<T> extends BaseKVStoreClosure implements 
 
         final Errors error = getError();
         if (this.retriesLeft > 0
-            && (ErrorsHelper.isInvalidPeer(error) || (this.retryOnInvalidEpoch && ErrorsHelper.isInvalidEpoch(error)))) {
+                && (ErrorsHelper.isInvalidPeer(error) || (this.retryOnInvalidEpoch && ErrorsHelper.isInvalidEpoch(error)))) {
             LOG.warn("[Failover] status: {}, error: {}, [{}] retries left.", status, error, this.retriesLeft);
             this.retryRunner.run(error);
         } else {
             if (this.retriesLeft <= 0) {
                 LOG.error("[InvalidEpoch-Failover] status: {}, error: {}, {} retries left.", status, error,
-                    this.retriesLeft);
+                        this.retriesLeft);
             }
             failure(error);
         }
@@ -98,7 +98,7 @@ public final class FailoverClosureImpl<T> extends BaseKVStoreClosure implements 
     public void failure(final Errors error) {
         if (error == null) {
             failure(new NullPointerException(
-                "The error message is missing, this should not happen, now only the stack information can be referenced."));
+                    "The error message is missing, this should not happen, now only the stack information can be referenced."));
         } else {
             failure(error.exception());
         }

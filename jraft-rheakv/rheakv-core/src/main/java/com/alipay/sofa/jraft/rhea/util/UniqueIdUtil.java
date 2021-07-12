@@ -25,21 +25,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class UniqueIdUtil {
 
-    private static final Logger     logger         = LoggerFactory.getLogger(UniqueIdUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(UniqueIdUtil.class);
 
     // maximal value for 64bit systems is 2^22, see man 5 proc.
-    private static final int        MAX_PROCESS_ID = 4194304;
-    private static final char       PID_FLAG       = 'd';
-    private static final String     IP_16;
-    private static final String     PID;
-    private static final long       ID_BASE        = 1000;
-    private static final long       ID_MASK        = (1 << 13) - 1;                              // 8192 - 1
-    private static final AtomicLong sequence       = new AtomicLong();
+    private static final int MAX_PROCESS_ID = 4194304;
+    private static final char PID_FLAG = 'd';
+    private static final String IP_16;
+    private static final String PID;
+    private static final long ID_BASE = 1000;
+    private static final long ID_MASK = (1 << 13) - 1;                              // 8192 - 1
+    private static final AtomicLong sequence = new AtomicLong();
 
     static {
         String ip16;
@@ -94,7 +93,7 @@ public class UniqueIdUtil {
         } catch (final Throwable t) {
             if (logger.isDebugEnabled()) {
                 logger.debug("Could not invoke ManagementFactory.getRuntimeMXBean().getName(), {}.",
-                    StackTraceUtil.stackTrace(t));
+                        StackTraceUtil.stackTrace(t));
             }
         }
 
@@ -136,12 +135,12 @@ public class UniqueIdUtil {
     @SuppressWarnings("SameParameterValue")
     private static String getId(final String ip16, final long timestamp, final long nextId) {
         return StringBuilderHelper.get() //
-            .append(ip16) //
-            .append(timestamp) //
-            .append(nextId) //
-            .append(PID_FLAG) //
-            .append(PID) //
-            .toString();
+                .append(ip16) //
+                .append(timestamp) //
+                .append(nextId) //
+                .append(PID_FLAG) //
+                .append(PID) //
+                .toString();
     }
 
     private static long getNextId() {

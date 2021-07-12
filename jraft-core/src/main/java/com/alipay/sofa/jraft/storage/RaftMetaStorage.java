@@ -24,7 +24,7 @@ import com.alipay.sofa.jraft.option.RaftMetaStorageOptions;
  * Raft metadata storage service.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Mar-12 3:54:21 PM
  */
 public interface RaftMetaStorage extends Lifecycle<RaftMetaStorageOptions>, Storage {

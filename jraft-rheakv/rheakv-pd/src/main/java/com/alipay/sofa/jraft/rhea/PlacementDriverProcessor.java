@@ -54,9 +54,9 @@ import com.alipay.sofa.jraft.util.Requires;
  */
 public class PlacementDriverProcessor<T extends BaseRequest> implements RpcProcessor<T> {
 
-    private final Class<T>               reqClazz;
+    private final Class<T> reqClazz;
     private final PlacementDriverService placementDriverService;
-    private final Executor               executor;
+    private final Executor executor;
 
     public PlacementDriverProcessor(Class<T> reqClazz, PlacementDriverService placementDriverService, Executor executor) {
         this.reqClazz = Requires.requireNonNull(reqClazz, "reqClazz");

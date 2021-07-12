@@ -44,7 +44,7 @@ public interface StateListener {
      * (should be NULL before the method is called) is set to the leader's id, situations including:
      * 1. A candidate receives appendEntries request from a leader
      * 2. A follower(without leader) receives appendEntries from a leader
-     *
+     * <p>
      * The parameters gives the information(leaderId and term) about the very
      * leader whom the follower starts to follow.
      * User can reset the node's information as it starts to follow some leader.
@@ -59,9 +59,9 @@ public interface StateListener {
      * situations including:
      * 1. Handle election timeout and start preVote
      * 2. Receive requests with higher term such as VoteRequest from a candidate
-     *      or appendEntries request from a new leader
+     * or appendEntries request from a new leader
      * 3. Receive timeoutNow request from current leader and start request vote.
-     *
+     * <p>
      * The parameters gives the information(leaderId and term) about the very leader
      * whom the follower followed before.
      * User can reset the node's information as it stops following some leader.

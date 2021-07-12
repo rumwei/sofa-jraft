@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+
 import com.alipay.sofa.jraft.JRaftUtils;
 import com.alipay.sofa.jraft.conf.ConfigurationEntry;
 import com.alipay.sofa.jraft.entity.EnumOutter;
@@ -42,8 +43,8 @@ import com.alipay.sofa.jraft.util.Endpoint;
  * Test helper
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
- *         2018-Apr-11 10:16:07 AM
+ * <p>
+ * 2018-Apr-11 10:16:07 AM
  */
 public class TestUtils {
 
@@ -129,7 +130,7 @@ public class TestUtils {
 
     public static RpcRequests.PingRequest createPingRequest() {
         RpcRequests.PingRequest reqObject = RpcRequests.PingRequest.newBuilder()
-            .setSendTimestamp(System.currentTimeMillis()).build();
+                .setSendTimestamp(System.currentTimeMillis()).build();
         return reqObject;
     }
 

@@ -27,7 +27,6 @@ import static com.alipay.sofa.jraft.util.BytesUtil.readUtf8;
 import static com.alipay.sofa.jraft.util.BytesUtil.writeUtf8;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class GetExample {

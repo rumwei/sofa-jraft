@@ -23,15 +23,14 @@ import com.alipay.sofa.jraft.rhea.metadata.RegionStats;
 import com.alipay.sofa.jraft.rhea.util.Pair;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class RegionHeartbeatRequest extends BaseRequest {
 
-    private static final long               serialVersionUID = -5149082334939576598L;
+    private static final long serialVersionUID = -5149082334939576598L;
 
-    private long                            storeId;
-    private long                            leastKeysOnSplit;
+    private long storeId;
+    private long leastKeysOnSplit;
     private List<Pair<Region, RegionStats>> regionStatsList;
 
     public long getStoreId() {
@@ -66,6 +65,6 @@ public class RegionHeartbeatRequest extends BaseRequest {
     @Override
     public String toString() {
         return "RegionHeartbeatRequest{" + "storeId=" + storeId + ", leastKeysOnSplit=" + leastKeysOnSplit
-               + ", regionStatsList=" + regionStatsList + "} " + super.toString();
+                + ", regionStatsList=" + regionStatsList + "} " + super.toString();
     }
 }

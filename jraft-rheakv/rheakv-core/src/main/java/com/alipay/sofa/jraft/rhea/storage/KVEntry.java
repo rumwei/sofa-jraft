@@ -21,15 +21,14 @@ import java.io.Serializable;
 import com.alipay.sofa.jraft.util.BytesUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class KVEntry implements Serializable {
 
     private static final long serialVersionUID = -5678680976506834026L;
 
-    private byte[]            key;
-    private byte[]            value;
+    private byte[] key;
+    private byte[] value;
 
     public KVEntry() {
     }

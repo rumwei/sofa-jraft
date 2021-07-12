@@ -28,7 +28,6 @@ import com.alipay.sofa.jraft.rhea.util.concurrent.NamedThreadFactory;
 import static com.alipay.sofa.jraft.rhea.KeyValueTool.makeValue;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class RheaHeartbeatTest extends RheaKVTestCluster {
@@ -40,7 +39,7 @@ public class RheaHeartbeatTest extends RheaKVTestCluster {
         heartbeatTest.start();
 
         final Thread thread = threadFactory.newThread(() -> {
-            for (;;) {
+            for (; ; ) {
                 heartbeatTest.putAndGetValue();
                 try {
                     Thread.sleep(500);

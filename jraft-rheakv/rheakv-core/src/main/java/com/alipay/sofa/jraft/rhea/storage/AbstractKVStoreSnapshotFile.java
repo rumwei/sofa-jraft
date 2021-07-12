@@ -47,12 +47,12 @@ import static com.alipay.sofa.jraft.entity.LocalFileMetaOutter.LocalFileMeta;
  */
 public abstract class AbstractKVStoreSnapshotFile implements KVStoreSnapshotFile {
 
-    private static final Logger LOG              = LoggerFactory.getLogger(AbstractKVStoreSnapshotFile.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractKVStoreSnapshotFile.class);
 
-    private static final String SNAPSHOT_DIR     = "kv";
+    private static final String SNAPSHOT_DIR = "kv";
     private static final String SNAPSHOT_ARCHIVE = "kv.zip";
 
-    protected final Serializer  serializer       = Serializers.getDefault();
+    protected final Serializer serializer = Serializers.getDefault();
 
     @Override
     public void save(final SnapshotWriter writer, final Region region, final Closure done,
@@ -101,7 +101,7 @@ public abstract class AbstractKVStoreSnapshotFile implements KVStoreSnapshotFile
             return true;
         } catch (final Throwable t) {
             LOG.error("Fail to load snapshot, path={}, file list={}, {}.", readerPath, reader.listFiles(),
-                StackTraceUtil.stackTrace(t));
+                    StackTraceUtil.stackTrace(t));
             return false;
         }
     }
@@ -110,7 +110,7 @@ public abstract class AbstractKVStoreSnapshotFile implements KVStoreSnapshotFile
                                                                      final ExecutorService executor) throws Exception;
 
     abstract void doSnapshotLoad(final String snapshotPath, final LocalFileMeta meta, final Region region)
-                                                                                                          throws Exception;
+            throws Exception;
 
     protected void compressSnapshot(final SnapshotWriter writer, final LocalFileMeta.Builder metaBuilder,
                                     final Closure done) {
@@ -127,9 +127,9 @@ public abstract class AbstractKVStoreSnapshotFile implements KVStoreSnapshotFile
             }
         } catch (final Throwable t) {
             LOG.error("Fail to compress snapshot, path={}, file list={}, {}.", writerPath, writer.listFiles(),
-                StackTraceUtil.stackTrace(t));
+                    StackTraceUtil.stackTrace(t));
             done.run(new Status(RaftError.EIO, "Fail to compress snapshot at %s, error is %s", writerPath, t
-                .getMessage()));
+                    .getMessage()));
         }
     }
 
@@ -139,7 +139,7 @@ public abstract class AbstractKVStoreSnapshotFile implements KVStoreSnapshotFile
         ZipStrategyManager.getDefault().deCompress(sourceFile, readerPath, checksum);
         if (meta.hasChecksum()) {
             Requires.requireTrue(meta.getChecksum().equals(Long.toHexString(checksum.getValue())),
-                "Snapshot checksum failed");
+                    "Snapshot checksum failed");
         }
     }
 
@@ -153,6 +153,6 @@ public abstract class AbstractKVStoreSnapshotFile implements KVStoreSnapshotFile
             return LocalFileMeta.newBuilder();
         }
         return LocalFileMeta.newBuilder() //
-            .setUserMeta(ByteString.copyFrom(this.serializer.writeObject(metadata)));
+                .setUserMeta(ByteString.copyFrom(this.serializer.writeObject(metadata)));
     }
 }

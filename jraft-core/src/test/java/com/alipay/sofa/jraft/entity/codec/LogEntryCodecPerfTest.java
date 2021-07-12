@@ -41,15 +41,15 @@ import static org.junit.Assert.fail;
 
 public class LogEntryCodecPerfTest {
 
-    static byte[]            DATA    = new byte[512];
+    static byte[] DATA = new byte[512];
 
     static {
         ThreadLocalRandom.current().nextBytes(DATA);
     }
 
-    static final int         TIMES   = 100000;
+    static final int TIMES = 100000;
 
-    static final int         THREADS = 20;
+    static final int THREADS = 20;
 
     private final AtomicLong logSize = new AtomicLong(0);
 
@@ -105,8 +105,8 @@ public class LogEntryCodecPerfTest {
     }
 
     private void concurrentTest(final String version, final LogEntryEncoder encoder, final LogEntryDecoder decoder)
-                                                                                                                   throws InterruptedException,
-                                                                                                                   BrokenBarrierException {
+            throws InterruptedException,
+            BrokenBarrierException {
         final CyclicBarrier barrier = new CyclicBarrier(THREADS + 1);
         for (int i = 0; i < THREADS; i++) {
             new Thread(() -> {

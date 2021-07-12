@@ -19,24 +19,23 @@ package com.alipay.sofa.jraft.rhea.cmd.store;
 import com.alipay.sofa.jraft.util.BytesUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class ScanRequest extends BaseRequest {
 
     private static final long serialVersionUID = -7229126480671449199L;
 
-    private byte[]            startKey;
-    private byte[]            endKey;
+    private byte[] startKey;
+    private byte[] endKey;
     // If limit == 0, it will be modified to Integer.MAX_VALUE on the server
     // and then queried.  So 'limit == 0' means that the number of queries is
     // not limited. This is because serialization uses varint to compress
     // numbers.  In the case of 0, only 1 byte is occupied, and Integer.MAX_VALUE
     // takes 5 bytes.
-    private int               limit;
-    private boolean           readOnlySafe     = true;
-    private boolean           returnValue      = true;
-    private boolean           reverse          = false;
+    private int limit;
+    private boolean readOnlySafe = true;
+    private boolean returnValue = true;
+    private boolean reverse = false;
 
     public boolean isReverse() {
         return reverse;
@@ -94,7 +93,7 @@ public class ScanRequest extends BaseRequest {
     @Override
     public String toString() {
         return "ScanRequest{" + "startKey=" + BytesUtil.toHex(startKey) + ", endKey=" + BytesUtil.toHex(endKey)
-               + ", limit=" + limit + ", reverse=" + reverse + ", readOnlySafe=" + readOnlySafe + ", returnValue="
-               + returnValue + "} " + super.toString();
+                + ", limit=" + limit + ", reverse=" + reverse + ", readOnlySafe=" + readOnlySafe + ", returnValue="
+                + returnValue + "} " + super.toString();
     }
 }

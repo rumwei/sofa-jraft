@@ -23,7 +23,7 @@ import com.alipay.sofa.jraft.Status;
 /**
  * This is a callback interface, {@link NodeExecutor#execute(Status, boolean)}
  * will be triggered when each node's state machine is applied.
- *
+ * <p>
  * Note that any element contained in the implementation of this interface must
  * implement the {@link Serializable} interface.
  *

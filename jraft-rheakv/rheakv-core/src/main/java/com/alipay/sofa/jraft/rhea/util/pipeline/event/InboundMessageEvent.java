@@ -27,8 +27,8 @@ public abstract class InboundMessageEvent<T> implements MessageEvent<T> {
 
     private static final AtomicLong invokeIdGenerator = new AtomicLong(0);
 
-    private final long              invokeId;
-    private final T                 message;
+    private final long invokeId;
+    private final T message;
 
     public InboundMessageEvent(T message) {
         this.invokeId = invokeIdGenerator.getAndIncrement();

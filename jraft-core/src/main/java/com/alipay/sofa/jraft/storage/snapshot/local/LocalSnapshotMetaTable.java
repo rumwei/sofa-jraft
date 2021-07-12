@@ -38,16 +38,16 @@ import com.google.protobuf.ZeroByteStringHelper;
  * Table to keep local snapshot metadata infos.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Mar-12 7:22:27 PM
  */
 public class LocalSnapshotMetaTable {
 
-    private static final Logger              LOG = LoggerFactory.getLogger(LocalSnapshotMetaTable.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LocalSnapshotMetaTable.class);
 
     private final Map<String, LocalFileMeta> fileMap;
-    private final RaftOptions                raftOptions;
-    private SnapshotMeta                     meta;
+    private final RaftOptions raftOptions;
+    private SnapshotMeta meta;
 
     public LocalSnapshotMetaTable(RaftOptions raftOptions) {
         super();
@@ -65,8 +65,8 @@ public class LocalSnapshotMetaTable {
         }
         for (final Map.Entry<String, LocalFileMeta> entry : this.fileMap.entrySet()) {
             final File.Builder fb = File.newBuilder() //
-                .setName(entry.getKey()) //
-                .setMeta(entry.getValue());
+                    .setName(entry.getKey()) //
+                    .setMeta(entry.getValue());
             pbMetaBuilder.addFiles(fb.build());
         }
         return ByteBuffer.wrap(pbMetaBuilder.build().toByteArray());

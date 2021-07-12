@@ -34,18 +34,52 @@ import com.alipay.sofa.jraft.option.RaftOptions;
 import com.alipay.sofa.jraft.util.Describer;
 
 /**
- * A raft replica node.
+ * 表示一个 raft 节点，可以提交 task，以及查询 raft group 信息，比如当前状态、当前 leader/term 等
+ * 该节点角色为leader、follower以及candidate之一，随着选举过程而转变
  *
- * @author boyan (boyan@alibaba-inc.com)
+ * 与PeerId的区别就是，PeerId是简化版的，PeerId参与构成Node
  *
- * 2018-Apr-03 4:06:55 PM
+ * 创建一个Raft Node节点可以通过{@link RaftServiceFactory#createAndInitRaftNode(String groupId, PeerId serverId, NodeOptions opts)}静态方法来进行
+ *
+ * 单纯一个Raft Node节点是没啥用的，需要多个节点来构成一个raft group，节点之间的通讯使用bolt框架或grpc框架的rpc服务，因此在创建节点后，
+ * 需要将Raft Node加入到{@link NodeManager}中
  */
 public interface Node extends Lifecycle<NodeOptions>, Describer {
 
+    //region 核心方法
     /**
-     * Get the leader peer id for redirect, null if absent.
+     * [线程安全且非阻塞]
+     * <p>
+     * 提交一个新任务到raft group
+     * <p>
+     * About the ownership:
+     * |task.data|: 为了更高的性能，本方法会直接操作任务数据data，如果想留存处理前的数据，则需要在调用该方法前保存数据的副本
+     * |task.done|: 如果数据成功提交到了raft group，我们将传递该回调task.done给 #{@link StateMachine#onApply(Iterator)}.
+     * 否则会设置对应的错误信息，然后传递该回调task.done给 #{@link StateMachine#onApply(Iterator)}.
+     * @param task task to apply
      */
-    PeerId getLeaderId();
+    void apply(final Task task);
+
+    PeerId getLeaderId(); //获取当前raft group的leader peerId，如果未知，返回null
+
+    /**
+     * 停止当前raft节点(replica node)
+     * @param done 停止后的回调逻辑
+     */
+    void shutdown(final Closure done);
+
+    /**
+     * Block the thread until the node is successfully stopped.
+     * @throws InterruptedException if the current thread is interrupted while waiting
+     */
+    void join() throws InterruptedException;
+
+    /**
+     * 触发当前节点执行一次snapshot保存操作，如果可能会立即执行。当snapshot保存完成后，会调用done回调逻辑，来获取保存snapshot的细节结果信息
+     * @param done callback
+     */
+    void snapshot(final Closure done);
+    //endregion
 
     /**
      * Get current node id.
@@ -79,45 +113,14 @@ public interface Node extends Lifecycle<NodeOptions>, Describer {
 
     /**
      * Returns true when the node is leader.
+     *
      * @param blocking if true, will be blocked until the node finish it's state change
      */
     boolean isLeader(final boolean blocking);
 
     /**
-     * Shutdown local replica node.
-     *
-     * @param done callback
-     */
-    void shutdown(final Closure done);
-
-    /**
-     * Block the thread until the node is successfully stopped.
-     *
-     * @throws InterruptedException if the current thread is interrupted
-     *         while waiting
-     */
-    void join() throws InterruptedException;
-
-    /**
      * [Thread-safe and wait-free]
-     *
-     * Apply task to the replicated-state-machine
-     *
-     * About the ownership:
-     * |task.data|: for the performance consideration, we will take away the
-     *               content. If you want keep the content, copy it before call
-     *               this function
-     * |task.done|: If the data is successfully committed to the raft group. We
-     *              will pass the ownership to #{@link StateMachine#onApply(Iterator)}.
-     *              Otherwise we will specify the error and call it.
-     *
-     * @param task task to apply
-     */
-    void apply(final Task task);
-
-    /**
-     * [Thread-safe and wait-free]
-     *
+     * <p>
      * Starts a linearizable read-only query request with request context(optional,
      * such as request id etc.) and closure.  The closure will be called when the
      * request is completed, and user can read data from state machine if the result
@@ -125,14 +128,13 @@ public interface Node extends Lifecycle<NodeOptions>, Describer {
      *
      * @param requestContext the context of request
      * @param done           callback
-     *
      * @since 0.0.3
      */
     void readIndex(final byte[] requestContext, final ReadIndexClosure done);
 
     /**
      * List peers of this raft group, only leader returns.
-     *
+     * <p>
      * [NOTE] <strong>when list_peers concurrency with {@link #addPeer(PeerId, Closure)}/{@link #removePeer(PeerId, Closure)},
      * maybe return peers is staled.  Because {@link #addPeer(PeerId, Closure)}/{@link #removePeer(PeerId, Closure)}
      * immediately modify configuration in memory</strong>
@@ -143,7 +145,7 @@ public interface Node extends Lifecycle<NodeOptions>, Describer {
 
     /**
      * List all alive peers of this raft group, only leader returns.</p>
-     *
+     * <p>
      * [NOTE] <strong>list_alive_peers is just a transient data (snapshot)
      * and a short-term loss of response by the follower will cause it to
      * temporarily not exist in this list.</strong>
@@ -155,7 +157,7 @@ public interface Node extends Lifecycle<NodeOptions>, Describer {
 
     /**
      * List all learners of this raft group, only leader returns.</p>
-     *
+     * <p>
      * [NOTE] <strong>when listLearners concurrency with {@link #addLearners(List, Closure)}/{@link #removeLearners(List, Closure)}/{@link #resetLearners(List, Closure)},
      * maybe return peers is staled.  Because {@link #addLearners(List, Closure)}/{@link #removeLearners(List, Closure)}/{@link #resetLearners(List, Closure)}
      * immediately modify configuration in memory</strong>
@@ -167,7 +169,7 @@ public interface Node extends Lifecycle<NodeOptions>, Describer {
 
     /**
      * List all alive learners of this raft group, only leader returns.</p>
-     *
+     * <p>
      * [NOTE] <strong>when listAliveLearners concurrency with {@link #addLearners(List, Closure)}/{@link #removeLearners(List, Closure)}/{@link #resetLearners(List, Closure)},
      * maybe return peers is staled.  Because {@link #addLearners(List, Closure)}/{@link #removeLearners(List, Closure)}/{@link #resetLearners(List, Closure)}
      * immediately modify configuration in memory</strong>
@@ -248,14 +250,6 @@ public interface Node extends Lifecycle<NodeOptions>, Describer {
     void resetLearners(final List<PeerId> learners, final Closure done);
 
     /**
-     * Start a snapshot immediately if possible. done.run() would be invoked when
-     * the snapshot finishes, describing the detailed result.
-     *
-     * @param done callback
-     */
-    void snapshot(final Closure done);
-
-    /**
      * Reset the election_timeout for the every node.
      *
      * @param electionTimeoutMs the timeout millis of election
@@ -274,19 +268,19 @@ public interface Node extends Lifecycle<NodeOptions>, Describer {
 
     /**
      * Read the first committed user log from the given index.
-     *   Return OK on success and user_log is assigned with the very data. Be awared
-     *   that the user_log may be not the exact log at the given index, but the
-     *   first available user log from the given index to lastCommittedIndex.
-     *   Otherwise, appropriate errors are returned:
-     *        - return ELOGDELETED when the log has been deleted;
-     *        - return ENOMOREUSERLOG when we can't get a user log even reaching lastCommittedIndex.
+     * Return OK on success and user_log is assigned with the very data. Be awared
+     * that the user_log may be not the exact log at the given index, but the
+     * first available user log from the given index to lastCommittedIndex.
+     * Otherwise, appropriate errors are returned:
+     * - return ELOGDELETED when the log has been deleted;
+     * - return ENOMOREUSERLOG when we can't get a user log even reaching lastCommittedIndex.
      * [NOTE] in consideration of safety, we use lastAppliedIndex instead of lastCommittedIndex
      * in code implementation.
      *
      * @param index log index
      * @return user log entry
-     * @throws LogNotFoundException  the user log is deleted at index.
-     * @throws LogIndexOutOfBoundsException  the special index is out of bounds.
+     * @throws LogNotFoundException         the user log is deleted at index.
+     * @throws LogIndexOutOfBoundsException the special index is out of bounds.
      */
     UserLog readCommittedUserLog(final long index);
 
@@ -307,7 +301,6 @@ public interface Node extends Lifecycle<NodeOptions>, Describer {
 
     /**
      * Remove all the ReplicatorStateListeners which have been added by users.
-     *
      */
     void clearReplicatorStateListeners();
 

@@ -36,18 +36,19 @@ import com.alipay.sofa.jraft.test.atomic.server.processor.SetCommandProcessor;
 
 /**
  * Atomic server with multi raft groups.
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-May-02 10:50:14 AM
  */
 public class AtomicServer {
 
-    private static final Logger             LOG    = LoggerFactory.getLogger(AtomicServer.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AtomicServer.class);
 
-    private TreeMap<Long, AtomicRangeGroup> nodes  = new TreeMap<>();
-    private TreeMap<Long, String>           groups = new TreeMap<>();
-    private int                             totalSlots;
-    private StartupConf                     conf;
+    private TreeMap<Long, AtomicRangeGroup> nodes = new TreeMap<>();
+    private TreeMap<Long, String> groups = new TreeMap<>();
+    private int totalSlots;
+    private StartupConf conf;
 
     public AtomicRangeGroup getGroupBykey(String key) {
         return nodes.get(HashUtils.getHeadKey(this.nodes, key));

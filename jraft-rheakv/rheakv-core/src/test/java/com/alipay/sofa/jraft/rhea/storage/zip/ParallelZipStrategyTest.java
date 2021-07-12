@@ -33,7 +33,7 @@ import java.util.zip.Checksum;
  * @author hzh
  */
 public class ParallelZipStrategyTest {
-    private File        sourceDir;
+    private File sourceDir;
     private ZipStrategy zipStrategy;
 
     @Before

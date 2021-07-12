@@ -26,8 +26,8 @@ import com.alipay.sofa.jraft.test.atomic.server.CommandType;
 
 /**
  * Get command processor
- * @author dennis
  *
+ * @author dennis
  */
 public class GetCommandProcessor extends BaseAsyncUserProcessor<GetCommand> {
 

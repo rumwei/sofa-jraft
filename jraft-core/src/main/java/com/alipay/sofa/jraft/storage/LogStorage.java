@@ -26,7 +26,7 @@ import com.alipay.sofa.jraft.option.LogStorageOptions;
  * Log entry storage service.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Mar-12 3:43:54 PM
  */
 public interface LogStorage extends Lifecycle<LogStorageOptions>, Storage {
@@ -48,6 +48,7 @@ public interface LogStorage extends Lifecycle<LogStorageOptions>, Storage {
 
     /**
      * Get logEntry's term by index. This method is deprecated, you should use {@link #getEntry(long)} to get the log id's term.
+     *
      * @deprecated
      */
     @Deprecated

@@ -31,7 +31,6 @@ import static com.alipay.sofa.jraft.util.BytesUtil.readUtf8;
 import static com.alipay.sofa.jraft.util.BytesUtil.writeUtf8;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class PutExample {
@@ -80,7 +79,7 @@ public class PutExample {
         if (FutureHelper.get(r5)) {
             for (final KVEntry entry : entries) {
                 LOG.info("Async put list {} with value {} success.", readUtf8(entry.getKey()),
-                    readUtf8(entry.getValue()));
+                        readUtf8(entry.getValue()));
             }
         }
 
@@ -89,7 +88,7 @@ public class PutExample {
         if (r6) {
             for (final KVEntry entry : entries) {
                 LOG.info("Sync put list {} with value {} success.", readUtf8(entry.getKey()),
-                    readUtf8(entry.getValue()));
+                        readUtf8(entry.getValue()));
             }
         }
     }

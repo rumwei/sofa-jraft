@@ -41,22 +41,24 @@ import com.alipay.sofa.jraft.util.Utils;
  * Raft meta storage,it's not thread-safe.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Mar-26 7:30:36 PM
  */
 public class LocalRaftMetaStorage implements RaftMetaStorage {
 
-    private static final Logger LOG       = LoggerFactory.getLogger(LocalRaftMetaStorage.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LocalRaftMetaStorage.class);
     private static final String RAFT_META = "raft_meta";
 
-    private boolean             isInited;
-    private final String        path;
-    private long                term;
-    /** blank votedFor information*/
-    private PeerId              votedFor  = PeerId.emptyPeer();
-    private final RaftOptions   raftOptions;
-    private NodeMetrics         nodeMetrics;
-    private NodeImpl            node;
+    private boolean isInited;
+    private final String path;
+    private long term;
+    /**
+     * blank votedFor information
+     */
+    private PeerId votedFor = PeerId.emptyPeer();
+    private final RaftOptions raftOptions;
+    private NodeMetrics nodeMetrics;
+    private NodeImpl node;
 
     public LocalRaftMetaStorage(final String path, final RaftOptions raftOptions) {
         super();
@@ -110,9 +112,9 @@ public class LocalRaftMetaStorage implements RaftMetaStorage {
     private boolean save() {
         final long start = Utils.monotonicMs();
         final StablePBMeta meta = StablePBMeta.newBuilder() //
-            .setTerm(this.term) //
-            .setVotedfor(this.votedFor.toString()) //
-            .build();
+                .setTerm(this.term) //
+                .setVotedfor(this.votedFor.toString()) //
+                .build();
         final ProtoBufFile pbFile = newPbFile();
         try {
             if (!pbFile.save(meta, this.raftOptions.isSyncMeta())) {
@@ -130,13 +132,13 @@ public class LocalRaftMetaStorage implements RaftMetaStorage {
                 this.nodeMetrics.recordLatency("save-raft-meta", cost);
             }
             LOG.info("Save raft meta, path={}, term={}, votedFor={}, cost time={} ms", this.path, this.term,
-                this.votedFor, cost);
+                    this.votedFor, cost);
         }
     }
 
     private void reportIOError() {
         this.node.onError(new RaftException(ErrorType.ERROR_TYPE_META, RaftError.EIO,
-            "Fail to save raft meta, path=%s", this.path));
+                "Fail to save raft meta, path=%s", this.path));
     }
 
     @Override

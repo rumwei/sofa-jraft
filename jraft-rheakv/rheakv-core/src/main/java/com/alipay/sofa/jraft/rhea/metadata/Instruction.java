@@ -29,10 +29,10 @@ public class Instruction implements Serializable {
 
     private static final long serialVersionUID = 2675841162817080976L;
 
-    private Region            region;
-    private ChangePeer        changePeer;
-    private TransferLeader    transferLeader;
-    private RangeSplit        rangeSplit;
+    private Region region;
+    private ChangePeer changePeer;
+    private TransferLeader transferLeader;
+    private RangeSplit rangeSplit;
 
     public Region getRegion() {
         return region;
@@ -69,7 +69,7 @@ public class Instruction implements Serializable {
     @Override
     public String toString() {
         return "Instruction{" + "region=" + region + ", changePeer=" + changePeer + ", transferLeader="
-               + transferLeader + ", rangeSplit=" + rangeSplit + '}';
+                + transferLeader + ", rangeSplit=" + rangeSplit + '}';
     }
 
     public static class ChangePeer implements Serializable {
@@ -83,8 +83,8 @@ public class Instruction implements Serializable {
 
         private static final long serialVersionUID = 7483209239871846301L;
 
-        private long              moveToStoreId;
-        private Endpoint          moveToEndpoint;
+        private long moveToStoreId;
+        private Endpoint moveToEndpoint;
 
         public long getMoveToStoreId() {
             return moveToStoreId;
@@ -112,7 +112,7 @@ public class Instruction implements Serializable {
 
         private static final long serialVersionUID = -3451109819719367744L;
 
-        private Long              newRegionId;
+        private Long newRegionId;
 
         public Long getNewRegionId() {
             return newRegionId;

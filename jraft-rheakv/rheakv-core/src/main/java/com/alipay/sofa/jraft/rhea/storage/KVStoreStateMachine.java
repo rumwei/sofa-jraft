@@ -57,16 +57,16 @@ import static com.alipay.sofa.jraft.rhea.metrics.KVMetricNames.STATE_MACHINE_BAT
  */
 public class KVStoreStateMachine extends StateMachineAdapter {
 
-    private static final Logger       LOG        = LoggerFactory.getLogger(KVStoreStateMachine.class);
+    private static final Logger LOG = LoggerFactory.getLogger(KVStoreStateMachine.class);
 
-    private final AtomicLong          leaderTerm = new AtomicLong(-1L);
-    private final Serializer          serializer = Serializers.getDefault();
-    private final Region              region;
-    private final StoreEngine         storeEngine;
-    private final BatchRawKVStore<?>  rawKVStore;
+    private final AtomicLong leaderTerm = new AtomicLong(-1L);
+    private final Serializer serializer = Serializers.getDefault();
+    private final Region region;
+    private final StoreEngine storeEngine;
+    private final BatchRawKVStore<?> rawKVStore;
     private final KVStoreSnapshotFile storeSnapshotFile;
-    private final Meter               applyMeter;
-    private final Histogram           batchWriteHistogram;
+    private final Meter applyMeter;
+    private final Histogram batchWriteHistogram;
 
     public KVStoreStateMachine(Region region, StoreEngine storeEngine) {
         this.region = region;
@@ -119,7 +119,7 @@ public class KVStoreStateMachine extends StateMachineAdapter {
         } catch (final Throwable t) {
             LOG.error("StateMachine meet critical error: {}.", StackTraceUtil.stackTrace(t));
             it.setErrorAndRollback(index - applied, new Status(RaftError.ESTATEMACHINE,
-                "StateMachine meet critical error: %s.", t.getMessage()));
+                    "StateMachine meet critical error: %s.", t.getMessage()));
         } finally {
             // metrics: qps
             this.applyMeter.mark(applied);
@@ -140,7 +140,7 @@ public class KVStoreStateMachine extends StateMachineAdapter {
 
             // metrics: op qps
             final Meter opApplyMeter = KVMetrics.meter(STATE_MACHINE_APPLY_QPS, String.valueOf(this.region.getId()),
-                KVOperation.opName(opByte));
+                    KVOperation.opName(opByte));
             opApplyMeter.mark(size);
             this.batchWriteHistogram.update(size);
 
@@ -241,7 +241,7 @@ public class KVStoreStateMachine extends StateMachineAdapter {
                 }
             } catch (final Throwable t) {
                 LOG.error("Fail to split, regionId={}, newRegionId={}, splitKey={}.", currentRegionId, newRegionId,
-                    BytesUtil.toHex(splitKey));
+                        BytesUtil.toHex(splitKey));
                 setCriticalError(closure, t);
             }
         }
@@ -269,7 +269,7 @@ public class KVStoreStateMachine extends StateMachineAdapter {
         // doing something (needs to go through the raft state machine) in the listeners, we need
         // asynchronously triggers the listeners.
         final List<StateListener> listeners = this.storeEngine.getStateListenerContainer() //
-            .getStateListenerGroup(getRegionId());
+                .getStateListenerGroup(getRegionId());
         if (listeners.isEmpty()) {
             return;
         }
@@ -289,7 +289,7 @@ public class KVStoreStateMachine extends StateMachineAdapter {
         // doing something (needs to go through the raft state machine) in the listeners, we asynchronously
         // triggers the listeners.
         final List<StateListener> listeners = this.storeEngine.getStateListenerContainer() //
-            .getStateListenerGroup(getRegionId());
+                .getStateListenerGroup(getRegionId());
         if (listeners.isEmpty()) {
             return;
         }
@@ -307,7 +307,7 @@ public class KVStoreStateMachine extends StateMachineAdapter {
         // doing something (needs to go through the raft state machine) in the listeners, we need
         // asynchronously triggers the listeners.
         final List<StateListener> listeners = this.storeEngine.getStateListenerContainer() //
-            .getStateListenerGroup(getRegionId());
+                .getStateListenerGroup(getRegionId());
         if (listeners.isEmpty()) {
             return;
         }
@@ -325,7 +325,7 @@ public class KVStoreStateMachine extends StateMachineAdapter {
         // doing something (needs to go through the raft state machine) in the listeners, we need
         // asynchronously triggers the listeners.
         final List<StateListener> listeners = this.storeEngine.getStateListenerContainer() //
-            .getStateListenerGroup(getRegionId());
+                .getStateListenerGroup(getRegionId());
         if (listeners.isEmpty()) {
             return;
         }
@@ -346,7 +346,7 @@ public class KVStoreStateMachine extends StateMachineAdapter {
 
     /**
      * Sets critical error and halt the state machine.
-     *
+     * <p>
      * If current node is a leader, first reply to client
      * failure response.
      *

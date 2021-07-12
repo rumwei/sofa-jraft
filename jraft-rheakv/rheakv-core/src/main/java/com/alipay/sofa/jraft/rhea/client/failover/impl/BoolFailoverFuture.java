@@ -36,11 +36,11 @@ import com.alipay.sofa.jraft.rhea.util.StackTraceUtil;
  */
 public final class BoolFailoverFuture extends CompletableFuture<Boolean> implements Attachable<Object> {
 
-    private static final Logger          LOG = LoggerFactory.getLogger(BoolFailoverFuture.class);
+    private static final Logger LOG = LoggerFactory.getLogger(BoolFailoverFuture.class);
 
-    private final int                    retriesLeft;
+    private final int retriesLeft;
     private final RetryCallable<Boolean> retryCallable;
-    private final Object                 attachments;
+    private final Object attachments;
 
     public BoolFailoverFuture(int retriesLeft, RetryCallable<Boolean> retryCallable) {
         this(retriesLeft, retryCallable, null);

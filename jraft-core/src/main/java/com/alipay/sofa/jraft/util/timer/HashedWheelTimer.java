@@ -43,42 +43,42 @@ import org.slf4j.LoggerFactory;
  * timer facility'</a>.  More comprehensive slides are located
  * <a href="http://www.cse.wustl.edu/~cdgill/courses/cs6874/TimingWheels.ppt">here</a>.
  * <p>
- *
+ * <p>
  * Forked from <a href="https://github.com/netty/netty">Netty</a>.
  */
 public class HashedWheelTimer implements Timer {
 
-    private static final Logger                                      LOG                    = LoggerFactory
-                                                                                                .getLogger(HashedWheelTimer.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(HashedWheelTimer.class);
 
-    private static final int                                         INSTANCE_COUNT_LIMIT   = 256;
-    private static final AtomicInteger                               instanceCounter        = new AtomicInteger();
-    private static final AtomicBoolean                               warnedTooManyInstances = new AtomicBoolean();
+    private static final int INSTANCE_COUNT_LIMIT = 256;
+    private static final AtomicInteger instanceCounter = new AtomicInteger();
+    private static final AtomicBoolean warnedTooManyInstances = new AtomicBoolean();
 
-    private static final AtomicIntegerFieldUpdater<HashedWheelTimer> workerStateUpdater     = AtomicIntegerFieldUpdater
-                                                                                                .newUpdater(
-                                                                                                    HashedWheelTimer.class,
-                                                                                                    "workerState");
+    private static final AtomicIntegerFieldUpdater<HashedWheelTimer> workerStateUpdater = AtomicIntegerFieldUpdater
+            .newUpdater(
+                    HashedWheelTimer.class,
+                    "workerState");
 
-    private final Worker                                             worker                 = new Worker();
-    private final Thread                                             workerThread;
+    private final Worker worker = new Worker();
+    private final Thread workerThread;
 
-    public static final int                                          WORKER_STATE_INIT      = 0;
-    public static final int                                          WORKER_STATE_STARTED   = 1;
-    public static final int                                          WORKER_STATE_SHUTDOWN  = 2;
-    @SuppressWarnings({ "unused", "FieldMayBeFinal" })
-    private volatile int                                             workerState;                                                  // 0 - init, 1 - started, 2 - shut down
+    public static final int WORKER_STATE_INIT = 0;
+    public static final int WORKER_STATE_STARTED = 1;
+    public static final int WORKER_STATE_SHUTDOWN = 2;
+    @SuppressWarnings({"unused", "FieldMayBeFinal"})
+    private volatile int workerState;                                                  // 0 - init, 1 - started, 2 - shut down
 
-    private final long                                               tickDuration;
-    private final HashedWheelBucket[]                                wheel;
-    private final int                                                mask;
-    private final CountDownLatch                                     startTimeInitialized   = new CountDownLatch(1);
-    private final Queue<HashedWheelTimeout>                          timeouts               = new ConcurrentLinkedQueue<>();
-    private final Queue<HashedWheelTimeout>                          cancelledTimeouts      = new ConcurrentLinkedQueue<>();
-    private final AtomicLong                                         pendingTimeouts        = new AtomicLong(0);
-    private final long                                               maxPendingTimeouts;
+    private final long tickDuration;
+    private final HashedWheelBucket[] wheel;
+    private final int mask;
+    private final CountDownLatch startTimeInitialized = new CountDownLatch(1);
+    private final Queue<HashedWheelTimeout> timeouts = new ConcurrentLinkedQueue<>();
+    private final Queue<HashedWheelTimeout> cancelledTimeouts = new ConcurrentLinkedQueue<>();
+    private final AtomicLong pendingTimeouts = new AtomicLong(0);
+    private final long maxPendingTimeouts;
 
-    private volatile long                                            startTime;
+    private volatile long startTime;
 
     /**
      * Creates a new timer with the default thread factory
@@ -204,15 +204,15 @@ public class HashedWheelTimer implements Timer {
         // Prevent overflow.
         if (this.tickDuration >= Long.MAX_VALUE / wheel.length) {
             throw new IllegalArgumentException(String.format(
-                "tickDuration: %d (expected: 0 < tickDuration in nanos < %d", tickDuration, Long.MAX_VALUE
-                                                                                            / wheel.length));
+                    "tickDuration: %d (expected: 0 < tickDuration in nanos < %d", tickDuration, Long.MAX_VALUE
+                            / wheel.length));
         }
         workerThread = threadFactory.newThread(worker);
 
         this.maxPendingTimeouts = maxPendingTimeouts;
 
         if (instanceCounter.incrementAndGet() > INSTANCE_COUNT_LIMIT
-            && warnedTooManyInstances.compareAndSet(false, true)) {
+                && warnedTooManyInstances.compareAndSet(false, true)) {
             reportTooManyInstances();
         }
     }
@@ -290,7 +290,7 @@ public class HashedWheelTimer implements Timer {
     public Set<Timeout> stop() {
         if (Thread.currentThread() == workerThread) {
             throw new IllegalStateException(HashedWheelTimer.class.getSimpleName() + ".stop() cannot be called from "
-                                            + TimerTask.class.getSimpleName());
+                    + TimerTask.class.getSimpleName());
         }
 
         if (!workerStateUpdater.compareAndSet(this, WORKER_STATE_STARTED, WORKER_STATE_SHUTDOWN)) {
@@ -336,8 +336,8 @@ public class HashedWheelTimer implements Timer {
         if (maxPendingTimeouts > 0 && pendingTimeoutsCount > maxPendingTimeouts) {
             pendingTimeouts.decrementAndGet();
             throw new RejectedExecutionException("Number of pending timeouts (" + pendingTimeoutsCount
-                                                 + ") is greater than or equal to maximum allowed pending "
-                                                 + "timeouts (" + maxPendingTimeouts + ")");
+                    + ") is greater than or equal to maximum allowed pending "
+                    + "timeouts (" + maxPendingTimeouts + ")");
         }
 
         start();
@@ -365,13 +365,13 @@ public class HashedWheelTimer implements Timer {
     private static void reportTooManyInstances() {
         String resourceType = HashedWheelTimer.class.getSimpleName();
         LOG.error("You are creating too many {} instances.  {} is a shared resource that must be "
-                  + "reused across the JVM, so that only a few instances are created.", resourceType, resourceType);
+                + "reused across the JVM, so that only a few instances are created.", resourceType, resourceType);
     }
 
     private final class Worker implements Runnable {
         private final Set<Timeout> unprocessedTimeouts = new HashSet<>();
 
-        private long               tick;
+        private long tick;
 
         @Override
         public void run() {
@@ -401,7 +401,7 @@ public class HashedWheelTimer implements Timer {
             for (HashedWheelBucket bucket : wheel) {
                 bucket.clearTimeouts(unprocessedTimeouts);
             }
-            for (;;) {
+            for (; ; ) {
                 HashedWheelTimeout timeout = timeouts.poll();
                 if (timeout == null) {
                     break;
@@ -439,7 +439,7 @@ public class HashedWheelTimer implements Timer {
         }
 
         private void processCancelledTasks() {
-            for (;;) {
+            for (; ; ) {
                 HashedWheelTimeout timeout = cancelledTimeouts.poll();
                 if (timeout == null) {
                     // all processed
@@ -465,7 +465,7 @@ public class HashedWheelTimer implements Timer {
         private long waitForNextTick() {
             long deadline = tickDuration * (tick + 1);
 
-            for (;;) {
+            for (; ; ) {
                 final long currentTime = System.nanoTime() - startTime;
                 long sleepTimeMs = (deadline - currentTime + 999999) / 1000000;
 
@@ -517,32 +517,32 @@ public class HashedWheelTimer implements Timer {
 
     private static final class HashedWheelTimeout implements Timeout {
 
-        private static final int                                           ST_INIT       = 0;
-        private static final int                                           ST_CANCELLED  = 1;
-        private static final int                                           ST_EXPIRED    = 2;
+        private static final int ST_INIT = 0;
+        private static final int ST_CANCELLED = 1;
+        private static final int ST_EXPIRED = 2;
         private static final AtomicIntegerFieldUpdater<HashedWheelTimeout> STATE_UPDATER = AtomicIntegerFieldUpdater
-                                                                                             .newUpdater(
-                                                                                                 HashedWheelTimeout.class,
-                                                                                                 "state");
+                .newUpdater(
+                        HashedWheelTimeout.class,
+                        "state");
 
-        private final HashedWheelTimer                                     timer;
-        private final TimerTask                                            task;
-        private final long                                                 deadline;
+        private final HashedWheelTimer timer;
+        private final TimerTask task;
+        private final long deadline;
 
-        @SuppressWarnings({ "unused", "FieldMayBeFinal", "RedundantFieldInitialization" })
-        private volatile int                                               state         = ST_INIT;
+        @SuppressWarnings({"unused", "FieldMayBeFinal", "RedundantFieldInitialization"})
+        private volatile int state = ST_INIT;
 
         // remainingRounds will be calculated and set by Worker.transferTimeoutsToBuckets() before the
         // HashedWheelTimeout will be added to the correct HashedWheelBucket.
-        long                                                               remainingRounds;
+        long remainingRounds;
 
         // This will be used to chain timeouts in HashedWheelTimerBucket via a double-linked-list.
         // As only the workerThread will act on it there is no need for synchronization / volatile.
-        HashedWheelTimeout                                                 next;
-        HashedWheelTimeout                                                 prev;
+        HashedWheelTimeout next;
+        HashedWheelTimeout prev;
 
         // The bucket to which the timeout was added
-        HashedWheelBucket                                                  bucket;
+        HashedWheelBucket bucket;
 
         HashedWheelTimeout(HashedWheelTimer timer, TimerTask task, long deadline) {
             this.timer = timer;
@@ -620,7 +620,7 @@ public class HashedWheelTimer implements Timer {
             long remaining = deadline - currentTime + timer.startTime;
 
             StringBuilder buf = new StringBuilder(192).append(getClass().getSimpleName()).append('(')
-                .append("deadline: ");
+                    .append("deadline: ");
             if (remaining > 0) {
                 buf.append(remaining).append(" ns later");
             } else if (remaining < 0) {
@@ -678,7 +678,7 @@ public class HashedWheelTimer implements Timer {
                     } else {
                         // The timeout was placed into a wrong slot. This should never happen.
                         throw new IllegalStateException(String.format("timeout.deadline (%d) > deadline (%d)",
-                            timeout.deadline, deadline));
+                                timeout.deadline, deadline));
                     }
                 } else if (timeout.isCancelled()) {
                     next = remove(timeout);
@@ -723,7 +723,7 @@ public class HashedWheelTimer implements Timer {
          * Clear this bucket and return all not expired / cancelled {@link Timeout}s.
          */
         public void clearTimeouts(Set<Timeout> set) {
-            for (;;) {
+            for (; ; ) {
                 HashedWheelTimeout timeout = pollTimeout();
                 if (timeout == null) {
                     return;

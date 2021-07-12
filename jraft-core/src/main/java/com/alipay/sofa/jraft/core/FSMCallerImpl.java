@@ -67,7 +67,7 @@ import com.lmax.disruptor.dsl.ProducerType;
  * The finite state machine caller implementation.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-03 11:12:14 AM
  */
 public class FSMCallerImpl implements FSMCaller {
@@ -76,8 +76,9 @@ public class FSMCallerImpl implements FSMCaller {
 
     /**
      * Task type
-     * @author boyan (boyan@alibaba-inc.com)
      *
+     * @author boyan (boyan@alibaba-inc.com)
+     * <p>
      * 2018-Apr-03 11:12:25 AM
      */
     private enum TaskType {
@@ -107,18 +108,18 @@ public class FSMCallerImpl implements FSMCaller {
      * Apply task for disruptor.
      *
      * @author boyan (boyan@alibaba-inc.com)
-     *
+     * <p>
      * 2018-Apr-03 11:12:35 AM
      */
     private static class ApplyTask {
-        TaskType            type;
+        TaskType type;
         // union fields
-        long                committedIndex;
-        long                term;
-        Status              status;
+        long committedIndex;
+        long term;
+        Status status;
         LeaderChangeContext leaderChangeCtx;
-        Closure             done;
-        CountDownLatch      shutdownLatch;
+        Closure done;
+        CountDownLatch shutdownLatch;
 
         public void reset() {
             this.type = null;
@@ -149,20 +150,20 @@ public class FSMCallerImpl implements FSMCaller {
         }
     }
 
-    private LogManager                                              logManager;
-    private StateMachine                                            fsm;
-    private ClosureQueue                                            closureQueue;
-    private final AtomicLong                                        lastAppliedIndex;
-    private long                                                    lastAppliedTerm;
-    private Closure                                                 afterShutdown;
-    private NodeImpl                                                node;
-    private volatile TaskType                                       currTask;
-    private final AtomicLong                                        applyingIndex;
-    private volatile RaftException                                  error;
-    private Disruptor<ApplyTask>                                    disruptor;
-    private RingBuffer<ApplyTask>                                   taskQueue;
-    private volatile CountDownLatch                                 shutdownLatch;
-    private NodeMetrics                                             nodeMetrics;
+    private LogManager logManager;
+    private StateMachine fsm;
+    private ClosureQueue closureQueue;
+    private final AtomicLong lastAppliedIndex;
+    private long lastAppliedTerm;
+    private Closure afterShutdown;
+    private NodeImpl node;
+    private volatile TaskType currTask;
+    private final AtomicLong applyingIndex;
+    private volatile RaftException error;
+    private Disruptor<ApplyTask> disruptor;
+    private RingBuffer<ApplyTask> taskQueue;
+    private volatile CountDownLatch shutdownLatch;
+    private NodeMetrics nodeMetrics;
     private final CopyOnWriteArrayList<LastAppliedLogIndexListener> lastAppliedLogIndexListeners = new CopyOnWriteArrayList<>();
 
     public FSMCallerImpl() {
@@ -183,19 +184,19 @@ public class FSMCallerImpl implements FSMCaller {
         this.lastAppliedIndex.set(opts.getBootstrapId().getIndex());
         notifyLastAppliedIndexUpdated(this.lastAppliedIndex.get());
         this.lastAppliedTerm = opts.getBootstrapId().getTerm();
-        this.disruptor = DisruptorBuilder.<ApplyTask> newInstance() //
-            .setEventFactory(new ApplyTaskFactory()) //
-            .setRingBufferSize(opts.getDisruptorBufferSize()) //
-            .setThreadFactory(new NamedThreadFactory("JRaft-FSMCaller-Disruptor-", true)) //
-            .setProducerType(ProducerType.MULTI) //
-            .setWaitStrategy(new BlockingWaitStrategy()) //
-            .build();
+        this.disruptor = DisruptorBuilder.<ApplyTask>newInstance() //
+                .setEventFactory(new ApplyTaskFactory()) //
+                .setRingBufferSize(opts.getDisruptorBufferSize()) //
+                .setThreadFactory(new NamedThreadFactory("JRaft-FSMCaller-Disruptor-", true)) //
+                .setProducerType(ProducerType.MULTI) //
+                .setWaitStrategy(new BlockingWaitStrategy()) //
+                .build();
         this.disruptor.handleEventsWith(new ApplyTaskHandler());
         this.disruptor.setDefaultExceptionHandler(new LogExceptionHandler<Object>(getClass().getSimpleName()));
         this.taskQueue = this.disruptor.start();
         if (this.nodeMetrics.getMetricRegistry() != null) {
             this.nodeMetrics.getMetricRegistry().register("jraft-fsm-caller-disruptor",
-                new DisruptorMetricSet(this.taskQueue));
+                    new DisruptorMetricSet(this.taskQueue));
         }
         this.error = new RaftException(EnumOutter.ErrorType.ERROR_TYPE_NONE);
         LOG.info("Starts FSMCaller successfully.");
@@ -234,7 +235,7 @@ public class FSMCallerImpl implements FSMCaller {
         }
         if (!this.taskQueue.tryPublishEvent(tpl)) {
             setError(new RaftException(ErrorType.ERROR_TYPE_STATE_MACHINE, new Status(RaftError.EBUSY,
-                "FSMCaller is overload.")));
+                    "FSMCaller is overload.")));
             return false;
         }
         return true;
@@ -311,8 +312,9 @@ public class FSMCallerImpl implements FSMCaller {
 
     /**
      * Closure runs with an error.
-     * @author boyan (boyan@alibaba-inc.com)
      *
+     * @author boyan (boyan@alibaba-inc.com)
+     * <p>
      * 2018-Apr-04 2:20:31 PM
      */
     public class OnErrorClosure implements Closure {
@@ -486,7 +488,7 @@ public class FSMCallerImpl implements FSMCaller {
 
             Requires.requireTrue(firstClosureIndex >= 0, "Invalid firstClosureIndex");
             final IteratorImpl iterImpl = new IteratorImpl(this.fsm, this.logManager, closures, firstClosureIndex,
-                lastAppliedIndex, committedIndex, this.applyingIndex);
+                    lastAppliedIndex, committedIndex, this.applyingIndex);
             while (iterImpl.isGood()) {
                 final LogEntry logEntry = iterImpl.entry();
                 if (logEntry.getType() != EnumOutter.EntryType.ENTRY_TYPE_DATA) {
@@ -554,13 +556,13 @@ public class FSMCallerImpl implements FSMCaller {
         Requires.requireNonNull(done, "SaveSnapshotClosure is null");
         final long lastAppliedIndex = this.lastAppliedIndex.get();
         final RaftOutter.SnapshotMeta.Builder metaBuilder = RaftOutter.SnapshotMeta.newBuilder() //
-            .setLastIncludedIndex(lastAppliedIndex) //
-            .setLastIncludedTerm(this.lastAppliedTerm);
+                .setLastIncludedIndex(lastAppliedIndex) //
+                .setLastIncludedTerm(this.lastAppliedTerm);
         final ConfigurationEntry confEntry = this.logManager.getConfiguration(lastAppliedIndex);
         if (confEntry == null || confEntry.isEmpty()) {
             LOG.error("Empty conf entry for lastAppliedIndex={}", lastAppliedIndex);
             Utils.runClosureInThread(done, new Status(RaftError.EINVAL, "Empty conf entry for lastAppliedIndex=%s",
-                lastAppliedIndex));
+                    lastAppliedIndex));
             return;
         }
         for (final PeerId peer : confEntry.getConf()) {
@@ -637,7 +639,7 @@ public class FSMCallerImpl implements FSMCaller {
             done.run(new Status(RaftError.EINVAL, "SnapshotReader load meta failed"));
             if (reader.getRaftError() == RaftError.EIO) {
                 final RaftException err = new RaftException(EnumOutter.ErrorType.ERROR_TYPE_SNAPSHOT, RaftError.EIO,
-                    "Fail to load snapshot meta");
+                        "Fail to load snapshot meta");
                 setError(err);
             }
             return;
@@ -646,15 +648,15 @@ public class FSMCallerImpl implements FSMCaller {
         final LogId snapshotId = new LogId(meta.getLastIncludedIndex(), meta.getLastIncludedTerm());
         if (lastAppliedId.compareTo(snapshotId) > 0) {
             done.run(new Status(
-                RaftError.ESTALE,
-                "Loading a stale snapshot last_applied_index=%d last_applied_term=%d snapshot_index=%d snapshot_term=%d",
-                lastAppliedId.getIndex(), lastAppliedId.getTerm(), snapshotId.getIndex(), snapshotId.getTerm()));
+                    RaftError.ESTALE,
+                    "Loading a stale snapshot last_applied_index=%d last_applied_term=%d snapshot_index=%d snapshot_term=%d",
+                    lastAppliedId.getIndex(), lastAppliedId.getTerm(), snapshotId.getIndex(), snapshotId.getTerm()));
             return;
         }
         if (!this.fsm.onSnapshotLoad(reader)) {
             done.run(new Status(-1, "StateMachine onSnapshotLoad failed"));
             final RaftException e = new RaftException(EnumOutter.ErrorType.ERROR_TYPE_STATE_MACHINE,
-                RaftError.ESTATEMACHINE, "StateMachine onSnapshotLoad failed");
+                    RaftError.ESTATEMACHINE, "StateMachine onSnapshotLoad failed");
             setError(e);
             return;
         }
@@ -726,6 +728,6 @@ public class FSMCallerImpl implements FSMCaller {
     @Override
     public void describe(final Printer out) {
         out.print("  ") //
-            .println(toString());
+                .println(toString());
     }
 }

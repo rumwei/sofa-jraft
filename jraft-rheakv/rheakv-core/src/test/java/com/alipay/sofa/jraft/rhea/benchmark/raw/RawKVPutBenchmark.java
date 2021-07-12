@@ -46,25 +46,24 @@ import static com.alipay.sofa.jraft.rhea.benchmark.BenchmarkUtil.VALUE_BYTES;
 public class RawKVPutBenchmark extends BaseRawStoreBenchmark {
 
     /**
-     //
-     // 100w keys, each value is 100 bytes.
-     //
-     // put tps = 133.658 * 1000 = 133658 ops/second
-     //
-     Benchmark                            Mode      Cnt    Score    Error   Units
-     RawKVPutBenchmark.put               thrpt        3  133.658 ± 26.637  ops/ms
-     RawKVPutBenchmark.put                avgt        3    0.233 ±  0.023   ms/op
-     RawKVPutBenchmark.put              sample  4057686    0.236 ±  0.001   ms/op
-     RawKVPutBenchmark.put:put·p0.00    sample             0.013            ms/op
-     RawKVPutBenchmark.put:put·p0.50    sample             0.219            ms/op
-     RawKVPutBenchmark.put:put·p0.90    sample             0.332            ms/op
-     RawKVPutBenchmark.put:put·p0.95    sample             0.375            ms/op
-     RawKVPutBenchmark.put:put·p0.99    sample             0.499            ms/op
-     RawKVPutBenchmark.put:put·p0.999   sample             0.818            ms/op
-     RawKVPutBenchmark.put:put·p0.9999  sample             2.726            ms/op
-     RawKVPutBenchmark.put:put·p1.00    sample            24.707            ms/op
-     RawKVPutBenchmark.put                  ss        3    0.364 ±  0.737   ms/op
-
+     * //
+     * // 100w keys, each value is 100 bytes.
+     * //
+     * // put tps = 133.658 * 1000 = 133658 ops/second
+     * //
+     * Benchmark                            Mode      Cnt    Score    Error   Units
+     * RawKVPutBenchmark.put               thrpt        3  133.658 ± 26.637  ops/ms
+     * RawKVPutBenchmark.put                avgt        3    0.233 ±  0.023   ms/op
+     * RawKVPutBenchmark.put              sample  4057686    0.236 ±  0.001   ms/op
+     * RawKVPutBenchmark.put:put·p0.00    sample             0.013            ms/op
+     * RawKVPutBenchmark.put:put·p0.50    sample             0.219            ms/op
+     * RawKVPutBenchmark.put:put·p0.90    sample             0.332            ms/op
+     * RawKVPutBenchmark.put:put·p0.95    sample             0.375            ms/op
+     * RawKVPutBenchmark.put:put·p0.99    sample             0.499            ms/op
+     * RawKVPutBenchmark.put:put·p0.999   sample             0.818            ms/op
+     * RawKVPutBenchmark.put:put·p0.9999  sample             2.726            ms/op
+     * RawKVPutBenchmark.put:put·p1.00    sample            24.707            ms/op
+     * RawKVPutBenchmark.put                  ss        3    0.364 ±  0.737   ms/op
      */
 
     @Setup
@@ -87,14 +86,14 @@ public class RawKVPutBenchmark extends BaseRawStoreBenchmark {
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder() //
-            .include(RawKVPutBenchmark.class.getSimpleName()) //
-            .warmupIterations(1) //
-            .warmupTime(TimeValue.seconds(10)) //
-            .measurementIterations(3) //
-            .measurementTime(TimeValue.seconds(10)) //
-            .threads(CONCURRENCY) //
-            .forks(1) //
-            .build();
+                .include(RawKVPutBenchmark.class.getSimpleName()) //
+                .warmupIterations(1) //
+                .warmupTime(TimeValue.seconds(10)) //
+                .measurementIterations(3) //
+                .measurementTime(TimeValue.seconds(10)) //
+                .threads(CONCURRENCY) //
+                .forks(1) //
+                .build();
 
         new Runner(opt).run();
     }

@@ -30,7 +30,6 @@ import com.alipay.sofa.jraft.rhea.util.Pair;
 import com.alipay.sofa.jraft.util.Endpoint;
 
 /**
- *
  * @author jiachun.fjc
  */
 public interface MetadataStore {

@@ -25,7 +25,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class LongHeldDetectingReadWriteLockTest {
@@ -37,10 +36,10 @@ public class LongHeldDetectingReadWriteLockTest {
             @Override
             public void report(AcquireMode acquireMode, Thread owner, Collection<Thread> queuedThreads, long blockedNanos) {
                 System.out.println("currentThread=" + Thread.currentThread() +
-                " acquireMode=" + acquireMode +
-                " lockOwner=" + owner +
-                " queuedThreads= " + queuedThreads +
-                " blockedMs=" + TimeUnit.NANOSECONDS.toMillis(blockedNanos));
+                        " acquireMode=" + acquireMode +
+                        " lockOwner=" + owner +
+                        " queuedThreads= " + queuedThreads +
+                        " blockedMs=" + TimeUnit.NANOSECONDS.toMillis(blockedNanos));
 
                 Assert.assertTrue(Thread.currentThread().getName().contains("read-lock-thread"));
                 Assert.assertSame(AcquireMode.Read, acquireMode);
@@ -61,7 +60,7 @@ public class LongHeldDetectingReadWriteLockTest {
                 readWriteLock.writeLock().unlock();
             }
         }, "write-lock-thread") //
-        .start();
+                .start();
 
         latch.await();
 

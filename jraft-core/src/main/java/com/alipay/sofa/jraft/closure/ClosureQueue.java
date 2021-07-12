@@ -26,7 +26,7 @@ import com.alipay.sofa.jraft.Closure;
  * A thread-safe closure queue.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Mar-14 10:29:12 AM
  */
 @ThreadSafe
@@ -56,8 +56,8 @@ public interface ClosureQueue {
      * popped out index, returns -1 when out of range, returns index+1
      * when not found.
      *
-     * @param endIndex     the index of queue
-     * @param closures     closure list
+     * @param endIndex the index of queue
+     * @param closures closure list
      * @return returns the first popped out index, returns -1 when out
      * of range, returns index+1
      * when not found.

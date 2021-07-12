@@ -113,7 +113,7 @@ import com.lmax.disruptor.dsl.Disruptor;
 
 /**
  * Default client of RheaKV store implementation.
- *
+ * <p>
  * For example, the processing flow of the method {@link #scan(byte[], byte[])},
  * and the implementation principle of failover:
  *
@@ -191,28 +191,28 @@ import com.lmax.disruptor.dsl.Disruptor;
  */
 public class DefaultRheaKVStore implements RheaKVStore {
 
-    private static final Logger                LOG                    = LoggerFactory
-                                                                          .getLogger(DefaultRheaKVStore.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(DefaultRheaKVStore.class);
 
     static {
         ExtSerializerSupports.init();
     }
 
     private final StateListenerContainer<Long> stateListenerContainer = new StateListenerContainer<>();
-    private StoreEngine                        storeEngine;
-    private PlacementDriverClient              pdClient;
-    private RheaKVRpcService                   rheaKVRpcService;
-    private RheaKVStoreOptions                 opts;
-    private int                                failoverRetries;
-    private long                               futureTimeoutMillis;
-    private boolean                            onlyLeaderRead;
-    private Dispatcher                         kvDispatcher;
-    private BatchingOptions                    batchingOpts;
-    private GetBatching                        getBatching;
-    private GetBatching                        getBatchingOnlySafe;
-    private PutBatching                        putBatching;
+    private StoreEngine storeEngine;
+    private PlacementDriverClient pdClient;
+    private RheaKVRpcService rheaKVRpcService;
+    private RheaKVStoreOptions opts;
+    private int failoverRetries;
+    private long futureTimeoutMillis;
+    private boolean onlyLeaderRead;
+    private Dispatcher kvDispatcher;
+    private BatchingOptions batchingOpts;
+    private GetBatching getBatching;
+    private GetBatching getBatchingOnlySafe;
+    private PutBatching putBatching;
 
-    private volatile boolean                   started;
+    private volatile boolean started;
 
     @Override
     public synchronized boolean init(final RheaKVStoreOptions opts) {
@@ -441,7 +441,7 @@ public class DefaultRheaKVStore implements RheaKVStore {
         checkState();
         Requires.requireNonNull(keys, "keys");
         final FutureGroup<Map<ByteArray, byte[]>> futureGroup = internalMultiGet(keys, readOnlySafe,
-            this.failoverRetries, null);
+                this.failoverRetries, null);
         return FutureHelper.joinMap(futureGroup, keys.size());
     }
 
@@ -574,7 +574,7 @@ public class DefaultRheaKVStore implements RheaKVStore {
             Requires.requireTrue(BytesUtil.compare(realStartKey, endKey) < 0, "startKey must < endKey");
         }
         final FutureGroup<List<KVEntry>> futureGroup = internalScan(realStartKey, endKey, readOnlySafe, returnValue,
-            this.failoverRetries, null);
+                this.failoverRetries, null);
         return FutureHelper.joinList(futureGroup);
     }
 
@@ -712,7 +712,7 @@ public class DefaultRheaKVStore implements RheaKVStore {
             Requires.requireTrue(BytesUtil.compare(startKey, realEndKey) > 0, "startKey must > endKey");
         }
         final FutureGroup<List<KVEntry>> futureGroup = internalReverseScan(startKey, realEndKey, readOnlySafe,
-            returnValue, this.failoverRetries, null);
+                returnValue, this.failoverRetries, null);
         return FutureHelper.joinList(futureGroup);
     }
 
@@ -771,7 +771,7 @@ public class DefaultRheaKVStore implements RheaKVStore {
                     readOnlySafe, returnValue, retriesLeft - 1, retryCause);
             final ListFailoverFuture<KVEntry> future = new ListFailoverFuture<>(retriesLeft, retryCallable);
             internalRegionScan(region, subStartKey, subEndKey, true, readOnlySafe, returnValue, future, retriesLeft,
-                    lastError, this.onlyLeaderRead );
+                    lastError, this.onlyLeaderRead);
             futures.add(future);
         }
         return new FutureGroup<>(futures);
@@ -787,7 +787,7 @@ public class DefaultRheaKVStore implements RheaKVStore {
         Requires.requireTrue(limit > 0, "limit must > 0");
         final CompletableFuture<List<KVEntry>> future = new CompletableFuture<>();
         internalSingleRegionScan(realStartKey, endKey, limit, readOnlySafe, returnValue, future, this.failoverRetries,
-            null, this.onlyLeaderRead);
+                null, this.onlyLeaderRead);
         return FutureHelper.get(future, this.futureTimeoutMillis);
     }
 
@@ -1851,8 +1851,8 @@ public class DefaultRheaKVStore implements RheaKVStore {
         protected final Histogram histogramWithKeys;
         protected final Histogram histogramWithBytes;
 
-        protected final List<T>   events      = Lists.newArrayListWithCapacity(batchingOpts.getBatchSize());
-        protected int             cachedBytes = 0;
+        protected final List<T> events = Lists.newArrayListWithCapacity(batchingOpts.getBatchSize());
+        protected int cachedBytes = 0;
 
         public AbstractBatchingHandler(String metricsName) {
             this.histogramWithKeys = KVMetrics.histogram(KVMetricNames.SEND_BATCHING, metricsName + "_keys");
@@ -1884,7 +1884,7 @@ public class DefaultRheaKVStore implements RheaKVStore {
 
     private static class KeyEvent implements Event {
 
-        private byte[]                    key;
+        private byte[] key;
         private CompletableFuture<byte[]> future;
 
         @Override
@@ -1896,7 +1896,7 @@ public class DefaultRheaKVStore implements RheaKVStore {
 
     private static class KVEvent implements Event {
 
-        private KVEntry                    kvEntry;
+        private KVEntry kvEntry;
         private CompletableFuture<Boolean> future;
 
         @Override
@@ -1908,8 +1908,8 @@ public class DefaultRheaKVStore implements RheaKVStore {
 
     private static abstract class Batching<T, E, F> {
 
-        protected final String        name;
-        protected final Disruptor<T>  disruptor;
+        protected final String name;
+        protected final Disruptor<T> disruptor;
         protected final RingBuffer<T> ringBuffer;
 
         @SuppressWarnings("unchecked")

@@ -25,14 +25,13 @@ import java.util.concurrent.TimeoutException;
 import com.alipay.sofa.jraft.util.Requires;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class FutureGroup<V> extends CompletableFuture<V> {
 
     private final List<CompletableFuture<V>> futures;
 
-    private volatile CompletableFuture<V>[]  array;
+    private volatile CompletableFuture<V>[] array;
 
     public FutureGroup(List<CompletableFuture<V>> futures) {
         this.futures = Requires.requireNonNull(futures, "futures");
@@ -96,7 +95,7 @@ public class FutureGroup<V> extends CompletableFuture<V> {
 
     @Override
     public V get(final long timeout, final TimeUnit unit) throws InterruptedException, ExecutionException,
-                                                         TimeoutException {
+            TimeoutException {
         throw new UnsupportedOperationException("get");
     }
 }

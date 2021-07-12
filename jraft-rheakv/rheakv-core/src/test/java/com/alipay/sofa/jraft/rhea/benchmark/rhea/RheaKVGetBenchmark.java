@@ -50,38 +50,38 @@ import static com.alipay.sofa.jraft.rhea.benchmark.BenchmarkUtil.VALUE_BYTES;
 @State(Scope.Benchmark)
 public class RheaKVGetBenchmark extends RheaBenchmarkCluster {
     /**
-     //
-     // 100w keys, each value is 100 bytes.
-     //
-     // get tps (mem_table命中率100%, 所以才会这么高的tps) = 925.409 * 1000 = 925409 ops/second
-     // getReadOnlySafe tps                             = 62.949 * 1000 = 62949 ops/second
-     // getReadOnlySafe tps (based raft log)            = 23.170 * 1000 = 23170 ops/second
-     //
-     Benchmark                                                     Mode       Cnt    Score     Error   Units
-     RheaKVGetBenchmark.get                                       thrpt         3  925.409 ± 538.093  ops/ms
-     RheaKVGetBenchmark.getReadOnlySafe                           thrpt         3   62.949 ±   0.762  ops/ms
-     RheaKVGetBenchmark.get                                        avgt         3    0.034 ±   0.004   ms/op
-     RheaKVGetBenchmark.getReadOnlySafe                            avgt         3    0.510 ±   0.073   ms/op
-     RheaKVGetBenchmark.get                                      sample  13892415    0.048 ±   0.001   ms/op
-     RheaKVGetBenchmark.get:get·p0.00                            sample              0.004             ms/op
-     RheaKVGetBenchmark.get:get·p0.50                            sample              0.008             ms/op
-     RheaKVGetBenchmark.get:get·p0.90                            sample              0.009             ms/op
-     RheaKVGetBenchmark.get:get·p0.95                            sample              0.010             ms/op
-     RheaKVGetBenchmark.get:get·p0.99                            sample              0.015             ms/op
-     RheaKVGetBenchmark.get:get·p0.999                           sample             20.283             ms/op
-     RheaKVGetBenchmark.get:get·p0.9999                          sample             54.460             ms/op
-     RheaKVGetBenchmark.get:get·p1.00                            sample            194.773             ms/op
-     RheaKVGetBenchmark.getReadOnlySafe                          sample   1871951    0.513 ±   0.001   ms/op
-     RheaKVGetBenchmark.getReadOnlySafe:getReadOnlySafe·p0.00    sample              0.188             ms/op
-     RheaKVGetBenchmark.getReadOnlySafe:getReadOnlySafe·p0.50    sample              0.494             ms/op
-     RheaKVGetBenchmark.getReadOnlySafe:getReadOnlySafe·p0.90    sample              0.637             ms/op
-     RheaKVGetBenchmark.getReadOnlySafe:getReadOnlySafe·p0.95    sample              0.689             ms/op
-     RheaKVGetBenchmark.getReadOnlySafe:getReadOnlySafe·p0.99    sample              0.852             ms/op
-     RheaKVGetBenchmark.getReadOnlySafe:getReadOnlySafe·p0.999   sample              1.747             ms/op
-     RheaKVGetBenchmark.getReadOnlySafe:getReadOnlySafe·p0.9999  sample             12.976             ms/op
-     RheaKVGetBenchmark.getReadOnlySafe:getReadOnlySafe·p1.00    sample             18.383             ms/op
-     RheaKVGetBenchmark.get                                          ss         3    0.044 ±   0.055   ms/op
-     RheaKVGetBenchmark.getReadOnlySafe                              ss         3    2.668 ±  13.052   ms/op
+     * //
+     * // 100w keys, each value is 100 bytes.
+     * //
+     * // get tps (mem_table命中率100%, 所以才会这么高的tps) = 925.409 * 1000 = 925409 ops/second
+     * // getReadOnlySafe tps                             = 62.949 * 1000 = 62949 ops/second
+     * // getReadOnlySafe tps (based raft log)            = 23.170 * 1000 = 23170 ops/second
+     * //
+     * Benchmark                                                     Mode       Cnt    Score     Error   Units
+     * RheaKVGetBenchmark.get                                       thrpt         3  925.409 ± 538.093  ops/ms
+     * RheaKVGetBenchmark.getReadOnlySafe                           thrpt         3   62.949 ±   0.762  ops/ms
+     * RheaKVGetBenchmark.get                                        avgt         3    0.034 ±   0.004   ms/op
+     * RheaKVGetBenchmark.getReadOnlySafe                            avgt         3    0.510 ±   0.073   ms/op
+     * RheaKVGetBenchmark.get                                      sample  13892415    0.048 ±   0.001   ms/op
+     * RheaKVGetBenchmark.get:get·p0.00                            sample              0.004             ms/op
+     * RheaKVGetBenchmark.get:get·p0.50                            sample              0.008             ms/op
+     * RheaKVGetBenchmark.get:get·p0.90                            sample              0.009             ms/op
+     * RheaKVGetBenchmark.get:get·p0.95                            sample              0.010             ms/op
+     * RheaKVGetBenchmark.get:get·p0.99                            sample              0.015             ms/op
+     * RheaKVGetBenchmark.get:get·p0.999                           sample             20.283             ms/op
+     * RheaKVGetBenchmark.get:get·p0.9999                          sample             54.460             ms/op
+     * RheaKVGetBenchmark.get:get·p1.00                            sample            194.773             ms/op
+     * RheaKVGetBenchmark.getReadOnlySafe                          sample   1871951    0.513 ±   0.001   ms/op
+     * RheaKVGetBenchmark.getReadOnlySafe:getReadOnlySafe·p0.00    sample              0.188             ms/op
+     * RheaKVGetBenchmark.getReadOnlySafe:getReadOnlySafe·p0.50    sample              0.494             ms/op
+     * RheaKVGetBenchmark.getReadOnlySafe:getReadOnlySafe·p0.90    sample              0.637             ms/op
+     * RheaKVGetBenchmark.getReadOnlySafe:getReadOnlySafe·p0.95    sample              0.689             ms/op
+     * RheaKVGetBenchmark.getReadOnlySafe:getReadOnlySafe·p0.99    sample              0.852             ms/op
+     * RheaKVGetBenchmark.getReadOnlySafe:getReadOnlySafe·p0.999   sample              1.747             ms/op
+     * RheaKVGetBenchmark.getReadOnlySafe:getReadOnlySafe·p0.9999  sample             12.976             ms/op
+     * RheaKVGetBenchmark.getReadOnlySafe:getReadOnlySafe·p1.00    sample             18.383             ms/op
+     * RheaKVGetBenchmark.get                                          ss         3    0.044 ±   0.055   ms/op
+     * RheaKVGetBenchmark.getReadOnlySafe                              ss         3    2.668 ±  13.052   ms/op
      */
 
     private RheaKVStore kvStore;
@@ -141,14 +141,14 @@ public class RheaKVGetBenchmark extends RheaBenchmarkCluster {
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder() //
-            .include(RheaKVGetBenchmark.class.getSimpleName()) //
-            .warmupIterations(1) //
-            .warmupTime(TimeValue.seconds(10)) //
-            .measurementIterations(3) //
-            .measurementTime(TimeValue.seconds(10)) //
-            .threads(BenchmarkUtil.CONCURRENCY) //
-            .forks(1) //
-            .build();
+                .include(RheaKVGetBenchmark.class.getSimpleName()) //
+                .warmupIterations(1) //
+                .warmupTime(TimeValue.seconds(10)) //
+                .measurementIterations(3) //
+                .measurementTime(TimeValue.seconds(10)) //
+                .threads(BenchmarkUtil.CONCURRENCY) //
+                .forks(1) //
+                .build();
 
         new Runner(opt).run();
     }

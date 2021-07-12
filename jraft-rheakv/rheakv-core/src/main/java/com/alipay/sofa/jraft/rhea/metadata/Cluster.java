@@ -24,15 +24,14 @@ import com.alipay.sofa.jraft.rhea.util.Lists;
 import com.alipay.sofa.jraft.util.Copiable;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class Cluster implements Copiable<Cluster>, Serializable {
 
     private static final long serialVersionUID = 3291666486933960310L;
 
-    private long              clusterId;
-    private List<Store>       stores;
+    private long clusterId;
+    private List<Store> stores;
 
     public Cluster(long clusterId, List<Store> stores) {
         this.clusterId = clusterId;

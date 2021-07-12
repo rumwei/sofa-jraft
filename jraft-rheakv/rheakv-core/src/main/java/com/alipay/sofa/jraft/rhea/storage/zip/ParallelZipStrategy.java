@@ -34,6 +34,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.input.NullInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -58,8 +59,8 @@ import java.util.zip.ZipEntry;
 public class ParallelZipStrategy implements ZipStrategy {
 
     private static final Logger LOG = LoggerFactory.getLogger(ParallelZipStrategy.class);
-    private final int           compressThreads;
-    private final int           deCompressThreads;
+    private final int compressThreads;
+    private final int deCompressThreads;
 
     public ParallelZipStrategy(final int compressThreads, final int deCompressThreads) {
         this.compressThreads = compressThreads;
@@ -101,9 +102,9 @@ public class ParallelZipStrategy implements ZipStrategy {
 
         // write and flush
         try (final FileOutputStream fos = new FileOutputStream(zipFile);
-                final BufferedOutputStream bos = new BufferedOutputStream(fos);
-                final CheckedOutputStream cos = new CheckedOutputStream(bos, checksum);
-                final ZipArchiveOutputStream archiveOutputStream = new ZipArchiveOutputStream(cos)) {
+             final BufferedOutputStream bos = new BufferedOutputStream(fos);
+             final CheckedOutputStream cos = new CheckedOutputStream(bos, checksum);
+             final ZipArchiveOutputStream archiveOutputStream = new ZipArchiveOutputStream(cos)) {
             scatterOutput.writeTo(archiveOutputStream);
             archiveOutputStream.flush();
             fos.getFD().sync();
@@ -169,11 +170,11 @@ public class ParallelZipStrategy implements ZipStrategy {
         scatterOutputStream.addEntry(archiveEntry, () -> {
             try {
                 return file.isDirectory() ? new NullInputStream(0) :
-                                                    new BufferedInputStream(new FileInputStream(file));
+                        new BufferedInputStream(new FileInputStream(file));
             } catch (final FileNotFoundException e) {
                 LOG.error("Can't find file, path={}, {}", file.getPath(), StackTraceUtil.stackTrace(e));
             }
-            return new NullInputStream(0) ;
+            return new NullInputStream(0);
         });
     }
 
@@ -184,8 +185,8 @@ public class ParallelZipStrategy implements ZipStrategy {
         final File targetFile = new File(Paths.get(targetDir, entry.getName()).toString());
         FileUtils.forceMkdir(targetFile.getParentFile());
         try (final InputStream is = zipFile.getInputStream(entry);
-                final BufferedInputStream fis = new BufferedInputStream(is);
-                final BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(targetFile))) {
+             final BufferedInputStream fis = new BufferedInputStream(is);
+             final BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(targetFile))) {
             IOUtils.copy(fis, bos);
         }
     }
@@ -195,8 +196,8 @@ public class ParallelZipStrategy implements ZipStrategy {
      */
     private void computeZipFileChecksumValue(final String zipPath, final Checksum checksum) throws Exception {
         try (final BufferedInputStream bis = new BufferedInputStream(new FileInputStream(zipPath));
-                final CheckedInputStream cis = new CheckedInputStream(bis, checksum);
-                final ZipArchiveInputStream zis = new ZipArchiveInputStream(cis)) {
+             final CheckedInputStream cis = new CheckedInputStream(bis, checksum);
+             final ZipArchiveInputStream zis = new ZipArchiveInputStream(cis)) {
             // checksum is calculated in the process
             while ((zis.getNextZipEntry()) != null)
                 ;
@@ -205,15 +206,15 @@ public class ParallelZipStrategy implements ZipStrategy {
 
     private static ExecutorService newFixedPool(final int coreThreads, final String poolName) {
         return ThreadPoolUtil.newBuilder() //
-            .poolName(poolName) //
-            .enableMetric(true) //
-            .coreThreads(coreThreads) //
-            .maximumThreads(coreThreads) //
-            .keepAliveSeconds(60L) //
-            .workQueue(new LinkedBlockingQueue<>()) //
-            .threadFactory(new NamedThreadFactory(poolName, true)) //
-            .rejectedHandler(new CallerRunsPolicyWithReport(poolName, poolName)) //
-            .build();
+                .poolName(poolName) //
+                .enableMetric(true) //
+                .coreThreads(coreThreads) //
+                .maximumThreads(coreThreads) //
+                .keepAliveSeconds(60L) //
+                .workQueue(new LinkedBlockingQueue<>()) //
+                .threadFactory(new NamedThreadFactory(poolName, true)) //
+                .rejectedHandler(new CallerRunsPolicyWithReport(poolName, poolName)) //
+                .build();
     }
 
 }

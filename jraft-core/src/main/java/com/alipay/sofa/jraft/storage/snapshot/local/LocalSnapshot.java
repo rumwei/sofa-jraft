@@ -24,8 +24,9 @@ import com.google.protobuf.Message;
 
 /**
  * Describe the Snapshot on another machine.
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Apr-07 10:21:55 AM
  */
 public class LocalSnapshot extends Snapshot {

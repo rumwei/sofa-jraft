@@ -27,7 +27,7 @@ import com.alipay.sofa.jraft.util.ThreadPoolUtil;
  * The global timer manager.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Mar-30 3:24:34 PM
  */
 public class TimerManager implements Scheduler {
@@ -40,11 +40,11 @@ public class TimerManager implements Scheduler {
 
     public TimerManager(int workerNum, String name) {
         this.executor = ThreadPoolUtil.newScheduledBuilder() //
-            .poolName(name) //
-            .coreThreads(workerNum) //
-            .enableMetric(true) //
-            .threadFactory(new NamedThreadFactory(name, true)) //
-            .build();
+                .poolName(name) //
+                .coreThreads(workerNum) //
+                .enableMetric(true) //
+                .threadFactory(new NamedThreadFactory(name, true)) //
+                .build();
     }
 
     @Override

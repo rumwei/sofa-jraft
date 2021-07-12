@@ -48,15 +48,15 @@ import com.alipay.sofa.jraft.util.ThreadPoolUtil;
  */
 public class DefaultPlacementDriverRpcService implements PlacementDriverRpcService {
 
-    private static final Logger         LOG = LoggerFactory.getLogger(DefaultPlacementDriverRpcService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultPlacementDriverRpcService.class);
 
     private final PlacementDriverClient pdClient;
-    private final RpcClient             rpcClient;
+    private final RpcClient rpcClient;
 
-    private ThreadPoolExecutor          rpcCallbackExecutor;
-    private int                         rpcTimeoutMillis;
+    private ThreadPoolExecutor rpcCallbackExecutor;
+    private int rpcTimeoutMillis;
 
-    private boolean                     started;
+    private boolean started;
 
     public DefaultPlacementDriverRpcService(PlacementDriverClient pdClient) {
         this.pdClient = pdClient;
@@ -136,14 +136,14 @@ public class DefaultPlacementDriverRpcService implements PlacementDriverRpcServi
 
         final String name = "rheakv-pd-rpc-callback";
         return ThreadPoolUtil.newBuilder() //
-            .poolName(name) //
-            .enableMetric(true) //
-            .coreThreads(callbackExecutorCorePoolSize) //
-            .maximumThreads(callbackExecutorMaximumPoolSize) //
-            .keepAliveSeconds(120L) //
-            .workQueue(new ArrayBlockingQueue<>(opts.getCallbackExecutorQueueCapacity())) //
-            .threadFactory(new NamedThreadFactory(name, true)) //
-            .rejectedHandler(new CallerRunsPolicyWithReport(name)) //
-            .build();
+                .poolName(name) //
+                .enableMetric(true) //
+                .coreThreads(callbackExecutorCorePoolSize) //
+                .maximumThreads(callbackExecutorMaximumPoolSize) //
+                .keepAliveSeconds(120L) //
+                .workQueue(new ArrayBlockingQueue<>(opts.getCallbackExecutorQueueCapacity())) //
+                .threadFactory(new NamedThreadFactory(name, true)) //
+                .rejectedHandler(new CallerRunsPolicyWithReport(name)) //
+                .build();
     }
 }

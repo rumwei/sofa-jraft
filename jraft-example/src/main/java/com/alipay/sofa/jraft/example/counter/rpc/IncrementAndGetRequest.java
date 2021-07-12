@@ -22,14 +22,14 @@ import java.io.Serializable;
  * Increment value with delta and get the new value request.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-09 4:53:22 PM
  */
 public class IncrementAndGetRequest implements Serializable {
 
     private static final long serialVersionUID = -5623664785560971849L;
 
-    private long              delta;
+    private long delta;
 
     public long getDelta() {
         return this.delta;

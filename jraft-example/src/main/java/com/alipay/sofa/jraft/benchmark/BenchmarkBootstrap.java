@@ -23,7 +23,6 @@ import com.alipay.sofa.jraft.benchmark.client.BenchmarkClient;
 import com.alipay.sofa.jraft.benchmark.server.BenchmarkServer;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class BenchmarkBootstrap {

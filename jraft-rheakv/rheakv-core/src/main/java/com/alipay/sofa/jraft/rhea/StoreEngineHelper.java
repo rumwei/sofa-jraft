@@ -51,7 +51,6 @@ import com.alipay.sofa.jraft.rpc.RpcServer;
 import com.alipay.sofa.jraft.util.ThreadPoolUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class StoreEngineHelper {
@@ -135,15 +134,15 @@ public final class StoreEngineHelper {
                                            final BlockingQueue<Runnable> workQueue, final String name,
                                            final RejectedExecutionHandler handler) {
         return ThreadPoolUtil.newBuilder() //
-            .poolName(name) //
-            .enableMetric(true) //
-            .coreThreads(coreThreads) //
-            .maximumThreads(maxThreads) //
-            .keepAliveSeconds(60L) //
-            .workQueue(workQueue) //
-            .threadFactory(new NamedThreadFactory(name, true)) //
-            .rejectedHandler(handler) //
-            .build();
+                .poolName(name) //
+                .enableMetric(true) //
+                .coreThreads(coreThreads) //
+                .maximumThreads(maxThreads) //
+                .keepAliveSeconds(60L) //
+                .workQueue(workQueue) //
+                .threadFactory(new NamedThreadFactory(name, true)) //
+                .rejectedHandler(handler) //
+                .build();
     }
 
     private StoreEngineHelper() {

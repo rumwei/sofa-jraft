@@ -23,8 +23,9 @@ import java.util.zip.CRC32;
 
 /**
  * Hash algorithm
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2017-Nov-22 5:00:08 PM
  */
 public enum HashAlgorithm {
@@ -38,17 +39,17 @@ public enum HashAlgorithm {
      * FNV hashes are designed to be fast while maintaining a low collision
      * rate. The FNV speed allows one to quickly hash lots of data while
      * maintaining a reasonable collision rate.
-     * 
+     *
      * @see <a href="http://www.isthe.com/chongo/tech/comp/fnv/"></a>
      * @see <a href="http://en.wikipedia.org/wiki/Fowler_Noll_Vo_hash"></a>
      */
     FNV1_64_HASH,
-    /** 
+    /**
      * hash based on md5
-     *  **/
+     **/
     KETAMA_HASH;
 
-    private static final long FNV_64_INIT  = 0xcbf29ce484222325L;
+    private static final long FNV_64_INIT = 0xcbf29ce484222325L;
     private static final long FNV_64_PRIME = 0x100000001b3L;
 
     public long hash(final String k) {
@@ -68,11 +69,11 @@ public enum HashAlgorithm {
                     rv ^= k.charAt(i);
                 }
             }
-                break;
+            break;
             case KETAMA_HASH:
                 byte[] bKey = computeMd5(k);
                 rv = (long) (bKey[3] & 0xFF) << 24 | (long) (bKey[2] & 0xFF) << 16 | (long) (bKey[1] & 0xFF) << 8
-                     | bKey[0] & 0xFF;
+                        | bKey[0] & 0xFF;
                 break;
 
         }

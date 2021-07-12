@@ -33,7 +33,7 @@ import org.openjdk.jmh.runner.options.TimeValue;
 /**
  * @author jiachun.fjc
  */
-@SuppressWarnings({ "all" })
+@SuppressWarnings({"all"})
 @State(Scope.Benchmark)
 public class AsciiCodecBenchmark {
 
@@ -45,7 +45,7 @@ public class AsciiCodecBenchmark {
         AsciiCodecBenchmark.normalpathEncode  thrpt    3  0.017 ± 0.032  ops/ns
      */
 
-    private static final String PEER_STR   = "127.0.0.1:18090:1";
+    private static final String PEER_STR = "127.0.0.1:18090:1";
     private static final byte[] PEER_BYTES = PEER_STR.getBytes();
 
     @Benchmark
@@ -80,13 +80,13 @@ public class AsciiCodecBenchmark {
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder() //
-            .include(AsciiCodecBenchmark.class.getSimpleName()) //
-            .warmupIterations(3) //
-            .warmupTime(TimeValue.seconds(10)) //
-            .measurementIterations(3) //
-            .measurementTime(TimeValue.seconds(10)) //
-            .forks(1) //
-            .build();
+                .include(AsciiCodecBenchmark.class.getSimpleName()) //
+                .warmupIterations(3) //
+                .warmupTime(TimeValue.seconds(10)) //
+                .measurementIterations(3) //
+                .measurementTime(TimeValue.seconds(10)) //
+                .forks(1) //
+                .build();
 
         new Runner(opt).run();
     }

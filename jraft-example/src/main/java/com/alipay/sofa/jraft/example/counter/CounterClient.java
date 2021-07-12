@@ -34,7 +34,7 @@ public class CounterClient {
         if (args.length != 2) {
             System.out.println("Useage : java com.alipay.sofa.jraft.example.counter.CounterClient {groupId} {conf}");
             System.out
-                .println("Example: java com.alipay.sofa.jraft.example.counter.CounterClient counter 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083");
+                    .println("Example: java com.alipay.sofa.jraft.example.counter.CounterClient counter 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083");
             System.exit(1);
         }
         final String groupId = args[0];
@@ -69,7 +69,7 @@ public class CounterClient {
 
     private static void incrementAndGet(final CliClientServiceImpl cliClientService, final PeerId leader,
                                         final long delta, CountDownLatch latch) throws RemotingException,
-                                                                               InterruptedException {
+            InterruptedException {
         final IncrementAndGetRequest request = new IncrementAndGetRequest();
         request.setDelta(delta);
         cliClientService.getRpcClient().invokeAsync(leader.getEndpoint(), request, new InvokeCallback() {

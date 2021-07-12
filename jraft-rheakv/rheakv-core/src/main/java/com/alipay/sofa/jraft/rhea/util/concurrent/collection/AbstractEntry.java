@@ -23,7 +23,7 @@ import java.util.Map;
  * @param <TypeV> the type of mapped values
  * @author Cliff Click
  * @since 1.5
- *
+ * <p>
  * Forked from <a href="https://github.com/JCTools/JCTools">JCTools</a>.
  */
 abstract class AbstractEntry<TypeK, TypeV> implements Map.Entry<TypeK, TypeV> {
@@ -34,7 +34,7 @@ abstract class AbstractEntry<TypeK, TypeV> implements Map.Entry<TypeK, TypeV> {
     /**
      * Strongly typed value
      */
-    protected TypeV       _val;
+    protected TypeV _val;
 
     public AbstractEntry(final TypeK key, final TypeV val) {
         _key = key;

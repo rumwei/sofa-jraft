@@ -38,12 +38,12 @@ import com.alipay.sofa.jraft.rhea.util.pipeline.future.PipelineFuture;
  */
 public final class DefaultPipeline implements Pipeline {
 
-    private static final Logger                             LOG        = LoggerFactory.getLogger(DefaultPipeline.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultPipeline.class);
 
     private static final ThreadLocal<Map<Class<?>, String>> nameCaches = ThreadLocal.withInitial(WeakHashMap::new);
 
-    final AbstractHandlerContext                            head;
-    final AbstractHandlerContext                            tail;
+    final AbstractHandlerContext head;
+    final AbstractHandlerContext tail;
 
     public DefaultPipeline() {
         tail = new TailContext(this);
@@ -164,13 +164,13 @@ public final class DefaultPipeline implements Pipeline {
         }
 
         int size;
-        for (size = 1; size < handlers.length; size ++) {
+        for (size = 1; size < handlers.length; size++) {
             if (handlers[size] == null) {
                 break;
             }
         }
 
-        for (int i = size - 1; i >= 0; i --) {
+        for (int i = size - 1; i >= 0; i--) {
             Handler h = handlers[i];
             addFirst(invoker, null, h);
         }
@@ -189,7 +189,7 @@ public final class DefaultPipeline implements Pipeline {
             throw new NullPointerException("handlers");
         }
 
-        for (Handler h: handlers) {
+        for (Handler h : handlers) {
             if (h == null) {
                 break;
             }
@@ -340,7 +340,7 @@ public final class DefaultPipeline implements Pipeline {
         }
 
         AbstractHandlerContext ctx = head.next;
-        for (;;) {
+        for (; ; ) {
 
             if (ctx == null) {
                 return null;
@@ -370,7 +370,7 @@ public final class DefaultPipeline implements Pipeline {
         }
 
         AbstractHandlerContext ctx = head.next;
-        for (;;) {
+        for (; ; ) {
             if (ctx == null) {
                 return null;
             }
@@ -425,9 +425,9 @@ public final class DefaultPipeline implements Pipeline {
                 }
             }
 
-        fireExceptionCaught(null, new PipelineException(
-                ctx.handler().getClass().getName() +
-                        ".handlerAdded() has thrown an exception; " + (removed ? "removed." :  "also failed to remove."), t));
+            fireExceptionCaught(null, new PipelineException(
+                    ctx.handler().getClass().getName() +
+                            ".handlerAdded() has thrown an exception; " + (removed ? "removed." : "also failed to remove."), t));
         }
     }
 
@@ -519,7 +519,7 @@ public final class DefaultPipeline implements Pipeline {
             // any name conflicts.  Note that we don't cache the names generated here.
             if (context0(name) != null) {
                 String baseName = name.substring(0, name.length() - 1); // Strip the trailing '0'.
-                for (int i = 1;; i ++) {
+                for (int i = 1; ; i++) {
                     String newName = baseName + i;
                     if (context0(newName) == null) {
                         name = newName;
@@ -551,7 +551,7 @@ public final class DefaultPipeline implements Pipeline {
                 .append(getClass().getSimpleName())
                 .append('{');
         AbstractHandlerContext ctx = head.next;
-        for (;;) {
+        for (; ; ) {
             if (ctx == tail) {
                 break;
             }
@@ -588,7 +588,8 @@ public final class DefaultPipeline implements Pipeline {
         }
 
         @Override
-        public void handleInbound(HandlerContext ctx, InboundMessageEvent<?> event) throws Exception {}
+        public void handleInbound(HandlerContext ctx, InboundMessageEvent<?> event) throws Exception {
+        }
 
         @Override
         public void exceptionCaught(HandlerContext ctx, MessageEvent<?> event, Throwable cause) throws Exception {
@@ -600,10 +601,12 @@ public final class DefaultPipeline implements Pipeline {
         }
 
         @Override
-        public void handlerAdded(HandlerContext ctx) throws Exception {}
+        public void handlerAdded(HandlerContext ctx) throws Exception {
+        }
 
         @Override
-        public void handlerRemoved(HandlerContext ctx) throws Exception {}
+        public void handlerRemoved(HandlerContext ctx) throws Exception {
+        }
 
         @Override
         public Handler handler() {
@@ -625,10 +628,12 @@ public final class DefaultPipeline implements Pipeline {
         }
 
         @Override
-        public void handlerAdded(HandlerContext ctx) throws Exception {}
+        public void handlerAdded(HandlerContext ctx) throws Exception {
+        }
 
         @Override
-        public void handlerRemoved(HandlerContext ctx) throws Exception {}
+        public void handlerRemoved(HandlerContext ctx) throws Exception {
+        }
 
         @Override
         public void exceptionCaught(HandlerContext ctx, MessageEvent<?> event, Throwable cause) throws Exception {

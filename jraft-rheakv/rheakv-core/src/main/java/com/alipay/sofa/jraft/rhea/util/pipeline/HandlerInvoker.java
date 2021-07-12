@@ -52,7 +52,7 @@ public interface HandlerInvoker {
 
     /**
      * Received an {@link Throwable} in one of its inbound operations.
-     *
+     * <p>
      * This will result in having the {@link InboundHandler#exceptionCaught(HandlerContext, MessageEvent, Throwable)}
      * method called of the next {@link InboundHandler} contained in the {@link Pipeline}.
      */

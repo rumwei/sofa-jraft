@@ -21,7 +21,6 @@ import com.alipay.sofa.jraft.rhea.options.RheaKVStoreOptions;
 import com.alipay.sofa.jraft.rhea.util.Configured;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class PlacementDriverServerOptionsConfigured implements Configured<PlacementDriverServerOptions> {

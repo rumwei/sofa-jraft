@@ -36,11 +36,11 @@ import com.google.protobuf.ZeroByteStringHelper;
 /**
  * V2 log entry decoder based on protobuf, see src/main/resources/log.proto
  *
- * @author boyan(boyan@antfin.com)
+ * @author boyan(boyan @ antfin.com)
  */
 public class V2Decoder implements LogEntryDecoder {
 
-    private static final Logger   LOG      = LoggerFactory.getLogger(V2Decoder.class);
+    private static final Logger LOG = LoggerFactory.getLogger(V2Decoder.class);
 
     public static final V2Decoder INSTANCE = new V2Decoder();
 

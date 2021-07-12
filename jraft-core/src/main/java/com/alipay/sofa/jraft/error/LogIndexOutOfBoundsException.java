@@ -18,8 +18,9 @@ package com.alipay.sofa.jraft.error;
 
 /**
  * Log index out of bounds
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Apr-23 3:06:38 PM
  */
 public class LogIndexOutOfBoundsException extends IndexOutOfBoundsException {
@@ -38,7 +39,7 @@ public class LogIndexOutOfBoundsException extends IndexOutOfBoundsException {
      * Constructs a new <code>LogIndexOutOfBoundsException</code>
      * class with an argument indicating the illegal index.
      *
-     * @param   index   the illegal index.
+     * @param index the illegal index.
      */
     public LogIndexOutOfBoundsException(int index) {
         super("Array index out of range: " + index);
@@ -48,7 +49,7 @@ public class LogIndexOutOfBoundsException extends IndexOutOfBoundsException {
      * Constructs an <code>LogIndexOutOfBoundsException</code> class
      * with the specified detail message.
      *
-     * @param   s   the detail message.
+     * @param s the detail message.
      */
     public LogIndexOutOfBoundsException(String s) {
         super(s);

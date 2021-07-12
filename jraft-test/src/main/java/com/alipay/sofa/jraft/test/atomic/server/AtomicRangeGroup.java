@@ -44,21 +44,22 @@ import com.codahale.metrics.ConsoleReporter;
 
 /**
  * Atomic range node in a raft group.
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Apr-09 4:51:02 PM
  */
 public class AtomicRangeGroup {
 
-    final static Logger              LOG       = LoggerFactory.getLogger(AtomicRangeGroup.class);
+    final static Logger LOG = LoggerFactory.getLogger(AtomicRangeGroup.class);
 
-    private final RaftGroupService   raftGroupService;
-    private final Node               node;
+    private final RaftGroupService raftGroupService;
+    private final Node node;
     private final AtomicStateMachine fsm;
 
-    private final long               minSlot;                                                    //inclusion
-    private final long               maxSlot;                                                    //exclusion
-    private final AtomicInteger      requestId = new AtomicInteger(0);
+    private final long minSlot;                                                    //inclusion
+    private final long maxSlot;                                                    //exclusion
+    private final AtomicInteger requestId = new AtomicInteger(0);
 
     public long getMinSlot() {
         return this.minSlot;
@@ -98,7 +99,7 @@ public class AtomicRangeGroup {
         this.node = this.raftGroupService.start();
 
         final ConsoleReporter reporter = ConsoleReporter.forRegistry(node.getNodeMetrics().getMetricRegistry())
-            .convertRatesTo(TimeUnit.SECONDS).convertDurationsTo(TimeUnit.MILLISECONDS).build();
+                .convertRatesTo(TimeUnit.SECONDS).convertDurationsTo(TimeUnit.MILLISECONDS).build();
         reporter.start(60, TimeUnit.SECONDS);
 
     }
@@ -137,6 +138,7 @@ public class AtomicRangeGroup {
 
     /**
      * Redirect request to new leader
+     *
      * @return
      */
     public BooleanCommand redirect() {
@@ -175,9 +177,9 @@ public class AtomicRangeGroup {
         nodeOptions.setInitialConf(initConf);
         // Startup node
         final AtomicRangeGroup node = new AtomicRangeGroup(conf.getDataPath(), conf.getGroupId(), serverId,
-            conf.getMinSlot(), conf.getMaxSlot(), nodeOptions, rpcServer);
+                conf.getMinSlot(), conf.getMaxSlot(), nodeOptions, rpcServer);
         LOG.info("Started range node[{}-{}] at port:{}", conf.getMinSlot(), conf.getMaxSlot(), node.getNode()
-            .getNodeId().getPeerId().getPort());
+                .getNodeId().getPeerId().getPort());
         return node;
     }
 }

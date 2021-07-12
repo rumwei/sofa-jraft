@@ -24,7 +24,7 @@ import java.util.List;
  * Byte string and byte buffer converter
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-May-08 2:38:42 PM
  */
 public class ZeroByteStringHelper {
@@ -38,10 +38,11 @@ public class ZeroByteStringHelper {
 
     /**
      * Wrap a byte array into a ByteString.
+     *
      * @param bs     the byte array
      * @param offset read start offset in array
      * @param len    read data length
-     *@return the    result byte string.
+     * @return the    result byte string.
      */
     public static ByteString wrap(final byte[] bs, final int offset, final int len) {
         return ByteString.wrap(bs, offset, len);
@@ -86,7 +87,7 @@ public class ZeroByteStringHelper {
      * BAP95.  Large pieces are referenced without copy.
      *
      * <p>Most of the operation here is inspired by the now-famous paper <a
-     *  * href="https://web.archive.org/web/20060202015456/http://www.cs.ubc.ca/local/reading/proceedings/spe91-95/spe/vol25/issue12/spe986.pdf">
+     * * href="https://web.archive.org/web/20060202015456/http://www.cs.ubc.ca/local/reading/proceedings/spe91-95/spe/vol25/issue12/spe986.pdf">
      *
      * @param left  string on the left
      * @param right string on the right

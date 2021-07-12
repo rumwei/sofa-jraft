@@ -27,13 +27,12 @@ import com.alipay.sofa.jraft.storage.snapshot.SnapshotWriter;
 import com.google.protobuf.Message;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class TestSnapshotWriter extends SnapshotWriter {
 
     public final Map<String, LocalFileMetaOutter.LocalFileMeta> metaTable = new ConcurrentHashMap<>();
-    public final String                                         path;
+    public final String path;
 
     public TestSnapshotWriter(String path) {
         this.path = path;

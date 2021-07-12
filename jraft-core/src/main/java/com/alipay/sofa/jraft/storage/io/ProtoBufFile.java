@@ -37,8 +37,9 @@ import com.google.protobuf.Message;
  * <li> msg length(4 bytes)</li>
  * <li>msg data</li>
  * </ul>
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Mar-12 8:56:23 PM
  */
 public class ProtoBufFile {
@@ -47,7 +48,9 @@ public class ProtoBufFile {
         ProtobufMsgFactory.load();
     }
 
-    /** file path */
+    /**
+     * file path
+     */
     private final String path;
 
     public ProtoBufFile(final String path) {
@@ -66,7 +69,7 @@ public class ProtoBufFile {
 
         final byte[] lenBytes = new byte[4];
         try (final FileInputStream fin = new FileInputStream(file);
-                final BufferedInputStream input = new BufferedInputStream(fin)) {
+             final BufferedInputStream input = new BufferedInputStream(fin)) {
             readBytes(lenBytes, input);
             final int len = Bits.getInt(lenBytes, 0);
             if (len <= 0) {
@@ -101,7 +104,7 @@ public class ProtoBufFile {
         // Write message into temp file
         final File file = new File(this.path + ".tmp");
         try (final FileOutputStream fOut = new FileOutputStream(file);
-                final BufferedOutputStream output = new BufferedOutputStream(fOut)) {
+             final BufferedOutputStream output = new BufferedOutputStream(fOut)) {
             final byte[] lenBytes = new byte[4];
 
             // name len + name

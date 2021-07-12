@@ -87,8 +87,8 @@ public class DefaultRegionKVService implements RegionKVService {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultRegionKVService.class);
 
-    private final RegionEngine  regionEngine;
-    private final RawKVStore    rawKVStore;
+    private final RegionEngine regionEngine;
+    private final RawKVStore rawKVStore;
 
     public DefaultRegionKVService(RegionEngine regionEngine) {
         this.regionEngine = regionEngine;
@@ -143,7 +143,7 @@ public class DefaultRegionKVService implements RegionKVService {
         try {
             KVParameterRequires.requireSameEpoch(request, getRegionEpoch());
             final List<KVEntry> kvEntries = KVParameterRequires
-                .requireNonEmpty(request.getKvEntries(), "put.kvEntries");
+                    .requireNonEmpty(request.getKvEntries(), "put.kvEntries");
             this.rawKVStore.put(kvEntries, new BaseKVStoreClosure() {
 
                 @Override
@@ -473,10 +473,10 @@ public class DefaultRegionKVService implements RegionKVService {
             };
             if (request.isReverse()) {
                 this.rawKVStore.reverseScan(request.getStartKey(), request.getEndKey(), request.getLimit(),
-                    request.isReadOnlySafe(), request.isReturnValue(), kvStoreClosure);
+                        request.isReadOnlySafe(), request.isReturnValue(), kvStoreClosure);
             } else {
                 this.rawKVStore.scan(request.getStartKey(), request.getEndKey(), request.getLimit(),
-                    request.isReadOnlySafe(), request.isReturnValue(), kvStoreClosure);
+                        request.isReadOnlySafe(), request.isReturnValue(), kvStoreClosure);
             }
         } catch (final Throwable t) {
             LOG.error("Failed to handle: {}, {}.", request, StackTraceUtil.stackTrace(t));
@@ -553,7 +553,7 @@ public class DefaultRegionKVService implements RegionKVService {
             final byte[] key = KVParameterRequires.requireNonNull(request.getKey(), "lock.key");
             final byte[] fencingKey = this.regionEngine.getRegion().getStartKey();
             final DistributedLock.Acquirer acquirer = KVParameterRequires.requireNonNull(request.getAcquirer(),
-                "lock.acquirer");
+                    "lock.acquirer");
             KVParameterRequires.requireNonNull(acquirer.getId(), "lock.id");
             KVParameterRequires.requirePositive(acquirer.getLeaseMillis(), "lock.leaseMillis");
             this.rawKVStore.tryLockWith(key, fencingKey, request.isKeepLease(), acquirer, new BaseKVStoreClosure() {
@@ -585,7 +585,7 @@ public class DefaultRegionKVService implements RegionKVService {
             KVParameterRequires.requireSameEpoch(request, getRegionEpoch());
             final byte[] key = KVParameterRequires.requireNonNull(request.getKey(), "unlock.key");
             final DistributedLock.Acquirer acquirer = KVParameterRequires.requireNonNull(request.getAcquirer(),
-                "lock.acquirer");
+                    "lock.acquirer");
             KVParameterRequires.requireNonNull(acquirer.getId(), "lock.id");
             this.rawKVStore.releaseLockWith(key, acquirer, new BaseKVStoreClosure() {
 
@@ -615,7 +615,7 @@ public class DefaultRegionKVService implements RegionKVService {
         try {
             KVParameterRequires.requireSameEpoch(request, getRegionEpoch());
             final NodeExecutor executor = KVParameterRequires
-                .requireNonNull(request.getNodeExecutor(), "node.executor");
+                    .requireNonNull(request.getNodeExecutor(), "node.executor");
             this.rawKVStore.execute(executor, true, new BaseKVStoreClosure() {
 
                 @Override
@@ -644,7 +644,7 @@ public class DefaultRegionKVService implements RegionKVService {
         try {
             // do not need to check the region epoch
             final Long newRegionId = KVParameterRequires.requireNonNull(request.getNewRegionId(),
-                "rangeSplit.newRegionId");
+                    "rangeSplit.newRegionId");
             this.regionEngine.getStoreEngine().applySplit(request.getRegionId(), newRegionId, new BaseKVStoreClosure() {
 
                 @Override
@@ -673,7 +673,7 @@ public class DefaultRegionKVService implements RegionKVService {
         try {
             KVParameterRequires.requireSameEpoch(request, getRegionEpoch());
             final List<CASEntry> casEntries = KVParameterRequires.requireNonEmpty(request.getCasEntries(),
-                "casAll.casEntries");
+                    "casAll.casEntries");
             this.rawKVStore.compareAndPutAll(casEntries, new BaseKVStoreClosure() {
 
                 @Override

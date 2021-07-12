@@ -25,7 +25,7 @@ public class GetStoreIdRequest extends BaseRequest {
 
     private static final long serialVersionUID = 4699755250417516668L;
 
-    private Endpoint          endpoint;
+    private Endpoint endpoint;
 
     public Endpoint getEndpoint() {
         return endpoint;

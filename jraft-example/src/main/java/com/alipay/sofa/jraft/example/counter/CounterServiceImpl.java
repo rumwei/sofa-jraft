@@ -40,7 +40,7 @@ public class CounterServiceImpl implements CounterService {
     private static final Logger LOG = LoggerFactory.getLogger(CounterServiceImpl.class);
 
     private final CounterServer counterServer;
-    private final Executor      readIndexExecutor;
+    private final Executor readIndexExecutor;
 
     public CounterServiceImpl(CounterServer counterServer) {
         this.counterServer = counterServer;
@@ -54,7 +54,7 @@ public class CounterServiceImpl implements CounterService {
 
     @Override
     public void get(final boolean readOnlySafe, final CounterClosure closure) {
-        if(!readOnlySafe){
+        if (!readOnlySafe) {
             closure.success(getValue());
             closure.run(Status.OK());
             return;
@@ -63,16 +63,16 @@ public class CounterServiceImpl implements CounterService {
         this.counterServer.getNode().readIndex(BytesUtil.EMPTY_BYTES, new ReadIndexClosure() {
             @Override
             public void run(Status status, long index, byte[] reqCtx) {
-                if(status.isOk()){
+                if (status.isOk()) {
                     closure.success(getValue());
                     closure.run(Status.OK());
                     return;
                 }
                 CounterServiceImpl.this.readIndexExecutor.execute(() -> {
-                    if(isLeader()){
+                    if (isLeader()) {
                         LOG.debug("Fail to get value with 'ReadIndex': {}, try to applying to the state machine.", status);
                         applyOperation(CounterOperation.createGet(), closure);
-                    }else {
+                    } else {
                         handlerNotLeaderError(closure);
                     }
                 });

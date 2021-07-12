@@ -91,9 +91,9 @@ public abstract class LongHeldDetectingReadWriteLock implements ReadWriteLock {
     class LongHeldDetectingLock implements Lock {
 
         private final AcquireMode mode;
-        private final RwLock      parent;
-        private final Lock        delegate;
-        private final long        maxBlockingNanos;
+        private final RwLock parent;
+        private final Lock delegate;
+        private final long maxBlockingNanos;
 
         LongHeldDetectingLock(AcquireMode mode, RwLock parent, long maxBlockingNanos) {
             this.mode = mode;

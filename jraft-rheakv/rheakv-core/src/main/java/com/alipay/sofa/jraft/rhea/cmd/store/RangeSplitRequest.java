@@ -23,7 +23,7 @@ public class RangeSplitRequest extends BaseRequest {
 
     private static final long serialVersionUID = 2369343322478279224L;
 
-    private Long              newRegionId;
+    private Long newRegionId;
 
     public Long getNewRegionId() {
         return newRegionId;

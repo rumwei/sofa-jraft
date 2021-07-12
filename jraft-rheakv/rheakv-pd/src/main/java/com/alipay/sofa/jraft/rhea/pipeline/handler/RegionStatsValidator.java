@@ -36,7 +36,6 @@ import com.alipay.sofa.jraft.rhea.util.pipeline.InboundHandlerAdapter;
 import com.alipay.sofa.jraft.util.SPI;
 
 /**
- *
  * @author jiachun.fjc
  */
 @SPI(name = "regionStatsValidator", priority = 90)
@@ -71,7 +70,7 @@ public class RegionStatsValidator extends InboundHandlerAdapter<RegionPingEvent>
                 throw Errors.INVALID_REGION_STATS.exception();
             }
             final Pair<Region, RegionStats> currentRegionInfo = metadataStore.getRegionStats(request.getClusterId(),
-                region);
+                    region);
             if (currentRegionInfo == null) {
                 return; // new data
             }

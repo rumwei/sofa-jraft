@@ -25,8 +25,8 @@ import com.alipay.sofa.jraft.error.RaftError;
 import static org.junit.Assert.assertEquals;
 
 public class ExpectClosure implements Closure {
-    private int            expectedErrCode;
-    private String         expectErrMsg;
+    private int expectedErrCode;
+    private String expectErrMsg;
     private CountDownLatch latch;
 
     public ExpectClosure(CountDownLatch latch) {

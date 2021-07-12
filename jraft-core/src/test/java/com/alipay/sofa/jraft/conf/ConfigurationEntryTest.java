@@ -38,25 +38,25 @@ public class ConfigurationEntryTest {
         assertTrue(entry.contains(new PeerId("localhost", 8082)));
         assertTrue(entry.contains(new PeerId("localhost", 8083)));
         assertEquals(
-            entry.listPeers(),
-            new HashSet<>(Arrays.asList(new PeerId("localhost", 8081), new PeerId("localhost", 8082), new PeerId(
-                "localhost", 8083))));
+                entry.listPeers(),
+                new HashSet<>(Arrays.asList(new PeerId("localhost", 8081), new PeerId("localhost", 8082), new PeerId(
+                        "localhost", 8083))));
 
     }
 
     @Test
     public void testStuffMethodsWithPriority() {
         ConfigurationEntry entry = TestUtils.getConfEntry(
-            "localhost:8081::100,localhost:8082::100,localhost:8083::100", null);
+                "localhost:8081::100,localhost:8082::100,localhost:8083::100", null);
         assertTrue(entry.isStable());
         assertFalse(entry.isEmpty());
         assertTrue(entry.contains(new PeerId("localhost", 8081, 0, 100)));
         assertTrue(entry.contains(new PeerId("localhost", 8082, 0, 100)));
         assertTrue(entry.contains(new PeerId("localhost", 8083, 0, 100)));
         assertEquals(
-            entry.listPeers(),
-            new HashSet<>(Arrays.asList(new PeerId("localhost", 8081, 0, 100), new PeerId("localhost", 8082, 0, 100),
-                new PeerId("localhost", 8083, 0, 100))));
+                entry.listPeers(),
+                new HashSet<>(Arrays.asList(new PeerId("localhost", 8081, 0, 100), new PeerId("localhost", 8082, 0, 100),
+                        new PeerId("localhost", 8083, 0, 100))));
 
     }
 
@@ -66,7 +66,7 @@ public class ConfigurationEntryTest {
         assertTrue(entry.isValid());
 
         entry = TestUtils.getConfEntry("localhost:8081,localhost:8082,localhost:8083",
-            "localhost:8081,localhost:8082,localhost:8084");
+                "localhost:8081,localhost:8082,localhost:8084");
         assertTrue(entry.isValid());
 
         entry.getConf().addLearner(new PeerId("localhost", 8084));
@@ -78,7 +78,7 @@ public class ConfigurationEntryTest {
     @Test
     public void testIsStable() {
         ConfigurationEntry entry = TestUtils.getConfEntry("localhost:8081,localhost:8082,localhost:8083",
-            "localhost:8080,localhost:8081,localhost:8082");
+                "localhost:8080,localhost:8081,localhost:8082");
         assertFalse(entry.isStable());
         assertEquals(4, entry.listPeers().size());
         assertTrue(entry.contains(new PeerId("localhost", 8080)));

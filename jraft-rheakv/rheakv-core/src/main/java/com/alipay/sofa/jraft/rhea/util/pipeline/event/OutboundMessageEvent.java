@@ -24,7 +24,7 @@ package com.alipay.sofa.jraft.rhea.util.pipeline.event;
 public abstract class OutboundMessageEvent<T> implements MessageEvent<T> {
 
     private final long invokeId;
-    private final T    message;
+    private final T message;
 
     public OutboundMessageEvent(long invokeId, T message) {
         this.invokeId = invokeId;

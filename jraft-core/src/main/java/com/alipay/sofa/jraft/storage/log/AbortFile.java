@@ -24,7 +24,7 @@ import java.util.Date;
 /**
  * Abort file
  *
- * @author boyan(boyan@antfin.com)
+ * @author boyan(boyan @ antfin.com)
  */
 public class AbortFile {
 
@@ -69,6 +69,6 @@ public class AbortFile {
 
     public boolean destroy() {
         return new File(this.path) //
-            .delete();
+                .delete();
     }
 }

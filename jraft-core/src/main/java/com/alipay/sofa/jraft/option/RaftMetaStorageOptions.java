@@ -20,8 +20,8 @@ import com.alipay.sofa.jraft.core.NodeImpl;
 
 /**
  * Raft meta storage options
- * @author dennis
  *
+ * @author dennis
  */
 public class RaftMetaStorageOptions {
     private NodeImpl node;

@@ -27,23 +27,22 @@ import org.slf4j.LoggerFactory;
 import com.alipay.sofa.jraft.rhea.util.Maps;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class DefaultPipelineFuture<V> extends CompletableFuture<V> implements PipelineFuture<V> {
 
-    private static final Logger                                        LOG                         = LoggerFactory
-                                                                                                       .getLogger(DefaultPipelineFuture.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(DefaultPipelineFuture.class);
 
-    private static final long                                          DEFAULT_TIMEOUT_NANOSECONDS = TimeUnit.SECONDS
-                                                                                                       .toNanos(30);
+    private static final long DEFAULT_TIMEOUT_NANOSECONDS = TimeUnit.SECONDS
+            .toNanos(30);
 
-    private static final ConcurrentMap<Long, DefaultPipelineFuture<?>> futures                     = Maps
-                                                                                                       .newConcurrentMapLong();
+    private static final ConcurrentMap<Long, DefaultPipelineFuture<?>> futures = Maps
+            .newConcurrentMapLong();
 
-    private final long                                                 invokeId;
-    private final long                                                 timeout;
-    private final long                                                 startTime                   = System.nanoTime();
+    private final long invokeId;
+    private final long timeout;
+    private final long startTime = System.nanoTime();
 
     public static <T> DefaultPipelineFuture<T> with(final long invokeId, final long timeoutMillis) {
         return new DefaultPipelineFuture<>(invokeId, timeoutMillis);
@@ -83,7 +82,7 @@ public class DefaultPipelineFuture<V> extends CompletableFuture<V> implements Pi
     private static class TimeoutScanner implements Runnable {
 
         public void run() {
-            for (;;) {
+            for (; ; ) {
                 try {
                     for (final DefaultPipelineFuture<?> future : futures.values()) {
                         process(future);

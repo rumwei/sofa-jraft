@@ -19,7 +19,6 @@ package com.alipay.sofa.jraft.util.concurrent;
 import java.util.concurrent.TimeUnit;
 
 /**
- *
  * @author jiachun.fjc
  */
 public interface FixedThreadsExecutorGroup extends Iterable<SingleThreadExecutor> {

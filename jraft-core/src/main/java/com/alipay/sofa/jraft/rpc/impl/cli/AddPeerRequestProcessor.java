@@ -56,7 +56,7 @@ public class AddPeerRequestProcessor extends BaseCliRequestProcessor<AddPeerRequ
         final PeerId addingPeer = new PeerId();
         if (addingPeer.parse(addingPeerIdStr)) {
             LOG.info("Receive AddPeerRequest to {} from {}, adding {}", ctx.node.getNodeId(), done.getRpcCtx()
-                .getRemoteAddress(), addingPeerIdStr);
+                    .getRemoteAddress(), addingPeerIdStr);
             ctx.node.addPeer(addingPeer, status -> {
                 if (!status.isOk()) {
                     done.run(status);
@@ -78,8 +78,8 @@ public class AddPeerRequestProcessor extends BaseCliRequestProcessor<AddPeerRequ
             });
         } else {
             return RpcFactoryHelper //
-                .responseFactory() //
-                .newResponse(defaultResp(), RaftError.EINVAL, "Fail to parse peer id %s", addingPeerIdStr);
+                    .responseFactory() //
+                    .newResponse(defaultResp(), RaftError.EINVAL, "Fail to parse peer id %s", addingPeerIdStr);
         }
 
         return null;

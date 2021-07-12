@@ -41,16 +41,15 @@ import static org.rocksdb.TickerType.NUMBER_MULTIGET_BYTES_READ;
 import static org.rocksdb.TickerType.NUMBER_MULTIGET_KEYS_READ;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class StatsCollector {
 
-    private static final Logger     LOG = LoggerFactory.getLogger(StatsCollector.class);
+    private static final Logger LOG = LoggerFactory.getLogger(StatsCollector.class);
 
-    private final StoreEngine       storeEngine;
+    private final StoreEngine storeEngine;
     private final BaseRawKVStore<?> rawKVStore;
-    private final RocksRawKVStore   rocksRawKVStore;
+    private final RocksRawKVStore rocksRawKVStore;
 
     public StatsCollector(StoreEngine storeEngine) {
         this.storeEngine = storeEngine;
@@ -142,10 +141,10 @@ public class StatsCollector {
         }
         if (reset) {
             return RocksStatistics.getAndResetTickerCount(this.rocksRawKVStore, BYTES_READ)
-                   + RocksStatistics.getAndResetTickerCount(this.rocksRawKVStore, NUMBER_MULTIGET_BYTES_READ);
+                    + RocksStatistics.getAndResetTickerCount(this.rocksRawKVStore, NUMBER_MULTIGET_BYTES_READ);
         }
         return RocksStatistics.getTickerCount(this.rocksRawKVStore, BYTES_READ)
-               + RocksStatistics.getTickerCount(this.rocksRawKVStore, NUMBER_MULTIGET_BYTES_READ);
+                + RocksStatistics.getTickerCount(this.rocksRawKVStore, NUMBER_MULTIGET_BYTES_READ);
     }
 
     public long getStoreKeysWritten(final boolean reset) {
@@ -164,10 +163,10 @@ public class StatsCollector {
         }
         if (reset) {
             return RocksStatistics.getAndResetTickerCount(this.rocksRawKVStore, NUMBER_KEYS_READ)
-                   + RocksStatistics.getAndResetTickerCount(this.rocksRawKVStore, NUMBER_MULTIGET_KEYS_READ);
+                    + RocksStatistics.getAndResetTickerCount(this.rocksRawKVStore, NUMBER_MULTIGET_KEYS_READ);
         }
         return RocksStatistics.getTickerCount(this.rocksRawKVStore, NUMBER_KEYS_READ)
-               + RocksStatistics.getTickerCount(this.rocksRawKVStore, NUMBER_MULTIGET_KEYS_READ);
+                + RocksStatistics.getTickerCount(this.rocksRawKVStore, NUMBER_MULTIGET_KEYS_READ);
     }
 
     public long getRegionBytesWritten(final Region region, final boolean reset) {

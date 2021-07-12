@@ -27,7 +27,7 @@ public final class ByteBufferCollector implements Recyclable {
 
     private static final int MAX_CAPACITY_TO_RECYCLE = 4 * 1024 * 1024; // 4M
 
-    private ByteBuffer       buffer;
+    private ByteBuffer buffer;
 
     public int capacity() {
         return this.buffer != null ? this.buffer.capacity() : 0;
@@ -132,14 +132,14 @@ public final class ByteBufferCollector implements Recyclable {
         return recyclers.recycle(this, handle);
     }
 
-    private transient final Recyclers.Handle            handle;
+    private transient final Recyclers.Handle handle;
 
     private static final Recyclers<ByteBufferCollector> recyclers = new Recyclers<ByteBufferCollector>(
-                                                                      Utils.MAX_COLLECTOR_SIZE_PER_THREAD) {
+            Utils.MAX_COLLECTOR_SIZE_PER_THREAD) {
 
-                                                                      @Override
-                                                                      protected ByteBufferCollector newObject(final Handle handle) {
-                                                                          return new ByteBufferCollector(0, handle);
-                                                                      }
-                                                                  };
+        @Override
+        protected ByteBufferCollector newObject(final Handle handle) {
+            return new ByteBufferCollector(0, handle);
+        }
+    };
 }

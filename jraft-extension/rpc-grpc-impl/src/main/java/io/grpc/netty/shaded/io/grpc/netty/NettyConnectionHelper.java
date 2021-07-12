@@ -17,6 +17,7 @@
 package io.grpc.netty.shaded.io.grpc.netty;
 
 import java.util.List;
+
 import com.alipay.sofa.jraft.rpc.Connection;
 import com.alipay.sofa.jraft.rpc.impl.ConnectionClosedEventListener;
 import com.alipay.sofa.jraft.util.internal.ReferenceFieldUpdater;
@@ -34,12 +35,12 @@ import io.grpc.netty.shaded.io.netty.util.AttributeKey;
 public class NettyConnectionHelper {
 
     private static final ReferenceFieldUpdater<NettyServerStream, Channel> CHANNEL_GETTER = Updaters
-                                                                                              .newReferenceFieldUpdater(
-                                                                                                  NettyServerStream.class,
-                                                                                                  "channel");
+            .newReferenceFieldUpdater(
+                    NettyServerStream.class,
+                    "channel");
 
-    private static final AttributeKey<NettyConnection>                     NETTY_CONN_KEY = AttributeKey
-                                                                                              .valueOf("netty.conn");
+    private static final AttributeKey<NettyConnection> NETTY_CONN_KEY = AttributeKey
+            .valueOf("netty.conn");
 
     public static Connection getOrCreateConnection(final ServerStream stream,
                                                    final List<ConnectionClosedEventListener> listeners) {
@@ -100,8 +101,8 @@ class NettyConnection implements Connection {
     }
 
     void addClosedEventListener(final ConnectionClosedEventListener listener) {
-      this.ch.closeFuture() //
-      .addListener(
-          future -> listener.onClosed(this.ch.remoteAddress().toString(), NettyConnection.this));
+        this.ch.closeFuture() //
+                .addListener(
+                        future -> listener.onClosed(this.ch.remoteAddress().toString(), NettyConnection.this));
     }
 }

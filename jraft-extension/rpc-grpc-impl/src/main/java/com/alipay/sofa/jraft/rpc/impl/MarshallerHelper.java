@@ -34,32 +34,32 @@ public class MarshallerHelper {
 
     static {
         messages.put(RpcRequests.AppendEntriesRequest.class.getName(),
-            RpcRequests.AppendEntriesResponse.getDefaultInstance());
+                RpcRequests.AppendEntriesResponse.getDefaultInstance());
         messages.put(RpcRequests.GetFileRequest.class.getName(), RpcRequests.GetFileResponse.getDefaultInstance());
         messages.put(RpcRequests.InstallSnapshotRequest.class.getName(),
-            RpcRequests.InstallSnapshotResponse.getDefaultInstance());
+                RpcRequests.InstallSnapshotResponse.getDefaultInstance());
         messages.put(RpcRequests.RequestVoteRequest.class.getName(),
-            RpcRequests.RequestVoteResponse.getDefaultInstance());
+                RpcRequests.RequestVoteResponse.getDefaultInstance());
         messages.put(RpcRequests.PingRequest.class.getName(), RpcRequests.ErrorResponse.getDefaultInstance());
         messages
-            .put(RpcRequests.TimeoutNowRequest.class.getName(), RpcRequests.TimeoutNowResponse.getDefaultInstance());
+                .put(RpcRequests.TimeoutNowRequest.class.getName(), RpcRequests.TimeoutNowResponse.getDefaultInstance());
         messages.put(RpcRequests.ReadIndexRequest.class.getName(), RpcRequests.ReadIndexResponse.getDefaultInstance());
         messages.put(CliRequests.AddPeerRequest.class.getName(), CliRequests.AddPeerResponse.getDefaultInstance());
         messages
-            .put(CliRequests.RemovePeerRequest.class.getName(), CliRequests.RemovePeerResponse.getDefaultInstance());
+                .put(CliRequests.RemovePeerRequest.class.getName(), CliRequests.RemovePeerResponse.getDefaultInstance());
         messages.put(CliRequests.ResetPeerRequest.class.getName(), RpcRequests.ErrorResponse.getDefaultInstance());
         messages.put(CliRequests.ChangePeersRequest.class.getName(),
-            CliRequests.ChangePeersResponse.getDefaultInstance());
+                CliRequests.ChangePeersResponse.getDefaultInstance());
         messages.put(CliRequests.GetLeaderRequest.class.getName(), CliRequests.GetLeaderResponse.getDefaultInstance());
         messages.put(CliRequests.SnapshotRequest.class.getName(), RpcRequests.ErrorResponse.getDefaultInstance());
         messages.put(CliRequests.TransferLeaderRequest.class.getName(), RpcRequests.ErrorResponse.getDefaultInstance());
         messages.put(CliRequests.GetPeersRequest.class.getName(), CliRequests.GetPeersResponse.getDefaultInstance());
         messages.put(CliRequests.AddLearnersRequest.class.getName(),
-            CliRequests.LearnersOpResponse.getDefaultInstance());
+                CliRequests.LearnersOpResponse.getDefaultInstance());
         messages.put(CliRequests.RemoveLearnersRequest.class.getName(),
-            CliRequests.LearnersOpResponse.getDefaultInstance());
+                CliRequests.LearnersOpResponse.getDefaultInstance());
         messages.put(CliRequests.ResetLearnersRequest.class.getName(),
-            CliRequests.LearnersOpResponse.getDefaultInstance());
+                CliRequests.LearnersOpResponse.getDefaultInstance());
     }
 
     public static Message findRespInstance(final String name) {

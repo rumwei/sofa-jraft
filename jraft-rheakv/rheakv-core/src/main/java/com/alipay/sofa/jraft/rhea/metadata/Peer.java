@@ -23,16 +23,15 @@ import com.alipay.sofa.jraft.util.Copiable;
 import com.alipay.sofa.jraft.util.Endpoint;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class Peer implements Copiable<Peer>, Serializable {
 
     private static final long serialVersionUID = -266370017635677437L;
 
-    private long              id;
-    private long              storeId;
-    private Endpoint          endpoint;
+    private long id;
+    private long storeId;
+    private Endpoint endpoint;
 
     public Peer() {
     }

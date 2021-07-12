@@ -27,15 +27,14 @@ import java.util.Map;
 import com.alipay.sofa.jraft.rhea.util.Maps;
 
 /**
- *
  * Most of the code references the pipeline design of
  * <a href="https://github.com/netty/netty">Netty</a>.
  */
 public abstract class TypeParameterMatcher {
 
-    private static final TypeParameterMatcher                                          NOOP      = new NoOpTypeParameterMatcher();
+    private static final TypeParameterMatcher NOOP = new NoOpTypeParameterMatcher();
 
-    private static final ThreadLocal<IdentityHashMap<Class<?>, TypeParameterMatcher>>  getCache  = ThreadLocal.withInitial(IdentityHashMap::new);
+    private static final ThreadLocal<IdentityHashMap<Class<?>, TypeParameterMatcher>> getCache = ThreadLocal.withInitial(IdentityHashMap::new);
 
     private static final ThreadLocal<Map<Class<?>, Map<String, TypeParameterMatcher>>> findCache = ThreadLocal.withInitial(IdentityHashMap::new);
 
@@ -79,11 +78,11 @@ public abstract class TypeParameterMatcher {
 
         final Class<?> thisClass = object.getClass();
         Class<?> currentClass = thisClass;
-        for (;;) {
+        for (; ; ) {
             if (currentClass.getSuperclass() == parameterizedSuperclass) {
                 int typeParamIndex = -1;
                 final TypeVariable<?>[] typeParams = currentClass.getSuperclass().getTypeParameters();
-                for (int i = 0; i < typeParams.length; i ++) {
+                for (int i = 0; i < typeParams.length; i++) {
                     if (typeParamName.equals(typeParams[i].getName())) {
                         typeParamIndex = i;
                         break;
@@ -173,5 +172,6 @@ public abstract class TypeParameterMatcher {
         }
     }
 
-    protected TypeParameterMatcher() {}
+    protected TypeParameterMatcher() {
+    }
 }

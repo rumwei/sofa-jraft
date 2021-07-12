@@ -30,14 +30,14 @@ import com.alipay.sofa.jraft.util.internal.UnsafeUtil;
  *
  * @author Cliff Click
  * @since 1.5
- *
+ * <p>
  * Forked from <a href="https://github.com/JCTools/JCTools">JCTools</a>.
  */
 public class ConcurrentAutoTable implements Serializable {
 
     private static final long serialVersionUID = -754466836461919739L;
 
-    private static Unsafe     unsafe           = UnsafeUtil.getUnsafeAccessor().getUnsafe();
+    private static Unsafe unsafe = UnsafeUtil.getUnsafeAccessor().getUnsafe();
 
     // --- public interface ---
 
@@ -141,14 +141,14 @@ public class ConcurrentAutoTable implements Serializable {
     }
 
     // The underlying array of concurrently updated long counters
-    private volatile CAT                                                       _cat        = new CAT(
-                                                                                               null,
-                                                                                               16/*Start Small, Think Big!*/,
-                                                                                               0L);
+    private volatile CAT _cat = new CAT(
+            null,
+            16/*Start Small, Think Big!*/,
+            0L);
     private static final AtomicReferenceFieldUpdater<ConcurrentAutoTable, CAT> _catUpdater = AtomicReferenceFieldUpdater
-                                                                                               .newUpdater(
-                                                                                                   ConcurrentAutoTable.class,
-                                                                                                   CAT.class, "_cat");
+            .newUpdater(
+                    ConcurrentAutoTable.class,
+                    CAT.class, "_cat");
 
     private boolean CAS_cat(CAT oldcat, CAT newcat) {
         return _catUpdater.compareAndSet(this, oldcat, newcat);
@@ -167,8 +167,8 @@ public class ConcurrentAutoTable implements Serializable {
         private static final long serialVersionUID = 7664209842256114771L;
 
         // Unsafe crud: get a function which will CAS arrays
-        private static final int  _Lbase           = unsafe.arrayBaseOffset(long[].class);
-        private static final int  _Lscale          = unsafe.arrayIndexScale(long[].class);
+        private static final int _Lbase = unsafe.arrayBaseOffset(long[].class);
+        private static final int _Lscale = unsafe.arrayIndexScale(long[].class);
 
         private static long rawIndex(long[] ary, int i) {
             assert i >= 0 && i < ary.length;
@@ -183,11 +183,11 @@ public class ConcurrentAutoTable implements Serializable {
         //static private final AtomicLongFieldUpdater<CAT> _resizerUpdater =
         //  AtomicLongFieldUpdater.newUpdater(CAT.class, "_resizers");
 
-        private final CAT        _next;
-        private volatile long    _fuzzy_sum_cache;
-        private volatile long    _fuzzy_time;
+        private final CAT _next;
+        private volatile long _fuzzy_sum_cache;
+        private volatile long _fuzzy_time;
         private static final int MAX_SPIN = 1;
-        private final long[]     _t;              // Power-of-2 array of longs
+        private final long[] _t;              // Power-of-2 array of longs
 
         CAT(CAT next, int sz, long init) {
             _next = next;

@@ -31,7 +31,6 @@ import com.alipay.sofa.jraft.rhea.util.pipeline.InboundHandlerAdapter;
 import com.alipay.sofa.jraft.util.SPI;
 
 /**
- *
  * @author jiachun.fjc
  */
 @SPI(name = "storeStatsValidator", priority = 100)
@@ -50,7 +49,7 @@ public class StoreStatsValidator extends InboundHandlerAdapter<StorePingEvent> {
             throw Errors.INVALID_STORE_STATS.exception();
         }
         final StoreStats currentStoreStats = metadataStore.getStoreStats(request.getClusterId(),
-            storeStats.getStoreId());
+                storeStats.getStoreId());
         if (currentStoreStats == null) {
             return; // new data
         }

@@ -25,13 +25,12 @@ import java.util.regex.Pattern;
 import com.alipay.sofa.jraft.util.internal.ThrowUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class NetUtil {
 
     private static final Pattern IP_PATTERN = Pattern.compile("\\d{1,3}(\\.\\d{1,3}){3}$");
-    private static final String  LOCAL_IP_ADDRESS;
+    private static final String LOCAL_IP_ADDRESS;
 
     static {
         InetAddress localAddress;
@@ -108,7 +107,7 @@ public final class NetUtil {
 
         final String name = address.getHostAddress();
         return (name != null && !"0.0.0.0".equals(name) && !"127.0.0.1".equals(name) && IP_PATTERN.matcher(name)
-            .matches());
+                .matches());
     }
 
     private NetUtil() {

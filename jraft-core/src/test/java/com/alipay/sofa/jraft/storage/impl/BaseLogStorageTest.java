@@ -46,7 +46,7 @@ import com.alipay.sofa.jraft.test.TestUtils;
 import com.alipay.sofa.jraft.util.Utils;
 
 public abstract class BaseLogStorageTest extends BaseStorageTest {
-    protected LogStorage         logStorage;
+    protected LogStorage logStorage;
     private ConfigurationManager confManager;
     private LogEntryCodecFactory logEntryCodecFactory;
 

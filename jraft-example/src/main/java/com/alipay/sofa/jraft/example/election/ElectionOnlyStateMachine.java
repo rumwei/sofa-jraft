@@ -27,14 +27,13 @@ import com.alipay.sofa.jraft.Status;
 import com.alipay.sofa.jraft.core.StateMachineAdapter;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class ElectionOnlyStateMachine extends StateMachineAdapter {
 
-    private static final Logger             LOG        = LoggerFactory.getLogger(ElectionOnlyStateMachine.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ElectionOnlyStateMachine.class);
 
-    private final AtomicLong                leaderTerm = new AtomicLong(-1L);
+    private final AtomicLong leaderTerm = new AtomicLong(-1L);
     private final List<LeaderStateListener> listeners;
 
     public ElectionOnlyStateMachine(List<LeaderStateListener> listeners) {

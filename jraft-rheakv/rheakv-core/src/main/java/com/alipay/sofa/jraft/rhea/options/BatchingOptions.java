@@ -17,7 +17,6 @@
 package com.alipay.sofa.jraft.rhea.options;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class BatchingOptions {
@@ -26,13 +25,13 @@ public class BatchingOptions {
     // which will improve the throughput without any negative impact on the delay.
     private boolean allowBatching = true;
     // Maximum number of requests that can be applied in a batch.
-    private int     batchSize     = 100;
+    private int batchSize = 100;
     // Internal disruptor buffers size for get/put request etc.
-    private int     bufSize       = 8192;
+    private int bufSize = 8192;
     // Maximum bytes size to cached for put-request (keys.size + value.size).
-    private int     maxWriteBytes = 32768;
+    private int maxWriteBytes = 32768;
     // Maximum bytes size to cached for get-request (keys.size).
-    private int     maxReadBytes  = 1024;
+    private int maxReadBytes = 1024;
 
     public boolean isAllowBatching() {
         return allowBatching;
@@ -77,6 +76,6 @@ public class BatchingOptions {
     @Override
     public String toString() {
         return "BatchingOptions{" + "allowBatching=" + allowBatching + ", batchSize=" + batchSize + ", bufSize="
-               + bufSize + ", maxWriteBytes=" + maxWriteBytes + ", maxReadBytes=" + maxReadBytes + '}';
+                + bufSize + ", maxWriteBytes=" + maxWriteBytes + ", maxReadBytes=" + maxReadBytes + '}';
     }
 }

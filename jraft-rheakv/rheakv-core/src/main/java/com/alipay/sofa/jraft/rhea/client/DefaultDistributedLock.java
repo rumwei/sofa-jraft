@@ -36,12 +36,12 @@ import com.alipay.sofa.jraft.rhea.util.concurrent.DistributedLock;
  */
 class DefaultDistributedLock extends DistributedLock<byte[]> {
 
-    private static final Logger         LOG                = LoggerFactory.getLogger(DefaultDistributedLock.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultDistributedLock.class);
 
-    private final DefaultRheaKVStore    rheaKVStore;
+    private final DefaultRheaKVStore rheaKVStore;
 
     private volatile ScheduledFuture<?> watchdogFuture;
-    private volatile boolean            mayCancelIfRunning = false;
+    private volatile boolean mayCancelIfRunning = false;
 
     protected DefaultDistributedLock(byte[] target, long lease, TimeUnit unit, ScheduledExecutorService watchdog,
                                      DefaultRheaKVStore rheaKVStore) {
@@ -58,7 +58,7 @@ class DefaultDistributedLock extends DistributedLock<byte[]> {
             updateOwner(owner);
             if (!owner.isSameAcquirer(acquirer)) {
                 final String message = String.format(
-                    "an invalid acquirer [%s] trying to unlock, the real owner is [%s]", acquirer, owner);
+                        "an invalid acquirer [%s] trying to unlock, the real owner is [%s]", acquirer, owner);
                 throw new InvalidLockAcquirerException(message);
             }
             if (owner.getAcquires() <= 0) {

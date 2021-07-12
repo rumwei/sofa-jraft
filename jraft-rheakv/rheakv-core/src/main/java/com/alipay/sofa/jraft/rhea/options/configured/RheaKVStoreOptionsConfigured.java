@@ -24,7 +24,6 @@ import com.alipay.sofa.jraft.rhea.options.StoreEngineOptions;
 import com.alipay.sofa.jraft.rhea.util.Configured;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class RheaKVStoreOptionsConfigured implements Configured<RheaKVStoreOptions> {

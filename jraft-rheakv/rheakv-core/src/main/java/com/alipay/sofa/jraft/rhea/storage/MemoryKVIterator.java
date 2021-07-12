@@ -26,7 +26,7 @@ public class MemoryKVIterator implements KVIterator {
 
     private final ConcurrentNavigableMap<byte[], byte[]> db;
 
-    private Map.Entry<byte[], byte[]>                    cursorEntry;
+    private Map.Entry<byte[], byte[]> cursorEntry;
 
     public MemoryKVIterator(ConcurrentNavigableMap<byte[], byte[]> db) {
         this.db = db;

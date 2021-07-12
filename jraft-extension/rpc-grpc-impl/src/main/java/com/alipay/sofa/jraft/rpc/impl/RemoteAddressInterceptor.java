@@ -40,7 +40,7 @@ public class RemoteAddressInterceptor implements ServerInterceptor {
                                                                  final Metadata headers,
                                                                  final ServerCallHandler<ReqT, RespT> next) {
         final Context ctx = Context.current() //
-            .withValue(REMOTE_ADDRESS, call.getAttributes().get(Grpc.TRANSPORT_ATTR_REMOTE_ADDR));
+                .withValue(REMOTE_ADDRESS, call.getAttributes().get(Grpc.TRANSPORT_ATTR_REMOTE_ADDR));
         return Contexts.interceptCall(ctx, call, headers, next);
     }
 

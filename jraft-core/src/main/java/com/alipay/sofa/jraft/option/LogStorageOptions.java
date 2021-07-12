@@ -21,8 +21,8 @@ import com.alipay.sofa.jraft.entity.codec.LogEntryCodecFactory;
 
 /**
  * Log storage initialize options
- * @author boyan(boyan@antfin.com)
  *
+ * @author boyan(boyan @ antfin.com)
  */
 public class LogStorageOptions {
 

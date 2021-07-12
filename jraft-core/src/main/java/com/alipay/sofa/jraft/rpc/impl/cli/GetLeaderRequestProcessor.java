@@ -72,21 +72,21 @@ public class GetLeaderRequestProcessor extends BaseCliRequestProcessor<GetLeader
                 nodes.add(getNode(groupId, peer, st));
                 if (!st.isOk()) {
                     return RpcFactoryHelper //
-                        .responseFactory() //
-                        .newResponse(defaultResp(), st);
+                            .responseFactory() //
+                            .newResponse(defaultResp(), st);
                 }
             } else {
                 return RpcFactoryHelper //
-                    .responseFactory() //
-                    .newResponse(defaultResp(), RaftError.EINVAL, "Fail to parse peer id %s", peerIdStr);
+                        .responseFactory() //
+                        .newResponse(defaultResp(), RaftError.EINVAL, "Fail to parse peer id %s", peerIdStr);
             }
         } else {
             nodes = NodeManager.getInstance().getNodesByGroupId(groupId);
         }
         if (nodes == null || nodes.isEmpty()) {
             return RpcFactoryHelper //
-                .responseFactory() //
-                .newResponse(defaultResp(), RaftError.ENOENT, "No nodes in group %s", groupId);
+                    .responseFactory() //
+                    .newResponse(defaultResp(), RaftError.ENOENT, "No nodes in group %s", groupId);
         }
         for (final Node node : nodes) {
             final PeerId leader = node.getLeaderId();
@@ -95,8 +95,8 @@ public class GetLeaderRequestProcessor extends BaseCliRequestProcessor<GetLeader
             }
         }
         return RpcFactoryHelper //
-            .responseFactory() //
-            .newResponse(defaultResp(), RaftError.EAGAIN, "Unknown leader");
+                .responseFactory() //
+                .newResponse(defaultResp(), RaftError.EAGAIN, "Unknown leader");
     }
 
     @Override

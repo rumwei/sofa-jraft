@@ -22,7 +22,6 @@ import java.util.NoSuchElementException;
  * An iterator over RheaKVStore.
  *
  * @param <E> the type of elements returned by this iterator
- *
  * @author jiachun.fjc
  */
 public interface RheaIterator<E> {

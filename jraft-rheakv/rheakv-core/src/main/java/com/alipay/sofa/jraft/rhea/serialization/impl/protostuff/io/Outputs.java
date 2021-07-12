@@ -25,7 +25,6 @@ import com.alipay.sofa.jraft.rhea.serialization.io.OutputBuf;
 import com.alipay.sofa.jraft.util.internal.UnsafeUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class Outputs {
@@ -46,7 +45,7 @@ public final class Outputs {
             return ((WriteSession) output).toByteArray();
         }
         throw new IllegalArgumentException("Output [" + output.getClass().getName()
-                                           + "] must be a WriteSession's implementation");
+                + "] must be a WriteSession's implementation");
     }
 
     private Outputs() {

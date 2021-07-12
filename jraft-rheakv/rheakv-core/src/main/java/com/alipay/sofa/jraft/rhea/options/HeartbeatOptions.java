@@ -21,9 +21,9 @@ package com.alipay.sofa.jraft.rhea.options;
  */
 public class HeartbeatOptions {
 
-    private long storeHeartbeatIntervalSeconds  = 60;
+    private long storeHeartbeatIntervalSeconds = 60;
     private long regionHeartbeatIntervalSeconds = 60;
-    private int  heartbeatRpcTimeoutMillis      = 5000;
+    private int heartbeatRpcTimeoutMillis = 5000;
 
     public long getStoreHeartbeatIntervalSeconds() {
         return storeHeartbeatIntervalSeconds;
@@ -52,7 +52,7 @@ public class HeartbeatOptions {
     @Override
     public String toString() {
         return "HeartbeatOptions{" + ", storeHeartbeatIntervalSeconds=" + storeHeartbeatIntervalSeconds
-               + ", regionHeartbeatIntervalSeconds=" + regionHeartbeatIntervalSeconds + ", heartbeatRpcTimeoutMillis="
-               + heartbeatRpcTimeoutMillis + '}';
+                + ", regionHeartbeatIntervalSeconds=" + regionHeartbeatIntervalSeconds + ", heartbeatRpcTimeoutMillis="
+                + heartbeatRpcTimeoutMillis + '}';
     }
 }

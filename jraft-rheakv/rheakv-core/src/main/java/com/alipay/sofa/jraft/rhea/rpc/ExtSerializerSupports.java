@@ -26,7 +26,7 @@ public final class ExtSerializerSupports {
 
     private static final InvokeContext INVOKE_CONTEXT = new InvokeContext();
 
-    public static byte                 PROTO_STUFF    = 2;
+    public static byte PROTO_STUFF = 2;
 
     static {
         SerializerManager.addSerializer(PROTO_STUFF, ProtostuffSerializer.INSTANCE);

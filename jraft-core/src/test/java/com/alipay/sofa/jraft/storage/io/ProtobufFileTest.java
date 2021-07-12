@@ -38,7 +38,7 @@ public class ProtobufFileTest {
         ProtoBufFile file = new ProtoBufFile(path);
         assertNull(file.load());
         LocalFileMetaOutter.LocalFileMeta msg = LocalFileMetaOutter.LocalFileMeta.newBuilder().setChecksum("test")
-            .setSource(LocalFileMetaOutter.FileSource.FILE_SOURCE_REFERENCE).build();
+                .setSource(LocalFileMetaOutter.FileSource.FILE_SOURCE_REFERENCE).build();
         assertTrue(file.save(msg, true));
 
         ProtoBufFile newFile = new ProtoBufFile(path);

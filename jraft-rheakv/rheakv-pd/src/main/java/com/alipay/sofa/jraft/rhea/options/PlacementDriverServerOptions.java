@@ -22,8 +22,8 @@ package com.alipay.sofa.jraft.rhea.options;
 public class PlacementDriverServerOptions {
 
     private RheaKVStoreOptions rheaKVStoreOptions;
-    private int                pipelineCorePoolSize;
-    private int                pipelineMaximumPoolSize;
+    private int pipelineCorePoolSize;
+    private int pipelineMaximumPoolSize;
 
     public RheaKVStoreOptions getRheaKVStoreOptions() {
         return rheaKVStoreOptions;
@@ -52,6 +52,6 @@ public class PlacementDriverServerOptions {
     @Override
     public String toString() {
         return "PlacementDriverServerOptions{" + "rheaKVStoreOptions=" + rheaKVStoreOptions + ", pipelineCorePoolSize="
-               + pipelineCorePoolSize + ", pipelineMaximumPoolSize=" + pipelineMaximumPoolSize + '}';
+                + pipelineCorePoolSize + ", pipelineMaximumPoolSize=" + pipelineMaximumPoolSize + '}';
     }
 }

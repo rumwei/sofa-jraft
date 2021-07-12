@@ -26,7 +26,8 @@ import com.alipay.sofa.jraft.util.Endpoint;
  */
 public interface RaftRpcFactory {
 
-    RpcResponseFactory DEFAULT = new RpcResponseFactory() {};
+    RpcResponseFactory DEFAULT = new RpcResponseFactory() {
+    };
 
     /**
      * Register serializer with class name.
@@ -89,7 +90,8 @@ public interface RaftRpcFactory {
     /**
      * Ensure RPC framework supports pipeline.
      */
-    default void ensurePipeline() {}
+    default void ensurePipeline() {
+    }
 
     @SuppressWarnings("unused")
     default ConfigHelper<RpcClient> defaultJRaftClientConfigHelper(final RpcOptions opts) {

@@ -23,14 +23,13 @@ import com.alipay.sofa.jraft.rhea.util.Lists;
 import com.alipay.sofa.jraft.util.Describer;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class DescriberManager {
 
-    private static final DescriberManager INSTANCE   = new DescriberManager();
+    private static final DescriberManager INSTANCE = new DescriberManager();
 
-    private final List<Describer>         describers = new CopyOnWriteArrayList<>();
+    private final List<Describer> describers = new CopyOnWriteArrayList<>();
 
     public static DescriberManager getInstance() {
         return INSTANCE;

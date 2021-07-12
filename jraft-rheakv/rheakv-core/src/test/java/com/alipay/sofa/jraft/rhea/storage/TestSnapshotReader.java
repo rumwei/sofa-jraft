@@ -31,7 +31,7 @@ import com.google.protobuf.Message;
 public class TestSnapshotReader extends SnapshotReader {
 
     final Map<String, LocalFileMetaOutter.LocalFileMeta> metaTable;
-    final String                                         path;
+    final String path;
 
     public TestSnapshotReader(Map<String, LocalFileMetaOutter.LocalFileMeta> metaTable, String path) {
         this.metaTable = metaTable;

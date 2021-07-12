@@ -14,6 +14,6 @@ storeEngineOptions:
     ip: 127.0.0.1
     port: 8183
   regionEngineOptionsList:
-    - { regionId: 1, nodeOptions: { raftOptions: { sync: false} } }
+    - { regionId: 1, nodeOptions: { raftOptions: { sync: false } } }
 
 initialServerList: 127.0.0.1:8181,127.0.0.1:8182,127.0.0.1:8183

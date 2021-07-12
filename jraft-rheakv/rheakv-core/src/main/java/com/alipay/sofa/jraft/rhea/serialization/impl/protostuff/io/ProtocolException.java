@@ -19,7 +19,6 @@ package com.alipay.sofa.jraft.rhea.serialization.impl.protostuff.io;
 import io.protostuff.ProtobufException;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class ProtocolException extends ProtobufException {
@@ -36,12 +35,12 @@ public class ProtocolException extends ProtobufException {
 
     static ProtocolException misreportedSize() {
         return new ProtocolException("CodedInput encountered an embedded string or bytes "
-                                     + "that misreported its size.");
+                + "that misreported its size.");
     }
 
     static ProtocolException negativeSize() {
         return new ProtocolException("CodedInput encountered an embedded string or message "
-                                     + "which claimed to have negative size.");
+                + "which claimed to have negative size.");
     }
 
     static ProtocolException malformedVarInt() {

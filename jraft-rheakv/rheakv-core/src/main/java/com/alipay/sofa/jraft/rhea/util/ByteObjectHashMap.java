@@ -38,37 +38,37 @@ public class ByteObjectHashMap<V> implements ByteObjectMap<V> {
     /**
      * Default initial capacity. Used if not specified in the constructor
      */
-    public static final int                   DEFAULT_CAPACITY    = 8;
+    public static final int DEFAULT_CAPACITY = 8;
 
     /**
      * Default load factor. Used if not specified in the constructor
      */
-    public static final float                 DEFAULT_LOAD_FACTOR = 0.5f;
+    public static final float DEFAULT_LOAD_FACTOR = 0.5f;
 
     /**
      * Placeholder for null values, so we can use the actual null to mean available.
      * (Better than using a placeholder for available: less references for GC processing.)
      */
-    private static final Object               NULL_VALUE          = new Object();
+    private static final Object NULL_VALUE = new Object();
 
     /**
      * The maximum number of elements allowed without allocating more space.
      */
-    private int                               maxSize;
+    private int maxSize;
 
     /**
      * The load factor for the map. Used to calculate {@link #maxSize}.
      */
-    private final float                       loadFactor;
+    private final float loadFactor;
 
-    private byte[]                            keys;
-    private V[]                               values;
-    private int                               size;
-    private int                               mask;
+    private byte[] keys;
+    private V[] values;
+    private int size;
+    private int mask;
 
-    private final Set<Byte>                   keySet              = new KeySet();
-    private final Set<Entry<Byte, V>>         entrySet            = new EntrySet();
-    private final Iterable<PrimitiveEntry<V>> entries             = PrimitiveIterator::new;
+    private final Set<Byte> keySet = new KeySet();
+    private final Set<Entry<Byte, V>> entrySet = new EntrySet();
+    private final Iterable<PrimitiveEntry<V>> entries = PrimitiveIterator::new;
 
     public ByteObjectHashMap() {
         this(DEFAULT_CAPACITY, DEFAULT_LOAD_FACTOR);
@@ -96,7 +96,7 @@ public class ByteObjectHashMap<V> implements ByteObjectMap<V> {
 
         // Allocate the arrays.
         keys = new byte[capacity];
-        @SuppressWarnings({ "unchecked", "SuspiciousArrayCast" })
+        @SuppressWarnings({"unchecked", "SuspiciousArrayCast"})
         V[] temp = (V[]) new Object[capacity];
         values = temp;
 
@@ -124,7 +124,7 @@ public class ByteObjectHashMap<V> implements ByteObjectMap<V> {
         int startIndex = hashIndex(key);
         int index = startIndex;
 
-        for (;;) {
+        for (; ; ) {
             if (values[index] == null) {
                 // Found empty slot, use it.
                 keys[index] = key;
@@ -345,7 +345,7 @@ public class ByteObjectHashMap<V> implements ByteObjectMap<V> {
         int startIndex = hashIndex(key);
         int index = startIndex;
 
-        for (;;) {
+        for (; ; ) {
             if (values[index] == null) {
                 // It's available, so no chance that this value exists anywhere in the map.
                 return -1;
@@ -456,7 +456,7 @@ public class ByteObjectHashMap<V> implements ByteObjectMap<V> {
         V[] oldVals = values;
 
         keys = new byte[newCapacity];
-        @SuppressWarnings({ "unchecked", "SuspiciousArrayCast" })
+        @SuppressWarnings({"unchecked", "SuspiciousArrayCast"})
         V[] temp = (V[]) new Object[newCapacity];
         values = temp;
 
@@ -472,7 +472,7 @@ public class ByteObjectHashMap<V> implements ByteObjectMap<V> {
                 byte oldKey = oldKeys[i];
                 int index = hashIndex(oldKey);
 
-                for (;;) {
+                for (; ; ) {
                     if (values[index] == null) {
                         keys[index] = oldKey;
                         values[index] = oldVal;
@@ -552,7 +552,7 @@ public class ByteObjectHashMap<V> implements ByteObjectMap<V> {
         @Override
         public boolean retainAll(Collection<?> retainedKeys) {
             boolean changed = false;
-            for (Iterator<PrimitiveEntry<V>> iter = entries().iterator(); iter.hasNext();) {
+            for (Iterator<PrimitiveEntry<V>> iter = entries().iterator(); iter.hasNext(); ) {
                 PrimitiveEntry<V> entry = iter.next();
                 if (!retainedKeys.contains(entry.key())) {
                     changed = true;
@@ -594,12 +594,12 @@ public class ByteObjectHashMap<V> implements ByteObjectMap<V> {
      * Iterator over primitive entries. Entry key/values are overwritten by each call to {@link #next()}.
      */
     private final class PrimitiveIterator implements Iterator<PrimitiveEntry<V>>, PrimitiveEntry<V> {
-        private int prevIndex  = -1;
-        private int nextIndex  = -1;
+        private int prevIndex = -1;
+        private int nextIndex = -1;
         private int entryIndex = -1;
 
         private void scanNext() {
-            for (;;) {
+            for (; ; ) {
                 if (++nextIndex == values.length || values[nextIndex] != null) {
                     break;
                 }

@@ -61,12 +61,12 @@ public class ChangePeersRequestProcessor extends BaseCliRequestProcessor<ChangeP
                 conf.addPeer(peer);
             } else {
                 return RpcFactoryHelper //
-                    .responseFactory() //
-                    .newResponse(defaultResp(), RaftError.EINVAL, "Fail to parse peer id %s", peerIdStr);
+                        .responseFactory() //
+                        .newResponse(defaultResp(), RaftError.EINVAL, "Fail to parse peer id %s", peerIdStr);
             }
         }
         LOG.info("Receive ChangePeersRequest to {} from {}, new conf is {}", ctx.node.getNodeId(), done.getRpcCtx()
-            .getRemoteAddress(), conf);
+                .getRemoteAddress(), conf);
         ctx.node.changePeers(conf, status -> {
             if (!status.isOk()) {
                 done.run(status);

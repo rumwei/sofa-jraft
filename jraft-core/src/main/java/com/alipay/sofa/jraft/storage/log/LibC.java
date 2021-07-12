@@ -24,27 +24,27 @@ import com.sun.jna.Pointer;
 
 /**
  * Moved from rocketmq.
+ * <p>
+ * https://raw.githubusercontent.com/apache/rocketmq/master/store/src/main/java/org/apache/rocketmq/store/util/LibC.java
  *
- *  https://raw.githubusercontent.com/apache/rocketmq/master/store/src/main/java/org/apache/rocketmq/store/util/LibC.java
- * @author boyan(boyan@antfin.com)
- *
+ * @author boyan(boyan @ antfin.com)
  */
 public interface LibC extends Library {
-    LibC INSTANCE      = Native.load(Platform.isWindows() ? "msvcrt" : "c", LibC.class);
+    LibC INSTANCE = Native.load(Platform.isWindows() ? "msvcrt" : "c", LibC.class);
 
-    int  MADV_WILLNEED = 3;
-    int  MADV_DONTNEED = 4;
+    int MADV_WILLNEED = 3;
+    int MADV_DONTNEED = 4;
 
-    int  MCL_CURRENT   = 1;
-    int  MCL_FUTURE    = 2;
-    int  MCL_ONFAULT   = 4;
+    int MCL_CURRENT = 1;
+    int MCL_FUTURE = 2;
+    int MCL_ONFAULT = 4;
 
     /* sync memory asynchronously */
-    int  MS_ASYNC      = 0x0001;
+    int MS_ASYNC = 0x0001;
     /* invalidate mappings & caches */
-    int  MS_INVALIDATE = 0x0002;
+    int MS_INVALIDATE = 0x0002;
     /* synchronous memory sync */
-    int  MS_SYNC       = 0x0004;
+    int MS_SYNC = 0x0004;
 
     int mlock(Pointer var1, NativeLong var2);
 

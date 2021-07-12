@@ -33,9 +33,9 @@ public class PingRequestProcessor implements RpcProcessor<PingRequest> {
     @Override
     public void handleRequest(final RpcContext rpcCtx, final PingRequest request) {
         rpcCtx.sendResponse( //
-            RpcFactoryHelper //
-                .responseFactory() //
-                .newResponse(RpcRequests.ErrorResponse.getDefaultInstance(), 0, "OK"));
+                RpcFactoryHelper //
+                        .responseFactory() //
+                        .newResponse(RpcRequests.ErrorResponse.getDefaultInstance(), 0, "OK"));
     }
 
     @Override

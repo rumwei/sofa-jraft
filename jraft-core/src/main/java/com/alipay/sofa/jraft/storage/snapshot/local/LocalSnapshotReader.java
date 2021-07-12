@@ -38,21 +38,25 @@ import com.google.protobuf.Message;
  * Snapshot reader on local file system.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-08 11:10:34 AM
  */
 public class LocalSnapshotReader extends SnapshotReader {
 
-    private static final Logger          LOG = LoggerFactory.getLogger(LocalSnapshotReader.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LocalSnapshotReader.class);
 
-    /** Generated reader id*/
-    private long                         readerId;
-    /** remote peer addr */
-    private final Endpoint               addr;
+    /**
+     * Generated reader id
+     */
+    private long readerId;
+    /**
+     * remote peer addr
+     */
+    private final Endpoint addr;
     private final LocalSnapshotMetaTable metaTable;
-    private final String                 path;
-    private final LocalSnapshotStorage   snapshotStorage;
-    private final SnapshotThrottle       snapshotThrottle;
+    private final String path;
+    private final LocalSnapshotStorage snapshotStorage;
+    private final SnapshotThrottle snapshotThrottle;
 
     @Override
     public void close() throws IOException {

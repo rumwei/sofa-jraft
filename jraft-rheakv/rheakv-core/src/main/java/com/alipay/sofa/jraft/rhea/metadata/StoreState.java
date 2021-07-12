@@ -17,7 +17,6 @@
 package com.alipay.sofa.jraft.rhea.metadata;
 
 /**
- *
  * @author jiachun.fjc
  */
 public enum StoreState {

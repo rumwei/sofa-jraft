@@ -429,7 +429,7 @@ public abstract class AbstractRheaKVStoreTest extends RheaKVTestCluster {
         // bReverseScan(byte[], byte[], Boolean, Boolean)
         {
             List<KVEntry> entries = store.bReverseScan(makeKey("scan_test_key_" + 99), makeKey("scan_test_key_"), true,
-                true);
+                    true);
             assertEquals(entries.size(), keyList.size());
             for (int i = 0; i < keyList.size(); i++) {
                 assertArrayEquals(keyList.get(i), entries.get(keyList.size() - 1 - i).getKey());
@@ -531,7 +531,7 @@ public abstract class AbstractRheaKVStoreTest extends RheaKVTestCluster {
         // iterator(byte[], byte[], int, boolean, boolean)
         {
             RheaIterator<KVEntry> iterator = store.iterator(makeKey("a_iterator_test_key_"), makeKey("z"), 2, true,
-                false);
+                    false);
             int i = 0;
             while (iterator.hasNext()) {
                 final int index = i++;
@@ -716,7 +716,6 @@ public abstract class AbstractRheaKVStoreTest extends RheaKVTestCluster {
     }
 
     /**
-     *
      * Test method: {@link RheaKVStore#compareAndPutAll(List)}
      */
     public void compareAndPutAllTest(final RheaKVStore store) {
@@ -744,7 +743,7 @@ public abstract class AbstractRheaKVStoreTest extends RheaKVTestCluster {
         assertTrue(!ret);
 
         final Map<ByteArray, byte[]> map = store.bMultiGet(Lists.newArrayList(makeKey("k1"), makeKey("k2"),
-            makeKey("k3")));
+                makeKey("k3")));
         assertArrayEquals(makeValue("v11"), map.get(ByteArray.wrap(makeKey("k1"))));
         assertArrayEquals(makeValue("v22"), map.get(ByteArray.wrap(makeKey("k2"))));
         assertArrayEquals(makeValue("v3"), map.get(ByteArray.wrap(makeKey("k3"))));

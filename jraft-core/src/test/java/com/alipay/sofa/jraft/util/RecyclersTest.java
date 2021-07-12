@@ -27,7 +27,6 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class RecyclersTest {
@@ -127,8 +126,8 @@ public class RecyclersTest {
         }
 
         assertTrue("The threadLocalCapacity (" + recyclers.threadLocalCapacity() + ") must be <= maxCapacity ("
-                   + maxCapacity + ") as we not pool all new handles internally",
-            maxCapacity >= recyclers.threadLocalCapacity());
+                        + maxCapacity + ") as we not pool all new handles internally",
+                maxCapacity >= recyclers.threadLocalCapacity());
     }
 
     static final class RecyclableObject {

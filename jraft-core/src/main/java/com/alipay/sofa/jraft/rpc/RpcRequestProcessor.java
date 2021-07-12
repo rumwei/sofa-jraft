@@ -28,7 +28,6 @@ import com.google.protobuf.Message;
  * Abstract AsyncUserProcessor for RPC processors.
  *
  * @param <T> Message
- *
  * @author boyan (boyan@alibaba-inc.com)
  * @author jiachun.fjc
  */
@@ -36,8 +35,8 @@ public abstract class RpcRequestProcessor<T extends Message> implements RpcProce
 
     protected static final Logger LOG = LoggerFactory.getLogger(RpcRequestProcessor.class);
 
-    private final Executor        executor;
-    private final Message         defaultResp;
+    private final Executor executor;
+    private final Message defaultResp;
 
     public abstract Message processRequest(final T request, final RpcRequestClosure done);
 
@@ -57,8 +56,8 @@ public abstract class RpcRequestProcessor<T extends Message> implements RpcProce
         } catch (final Throwable t) {
             LOG.error("handleRequest {} failed", request, t);
             rpcCtx.sendResponse(RpcFactoryHelper //
-                .responseFactory() //
-                .newResponse(defaultResp(), -1, "handleRequest internal error"));
+                    .responseFactory() //
+                    .newResponse(defaultResp(), -1, "handleRequest internal error"));
         }
     }
 

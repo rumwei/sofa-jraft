@@ -19,19 +19,15 @@ package com.alipay.sofa.jraft.util;
 import java.io.Serializable;
 
 /**
- * A IP address with port.
- *
- * @author boyan (boyan@alibaba-inc.com)
- *
- * 2018-Mar-12 3:29:12 PM
+ * Endpoint 表示一个服务地址，包括 IP 和端口， raft 节点不允许启动在 0.0.0.0 所有的 IPv4 上，需要明确指定启动的 IP 创建一个地址
  */
 public class Endpoint implements Copiable<Endpoint>, Serializable {
 
     private static final long serialVersionUID = -7329681263115546100L;
 
-    private String            ip               = Utils.IP_ANY;
-    private int               port;
-    private String            str;
+    private String ip = Utils.IP_ANY;
+    private int port;
+    private String str;  //ip:port
 
     public Endpoint() {
         super();

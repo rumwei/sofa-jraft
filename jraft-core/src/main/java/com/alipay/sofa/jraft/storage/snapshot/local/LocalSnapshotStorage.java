@@ -48,22 +48,22 @@ import com.alipay.sofa.jraft.util.Utils;
  * Snapshot storage based on local file storage.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Mar-13 2:11:30 PM
  */
 public class LocalSnapshotStorage implements SnapshotStorage {
 
-    private static final Logger                      LOG       = LoggerFactory.getLogger(LocalSnapshotStorage.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LocalSnapshotStorage.class);
 
-    private static final String                      TEMP_PATH = "temp";
-    private final ConcurrentMap<Long, AtomicInteger> refMap    = new ConcurrentHashMap<>();
-    private final String                             path;
-    private Endpoint                                 addr;
-    private boolean                                  filterBeforeCopyRemote;
-    private long                                     lastSnapshotIndex;
-    private final Lock                               lock;
-    private final RaftOptions                        raftOptions;
-    private SnapshotThrottle                         snapshotThrottle;
+    private static final String TEMP_PATH = "temp";
+    private final ConcurrentMap<Long, AtomicInteger> refMap = new ConcurrentHashMap<>();
+    private final String path;
+    private Endpoint addr;
+    private boolean filterBeforeCopyRemote;
+    private long lastSnapshotIndex;
+    private final Lock lock;
+    private final RaftOptions raftOptions;
+    private SnapshotThrottle snapshotThrottle;
 
     @Override
     public void setSnapshotThrottle(SnapshotThrottle snapshotThrottle) {
@@ -308,7 +308,7 @@ public class LocalSnapshotStorage implements SnapshotStorage {
         }
         final String snapshotPath = getSnapshotPath(lsIndex);
         final SnapshotReader reader = new LocalSnapshotReader(this, this.snapshotThrottle, this.addr, this.raftOptions,
-            snapshotPath);
+                snapshotPath);
         if (!reader.init(null)) {
             LOG.error("Fail to init reader for path {}.", snapshotPath);
             unref(lsIndex);

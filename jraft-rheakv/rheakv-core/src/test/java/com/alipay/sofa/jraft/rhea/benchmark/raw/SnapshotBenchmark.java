@@ -47,7 +47,7 @@ import static com.alipay.sofa.jraft.rhea.benchmark.BenchmarkUtil.VALUE_BYTES;
  */
 public class SnapshotBenchmark extends BaseRawStoreBenchmark {
 
-    private static final String SNAPSHOT_DIR     = "kv";
+    private static final String SNAPSHOT_DIR = "kv";
     private static final String SNAPSHOT_ARCHIVE = "kv.zip";
 
     public void setup() {
@@ -84,61 +84,61 @@ public class SnapshotBenchmark extends BaseRawStoreBenchmark {
     }
 
     /**
-        -----------------------------------------------
-        db size = 10000000
-        slow save snapshot time cost: 2552
-        slow compressed file size: 41915298
-        slow compress time cost: 9173
-        slow load snapshot time cost: 5119
-        -----------------------------------------------
-        db size = 10000000
-        fast save snapshot time cost: 524
-        fast compressed file size: 41920248
-        fast compress time cost: 8807
-        fast load snapshot time cost: 3090
-        -----------------------------------------------
-        db size = 10000000
-        sst save snapshot time cost: 4296
-        sst compressed file size: 10741032
-        sst compress time cost: 2005
-        sst load snapshot time cost: 593
-        -----------------------------------------------
-        db size = 10000000
-        slow save snapshot time cost: 2248
-        slow compressed file size: 41918551
-        slow compress time cost: 8705
-        slow load snapshot time cost: 4485
-        -----------------------------------------------
-        db size = 10000000
-        fast save snapshot time cost: 508
-        fast compressed file size: 41914702
-        fast compress time cost: 8736
-        fast load snapshot time cost: 3047
-        -----------------------------------------------
-        db size = 10000000
-        sst save snapshot time cost: 4206
-        sst compressed file size: 10741032
-        sst compress time cost: 1950
-        sst load snapshot time cost: 599
-        -----------------------------------------------
-        db size = 10000000
-        slow save snapshot time cost: 2327
-        slow compressed file size: 41916640
-        slow compress time cost: 8643
-        slow load snapshot time cost: 4590
-        -----------------------------------------------
-        db size = 10000000
-        fast save snapshot time cost: 511
-        fast compressed file size: 41914533
-        fast compress time cost: 8704
-        fast load snapshot time cost: 3013
-        -----------------------------------------------
-        db size = 10000000
-        sst save snapshot time cost: 4253
-        sst compressed file size: 10741032
-        sst compress time cost: 1947
-        sst load snapshot time cost: 590
-        -----------------------------------------------
+     * -----------------------------------------------
+     * db size = 10000000
+     * slow save snapshot time cost: 2552
+     * slow compressed file size: 41915298
+     * slow compress time cost: 9173
+     * slow load snapshot time cost: 5119
+     * -----------------------------------------------
+     * db size = 10000000
+     * fast save snapshot time cost: 524
+     * fast compressed file size: 41920248
+     * fast compress time cost: 8807
+     * fast load snapshot time cost: 3090
+     * -----------------------------------------------
+     * db size = 10000000
+     * sst save snapshot time cost: 4296
+     * sst compressed file size: 10741032
+     * sst compress time cost: 2005
+     * sst load snapshot time cost: 593
+     * -----------------------------------------------
+     * db size = 10000000
+     * slow save snapshot time cost: 2248
+     * slow compressed file size: 41918551
+     * slow compress time cost: 8705
+     * slow load snapshot time cost: 4485
+     * -----------------------------------------------
+     * db size = 10000000
+     * fast save snapshot time cost: 508
+     * fast compressed file size: 41914702
+     * fast compress time cost: 8736
+     * fast load snapshot time cost: 3047
+     * -----------------------------------------------
+     * db size = 10000000
+     * sst save snapshot time cost: 4206
+     * sst compressed file size: 10741032
+     * sst compress time cost: 1950
+     * sst load snapshot time cost: 599
+     * -----------------------------------------------
+     * db size = 10000000
+     * slow save snapshot time cost: 2327
+     * slow compressed file size: 41916640
+     * slow compress time cost: 8643
+     * slow load snapshot time cost: 4590
+     * -----------------------------------------------
+     * db size = 10000000
+     * fast save snapshot time cost: 511
+     * fast compressed file size: 41914533
+     * fast compress time cost: 8704
+     * fast load snapshot time cost: 3013
+     * -----------------------------------------------
+     * db size = 10000000
+     * sst save snapshot time cost: 4253
+     * sst compressed file size: 10741032
+     * sst compress time cost: 1947
+     * sst load snapshot time cost: 590
+     * -----------------------------------------------
      */
 
     public static void main(String[] args) throws IOException {
@@ -190,13 +190,13 @@ public class SnapshotBenchmark extends BaseRawStoreBenchmark {
         final String sourceFile = Paths.get(backupDir.getAbsolutePath(), SNAPSHOT_ARCHIVE).toString();
         ZipUtil.decompress(sourceFile, backupDir.getAbsolutePath(), new CRC64());
         System.out.println(name + " decompress time cost: "
-                           + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - decompressStart));
+                + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - decompressStart));
 
         final long loadStart = System.nanoTime();
         doSnapshotLoad(backupDir.getAbsolutePath(), meta, isFastSnapshot);
 
         System.out.println(name + " load snapshot time cost: "
-                           + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - loadStart));
+                + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - loadStart));
         FileUtils.deleteDirectory(backupDir);
     }
 
@@ -226,13 +226,13 @@ public class SnapshotBenchmark extends BaseRawStoreBenchmark {
                 }
             }
             System.out.println(name + " save snapshot time cost: "
-                               + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - saveStart));
+                    + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - saveStart));
             final long compressStart = System.nanoTime();
             doCompressSnapshot(path, metaBuilder);
             System.out.println(name + " compressed file size: "
-                               + FileUtils.sizeOf(Paths.get(path, SNAPSHOT_ARCHIVE).toFile()));
+                    + FileUtils.sizeOf(Paths.get(path, SNAPSHOT_ARCHIVE).toFile()));
             System.out.println(name + " compress time cost: "
-                               + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - compressStart));
+                    + TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - compressStart));
             return metaBuilder.build();
         } catch (final Throwable t) {
             t.printStackTrace();

@@ -19,14 +19,13 @@ package com.alipay.sofa.jraft.rhea.cmd.pd;
 import com.alipay.sofa.jraft.rhea.metadata.StoreStats;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class StoreHeartbeatRequest extends BaseRequest {
 
     private static final long serialVersionUID = -601174279828704074L;
 
-    private StoreStats        stats;
+    private StoreStats stats;
 
     public StoreStats getStats() {
         return stats;

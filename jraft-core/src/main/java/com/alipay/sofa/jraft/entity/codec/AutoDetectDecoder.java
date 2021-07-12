@@ -23,8 +23,8 @@ import com.alipay.sofa.jraft.entity.codec.v2.V2Decoder;
 
 /**
  * Decoder that supports both v1 and v2 log entry codec protocol.
- * @author boyan(boyan@antfin.com)
  *
+ * @author boyan(boyan @ antfin.com)
  */
 public class AutoDetectDecoder implements LogEntryDecoder {
 

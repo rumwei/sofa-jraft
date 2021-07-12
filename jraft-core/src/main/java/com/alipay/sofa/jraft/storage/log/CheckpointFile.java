@@ -30,19 +30,19 @@ import com.google.protobuf.ZeroByteStringHelper;
 /**
  * Segments checkpoint file.
  *
- * @author boyan(boyan@antfin.com)
+ * @author boyan(boyan @ antfin.com)
  */
 public class CheckpointFile {
     /**
      * Checkpoint metadata info.
      *
-     * @author boyan(boyan@antfin.com)
+     * @author boyan(boyan @ antfin.com)
      */
     public static final class Checkpoint {
         // Segment file name
         public String segFilename;
         // Segment file current commit position.
-        public int    committedPos;
+        public int committedPos;
 
         public Checkpoint(final String segFilename, final int committedPos) {
             super();
@@ -98,8 +98,8 @@ public class CheckpointFile {
         final byte[] data = checkpoint.encode();
 
         final LocalFileMeta meta = LocalFileMeta.newBuilder() //
-            .setUserMeta(ZeroByteStringHelper.wrap(data)) //
-            .build();
+                .setUserMeta(ZeroByteStringHelper.wrap(data)) //
+                .build();
 
         return file.save(meta, true);
     }

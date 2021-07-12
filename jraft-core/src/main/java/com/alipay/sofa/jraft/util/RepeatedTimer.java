@@ -32,22 +32,22 @@ import com.alipay.sofa.jraft.util.timer.TimerTask;
  * Repeatable timer based on java.util.Timer.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Mar-30 3:45:37 PM
  */
 public abstract class RepeatedTimer implements Describer {
 
-    public static final Logger LOG  = LoggerFactory.getLogger(RepeatedTimer.class);
+    public static final Logger LOG = LoggerFactory.getLogger(RepeatedTimer.class);
 
-    private final Lock         lock = new ReentrantLock();
-    private final Timer        timer;
-    private Timeout            timeout;
-    private boolean            stopped;
-    private volatile boolean   running;
-    private volatile boolean   destroyed;
-    private volatile boolean   invoking;
-    private volatile int       timeoutMs;
-    private final String       name;
+    private final Lock lock = new ReentrantLock();
+    private final Timer timer;
+    private Timeout timeout;
+    private boolean stopped;
+    private volatile boolean running;
+    private volatile boolean destroyed;
+    private volatile boolean invoking;
+    private volatile int timeoutMs;
+    private final String name;
 
     public int getTimeoutMs() {
         return this.timeoutMs;
@@ -156,7 +156,7 @@ public abstract class RepeatedTimer implements Describer {
      * It will be started if it's stopped, and it will be restarted if it's running.
      *
      * @author Qing Wang (kingchin1218@gmail.com)
-     *
+     * <p>
      * 2020-Mar-26 20:38:37 PM
      */
     public void restart() {
@@ -283,13 +283,13 @@ public abstract class RepeatedTimer implements Describer {
             this.lock.unlock();
         }
         out.print("  ") //
-            .println(_describeString);
+                .println(_describeString);
     }
 
     @Override
     public String toString() {
         return "RepeatedTimer{" + "timeout=" + this.timeout + ", stopped=" + this.stopped + ", running=" + this.running
-               + ", destroyed=" + this.destroyed + ", invoking=" + this.invoking + ", timeoutMs=" + this.timeoutMs
-               + ", name='" + this.name + '\'' + '}';
+                + ", destroyed=" + this.destroyed + ", invoking=" + this.invoking + ", timeoutMs=" + this.timeoutMs
+                + ", name='" + this.name + '\'' + '}';
     }
 }

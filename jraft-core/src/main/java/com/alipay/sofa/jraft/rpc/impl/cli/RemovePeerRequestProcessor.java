@@ -56,7 +56,7 @@ public class RemovePeerRequestProcessor extends BaseCliRequestProcessor<RemovePe
         final PeerId removingPeer = new PeerId();
         if (removingPeer.parse(removingPeerIdStr)) {
             LOG.info("Receive RemovePeerRequest to {} from {}, removing {}", ctx.node.getNodeId(), done.getRpcCtx()
-                .getRemoteAddress(), removingPeerIdStr);
+                    .getRemoteAddress(), removingPeerIdStr);
             ctx.node.removePeer(removingPeer, status -> {
                 if (!status.isOk()) {
                     done.run(status);
@@ -73,8 +73,8 @@ public class RemovePeerRequestProcessor extends BaseCliRequestProcessor<RemovePe
             });
         } else {
             return RpcFactoryHelper //
-                .responseFactory() //
-                .newResponse(defaultResp(), RaftError.EINVAL, "Fail to parse peer id %s", removingPeerIdStr);
+                    .responseFactory() //
+                    .newResponse(defaultResp(), RaftError.EINVAL, "Fail to parse peer id %s", removingPeerIdStr);
         }
 
         return null;

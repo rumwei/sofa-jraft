@@ -73,30 +73,30 @@ import static org.mockito.Matchers.eq;
 
 @RunWith(value = MockitoJUnitRunner.class)
 public class SnapshotExecutorTest extends BaseStorageTest {
-    private SnapshotExecutorImpl   executor;
+    private SnapshotExecutorImpl executor;
     @Mock
-    private NodeImpl               node;
+    private NodeImpl node;
     @Mock
-    private FSMCaller              fSMCaller;
+    private FSMCaller fSMCaller;
     @Mock
-    private LogManager             logManager;
-    private Endpoint               addr;
+    private LogManager logManager;
+    private Endpoint addr;
     @Mock
-    private RpcContext             asyncCtx;
+    private RpcContext asyncCtx;
 
     @Mock
-    private RaftClientService      raftClientService;
-    private String                 uri;
-    private final String           hostPort = "localhost:8081";
-    private final int              readerId = 99;
-    private CopyOptions            copyOpts;
+    private RaftClientService raftClientService;
+    private String uri;
+    private final String hostPort = "localhost:8081";
+    private final int readerId = 99;
+    private CopyOptions copyOpts;
     private LocalSnapshotMetaTable table;
-    private LocalSnapshotWriter    writer;
-    private LocalSnapshotReader    reader;
-    private RaftOptions            raftOptions;
+    private LocalSnapshotWriter writer;
+    private LocalSnapshotReader reader;
+    private RaftOptions raftOptions;
     @Mock
-    private LocalSnapshotStorage   snapshotStorage;
-    private TimerManager           timerManager;
+    private LocalSnapshotStorage snapshotStorage;
+    private TimerManager timerManager;
 
     @Override
     @Before
@@ -106,7 +106,7 @@ public class SnapshotExecutorTest extends BaseStorageTest {
         this.raftOptions = new RaftOptions();
         this.writer = new LocalSnapshotWriter(this.path, this.snapshotStorage, this.raftOptions);
         this.reader = new LocalSnapshotReader(this.snapshotStorage, null, new Endpoint("localhost", 8081),
-            this.raftOptions, this.path);
+                this.raftOptions, this.path);
 
         Mockito.when(this.snapshotStorage.open()).thenReturn(this.reader);
         Mockito.when(this.snapshotStorage.create(true)).thenReturn(this.writer);
@@ -156,8 +156,8 @@ public class SnapshotExecutorTest extends BaseStorageTest {
 
         final FutureImpl<Message> future = new FutureImpl<>();
         final RpcRequests.GetFileRequest.Builder rb = RpcRequests.GetFileRequest.newBuilder().setReaderId(99)
-            .setFilename(Snapshot.JRAFT_SNAPSHOT_META_FILE).setCount(Integer.MAX_VALUE).setOffset(0)
-            .setReadPartly(true);
+                .setFilename(Snapshot.JRAFT_SNAPSHOT_META_FILE).setCount(Integer.MAX_VALUE).setOffset(0)
+                .setReadPartly(true);
 
         //mock get metadata
         ArgumentCaptor<RpcResponseClosure> argument = ArgumentCaptor.forClass(RpcResponseClosure.class);
@@ -165,8 +165,8 @@ public class SnapshotExecutorTest extends BaseStorageTest {
         final CountDownLatch retryLatch = new CountDownLatch(1);
         final CountDownLatch answerLatch = new CountDownLatch(1);
         Mockito.when(
-            this.raftClientService.getFile(eq(new Endpoint("localhost", 8080)), eq(rb.build()),
-                eq(this.copyOpts.getTimeoutMs()), argument.capture())).thenAnswer(new Answer<Future<Message>>() {
+                this.raftClientService.getFile(eq(new Endpoint("localhost", 8080)), eq(rb.build()),
+                        eq(this.copyOpts.getTimeoutMs()), argument.capture())).thenAnswer(new Answer<Future<Message>>() {
             AtomicInteger count = new AtomicInteger(0);
 
             @Override
@@ -188,7 +188,7 @@ public class SnapshotExecutorTest extends BaseStorageTest {
             @Override
             public void run() {
                 SnapshotExecutorTest.this.executor.installSnapshot(irb.build(),
-                    RpcRequests.InstallSnapshotResponse.newBuilder(), new RpcRequestClosure(installContext));
+                        RpcRequests.InstallSnapshotResponse.newBuilder(), new RpcRequestClosure(installContext));
             }
         });
 
@@ -199,28 +199,28 @@ public class SnapshotExecutorTest extends BaseStorageTest {
             public void run() {
                 answerLatch.countDown();
                 SnapshotExecutorTest.this.executor.installSnapshot(irb.build(),
-                    RpcRequests.InstallSnapshotResponse.newBuilder(), new RpcRequestClosure(retryInstallContext));
+                        RpcRequests.InstallSnapshotResponse.newBuilder(), new RpcRequestClosure(retryInstallContext));
             }
         });
 
         RpcResponseClosure<RpcRequests.GetFileResponse> closure = argument.getValue();
         final ByteBuffer metaBuf = this.table.saveToByteBufferAsRemote();
         closure.setResponse(RpcRequests.GetFileResponse.newBuilder().setReadSize(metaBuf.remaining()).setEof(true)
-            .setData(ByteString.copyFrom(metaBuf)).build());
+                .setData(ByteString.copyFrom(metaBuf)).build());
 
         //mock get file
         argument = ArgumentCaptor.forClass(RpcResponseClosure.class);
         rb.setFilename("testFile");
         rb.setCount(this.raftOptions.getMaxByteCountPerRpc());
         Mockito.when(
-            this.raftClientService.getFile(eq(new Endpoint("localhost", 8080)), eq(rb.build()),
-                eq(this.copyOpts.getTimeoutMs()), argument.capture())).thenReturn(future);
+                this.raftClientService.getFile(eq(new Endpoint("localhost", 8080)), eq(rb.build()),
+                        eq(this.copyOpts.getTimeoutMs()), argument.capture())).thenReturn(future);
 
         closure.run(Status.OK());
         Thread.sleep(500);
         closure = argument.getValue();
         closure.setResponse(RpcRequests.GetFileResponse.newBuilder().setReadSize(100).setEof(true)
-            .setData(ByteString.copyFrom(new byte[100])).build());
+                .setData(ByteString.copyFrom(new byte[100])).build());
 
         final ArgumentCaptor<LoadSnapshotClosure> loadSnapshotArg = ArgumentCaptor.forClass(LoadSnapshotClosure.class);
         Mockito.when(this.fSMCaller.onSnapshotLoad(loadSnapshotArg.capture())).thenReturn(true);
@@ -256,20 +256,20 @@ public class SnapshotExecutorTest extends BaseStorageTest {
 
         final FutureImpl<Message> future = new FutureImpl<>();
         final RpcRequests.GetFileRequest.Builder rb = RpcRequests.GetFileRequest.newBuilder().setReaderId(99)
-            .setFilename(Snapshot.JRAFT_SNAPSHOT_META_FILE).setCount(Integer.MAX_VALUE).setOffset(0)
-            .setReadPartly(true);
+                .setFilename(Snapshot.JRAFT_SNAPSHOT_META_FILE).setCount(Integer.MAX_VALUE).setOffset(0)
+                .setReadPartly(true);
 
         //mock get metadata
         ArgumentCaptor<RpcResponseClosure> argument = ArgumentCaptor.forClass(RpcResponseClosure.class);
         Mockito.when(
-            this.raftClientService.getFile(eq(new Endpoint("localhost", 8080)), eq(rb.build()),
-                eq(this.copyOpts.getTimeoutMs()), argument.capture())).thenReturn(future);
+                this.raftClientService.getFile(eq(new Endpoint("localhost", 8080)), eq(rb.build()),
+                        eq(this.copyOpts.getTimeoutMs()), argument.capture())).thenReturn(future);
         Utils.runInThread(new Runnable() {
 
             @Override
             public void run() {
                 SnapshotExecutorTest.this.executor.installSnapshot(irb.build(), RpcRequests.InstallSnapshotResponse
-                    .newBuilder(), new RpcRequestClosure(SnapshotExecutorTest.this.asyncCtx));
+                        .newBuilder(), new RpcRequestClosure(SnapshotExecutorTest.this.asyncCtx));
 
             }
         });
@@ -278,22 +278,22 @@ public class SnapshotExecutorTest extends BaseStorageTest {
         RpcResponseClosure<RpcRequests.GetFileResponse> closure = argument.getValue();
         final ByteBuffer metaBuf = this.table.saveToByteBufferAsRemote();
         closure.setResponse(RpcRequests.GetFileResponse.newBuilder().setReadSize(metaBuf.remaining()).setEof(true)
-            .setData(ByteString.copyFrom(metaBuf)).build());
+                .setData(ByteString.copyFrom(metaBuf)).build());
 
         //mock get file
         argument = ArgumentCaptor.forClass(RpcResponseClosure.class);
         rb.setFilename("testFile");
         rb.setCount(this.raftOptions.getMaxByteCountPerRpc());
         Mockito.when(
-            this.raftClientService.getFile(eq(new Endpoint("localhost", 8080)), eq(rb.build()),
-                eq(this.copyOpts.getTimeoutMs()), argument.capture())).thenReturn(future);
+                this.raftClientService.getFile(eq(new Endpoint("localhost", 8080)), eq(rb.build()),
+                        eq(this.copyOpts.getTimeoutMs()), argument.capture())).thenReturn(future);
 
         closure.run(Status.OK());
 
         Thread.sleep(500);
         closure = argument.getValue();
         closure.setResponse(RpcRequests.GetFileResponse.newBuilder().setReadSize(100).setEof(true)
-            .setData(ByteString.copyFrom(new byte[100])).build());
+                .setData(ByteString.copyFrom(new byte[100])).build());
 
         final ArgumentCaptor<LoadSnapshotClosure> loadSnapshotArg = ArgumentCaptor.forClass(LoadSnapshotClosure.class);
         Mockito.when(this.fSMCaller.onSnapshotLoad(loadSnapshotArg.capture())).thenReturn(true);
@@ -324,20 +324,20 @@ public class SnapshotExecutorTest extends BaseStorageTest {
 
         final FutureImpl<Message> future = new FutureImpl<>();
         final RpcRequests.GetFileRequest.Builder rb = RpcRequests.GetFileRequest.newBuilder().setReaderId(99)
-            .setFilename(Snapshot.JRAFT_SNAPSHOT_META_FILE).setCount(Integer.MAX_VALUE).setOffset(0)
-            .setReadPartly(true);
+                .setFilename(Snapshot.JRAFT_SNAPSHOT_META_FILE).setCount(Integer.MAX_VALUE).setOffset(0)
+                .setReadPartly(true);
 
         //mock get metadata
         final ArgumentCaptor<RpcResponseClosure> argument = ArgumentCaptor.forClass(RpcResponseClosure.class);
         Mockito.when(
-            this.raftClientService.getFile(eq(new Endpoint("localhost", 8080)), eq(rb.build()),
-                eq(this.copyOpts.getTimeoutMs()), argument.capture())).thenReturn(future);
+                this.raftClientService.getFile(eq(new Endpoint("localhost", 8080)), eq(rb.build()),
+                        eq(this.copyOpts.getTimeoutMs()), argument.capture())).thenReturn(future);
         Utils.runInThread(new Runnable() {
 
             @Override
             public void run() {
                 SnapshotExecutorTest.this.executor.installSnapshot(irb.build(), RpcRequests.InstallSnapshotResponse
-                    .newBuilder(), new RpcRequestClosure(SnapshotExecutorTest.this.asyncCtx));
+                        .newBuilder(), new RpcRequestClosure(SnapshotExecutorTest.this.asyncCtx));
 
             }
         });
@@ -352,7 +352,7 @@ public class SnapshotExecutorTest extends BaseStorageTest {
     public void testDoSnapshot() throws Exception {
         Mockito.when(this.fSMCaller.getLastAppliedIndex()).thenReturn(1L);
         final ArgumentCaptor<SaveSnapshotClosure> saveSnapshotClosureArg = ArgumentCaptor
-            .forClass(SaveSnapshotClosure.class);
+                .forClass(SaveSnapshotClosure.class);
         Mockito.when(this.fSMCaller.onSnapshotSave(saveSnapshotClosureArg.capture())).thenReturn(true);
         final SynchronizedClosure done = new SynchronizedClosure();
         this.executor.doSnapshot(done);
@@ -389,7 +389,7 @@ public class SnapshotExecutorTest extends BaseStorageTest {
         Mockito.when(this.fSMCaller.getLastAppliedIndex()).thenReturn(6L);
 
         final ArgumentCaptor<SaveSnapshotClosure> saveSnapshotClosureArg = ArgumentCaptor
-            .forClass(SaveSnapshotClosure.class);
+                .forClass(SaveSnapshotClosure.class);
         Mockito.when(this.fSMCaller.onSnapshotSave(saveSnapshotClosureArg.capture())).thenReturn(true);
         final SynchronizedClosure done = new SynchronizedClosure();
         this.executor.doSnapshot(done);

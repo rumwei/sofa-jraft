@@ -22,27 +22,26 @@ import com.alipay.sofa.jraft.util.Copiable;
 import com.alipay.sofa.jraft.util.Endpoint;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class RegionEngineOptions implements Copiable<RegionEngineOptions> {
 
-    private Long        regionId;
-    private String      startKey;
-    private byte[]      startKeyBytes;
-    private String      endKey;
-    private byte[]      endKeyBytes;
+    private Long regionId;
+    private String startKey;
+    private byte[] startKeyBytes;
+    private String endKey;
+    private byte[] endKeyBytes;
     private NodeOptions nodeOptions;
     // Should extends from StoreEngineOptions
-    private String      raftGroupId;
+    private String raftGroupId;
     // Should extends from StoreEngineOptions
-    private String      raftDataPath;
+    private String raftDataPath;
     // Should extends from StoreEngineOptions
-    private Endpoint    serverAddress;
+    private Endpoint serverAddress;
     // Should extends from StoreEngineOptions
-    private String      initialServerList;
+    private String initialServerList;
     // Can extends from StoreEngineOptions
-    private long        metricsReportPeriod;
+    private long metricsReportPeriod;
 
     public Long getRegionId() {
         return regionId;
@@ -154,10 +153,10 @@ public class RegionEngineOptions implements Copiable<RegionEngineOptions> {
     @Override
     public String toString() {
         return "RegionEngineOptions{" + "regionId=" + regionId + ", startKey='" + startKey + '\'' + ", startKeyBytes="
-               + BytesUtil.toHex(startKeyBytes) + ", endKey='" + endKey + '\'' + ", endKeyBytes="
-               + BytesUtil.toHex(endKeyBytes) + ", raftGroupId='" + raftGroupId + '\'' + ", raftDataPath='"
-               + raftDataPath + '\'' + ", nodeOptions=" + nodeOptions + ", serverAddress=" + serverAddress
-               + ", initialServerList='" + initialServerList + '\'' + ", metricsReportPeriod=" + metricsReportPeriod
-               + '}';
+                + BytesUtil.toHex(startKeyBytes) + ", endKey='" + endKey + '\'' + ", endKeyBytes="
+                + BytesUtil.toHex(endKeyBytes) + ", raftGroupId='" + raftGroupId + '\'' + ", raftDataPath='"
+                + raftDataPath + '\'' + ", nodeOptions=" + nodeOptions + ", serverAddress=" + serverAddress
+                + ", initialServerList='" + initialServerList + '\'' + ", metricsReportPeriod=" + metricsReportPeriod
+                + '}';
     }
 }

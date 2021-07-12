@@ -21,7 +21,6 @@ import java.io.Serializable;
 import com.alipay.sofa.jraft.util.Copiable;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class TimeInterval implements Copiable<TimeInterval>, Serializable {
@@ -29,9 +28,9 @@ public class TimeInterval implements Copiable<TimeInterval>, Serializable {
     private static final long serialVersionUID = 2454987958697466235L;
 
     // The unix timestamp in milliseconds of the start of this period.
-    private long              startTimestamp;
+    private long startTimestamp;
     // The unix timestamp in seconds of the end of this period.
-    private long              endTimestamp;
+    private long endTimestamp;
 
     public TimeInterval() {
     }

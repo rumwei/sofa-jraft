@@ -64,21 +64,20 @@ import com.alipay.sofa.jraft.util.Requires;
 import com.alipay.sofa.jraft.util.ThreadPoolUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class DefaultPlacementDriverService implements PlacementDriverService, LeaderStateListener {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultPlacementDriverService.class);
 
-    private final RheaKVStore   rheaKVStore;
+    private final RheaKVStore rheaKVStore;
 
-    private MetadataStore       metadataStore;
-    private HandlerInvoker      pipelineInvoker;
-    private Pipeline            pipeline;
-    private volatile boolean    isLeader;
+    private MetadataStore metadataStore;
+    private HandlerInvoker pipelineInvoker;
+    private Pipeline pipeline;
+    private volatile boolean isLeader;
 
-    private boolean             started;
+    private boolean started;
 
     public DefaultPlacementDriverService(RheaKVStore rheaKVStore) {
         this.rheaKVStore = rheaKVStore;
@@ -308,7 +307,7 @@ public class DefaultPlacementDriverService implements PlacementDriverService, Le
 
     protected void initPipeline(final Pipeline pipeline) {
         final List<Handler> sortedHandlers = JRaftServiceLoader.load(Handler.class) //
-            .sort();
+                .sort();
 
         // default handlers and order:
         //
@@ -346,14 +345,14 @@ public class DefaultPlacementDriverService implements PlacementDriverService, Le
 
         final String name = "rheakv-pipeline-executor";
         return ThreadPoolUtil.newBuilder() //
-            .poolName(name) //
-            .enableMetric(false) //
-            .coreThreads(corePoolSize) //
-            .maximumThreads(maximumPoolSize) //
-            .keepAliveSeconds(120L) //
-            .workQueue(new ArrayBlockingQueue<>(1024)) //
-            .threadFactory(new NamedThreadFactory(name, true)) //
-            .rejectedHandler(new CallerRunsPolicyWithReport(name)) //
-            .build();
+                .poolName(name) //
+                .enableMetric(false) //
+                .coreThreads(corePoolSize) //
+                .maximumThreads(maximumPoolSize) //
+                .keepAliveSeconds(120L) //
+                .workQueue(new ArrayBlockingQueue<>(1024)) //
+                .threadFactory(new NamedThreadFactory(name, true)) //
+                .rejectedHandler(new CallerRunsPolicyWithReport(name)) //
+                .build();
     }
 }

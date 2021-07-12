@@ -32,7 +32,7 @@ public class TransferLeadershipRequestProcessorTest extends AbstractCliRequestPr
     @Override
     public TransferLeaderRequest createRequest(String groupId, PeerId peerId) {
         return TransferLeaderRequest.newBuilder().setGroupId(groupId).setLeaderId(peerId.toString())
-            .setPeerId("localhost:8082").build();
+                .setPeerId("localhost:8082").build();
 
     }
 

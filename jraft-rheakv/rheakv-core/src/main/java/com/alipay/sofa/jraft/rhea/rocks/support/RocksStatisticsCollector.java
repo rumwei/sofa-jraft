@@ -44,14 +44,14 @@ import com.alipay.sofa.jraft.rhea.util.concurrent.NamedThreadFactory;
 public class RocksStatisticsCollector {
 
     private final CopyOnWriteArrayList<StatsCollectorInput> statsCollectorInputList = new CopyOnWriteArrayList<>();
-    private final long                                      statsCollectionIntervalInMillis;
-    private final ExecutorService                           executorService;
-    private volatile boolean                                isRunning               = true;
+    private final long statsCollectionIntervalInMillis;
+    private final ExecutorService executorService;
+    private volatile boolean isRunning = true;
 
     public RocksStatisticsCollector(final long statsCollectionIntervalInMillis) {
         this.statsCollectionIntervalInMillis = statsCollectionIntervalInMillis;
         this.executorService = Executors.newSingleThreadExecutor(new NamedThreadFactory("rocks-statistics-collector",
-            true));
+                true));
     }
 
     public void start() {

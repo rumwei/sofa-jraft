@@ -29,12 +29,12 @@ import com.alipay.sofa.jraft.util.internal.ThrowUtil;
  */
 public class ProtostuffSerializer implements Serializer {
 
-    public static final ProtostuffSerializer                          INSTANCE   = new ProtostuffSerializer();
+    public static final ProtostuffSerializer INSTANCE = new ProtostuffSerializer();
 
-    private static final ConcurrentMap<String, Class<?>>              classCache = Maps.newConcurrentMap();
+    private static final ConcurrentMap<String, Class<?>> classCache = Maps.newConcurrentMap();
 
-    private final com.alipay.sofa.jraft.rhea.serialization.Serializer delegate   = Serializers
-                                                                                     .getSerializer(Serializers.PROTO_STUFF);
+    private final com.alipay.sofa.jraft.rhea.serialization.Serializer delegate = Serializers
+            .getSerializer(Serializers.PROTO_STUFF);
 
     @Override
     public byte[] serialize(final Object obj) throws CodecException {

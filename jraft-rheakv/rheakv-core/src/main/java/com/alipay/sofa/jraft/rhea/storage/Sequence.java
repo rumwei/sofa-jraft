@@ -28,8 +28,8 @@ public class Sequence implements Serializable {
 
     private static final long serialVersionUID = 25761738530535127L;
 
-    private final long        startValue;                           // inclusive
-    private final long        endValue;                             // exclusive
+    private final long startValue;                           // inclusive
+    private final long endValue;                             // exclusive
 
     public Sequence(long startValue, long endValue) {
         this.startValue = startValue;

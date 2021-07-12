@@ -23,20 +23,19 @@ import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
 import com.alipay.sofa.jraft.rhea.util.Maps;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class RoundRobinLoadBalancer implements LoadBalancer {
 
-    private static final ConcurrentMap<Long, RoundRobinLoadBalancer>       container    = Maps.newConcurrentMapLong();
+    private static final ConcurrentMap<Long, RoundRobinLoadBalancer> container = Maps.newConcurrentMapLong();
 
     private static final AtomicIntegerFieldUpdater<RoundRobinLoadBalancer> indexUpdater = AtomicIntegerFieldUpdater
-                                                                                            .newUpdater(
-                                                                                                RoundRobinLoadBalancer.class,
-                                                                                                "index");
+            .newUpdater(
+                    RoundRobinLoadBalancer.class,
+                    "index");
 
     @SuppressWarnings("unused")
-    private volatile int                                                   index        = 0;
+    private volatile int index = 0;
 
     public static RoundRobinLoadBalancer getInstance(final long regionId) {
         RoundRobinLoadBalancer instance = container.get(regionId);

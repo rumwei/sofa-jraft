@@ -49,19 +49,18 @@ import com.alipay.sofa.jraft.util.BytesUtil;
 import com.alipay.sofa.jraft.util.Endpoint;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class DefaultMetadataStore implements MetadataStore {
 
-    private static final Logger                       LOG                  = LoggerFactory
-                                                                               .getLogger(DefaultMetadataStore.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(DefaultMetadataStore.class);
 
-    private final ConcurrentMap<String, LongSequence> storeSequenceMap     = Maps.newConcurrentMap();
-    private final ConcurrentMap<String, LongSequence> regionSequenceMap    = Maps.newConcurrentMap();
-    private final ConcurrentMap<Long, Set<Long>>      clusterStoreIdsCache = Maps.newConcurrentMapLong();
-    private final Serializer                          serializer           = Serializers.getDefault();
-    private final RheaKVStore                         rheaKVStore;
+    private final ConcurrentMap<String, LongSequence> storeSequenceMap = Maps.newConcurrentMap();
+    private final ConcurrentMap<String, LongSequence> regionSequenceMap = Maps.newConcurrentMap();
+    private final ConcurrentMap<Long, Set<Long>> clusterStoreIdsCache = Maps.newConcurrentMapLong();
+    private final Serializer serializer = Serializers.getDefault();
+    private final RheaKVStore rheaKVStore;
 
     public DefaultMetadataStore(RheaKVStore rheaKVStore) {
         this.rheaKVStore = rheaKVStore;

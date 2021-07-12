@@ -49,7 +49,7 @@ public final class Strings {
 
     /**
      * Checks if a string is whitespace, empty ("") or null.
-     *
+     * <p>
      * Strings.isBlank(null)      = true
      * Strings.isBlank("")        = true
      * Strings.isBlank(" ")       = true
@@ -70,7 +70,7 @@ public final class Strings {
 
     /**
      * Checks if a string is not empty (""), not null and not whitespace only.
-     *
+     * <p>
      * Strings.isNotBlank(null)      = false
      * Strings.isNotBlank("")        = false
      * Strings.isNotBlank(" ")       = false
@@ -83,9 +83,9 @@ public final class Strings {
 
     /**
      * Splits the provided text into an array, separator specified.
-     *
+     * <p>
      * A null input String returns null.
-     *
+     * <p>
      * Strings.split(null, *)         = null
      * Strings.split("", *)           = []
      * Strings.split("a.b.c", '.')    = ["a", "b", "c"]
@@ -101,9 +101,9 @@ public final class Strings {
      * Splits the provided text into an array, separator specified,
      * if {@code} true, preserving all tokens, including empty tokens created
      * by adjacent separators.
-     *
+     * <p>
      * A null input String returns null.
-     *
+     * <p>
      * Strings.split(null, *, true)         = null
      * Strings.split("", *, true)           = []
      * Strings.split("a.b.c", '.', true)    = ["a", "b", "c"]

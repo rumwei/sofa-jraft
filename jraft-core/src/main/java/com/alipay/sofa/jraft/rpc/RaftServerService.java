@@ -28,7 +28,7 @@ import com.google.protobuf.Message;
  * Raft RPC service in server.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-03 4:25:09 PM
  */
 public interface RaftServerService {
@@ -36,7 +36,7 @@ public interface RaftServerService {
     /**
      * Handle pre-vote request.
      *
-     * @param request   data of the pre vote
+     * @param request data of the pre vote
      * @return the response message
      */
     Message handlePreVoteRequest(RequestVoteRequest request);
@@ -44,7 +44,7 @@ public interface RaftServerService {
     /**
      * Handle request-vote request.
      *
-     * @param request   data of the vote
+     * @param request data of the vote
      * @return the response message
      */
     Message handleRequestVoteRequest(RequestVoteRequest request);
@@ -53,8 +53,8 @@ public interface RaftServerService {
      * Handle append-entries request, return response message or
      * called done.run() with response.
      *
-     * @param request   data of the entries to append
-     * @param done      callback
+     * @param request data of the entries to append
+     * @param done    callback
      * @return the response message
      */
     Message handleAppendEntriesRequest(AppendEntriesRequest request, RpcRequestClosure done);
@@ -63,8 +63,8 @@ public interface RaftServerService {
      * Handle install-snapshot request, return response message or
      * called done.run() with response.
      *
-     * @param request   data of the install snapshot request
-     * @param done      callback
+     * @param request data of the install snapshot request
+     * @param done    callback
      * @return the response message
      */
     Message handleInstallSnapshot(InstallSnapshotRequest request, RpcRequestClosure done);
@@ -73,8 +73,8 @@ public interface RaftServerService {
      * Handle time-out-now request, return response message or
      * called done.run() with response.
      *
-     * @param request   data of the timeout now request
-     * @param done      callback
+     * @param request data of the timeout now request
+     * @param done    callback
      * @return the response message
      */
     Message handleTimeoutNowRequest(TimeoutNowRequest request, RpcRequestClosure done);
@@ -82,8 +82,8 @@ public interface RaftServerService {
     /**
      * Handle read-index request, call the RPC closure with response.
      *
-     * @param request   data of the readIndex read
-     * @param done      callback
+     * @param request data of the readIndex read
+     * @param done    callback
      */
     void handleReadIndexRequest(ReadIndexRequest request, RpcResponseClosure<ReadIndexResponse> done);
 }

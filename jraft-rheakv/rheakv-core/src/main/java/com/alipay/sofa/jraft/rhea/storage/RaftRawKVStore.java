@@ -44,9 +44,9 @@ public class RaftRawKVStore implements RawKVStore {
 
     private static final Logger LOG = LoggerFactory.getLogger(RaftRawKVStore.class);
 
-    private final Node          node;
-    private final RawKVStore    kvStore;
-    private final Executor      readIndexExecutor;
+    private final Node node;
+    private final RawKVStore kvStore;
+    private final Executor readIndexExecutor;
 
     public RaftRawKVStore(Node node, RawKVStore kvStore, Executor readIndexExecutor) {
         this.node = node;

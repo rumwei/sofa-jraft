@@ -25,11 +25,11 @@ public class TestJRaftServiceFactory extends DefaultJRaftServiceFactory {
     @Override
     public LogStorage createLogStorage(final String uri, final RaftOptions raftOptions) {
         return RocksDBSegmentLogStorage.builder(uri, raftOptions) //
-            .setPreAllocateSegmentCount(1) //
-            .setKeepInMemorySegmentCount(2) //
-            .setMaxSegmentFileSize(512 * 1024) //
-            .setValueSizeThreshold(0) //
-            .build();
+                .setPreAllocateSegmentCount(1) //
+                .setKeepInMemorySegmentCount(2) //
+                .setMaxSegmentFileSize(512 * 1024) //
+                .setValueSizeThreshold(0) //
+                .build();
     }
 
 }

@@ -27,7 +27,7 @@ import com.google.protobuf.Message;
  * RPC client service
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-09 3:21:56 PM
  */
 public interface ClientService extends Lifecycle<RpcOptions> {
@@ -42,6 +42,7 @@ public interface ClientService extends Lifecycle<RpcOptions> {
 
     /**
      * Check connection for given address and async to create a new one if there is no connection.
+     *
      * @param endpoint       target address
      * @param createIfAbsent create a new one if there is no connection
      * @return true if there is a connection and the connection is active and writable.

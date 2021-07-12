@@ -18,8 +18,9 @@ package com.alipay.sofa.jraft.error;
 
 /**
  * Log not found exception, the log may be deleted.
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Apr-23 3:07:56 PM
  */
 public class LogNotFoundException extends IllegalStateException {

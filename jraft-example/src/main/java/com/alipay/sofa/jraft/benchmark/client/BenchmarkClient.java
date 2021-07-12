@@ -51,12 +51,12 @@ import com.codahale.metrics.Timer;
  */
 public class BenchmarkClient {
 
-    private static final Logger LOG      = LoggerFactory.getLogger(BenchmarkClient.class);
+    private static final Logger LOG = LoggerFactory.getLogger(BenchmarkClient.class);
 
-    private static final byte[] BYTES    = new byte[] { 0, 1 };
-    private static final Timer  putTimer = KVMetrics.timer("put_benchmark_timer");
-    private static final Timer  getTimer = KVMetrics.timer("get_benchmark_timer");
-    private static final Timer  timer    = KVMetrics.timer("benchmark_timer");
+    private static final byte[] BYTES = new byte[]{0, 1};
+    private static final Timer putTimer = KVMetrics.timer("put_benchmark_timer");
+    private static final Timer getTimer = KVMetrics.timer("get_benchmark_timer");
+    private static final Timer timer = KVMetrics.timer("benchmark_timer");
 
     public static void main(final String[] args) {
         if (args.length < 7) {
@@ -79,7 +79,7 @@ public class BenchmarkClient {
         }
 
         final List<RegionRouteTableOptions> regionRouteTableOptionsList = opts.getPlacementDriverOptions()
-            .getRegionRouteTableOptionsList();
+                .getRegionRouteTableOptionsList();
 
         rebalance(rheaKVStore, initialServerList, regionRouteTableOptionsList);
 
@@ -87,8 +87,8 @@ public class BenchmarkClient {
         LOG.info(BytesUtil.readUtf8(rheaKVStore.bGet("benchmark")));
 
         ConsoleReporter.forRegistry(KVMetrics.metricRegistry()) //
-            .build() //
-            .start(30, TimeUnit.SECONDS);
+                .build() //
+                .start(30, TimeUnit.SECONDS);
 
         LOG.info("Start benchmark...");
         startBenchmark(rheaKVStore, threads, writeRatio, readRatio, valueSize, regionRouteTableOptionsList);
@@ -114,7 +114,7 @@ public class BenchmarkClient {
         int randomRegionIndex = 0;
         final byte[] valeBytes = new byte[valueSize];
         random.nextBytes(valeBytes);
-        for (;;) {
+        for (; ; ) {
             try {
                 slidingWindow.acquire();
             } catch (final Exception e) {
@@ -173,7 +173,7 @@ public class BenchmarkClient {
             regions.add(r.getRegionId());
         }
         final Map<PeerId, Integer> peerMap = Maps.newHashMap();
-        for (;;) {
+        for (; ; ) {
             final Long regionId = regions.poll();
             if (regionId == null) {
                 break;

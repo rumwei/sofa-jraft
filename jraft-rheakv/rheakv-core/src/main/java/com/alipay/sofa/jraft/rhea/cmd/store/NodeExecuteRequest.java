@@ -19,14 +19,13 @@ package com.alipay.sofa.jraft.rhea.cmd.store;
 import com.alipay.sofa.jraft.rhea.storage.NodeExecutor;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class NodeExecuteRequest extends BaseRequest {
 
     private static final long serialVersionUID = -9087272065211874819L;
 
-    private NodeExecutor      nodeExecutor;
+    private NodeExecutor nodeExecutor;
 
     public NodeExecutor getNodeExecutor() {
         return nodeExecutor;

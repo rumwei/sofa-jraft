@@ -201,7 +201,7 @@ public interface RheaKVStore extends Lifecycle<RheaKVStoreOptions> {
      * Query all data in the key of range [startKey, endKey).
      * <p>
      * Provide consistent reading if {@code readOnlySafe} is true.
-     *
+     * <p>
      * Scanning across multi regions maybe slower and devastating.
      *
      * @param startKey     first key to scan within database (included),
@@ -279,9 +279,9 @@ public interface RheaKVStore extends Lifecycle<RheaKVStoreOptions> {
      * Reverse query all data in the key of range [startKey, endKey).
      * <p>
      * Provide consistent reading if {@code readOnlySafe} is true.
-     *
+     * <p>
      * Reverse scanning is usually much worse than forward scanning.
-     *
+     * <p>
      * Reverse scanning across multi regions maybe slower and devastating.
      *
      * @param startKey     first key to reverse scan within database (included),
@@ -359,7 +359,7 @@ public interface RheaKVStore extends Lifecycle<RheaKVStoreOptions> {
 
     /**
      * Returns a remote iterator over the contents of the database.
-     *
+     * <p>
      * Functionally similar to {@link #scan(byte[], byte[], boolean)},
      * but iterator only returns a small amount of data at a time, avoiding
      * a large amount of data returning to the client at one time causing
@@ -386,7 +386,7 @@ public interface RheaKVStore extends Lifecycle<RheaKVStoreOptions> {
 
     /**
      * Get a globally unique auto-increment sequence.
-     *
+     * <p>
      * Be careful do not to try to get or update the value of {@code seqKey}
      * by other methods, you won't get it.
      *
@@ -413,13 +413,12 @@ public interface RheaKVStore extends Lifecycle<RheaKVStoreOptions> {
 
     /**
      * Gets the latest sequence start value, this is a read-only operation.
-     *
+     * <p>
      * Equivalent to {@code getSequence(seqKey, 0)}.
-     *
-     * @see #getSequence(byte[], int)
      *
      * @param seqKey the key of sequence
      * @return the latest sequence value
+     * @see #getSequence(byte[], int)
      */
     CompletableFuture<Long> getLatestSequence(final byte[] seqKey);
 
@@ -488,6 +487,7 @@ public interface RheaKVStore extends Lifecycle<RheaKVStoreOptions> {
      * Set the database entry for "key" to "value", and return the
      * previous value associated with "key", or null if there was no
      * mapping for "key".
+     *
      * @param key   the specified key to be inserted.
      * @param value the value associated with the specified key.
      * @return the previous value associated with "key", or null if
@@ -695,7 +695,7 @@ public interface RheaKVStore extends Lifecycle<RheaKVStoreOptions> {
      *          // perform alternative actions
      *      }
      * </pre>
-     *
+     * <p>
      * The algorithm relies on the assumption that while there is no
      * synchronized clock across the processes, still the local time in
      * every process flows approximately at the same rate, with an error

@@ -40,19 +40,19 @@ import static java.lang.invoke.MethodType.methodType;
  * Protobuf message factory.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Mar-26 4:44:20 PM
  */
 public class ProtobufMsgFactory {
 
-    private static Map<String/* class name in proto file */, MethodHandle> PARSE_METHODS_4PROTO        = new HashMap<>();
-    private static Map<String/* class name in java file */, MethodHandle>  PARSE_METHODS_4J            = new HashMap<>();
-    private static Map<String/* class name in java file */, MethodHandle>  DEFAULT_INSTANCE_METHODS_4J = new HashMap<>();
+    private static Map<String/* class name in proto file */, MethodHandle> PARSE_METHODS_4PROTO = new HashMap<>();
+    private static Map<String/* class name in java file */, MethodHandle> PARSE_METHODS_4J = new HashMap<>();
+    private static Map<String/* class name in java file */, MethodHandle> DEFAULT_INSTANCE_METHODS_4J = new HashMap<>();
 
     static {
         try {
             final FileDescriptorSet descriptorSet = FileDescriptorSet.parseFrom(ProtoBufFile.class
-                .getResourceAsStream("/raft.desc"));
+                    .getResourceAsStream("/raft.desc"));
             final List<FileDescriptor> resolveFDs = new ArrayList<>();
             final RaftRpcFactory rpcFactory = RpcFactoryHelper.rpcFactory();
             for (final FileDescriptorProto fdp : descriptorSet.getFileList()) {
@@ -65,12 +65,12 @@ public class ProtobufMsgFactory {
                 for (final Descriptor descriptor : fd.getMessageTypes()) {
 
                     final String className = fdp.getOptions().getJavaPackage() + "."
-                                             + fdp.getOptions().getJavaOuterClassname() + "$" + descriptor.getName();
+                            + fdp.getOptions().getJavaOuterClassname() + "$" + descriptor.getName();
                     final Class<?> clazz = Class.forName(className);
                     final MethodHandle parseFromHandler = MethodHandles.lookup().findStatic(clazz, "parseFrom",
-                        methodType(clazz, byte[].class));
+                            methodType(clazz, byte[].class));
                     final MethodHandle getInstanceHandler = MethodHandles.lookup().findStatic(clazz,
-                        "getDefaultInstance", methodType(clazz));
+                            "getDefaultInstance", methodType(clazz));
                     PARSE_METHODS_4PROTO.put(descriptor.getFullName(), parseFromHandler);
                     PARSE_METHODS_4J.put(className, parseFromHandler);
                     DEFAULT_INSTANCE_METHODS_4J.put(className, getInstanceHandler);

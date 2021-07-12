@@ -24,8 +24,8 @@ public final class ApiExceptionHelper {
     // require refresh region route table
     public static boolean isInvalidEpoch(final Throwable cause) {
         return cause instanceof InvalidRegionMembershipException //
-               || cause instanceof InvalidRegionVersionException //
-               || cause instanceof InvalidRegionEpochException;
+                || cause instanceof InvalidRegionVersionException //
+                || cause instanceof InvalidRegionEpochException;
     }
 
     private ApiExceptionHelper() {

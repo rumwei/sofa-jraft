@@ -31,13 +31,13 @@ import com.lmax.disruptor.WorkHandler;
  * @author jiachun.fjc
  */
 public class TaskHandler implements EventHandler<MessageEvent<Runnable>>, WorkHandler<MessageEvent<Runnable>>,
-                        TimeoutHandler, LifecycleAware {
+        TimeoutHandler, LifecycleAware {
 
     private static final Logger LOG = LoggerFactory.getLogger(TaskHandler.class);
 
     @Override
     public void onEvent(final MessageEvent<Runnable> event, final long sequence, final boolean endOfBatch)
-                                                                                                          throws Exception {
+            throws Exception {
         event.getMessage().run();
         event.reset();
     }

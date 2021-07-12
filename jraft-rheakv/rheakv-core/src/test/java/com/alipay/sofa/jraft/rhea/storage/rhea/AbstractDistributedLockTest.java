@@ -42,7 +42,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- *
  * @author jiachun.fjc
  */
 public abstract class AbstractDistributedLockTest extends RheaKVTestCluster {
@@ -50,7 +49,7 @@ public abstract class AbstractDistributedLockTest extends RheaKVTestCluster {
     private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(4);
 
     @Rule
-    public TestName                      testName = new TestName();
+    public TestName testName = new TestName();
 
     public abstract StorageType getStorageType();
 
@@ -152,7 +151,7 @@ public abstract class AbstractDistributedLockTest extends RheaKVTestCluster {
         assertTrue(f1.get() || f2.get() || f3.get() || f4.get());
         assertTrue(!(f1.get() && f2.get() && f3.get() && f4.get()));
         int count = 0;
-        for (Future<Boolean> f : new Future[] { f1, f2, f3, f4}) {
+        for (Future<Boolean> f : new Future[]{f1, f2, f3, f4}) {
             if (f.get()) {
                 count++;
             }

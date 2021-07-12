@@ -20,12 +20,11 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 
 /**
- * 
  * @author jiachun.fjc
  */
 public class BytesCarrier extends ByteOutput {
 
-    private byte[]  value;
+    private byte[] value;
     private boolean valid;
 
     public byte[] getValue() {

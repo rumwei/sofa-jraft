@@ -19,7 +19,6 @@ package com.alipay.sofa.jraft.util.internal;
 import java.lang.reflect.Field;
 
 /**
- *
  * @author jiachun.fjc
  */
 final class ReflectionIntegerFieldUpdater<U> implements IntegerFieldUpdater<U> {

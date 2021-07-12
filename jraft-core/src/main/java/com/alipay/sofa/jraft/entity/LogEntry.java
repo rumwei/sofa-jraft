@@ -30,31 +30,49 @@ import java.util.List;
  * A replica log entry.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Mar-12 3:13:02 PM
  */
 public class LogEntry implements Checksum {
 
     public static final ByteBuffer EMPTY_DATA = ByteBuffer.wrap(new byte[0]);
 
-    /** entry type */
-    private EnumOutter.EntryType   type;
-    /** log id with index/term */
-    private LogId                  id         = new LogId(0, 0);
-    /** log entry current peers */
-    private List<PeerId>           peers;
-    /** log entry old peers */
-    private List<PeerId>           oldPeers;
-    /** log entry current learners */
-    private List<PeerId>           learners;
-    /** log entry old learners */
-    private List<PeerId>           oldLearners;
-    /** entry data */
-    private ByteBuffer             data       = EMPTY_DATA;
-    /** checksum for log entry*/
-    private long                   checksum;
-    /** true when the log has checksum **/
-    private boolean                hasChecksum;
+    /**
+     * entry type
+     */
+    private EnumOutter.EntryType type;
+    /**
+     * log id with index/term
+     */
+    private LogId id = new LogId(0, 0);
+    /**
+     * log entry current peers
+     */
+    private List<PeerId> peers;
+    /**
+     * log entry old peers
+     */
+    private List<PeerId> oldPeers;
+    /**
+     * log entry current learners
+     */
+    private List<PeerId> learners;
+    /**
+     * log entry old learners
+     */
+    private List<PeerId> oldLearners;
+    /**
+     * entry data
+     */
+    private ByteBuffer data = EMPTY_DATA;
+    /**
+     * checksum for log entry
+     */
+    private long checksum;
+    /**
+     * true when the log has checksum
+     **/
+    private boolean hasChecksum;
 
     public List<PeerId> getLearners() {
         return this.learners;
@@ -83,7 +101,7 @@ public class LogEntry implements Checksum {
 
     public boolean hasLearners() {
         return (this.learners != null && !this.learners.isEmpty())
-               || (this.oldLearners != null && !this.oldLearners.isEmpty());
+                || (this.oldLearners != null && !this.oldLearners.isEmpty());
     }
 
     @Override
@@ -102,8 +120,8 @@ public class LogEntry implements Checksum {
     /**
      * Please use {@link LogEntryEncoder} instead.
      *
-     * @deprecated
      * @return encoded byte array
+     * @deprecated
      */
     @SuppressWarnings("DeprecatedIsStillUsed")
     @Deprecated
@@ -114,8 +132,8 @@ public class LogEntry implements Checksum {
     /**
      * Please use {@link LogEntryDecoder} instead.
      *
-     * @deprecated
      * @return whether success to decode
+     * @deprecated
      */
     @SuppressWarnings("DeprecatedIsStillUsed")
     @Deprecated
@@ -133,6 +151,7 @@ public class LogEntry implements Checksum {
 
     /**
      * Returns whether the log entry has a checksum.
+     *
      * @return true when the log entry has checksum, otherwise returns false.
      * @since 1.2.26
      */
@@ -142,8 +161,9 @@ public class LogEntry implements Checksum {
 
     /**
      * Returns true when the log entry is corrupted, it means that the checksum is mismatch.
-     * @since 1.2.6
+     *
      * @return true when the log entry is corrupted, otherwise returns false
+     * @since 1.2.6
      */
     public boolean isCorrupted() {
         return this.hasChecksum && this.checksum != checksum();
@@ -152,6 +172,7 @@ public class LogEntry implements Checksum {
     /**
      * Returns the checksum of the log entry. You should use {@link #hasChecksum} to check if
      * it has checksum.
+     *
      * @return checksum value
      */
     public long getChecksum() {
@@ -206,8 +227,8 @@ public class LogEntry implements Checksum {
     @Override
     public String toString() {
         return "LogEntry [type=" + this.type + ", id=" + this.id + ", peers=" + this.peers + ", oldPeers="
-               + this.oldPeers + ", learners=" + this.learners + ", oldLearners=" + this.oldLearners + ", data="
-               + (this.data != null ? this.data.remaining() : 0) + "]";
+                + this.oldPeers + ", learners=" + this.learners + ", oldLearners=" + this.oldLearners + ", data="
+                + (this.data != null ? this.data.remaining() : 0) + "]";
     }
 
     @Override

@@ -30,14 +30,13 @@ import com.alipay.sofa.jraft.util.MetricReporter;
 import com.alipay.sofa.jraft.util.SystemPropertyUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class RheaKVMetricsSignalHandler extends FileOutputSignalHandler {
 
-    private static Logger       LOG       = LoggerFactory.getLogger(RheaKVMetricsSignalHandler.class);
+    private static Logger LOG = LoggerFactory.getLogger(RheaKVMetricsSignalHandler.class);
 
-    private static final String DIR       = SystemPropertyUtil.get("rheakv.signal.metrics.dir", "");
+    private static final String DIR = SystemPropertyUtil.get("rheakv.signal.metrics.dir", "");
     private static final String BASE_NAME = "rheakv_metrics.log";
 
     @Override
@@ -49,9 +48,9 @@ public class RheaKVMetricsSignalHandler extends FileOutputSignalHandler {
 
             try (final PrintStream out = new PrintStream(new FileOutputStream(file, true))) {
                 final MetricReporter reporter = MetricReporter.forRegistry(KVMetrics.metricRegistry()) //
-                    .outputTo(out) //
-                    .prefixedWith("-- rheakv") //
-                    .build();
+                        .outputTo(out) //
+                        .prefixedWith("-- rheakv") //
+                        .build();
                 reporter.report();
             }
         } catch (final IOException e) {

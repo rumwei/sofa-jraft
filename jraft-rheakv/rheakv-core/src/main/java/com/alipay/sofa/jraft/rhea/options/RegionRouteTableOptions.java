@@ -19,12 +19,11 @@ package com.alipay.sofa.jraft.rhea.options;
 import com.alipay.sofa.jraft.util.BytesUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class RegionRouteTableOptions {
 
-    private Long   regionId;
+    private Long regionId;
     private String startKey;
     private byte[] startKeyBytes;
     private String endKey;
@@ -85,7 +84,7 @@ public class RegionRouteTableOptions {
     @Override
     public String toString() {
         return "RegionRouteTableOptions{" + "regionId=" + regionId + ", startKey='" + startKey + '\''
-               + ", startKeyBytes=" + BytesUtil.toHex(startKeyBytes) + ", endKey='" + endKey + '\'' + ", endKeyBytes="
-               + BytesUtil.toHex(endKeyBytes) + ", initialServerList='" + initialServerList + '\'' + '}';
+                + ", startKeyBytes=" + BytesUtil.toHex(startKeyBytes) + ", endKey='" + endKey + '\'' + ", endKeyBytes="
+                + BytesUtil.toHex(endKeyBytes) + ", initialServerList='" + initialServerList + '\'' + '}';
     }
 }

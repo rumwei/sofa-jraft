@@ -38,11 +38,11 @@ import com.alipay.sofa.jraft.rhea.util.StackTraceUtil;
  */
 public final class ListFailoverFuture<T> extends CompletableFuture<List<T>> implements Attachable<Object> {
 
-    private static final Logger        LOG = LoggerFactory.getLogger(ListFailoverFuture.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ListFailoverFuture.class);
 
-    private final int                  retriesLeft;
+    private final int retriesLeft;
     private final ListRetryCallable<T> retryCallable;
-    private final Object               attachments;
+    private final Object attachments;
 
     public ListFailoverFuture(int retriesLeft, ListRetryCallable<T> retryCallable) {
         this(retriesLeft, retryCallable, null);

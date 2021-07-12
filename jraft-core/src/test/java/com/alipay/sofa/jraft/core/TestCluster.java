@@ -47,8 +47,9 @@ import com.alipay.sofa.jraft.util.Endpoint;
 
 /**
  * Test cluster for NodeTest
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Apr-20 1:41:17 PM
  */
 public class TestCluster {
@@ -56,7 +57,7 @@ public class TestCluster {
     static class Clusters {
 
         public final IdentityHashMap<TestCluster, Object> needCloses = new IdentityHashMap<>();
-        private final Object                              EXIST      = new Object();
+        private final Object EXIST = new Object();
 
         public synchronized void add(final TestCluster cluster) {
             this.needCloses.put(cluster, EXIST);
@@ -77,20 +78,20 @@ public class TestCluster {
         }
     }
 
-    public static final Clusters                          CLUSTERS           = new Clusters();
+    public static final Clusters CLUSTERS = new Clusters();
 
-    private final String                                  dataPath;
-    private final String                                  name;                                              // groupId
-    private final List<PeerId>                            peers;
-    private final List<NodeImpl>                          nodes;
+    private final String dataPath;
+    private final String name;                                              // groupId
+    private final List<PeerId> peers;
+    private final List<NodeImpl> nodes;
     private final LinkedHashMap<PeerId, MockStateMachine> fsms;
-    private final ConcurrentMap<String, RaftGroupService> serverMap          = new ConcurrentHashMap<>();
-    private final int                                     electionTimeoutMs;
-    private final Lock                                    lock               = new ReentrantLock();
+    private final ConcurrentMap<String, RaftGroupService> serverMap = new ConcurrentHashMap<>();
+    private final int electionTimeoutMs;
+    private final Lock lock = new ReentrantLock();
 
-    private JRaftServiceFactory                           raftServiceFactory = new TestJRaftServiceFactory();
+    private JRaftServiceFactory raftServiceFactory = new TestJRaftServiceFactory();
 
-    private LinkedHashSet<PeerId>                         learners;
+    private LinkedHashSet<PeerId> learners;
 
     public JRaftServiceFactory getRaftServiceFactory() {
         return this.raftServiceFactory;
@@ -147,7 +148,7 @@ public class TestCluster {
     }
 
     public boolean start(final Endpoint listenAddr, final boolean emptyPeers, final int snapshotIntervalSecs)
-                                                                                                             throws IOException {
+            throws IOException {
         return this.start(listenAddr, emptyPeers, snapshotIntervalSecs, false);
     }
 
@@ -194,7 +195,7 @@ public class TestCluster {
 
         final RpcServer rpcServer = RaftRpcServerFactory.createRaftRpcServer(listenAddr);
         final RaftGroupService server = new RaftGroupService(this.name, new PeerId(listenAddr, 0, priority),
-            nodeOptions, rpcServer);
+                nodeOptions, rpcServer);
 
         this.lock.lock();
         try {
@@ -242,7 +243,7 @@ public class TestCluster {
 
         final RpcServer rpcServer = RaftRpcServerFactory.createRaftRpcServer(listenAddr);
         final RaftGroupService server = new RaftGroupService(this.name, new PeerId(listenAddr, 0), nodeOptions,
-            rpcServer);
+                rpcServer);
 
         this.lock.lock();
         try {
@@ -363,6 +364,7 @@ public class TestCluster {
 
     /**
      * Ensure all peers leader is expectAddr
+     *
      * @param expectAddr expected address
      * @throws InterruptedException if interrupted
      */
@@ -396,7 +398,7 @@ public class TestCluster {
         this.lock.lock();
         try {
             return this.nodes.stream().map(node -> node.getNodeId().getPeerId().getEndpoint())
-                .collect(Collectors.toList());
+                    .collect(Collectors.toList());
         } finally {
             this.lock.unlock();
         }
@@ -425,6 +427,7 @@ public class TestCluster {
 
     /**
      * Ensure all logs is the same in all nodes.
+     *
      * @param waitTimes
      * @return
      * @throws InterruptedException
@@ -440,7 +443,8 @@ public class TestCluster {
         try {
             int nround = 0;
             final MockStateMachine first = fsmList.get(0);
-            CHECK: while (true) {
+            CHECK:
+            while (true) {
                 first.lock();
                 if (first.getLogs().isEmpty()) {
                     first.unlock();

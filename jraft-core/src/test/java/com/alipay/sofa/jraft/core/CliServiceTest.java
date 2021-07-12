@@ -58,17 +58,17 @@ import static org.junit.Assert.fail;
 
 public class CliServiceTest {
 
-    private String           dataPath;
+    private String dataPath;
 
-    private TestCluster      cluster;
-    private final String     groupId           = "CliServiceTest";
+    private TestCluster cluster;
+    private final String groupId = "CliServiceTest";
 
-    private CliService       cliService;
+    private CliService cliService;
 
-    private Configuration    conf;
+    private Configuration conf;
 
     @Rule
-    public TestName          testName          = new TestName();
+    public TestName testName = new TestName();
 
     private static final int LEARNER_PORT_STEP = 100;
 
@@ -306,7 +306,7 @@ public class CliServiceTest {
         PeerId leader = this.cluster.getLeader().getNodeId().getPeerId();
         assertNotNull(leader);
         assertArrayEquals(this.conf.getPeerSet().toArray(),
-            new HashSet<>(this.cliService.getPeers(this.groupId, this.conf)).toArray());
+                new HashSet<>(this.cliService.getPeers(this.groupId, this.conf)).toArray());
 
         // stop one peer
         final List<PeerId> peers = this.conf.getPeers();
@@ -317,7 +317,7 @@ public class CliServiceTest {
         leader = this.cluster.getLeader().getNodeId().getPeerId();
         assertNotNull(leader);
         assertArrayEquals(this.conf.getPeerSet().toArray(),
-            new HashSet<>(this.cliService.getPeers(this.groupId, this.conf)).toArray());
+                new HashSet<>(this.cliService.getPeers(this.groupId, this.conf)).toArray());
 
         this.cluster.stopAll();
 
@@ -334,7 +334,7 @@ public class CliServiceTest {
         PeerId leader = this.cluster.getLeader().getNodeId().getPeerId();
         assertNotNull(leader);
         assertArrayEquals(this.conf.getPeerSet().toArray(),
-            new HashSet<>(this.cliService.getAlivePeers(this.groupId, this.conf)).toArray());
+                new HashSet<>(this.cliService.getAlivePeers(this.groupId, this.conf)).toArray());
 
         // stop one peer
         final List<PeerId> peers = this.conf.getPeers();
@@ -348,7 +348,7 @@ public class CliServiceTest {
         leader = this.cluster.getLeader().getNodeId().getPeerId();
         assertNotNull(leader);
         assertArrayEquals(new HashSet<>(peers).toArray(),
-            new HashSet<>(this.cliService.getAlivePeers(this.groupId, this.conf)).toArray());
+                new HashSet<>(this.cliService.getAlivePeers(this.groupId, this.conf)).toArray());
 
         this.cluster.stopAll();
 
@@ -431,10 +431,10 @@ public class CliServiceTest {
         final Map<String, PeerId> rebalancedLeaderIds = new HashMap<>();
 
         final CliService cliService = new MockTransferLeaderFailCliService(rebalancedLeaderIds,
-            new PeerId("host_1", 8080));
+                new PeerId("host_1", 8080));
 
         assertEquals("Fail to transfer leader",
-            cliService.rebalance(groupIds, conf, rebalancedLeaderIds).getErrorMsg());
+                cliService.rebalance(groupIds, conf, rebalancedLeaderIds).getErrorMsg());
         assertTrue(groupIds.size() >= rebalancedLeaderIds.size());
 
         final Map<PeerId, Integer> ret = new HashMap<>();
@@ -450,7 +450,7 @@ public class CliServiceTest {
     class MockCliService extends CliServiceImpl {
 
         private final Map<String, PeerId> rebalancedLeaderIds;
-        private final PeerId              initialLeaderId;
+        private final PeerId initialLeaderId;
 
         MockCliService(final Map<String, PeerId> rebalancedLeaderIds, final PeerId initialLeaderId) {
             this.rebalancedLeaderIds = rebalancedLeaderIds;

@@ -55,15 +55,15 @@ public class TransferLeaderRequestProcessor extends BaseCliRequestProcessor<Tran
         final PeerId peer = new PeerId();
         if (request.hasPeerId() && !peer.parse(request.getPeerId())) {
             return RpcFactoryHelper //
-                .responseFactory() //
-                .newResponse(defaultResp(), RaftError.EINVAL, "Fail to parse peer id %s", request.getPeerId());
+                    .responseFactory() //
+                    .newResponse(defaultResp(), RaftError.EINVAL, "Fail to parse peer id %s", request.getPeerId());
         }
         LOG.info("Receive TransferLeaderRequest to {} from {}, newLeader will be {}.", ctx.node.getNodeId(), done
-            .getRpcCtx().getRemoteAddress(), peer);
+                .getRpcCtx().getRemoteAddress(), peer);
         final Status st = ctx.node.transferLeadershipTo(peer);
         return RpcFactoryHelper //
-            .responseFactory() //
-            .newResponse(defaultResp(), st);
+                .responseFactory() //
+                .newResponse(defaultResp(), st);
     }
 
     @Override

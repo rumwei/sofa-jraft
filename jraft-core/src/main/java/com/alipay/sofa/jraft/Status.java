@@ -38,13 +38,17 @@ public class Status implements Copiable<Status> {
      * Status internal state.
      *
      * @author boyan (boyan@alibaba-inc.com)
-     *
+     * <p>
      * 2018-Apr-03 11:17:51 AM
      */
     private static class State {
-        /** error code */
-        int    code;
-        /** error msg*/
+        /**
+         * error code
+         */
+        int code;
+        /**
+         * error msg
+         */
         String msg;
 
         State(int code, String msg) {
@@ -215,7 +219,7 @@ public class Status implements Copiable<Status> {
             return "Status[OK]";
         } else {
             return "Status[" + RaftError.describeCode(this.state.code) + "<" + this.state.code + ">: " + this.state.msg
-                   + "]";
+                    + "]";
         }
     }
 

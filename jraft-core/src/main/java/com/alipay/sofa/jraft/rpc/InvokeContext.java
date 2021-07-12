@@ -28,9 +28,9 @@ import java.util.concurrent.ConcurrentMap;
  */
 public class InvokeContext {
 
-    public final static String                  CRC_SWITCH = "invoke.crc.switch";
+    public final static String CRC_SWITCH = "invoke.crc.switch";
 
-    private final ConcurrentMap<String, Object> ctx        = new ConcurrentHashMap<>();
+    private final ConcurrentMap<String, Object> ctx = new ConcurrentHashMap<>();
 
     public Object put(final String key, final Object value) {
         return this.ctx.put(key, value);

@@ -36,13 +36,13 @@ import com.alipay.sofa.jraft.rpc.RpcServer;
  * Counter server that keeps a counter value in a raft group.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-09 4:51:02 PM
  */
 public class CounterServer {
 
-    private RaftGroupService    raftGroupService;
-    private Node                node;
+    private RaftGroupService raftGroupService;
+    private Node node;
     private CounterStateMachine fsm;
 
     public CounterServer(final String dataPath, final String groupId, final PeerId serverId,
@@ -103,9 +103,9 @@ public class CounterServer {
     public static void main(final String[] args) throws IOException {
         if (args.length != 4) {
             System.out
-                .println("Useage : java com.alipay.sofa.jraft.example.counter.CounterServer {dataPath} {groupId} {serverId} {initConf}");
+                    .println("Useage : java com.alipay.sofa.jraft.example.counter.CounterServer {dataPath} {groupId} {serverId} {initConf}");
             System.out
-                .println("Example: java com.alipay.sofa.jraft.example.counter.CounterServer /tmp/server1 counter 127.0.0.1:8081 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083");
+                    .println("Example: java com.alipay.sofa.jraft.example.counter.CounterServer /tmp/server1 counter 127.0.0.1:8081 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083");
             System.exit(1);
         }
         final String dataPath = args[0];
@@ -136,6 +136,6 @@ public class CounterServer {
         // 启动
         final CounterServer counterServer = new CounterServer(dataPath, groupId, serverId, nodeOptions);
         System.out.println("Started counter server at port:"
-                           + counterServer.getNode().getNodeId().getPeerId().getPort());
+                + counterServer.getNode().getNodeId().getPeerId().getPort());
     }
 }

@@ -25,43 +25,43 @@ import com.alipay.sofa.jraft.util.JRaftServiceLoader;
  * Bootstrap options
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-04 2:58:45 PM
  */
 public class BootstrapOptions {
 
     public static final JRaftServiceFactory defaultServiceFactory = JRaftServiceLoader.load(JRaftServiceFactory.class) //
-                                                                      .first();
+            .first();
 
     // Containing the initial member of this raft group
     // Default: empty conf
-    private Configuration                   groupConf;
+    private Configuration groupConf;
 
     // The index of the last index which the dumping snapshot contains
     // Default: 0
-    private long                            lastLogIndex          = 0L;
+    private long lastLogIndex = 0L;
 
     // The specific StateMachine which is going to dump the first snapshot
     // If last_log_index isn't 0, fsm must be a valid instance.
     // Default: NULL
-    private StateMachine                    fsm;
+    private StateMachine fsm;
 
     // Describe a specific LogStorage in format ${type}://${parameters}
-    private String                          logUri;
+    private String logUri;
 
     // Describe a specific RaftMetaStorage in format ${type}://${parameters}
-    private String                          raftMetaUri;
+    private String raftMetaUri;
 
     // Describe a specific SnapshotStorage in format ${type}://${parameters}
-    private String                          snapshotUri;
+    private String snapshotUri;
 
     // Whether to enable metrics for node.
-    private boolean                         enableMetrics         = false;
+    private boolean enableMetrics = false;
 
     /**
      * Custom service factory.
      */
-    private JRaftServiceFactory             serviceFactory        = defaultServiceFactory;
+    private JRaftServiceFactory serviceFactory = defaultServiceFactory;
 
     public JRaftServiceFactory getServiceFactory() {
         return serviceFactory;

@@ -35,15 +35,15 @@ import com.alipay.sofa.jraft.util.Utils;
  * Closure queue implementation.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Mar-28 11:44:01 AM
  */
 public class ClosureQueueImpl implements ClosureQueue {
 
     private static final Logger LOG = LoggerFactory.getLogger(ClosureQueueImpl.class);
 
-    private final Lock          lock;
-    private long                firstIndex;
+    private final Lock lock;
+    private long firstIndex;
     private LinkedList<Closure> queue;
 
     @OnlyForTest
@@ -125,7 +125,7 @@ public class ClosureQueueImpl implements ClosureQueue {
             }
             if (endIndex > this.firstIndex + queueSize - 1) {
                 LOG.error("Invalid endIndex={}, firstIndex={}, closureQueueSize={}", endIndex, this.firstIndex,
-                    queueSize);
+                        queueSize);
                 return -1;
             }
             final long outFirstIndex = this.firstIndex;

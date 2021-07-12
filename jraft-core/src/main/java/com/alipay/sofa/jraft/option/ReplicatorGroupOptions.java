@@ -27,20 +27,20 @@ import com.alipay.sofa.jraft.storage.SnapshotStorage;
  * Replicator group options.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-03 5:47:43 PM
  */
 public class ReplicatorGroupOptions {
 
-    private int               heartbeatTimeoutMs;
-    private int               electionTimeoutMs;
-    private LogManager        logManager;
-    private BallotBox         ballotBox;
-    private NodeImpl          node;
-    private SnapshotStorage   snapshotStorage;
+    private int heartbeatTimeoutMs;
+    private int electionTimeoutMs;
+    private LogManager logManager;
+    private BallotBox ballotBox;
+    private NodeImpl node;
+    private SnapshotStorage snapshotStorage;
     private RaftClientService raftRpcClientService;
-    private RaftOptions       raftOptions;
-    private Scheduler         timerManager;
+    private RaftOptions raftOptions;
+    private Scheduler timerManager;
 
     public Scheduler getTimerManager() {
         return this.timerManager;
@@ -117,8 +117,8 @@ public class ReplicatorGroupOptions {
     @Override
     public String toString() {
         return "ReplicatorGroupOptions{" + "heartbeatTimeoutMs=" + heartbeatTimeoutMs + ", electionTimeoutMs="
-               + electionTimeoutMs + ", logManager=" + logManager + ", ballotBox=" + ballotBox + ", node=" + node
-               + ", snapshotStorage=" + snapshotStorage + ", raftRpcClientService=" + raftRpcClientService
-               + ", raftOptions=" + raftOptions + ", timerManager=" + timerManager + '}';
+                + electionTimeoutMs + ", logManager=" + logManager + ", ballotBox=" + ballotBox + ", node=" + node
+                + ", snapshotStorage=" + snapshotStorage + ", raftRpcClientService=" + raftRpcClientService
+                + ", raftOptions=" + raftOptions + ", timerManager=" + timerManager + '}';
     }
 }

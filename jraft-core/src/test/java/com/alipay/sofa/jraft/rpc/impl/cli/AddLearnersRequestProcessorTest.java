@@ -37,9 +37,9 @@ public class AddLearnersRequestProcessorTest extends AbstractCliRequestProcessor
     @Override
     public AddLearnersRequest createRequest(final String groupId, final PeerId peerId) {
         return AddLearnersRequest.newBuilder(). //
-            setGroupId(groupId). //
-            setLeaderId(peerId.toString()). //
-            addAllLearners(Arrays.asList("learner:8082", "test:8182", "test:8183")).build();
+                setGroupId(groupId). //
+                setLeaderId(peerId.toString()). //
+                addAllLearners(Arrays.asList("learner:8082", "test:8182", "test:8183")).build();
     }
 
     @Override
@@ -51,16 +51,16 @@ public class AddLearnersRequestProcessorTest extends AbstractCliRequestProcessor
     public void verify(final String interest, final Node node, final ArgumentCaptor<Closure> doneArg) {
         assertEquals(interest, AddLearnersRequest.class.getName());
         Mockito.verify(node).addLearners(
-            eq(Arrays.asList(new PeerId("learner", 8082), new PeerId("test", 8182), new PeerId("test", 8183))),
-            doneArg.capture());
+                eq(Arrays.asList(new PeerId("learner", 8082), new PeerId("test", 8182), new PeerId("test", 8183))),
+                doneArg.capture());
         Closure done = doneArg.getValue();
         assertNotNull(done);
         done.run(Status.OK());
         assertNotNull(this.asyncContext.getResponseObject());
         assertEquals("[learner:8081, learner:8082, learner:8083]", this.asyncContext.as(LearnersOpResponse.class)
-            .getOldLearnersList().toString());
+                .getOldLearnersList().toString());
         assertEquals("[learner:8081, learner:8082, learner:8083, test:8182, test:8183]",
-            this.asyncContext.as(LearnersOpResponse.class).getNewLearnersList().toString());
+                this.asyncContext.as(LearnersOpResponse.class).getNewLearnersList().toString());
     }
 
 }

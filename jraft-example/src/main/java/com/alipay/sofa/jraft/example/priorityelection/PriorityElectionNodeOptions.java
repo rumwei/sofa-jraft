@@ -23,13 +23,13 @@ import com.alipay.sofa.jraft.option.NodeOptions;
  */
 public class PriorityElectionNodeOptions {
 
-    private String      dataPath;
+    private String dataPath;
     // raft group id
-    private String      groupId;
+    private String groupId;
     // ip:port::priority
-    private String      serverAddress;
+    private String serverAddress;
     // ip:port::priority,ip:port::priority,ip:port::priority
-    private String      initialServerAddressList;
+    private String initialServerAddressList;
     // raft node options
     private NodeOptions nodeOptions;
 
@@ -76,7 +76,7 @@ public class PriorityElectionNodeOptions {
     @Override
     public String toString() {
         return "PriorityElectionNodeOptions{" + "dataPath='" + dataPath + '\'' + ", groupId='" + groupId + '\''
-               + ", serverAddress='" + serverAddress + '\'' + ", initialServerAddressList='" + initialServerAddressList
-               + '\'' + ", nodeOptions=" + nodeOptions + '}';
+                + ", serverAddress='" + serverAddress + '\'' + ", initialServerAddressList='" + initialServerAddressList
+                + '\'' + ", nodeOptions=" + nodeOptions + '}';
     }
 }

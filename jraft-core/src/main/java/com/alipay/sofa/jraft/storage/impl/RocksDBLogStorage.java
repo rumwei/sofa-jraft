@@ -64,7 +64,7 @@ import com.alipay.sofa.jraft.util.Utils;
  * Log storage based on rocksdb.
  *
  * @author boyan (boyan@alibaba-inc.com)
- *
+ * <p>
  * 2018-Apr-06 7:27:47 AM
  */
 public class RocksDBLogStorage implements LogStorage, Describer {
@@ -79,7 +79,7 @@ public class RocksDBLogStorage implements LogStorage, Describer {
      * Write batch template.
      *
      * @author boyan (boyan@alibaba-inc.com)
-     *
+     * <p>
      * 2017-Nov-08 11:19:22 AM
      */
     private interface WriteBatchTemplate {
@@ -89,8 +89,8 @@ public class RocksDBLogStorage implements LogStorage, Describer {
 
     /**
      * A write context
-     * @author boyan(boyan@antfin.com)
      *
+     * @author boyan(boyan @ antfin.com)
      */
     public interface WriteContext {
         /**
@@ -114,6 +114,7 @@ public class RocksDBLogStorage implements LogStorage, Describer {
 
         /**
          * Set an exception to context.
+         *
          * @param e exception
          */
         default void setError(final Exception e) {
@@ -128,34 +129,34 @@ public class RocksDBLogStorage implements LogStorage, Describer {
 
     /**
      * An empty write context
-     * @author boyan(boyan@antfin.com)
      *
+     * @author boyan(boyan @ antfin.com)
      */
     protected static class EmptyWriteContext implements WriteContext {
         static EmptyWriteContext INSTANCE = new EmptyWriteContext();
     }
 
-    private final String                    path;
-    private final boolean                   sync;
-    private final boolean                   openStatistics;
-    private RocksDB                         db;
-    private DBOptions                       dbOptions;
-    private WriteOptions                    writeOptions;
-    private final List<ColumnFamilyOptions> cfOptions     = new ArrayList<>();
-    private ColumnFamilyHandle              defaultHandle;
-    private ColumnFamilyHandle              confHandle;
-    private ReadOptions                     totalOrderReadOptions;
-    private DebugStatistics                 statistics;
-    private final ReadWriteLock             readWriteLock = new ReentrantReadWriteLock();
-    private final Lock                      readLock      = this.readWriteLock.readLock();
-    private final Lock                      writeLock     = this.readWriteLock.writeLock();
+    private final String path;
+    private final boolean sync;
+    private final boolean openStatistics;
+    private RocksDB db;
+    private DBOptions dbOptions;
+    private WriteOptions writeOptions;
+    private final List<ColumnFamilyOptions> cfOptions = new ArrayList<>();
+    private ColumnFamilyHandle defaultHandle;
+    private ColumnFamilyHandle confHandle;
+    private ReadOptions totalOrderReadOptions;
+    private DebugStatistics statistics;
+    private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+    private final Lock readLock = this.readWriteLock.readLock();
+    private final Lock writeLock = this.readWriteLock.writeLock();
 
-    private volatile long                   firstLogIndex = 1;
+    private volatile long firstLogIndex = 1;
 
-    private volatile boolean                hasLoadFirstLogIndex;
+    private volatile boolean hasLoadFirstLogIndex;
 
-    private LogEntryEncoder                 logEntryEncoder;
-    private LogEntryDecoder                 logEntryDecoder;
+    private LogEntryEncoder logEntryEncoder;
+    private LogEntryDecoder logEntryDecoder;
 
     public RocksDBLogStorage(final String path, final RaftOptions raftOptions) {
         super();
@@ -258,7 +259,7 @@ public class RocksDBLogStorage implements LogStorage, Describer {
                         }
                     } else {
                         LOG.warn("Fail to decode conf entry at index {}, the log data is: {}.", Bits.getLong(ks, 0),
-                            BytesUtil.toHex(bs));
+                                BytesUtil.toHex(bs));
                     }
                 } else {
                     if (Arrays.equals(FIRST_LOG_IDX_KEY, ks)) {
@@ -266,7 +267,7 @@ public class RocksDBLogStorage implements LogStorage, Describer {
                         truncatePrefixInBackground(0L, this.firstLogIndex);
                     } else {
                         LOG.warn("Unknown entry in configuration storage key={}, value={}.", BytesUtil.toHex(ks),
-                            BytesUtil.toHex(bs));
+                                BytesUtil.toHex(bs));
                     }
                 }
                 it.next();
@@ -599,9 +600,9 @@ public class RocksDBLogStorage implements LogStorage, Describer {
                 onTruncateSuffix(lastIndexKept);
             } finally {
                 this.db.deleteRange(this.defaultHandle, this.writeOptions, getKeyBytes(lastIndexKept + 1),
-                    getKeyBytes(getLastLogIndex() + 1));
+                        getKeyBytes(getLastLogIndex() + 1));
                 this.db.deleteRange(this.confHandle, this.writeOptions, getKeyBytes(lastIndexKept + 1),
-                    getKeyBytes(getLastLogIndex() + 1));
+                        getKeyBytes(getLastLogIndex() + 1));
             }
             return true;
         } catch (final RocksDBException | IOException e) {
@@ -674,7 +675,7 @@ public class RocksDBLogStorage implements LogStorage, Describer {
      * @param firstIndexKept the first index to kept
      */
     protected void onTruncatePrefix(final long startIndex, final long firstIndexKept) throws RocksDBException,
-    IOException {
+            IOException {
     }
 
     /**

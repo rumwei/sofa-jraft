@@ -42,15 +42,15 @@ public class GrpcResponseFactory implements RpcResponseFactory {
         }
 
         final Descriptors.FieldDescriptor errFd = parent //
-            .getDescriptorForType() //
-            .findFieldByNumber(ERROR_RESPONSE_NUM);
+                .getDescriptorForType() //
+                .findFieldByNumber(ERROR_RESPONSE_NUM);
         Requires.requireNonNull(errFd, "errFd");
         final Message.Builder builder = parent.toBuilder();
         for (final Descriptors.FieldDescriptor fd : parent.getDescriptorForType().getFields()) {
             builder.setField(fd, parent.getField(fd));
         }
         return builder //
-            .setField(errFd, eBuilder.build()) //
-            .build();
+                .setField(errFd, eBuilder.build()) //
+                .build();
     }
 }

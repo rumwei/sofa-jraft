@@ -29,7 +29,6 @@ import static com.alipay.sofa.jraft.util.BytesUtil.readUtf8;
 import static com.alipay.sofa.jraft.util.BytesUtil.writeUtf8;
 
 /**
- *
  * @author baozi
  */
 public class ReverseScanExample {
@@ -63,7 +62,7 @@ public class ReverseScanExample {
         final CompletableFuture<List<KVEntry>> f3 = rheaKVStore.reverseScan(firstKeyString, lastKeyString);
         final CompletableFuture<List<KVEntry>> f4 = rheaKVStore.reverseScan(firstKeyString, lastKeyString, false);
         CompletableFuture.allOf(f1, f2, f3, f4).join();
-        for (final CompletableFuture<List<KVEntry>> f : new CompletableFuture[] { f1, f2, f3, f4 }) {
+        for (final CompletableFuture<List<KVEntry>> f : new CompletableFuture[]{f1, f2, f3, f4}) {
             for (final KVEntry kv : f.join()) {
                 LOG.info("Async reverseScan: key={}, value={}", readUtf8(kv.getKey()), readUtf8(kv.getValue()));
             }
@@ -74,7 +73,7 @@ public class ReverseScanExample {
         final List<KVEntry> l2 = rheaKVStore.bReverseScan(firstKey, lastKey, false);
         final List<KVEntry> l3 = rheaKVStore.bReverseScan(firstKeyString, lastKeyString);
         final List<KVEntry> l4 = rheaKVStore.bReverseScan(firstKeyString, lastKeyString, false);
-        for (final List<KVEntry> l : new List[] { l1, l2, l3, l4 }) {
+        for (final List<KVEntry> l : new List[]{l1, l2, l3, l4}) {
             for (final KVEntry kv : l) {
                 LOG.info("sync reverseScan: key={}, value={}", readUtf8(kv.getKey()), readUtf8(kv.getValue()));
             }

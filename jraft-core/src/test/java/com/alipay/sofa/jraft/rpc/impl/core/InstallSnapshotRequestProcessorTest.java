@@ -33,15 +33,15 @@ public class InstallSnapshotRequestProcessorTest extends BaseNodeRequestProcesso
     @Override
     public InstallSnapshotRequest createRequest(String groupId, PeerId peerId) {
         request = InstallSnapshotRequest.newBuilder().setGroupId(groupId)
-            . //
-            setServerId("localhostL8082")
-            . //
-            setPeerId(peerId.toString())
-            . //
-            setTerm(0)
-            . //
-            setMeta(SnapshotMeta.newBuilder().setLastIncludedIndex(1).setLastIncludedTerm(1).build()).setUri("test")
-            .build();
+                . //
+                setServerId("localhostL8082")
+                . //
+                setPeerId(peerId.toString())
+                . //
+                setTerm(0)
+                . //
+                setMeta(SnapshotMeta.newBuilder().setLastIncludedIndex(1).setLastIncludedTerm(1).build()).setUri("test")
+                .build();
         return request;
     }
 

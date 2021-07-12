@@ -32,14 +32,13 @@ import com.alipay.sofa.jraft.util.FileOutputSignalHandler;
 import com.alipay.sofa.jraft.util.SystemPropertyUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class RheaKVDescribeSignalHandler extends FileOutputSignalHandler {
 
-    private static Logger       LOG       = LoggerFactory.getLogger(RheaKVDescribeSignalHandler.class);
+    private static Logger LOG = LoggerFactory.getLogger(RheaKVDescribeSignalHandler.class);
 
-    private static final String DIR       = SystemPropertyUtil.get("rheakv.signal.describe.dir", "");
+    private static final String DIR = SystemPropertyUtil.get("rheakv.signal.describe.dir", "");
     private static final String BASE_NAME = "rheakv_describe.log";
 
     @Override
@@ -55,7 +54,7 @@ public class RheaKVDescribeSignalHandler extends FileOutputSignalHandler {
             LOG.info("Describing rheakv with signal: {} to file: {}.", signalName, file);
 
             try (final PrintWriter out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file, true),
-                StandardCharsets.UTF_8))) {
+                    StandardCharsets.UTF_8))) {
                 final Describer.Printer printer = new Describer.DefaultPrinter(out);
                 for (final Describer describer : describers) {
                     describer.describe(printer);

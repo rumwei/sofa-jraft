@@ -38,11 +38,11 @@ import com.alipay.sofa.jraft.util.Requires;
 
 /**
  * Region routing table.
- *
+ * <p>
  * Enter a 'key' or a 'key range', which can calculate the region
  * in which the 'key' is located, and can also calculate all
  * regions of a 'key range' hit.
- *
+ * <p>
  * If the pd server is enabled, the routing data will be refreshed
  * from the pd server, otherwise the routing data is completely
  * based on the local configuration.
@@ -67,33 +67,33 @@ import com.alipay.sofa.jraft.util.Requires;
  *         └─────────────────────────┴─────────────────────────┴─────────────────────────┴─────────────────────────┘
  *
  * </pre>
- *
+ * <p>
  * You can seen that the most suitable data structure for implementing the
  * above figure is a skip list or a binary tree (for the closest matches for
  * given search).
- *
+ * <p>
  * In addition, selecting the startKey or endKey of the region as the key of
  * the RegionRouteTable is also exquisite.
- *
+ * <p>
  * For example, why not use endKey?
  * This depends mainly on the way the region splits:
- *  a) Suppose that region2[startKey2, endKey2) with id 2 is split
- *  b) The two regions after splitting are region2[startKey2, splitKey) with
- *      id continuing to 2 and region3[splitKey, endKey2) with id 3.
- *  c) At this point, you only need to add an element <region3, splitKey> to
- *      the RegionRouteTable. The data of region2 does not need to be modified.
+ * a) Suppose that region2[startKey2, endKey2) with id 2 is split
+ * b) The two regions after splitting are region2[startKey2, splitKey) with
+ * id continuing to 2 and region3[splitKey, endKey2) with id 3.
+ * c) At this point, you only need to add an element <region3, splitKey> to
+ * the RegionRouteTable. The data of region2 does not need to be modified.
  *
  * @author jiachun.fjc
  */
 public class RegionRouteTable {
 
-    private static final Logger              LOG                = LoggerFactory.getLogger(RegionRouteTable.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RegionRouteTable.class);
 
-    private static final Comparator<byte[]>  keyBytesComparator = BytesUtil.getDefaultByteArrayComparator();
+    private static final Comparator<byte[]> keyBytesComparator = BytesUtil.getDefaultByteArrayComparator();
 
-    private final StampedLock                stampedLock        = new StampedLock();
-    private final NavigableMap<byte[], Long> rangeTable         = new TreeMap<>(keyBytesComparator);
-    private final Map<Long, Region>          regionTable        = Maps.newHashMap();
+    private final StampedLock stampedLock = new StampedLock();
+    private final NavigableMap<byte[], Long> rangeTable = new TreeMap<>(keyBytesComparator);
+    private final Map<Long, Region> regionTable = Maps.newHashMap();
 
     public Region getRegionById(final long regionId) {
         final StampedLock stampedLock = this.stampedLock;
@@ -144,13 +144,13 @@ public class RegionRouteTable {
             final byte[] rightEndKey = right.getEndKey();
             Requires.requireNonNull(rightStartKey, "rightStartKey");
             Requires.requireTrue(BytesUtil.compare(leftStartKey, rightStartKey) < 0,
-                "leftStartKey must < rightStartKey");
+                    "leftStartKey must < rightStartKey");
             if (leftEndKey == null || rightEndKey == null) {
                 Requires.requireTrue(leftEndKey == rightEndKey, "leftEndKey must == rightEndKey");
             } else {
                 Requires.requireTrue(BytesUtil.compare(leftEndKey, rightEndKey) == 0, "leftEndKey must == rightEndKey");
                 Requires.requireTrue(BytesUtil.compare(rightStartKey, rightEndKey) < 0,
-                    "rightStartKey must < rightEndKey");
+                        "rightStartKey must < rightEndKey");
             }
             final RegionEpoch leftEpoch = left.getRegionEpoch();
             leftEpoch.setVersion(leftEpoch.getVersion() + 1);

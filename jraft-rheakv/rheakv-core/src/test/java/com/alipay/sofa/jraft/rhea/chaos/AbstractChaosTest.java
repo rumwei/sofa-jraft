@@ -49,19 +49,18 @@ import com.alipay.sofa.jraft.util.NamedThreadFactory;
 import com.alipay.sofa.jraft.util.Utils;
 
 /**
- *
  * @author jiachun.fjc
  */
 public abstract class AbstractChaosTest {
 
-    private static final int    LOOP_1             = Utils.cpus();
-    private static final int    LOOP_2             = 20;
-    private static final int    INITIAL_PEER_COUNT = 5;
-    private static final int    RETRIES            = 10;
-    private static final byte[] VALUE              = BytesUtil.writeUtf8("test");
+    private static final int LOOP_1 = Utils.cpus();
+    private static final int LOOP_2 = 20;
+    private static final int INITIAL_PEER_COUNT = 5;
+    private static final int RETRIES = 10;
+    private static final byte[] VALUE = BytesUtil.writeUtf8("test");
 
     @Rule
-    public TestName             testName           = new TestName();
+    public TestName testName = new TestName();
 
     @Before
     public void setup() throws Exception {

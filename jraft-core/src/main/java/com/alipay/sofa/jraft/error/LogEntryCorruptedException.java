@@ -18,8 +18,8 @@ package com.alipay.sofa.jraft.error;
 
 /**
  * LogEntry corrupted exception.
- * @author boyan(boyan@antfin.com)
  *
+ * @author boyan(boyan @ antfin.com)
  */
 public class LogEntryCorruptedException extends JRaftException {
     private static final long serialVersionUID = 5664520219607766929L;

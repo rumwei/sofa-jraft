@@ -40,20 +40,21 @@ import com.alipay.sofa.jraft.util.Utils;
 
 /**
  * Remote file copier
- * @author boyan (boyan@alibaba-inc.com)
  *
+ * @author boyan (boyan@alibaba-inc.com)
+ * <p>
  * 2018-Mar-23 2:03:14 PM
  */
 public class RemoteFileCopier {
 
     private static final Logger LOG = LoggerFactory.getLogger(RemoteFileCopier.class);
 
-    private long                readId;
-    private RaftClientService   rpcService;
-    private Endpoint            endpoint;
-    private RaftOptions         raftOptions;
-    private Scheduler           timerManager;
-    private SnapshotThrottle    snapshotThrottle;
+    private long readId;
+    private RaftClientService rpcService;
+    private Endpoint endpoint;
+    private RaftOptions raftOptions;
+    private Scheduler timerManager;
+    private SnapshotThrottle snapshotThrottle;
 
     @OnlyForTest
     long getReaderId() {
@@ -106,7 +107,7 @@ public class RemoteFileCopier {
      * @return true if copy success
      */
     public boolean copyToFile(final String source, final String destPath, final CopyOptions opts) throws IOException,
-                                                                                                 InterruptedException {
+            InterruptedException {
         final Session session = startCopyToFile(source, destPath, opts);
         if (session == null) {
             return false;
@@ -120,7 +121,7 @@ public class RemoteFileCopier {
     }
 
     public Session startCopyToFile(final String source, final String destPath, final CopyOptions opts)
-                                                                                                      throws IOException {
+            throws IOException {
         final File file = new File(destPath);
 
         // delete exists file.
@@ -152,21 +153,22 @@ public class RemoteFileCopier {
 
     private CopySession newCopySession(final String source) {
         final GetFileRequest.Builder reqBuilder = GetFileRequest.newBuilder() //
-            .setFilename(source) //
-            .setReaderId(this.readId);
+                .setFilename(source) //
+                .setReaderId(this.readId);
         return new CopySession(this.rpcService, this.timerManager, this.snapshotThrottle, this.raftOptions, reqBuilder,
-            this.endpoint);
+                this.endpoint);
     }
 
     /**
      * Copy `source` from remote to  buffer.
+     *
      * @param source  source from remote
      * @param destBuf buffer of dest
      * @param opt     options of copy
      * @return true if copy success
      */
     public boolean copy2IoBuffer(final String source, final ByteBufferCollector destBuf, final CopyOptions opt)
-                                                                                                               throws InterruptedException {
+            throws InterruptedException {
         final Session session = startCopy2IoBuffer(source, destBuf, opt);
         if (session == null) {
             return false;

@@ -31,9 +31,9 @@ import com.alipay.sofa.jraft.util.Requires;
  */
 public final class KVStateOutputList extends ArrayList<KVState> implements Recyclable {
 
-    private static final long serialVersionUID         = -8605125654176467947L;
+    private static final long serialVersionUID = -8605125654176467947L;
 
-    private static final int  DEFAULT_INITIAL_CAPACITY = 8;
+    private static final int DEFAULT_INITIAL_CAPACITY = 8;
 
     /**
      * Create a new empty {@link KVStateOutputList} instance
@@ -146,13 +146,13 @@ public final class KVStateOutputList extends ArrayList<KVState> implements Recyc
         this.handle = handle;
     }
 
-    private transient final Recyclers.Handle          handle;
+    private transient final Recyclers.Handle handle;
 
     private static final Recyclers<KVStateOutputList> recyclers = new Recyclers<KVStateOutputList>(512) {
 
-                                                                    @Override
-                                                                    protected KVStateOutputList newObject(final Handle handle) {
-                                                                        return new KVStateOutputList(handle);
-                                                                    }
-                                                                };
+        @Override
+        protected KVStateOutputList newObject(final Handle handle) {
+            return new KVStateOutputList(handle);
+        }
+    };
 }

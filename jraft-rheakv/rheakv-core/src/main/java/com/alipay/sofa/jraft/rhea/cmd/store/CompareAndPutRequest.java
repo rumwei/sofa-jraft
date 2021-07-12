@@ -19,16 +19,15 @@ package com.alipay.sofa.jraft.rhea.cmd.store;
 import com.alipay.sofa.jraft.util.BytesUtil;
 
 /**
- *
  * @author nicholas.jxf
  */
 public class CompareAndPutRequest extends BaseRequest {
 
     private static final long serialVersionUID = -6395140862740192718L;
 
-    private byte[]            key;
-    private byte[]            expect;
-    private byte[]            update;
+    private byte[] key;
+    private byte[] expect;
+    private byte[] update;
 
     public byte[] getKey() {
         return key;
@@ -62,6 +61,6 @@ public class CompareAndPutRequest extends BaseRequest {
     @Override
     public String toString() {
         return "CompareAndPutRequest{" + "key=" + BytesUtil.toHex(key) + ", expect=" + BytesUtil.toHex(expect)
-               + ", update=" + BytesUtil.toHex(update) + "} " + super.toString();
+                + ", update=" + BytesUtil.toHex(update) + "} " + super.toString();
     }
 }

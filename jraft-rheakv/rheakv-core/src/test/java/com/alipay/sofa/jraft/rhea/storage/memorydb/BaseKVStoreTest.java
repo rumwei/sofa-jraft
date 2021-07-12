@@ -22,7 +22,7 @@ import com.alipay.sofa.jraft.rhea.storage.MemoryRawKVStore;
 public class BaseKVStoreTest {
 
     protected MemoryRawKVStore kvStore;
-    protected MemoryDBOptions  dbOptions;
+    protected MemoryDBOptions dbOptions;
 
     protected void setup() throws Exception {
         this.kvStore = new MemoryRawKVStore();

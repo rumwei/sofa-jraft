@@ -33,10 +33,10 @@ import com.alipay.sofa.jraft.util.Requires;
  */
 public class ConfigurationManager {
 
-    private static final Logger                  LOG            = LoggerFactory.getLogger(ConfigurationManager.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ConfigurationManager.class);
 
     private final LinkedList<ConfigurationEntry> configurations = new LinkedList<>();
-    private ConfigurationEntry                   snapshot       = new ConfigurationEntry();
+    private ConfigurationEntry snapshot = new ConfigurationEntry();
 
     /**
      * Adds a new conf entry.
@@ -88,8 +88,8 @@ public class ConfigurationManager {
     public ConfigurationEntry get(final long lastIncludedIndex) {
         if (this.configurations.isEmpty()) {
             Requires.requireTrue(lastIncludedIndex >= this.snapshot.getId().getIndex(),
-                "lastIncludedIndex %d is less than snapshot index %d", lastIncludedIndex, this.snapshot.getId()
-                    .getIndex());
+                    "lastIncludedIndex %d is less than snapshot index %d", lastIncludedIndex, this.snapshot.getId()
+                            .getIndex());
             return this.snapshot;
         }
         ListIterator<ConfigurationEntry> it = this.configurations.listIterator();

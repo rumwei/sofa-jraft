@@ -29,7 +29,6 @@ import com.alipay.sofa.jraft.rhea.util.Configured;
 import com.alipay.sofa.jraft.util.Endpoint;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class StoreEngineOptionsConfigured implements Configured<StoreEngineOptions> {

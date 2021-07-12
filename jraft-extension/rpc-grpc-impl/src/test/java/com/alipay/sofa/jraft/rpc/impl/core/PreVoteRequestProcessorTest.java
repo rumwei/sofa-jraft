@@ -31,12 +31,12 @@ public class PreVoteRequestProcessorTest extends BaseNodeRequestProcessorTest<Re
     @Override
     public RequestVoteRequest createRequest(String groupId, PeerId peerId) {
         request = RequestVoteRequest.newBuilder().setGroupId(groupId). //
-            setServerId("localhostL8082"). //
-            setPeerId(peerId.toString()). //
-            setTerm(0). //
-            setLastLogIndex(0). //
-            setLastLogTerm(0). //
-            setPreVote(false).build();
+                setServerId("localhostL8082"). //
+                setPeerId(peerId.toString()). //
+                setTerm(0). //
+                setLastLogIndex(0). //
+                setLastLogTerm(0). //
+                setPreVote(false).build();
         return request;
     }
 

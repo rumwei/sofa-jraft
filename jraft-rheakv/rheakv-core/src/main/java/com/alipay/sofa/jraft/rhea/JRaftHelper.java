@@ -25,7 +25,6 @@ import com.alipay.sofa.jraft.util.Endpoint;
 import com.alipay.sofa.jraft.util.Requires;
 
 /**
- *
  * @author jiachun.fjc
  */
 public final class JRaftHelper {

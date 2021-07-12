@@ -19,15 +19,14 @@ package com.alipay.sofa.jraft.rhea.cmd.store;
 import com.alipay.sofa.jraft.util.BytesUtil;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class MergeRequest extends BaseRequest {
 
     private static final long serialVersionUID = -1438709327379459775L;
 
-    private byte[]            key;
-    private byte[]            value;
+    private byte[] key;
+    private byte[] value;
 
     public byte[] getKey() {
         return key;
@@ -53,6 +52,6 @@ public class MergeRequest extends BaseRequest {
     @Override
     public String toString() {
         return "MergeRequest{" + "key=" + BytesUtil.toHex(key) + ", value=" + BytesUtil.toHex(value) + "} "
-               + super.toString();
+                + super.toString();
     }
 }

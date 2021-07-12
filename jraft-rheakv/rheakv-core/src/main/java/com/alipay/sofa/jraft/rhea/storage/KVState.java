@@ -21,7 +21,7 @@ package com.alipay.sofa.jraft.rhea.storage;
  */
 public class KVState {
 
-    private final KVOperation    op;
+    private final KVOperation op;
     private final KVStoreClosure done;
 
     public static KVState of(final KVOperation op, final KVStoreClosure done) {

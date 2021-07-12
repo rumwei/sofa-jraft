@@ -19,6 +19,7 @@ package com.alipay.sofa.jraft.rpc.impl.core;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -35,6 +36,7 @@ import com.alipay.sofa.jraft.rpc.impl.core.AppendEntriesRequestProcessor.PeerReq
 import com.alipay.sofa.jraft.test.MockAsyncContext;
 import com.alipay.sofa.jraft.test.TestUtils;
 import com.alipay.sofa.jraft.util.concurrent.ConcurrentHashSet;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -47,17 +49,17 @@ public class AppendEntriesRequestProcessorTest extends BaseNodeRequestProcessorT
 
     private AppendEntriesRequest request;
 
-    private final String         serverId = "localhost:8082";
+    private final String serverId = "localhost:8082";
 
     @Override
     public AppendEntriesRequest createRequest(final String groupId, final PeerId peerId) {
         this.request = AppendEntriesRequest.newBuilder().setCommittedIndex(0). //
-            setGroupId(groupId). //
-            setPeerId(peerId.toString()).//
-            setServerId(this.serverId). //
-            setPrevLogIndex(0). //
-            setTerm(0). //
-            setPrevLogTerm(0).build();
+                setGroupId(groupId). //
+                setPeerId(peerId.toString()).//
+                setServerId(this.serverId). //
+                setPrevLogIndex(0). //
+                setTerm(0). //
+                setPrevLogTerm(0).build();
         return this.request;
     }
 
@@ -131,7 +133,7 @@ public class AppendEntriesRequestProcessorTest extends BaseNodeRequestProcessorT
         Mockito.verify(service).handleAppendEntriesRequest(eq(this.request), Mockito.any());
         final PeerPair pair = ((AppendEntriesRequestProcessor) processor).pairOf(this.peerIdStr, this.serverId);
         final PeerRequestContext ctx = ((AppendEntriesRequestProcessor) processor).getOrCreatePeerRequestContext(
-            this.groupId, pair, this.conn);
+                this.groupId, pair, this.conn);
         assertNotNull(ctx);
     }
 

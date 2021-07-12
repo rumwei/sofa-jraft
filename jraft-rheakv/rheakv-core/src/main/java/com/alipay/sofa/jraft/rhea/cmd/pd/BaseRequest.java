@@ -27,15 +27,15 @@ public abstract class BaseRequest implements Serializable {
 
     private static final long serialVersionUID = 1056021642901412112L;
 
-    public static final byte  STORE_HEARTBEAT  = 0x01;
-    public static final byte  REGION_HEARTBEAT = 0x02;
-    public static final byte  GET_CLUSTER_INFO = 0x03;
-    public static final byte  GET_STORE_INFO   = 0x04;
-    public static final byte  SET_STORE_INFO   = 0x05;
-    public static final byte  GET_STORE_ID     = 0x06;
-    public static final byte  CREATE_REGION_ID = 0x07;
+    public static final byte STORE_HEARTBEAT = 0x01;
+    public static final byte REGION_HEARTBEAT = 0x02;
+    public static final byte GET_CLUSTER_INFO = 0x03;
+    public static final byte GET_STORE_INFO = 0x04;
+    public static final byte SET_STORE_INFO = 0x05;
+    public static final byte GET_STORE_ID = 0x06;
+    public static final byte CREATE_REGION_ID = 0x07;
 
-    private long              clusterId;
+    private long clusterId;
 
     public long getClusterId() {
         return clusterId;

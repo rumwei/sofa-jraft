@@ -35,9 +35,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class LocalSnapshotStorageTest extends BaseStorageTest {
-    private LocalSnapshotStorage   snapshotStorage;
+    private LocalSnapshotStorage snapshotStorage;
     private LocalSnapshotMetaTable table;
-    private int                    lastSnapshotIndex = 99;
+    private int lastSnapshotIndex = 99;
 
     @Override
     @Before
@@ -48,7 +48,7 @@ public class LocalSnapshotStorageTest extends BaseStorageTest {
         FileUtils.forceMkdir(new File(snapshotPath));
         this.table = new LocalSnapshotMetaTable(new RaftOptions());
         this.table.setMeta(RaftOutter.SnapshotMeta.newBuilder().setLastIncludedIndex(this.lastSnapshotIndex)
-            .setLastIncludedTerm(1).build());
+                .setLastIncludedTerm(1).build());
         this.table.saveToFile(snapshotPath + File.separator + Snapshot.JRAFT_SNAPSHOT_META_FILE);
 
         this.snapshotStorage = new LocalSnapshotStorage(path, new RaftOptions());
@@ -73,7 +73,7 @@ public class LocalSnapshotStorageTest extends BaseStorageTest {
         SnapshotWriter writer = this.snapshotStorage.create();
         assertNotNull(writer);
         RaftOutter.SnapshotMeta wroteMeta = RaftOutter.SnapshotMeta.newBuilder()
-            .setLastIncludedIndex(this.lastSnapshotIndex + 1).setLastIncludedTerm(1).build();
+                .setLastIncludedIndex(this.lastSnapshotIndex + 1).setLastIncludedTerm(1).build();
         ((LocalSnapshotWriter) writer).saveMeta(wroteMeta);
         writer.addFile("data");
         assertEquals(1, this.snapshotStorage.getRefs(this.lastSnapshotIndex).get());

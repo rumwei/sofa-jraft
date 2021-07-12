@@ -45,30 +45,29 @@ import static io.protostuff.WireFormat.getTagWireType;
 import static io.protostuff.WireFormat.makeTag;
 
 /**
- *
  * @author jiachun.fjc
  */
 class UnsafeNioBufInput implements Input {
 
-    static final int         TAG_TYPE_BITS = 3;
-    static final int         TAG_TYPE_MASK = (1 << TAG_TYPE_BITS) - 1;
+    static final int TAG_TYPE_BITS = 3;
+    static final int TAG_TYPE_MASK = (1 << TAG_TYPE_BITS) - 1;
 
-    static final Method      byteStringWrapMethod;
+    static final Method byteStringWrapMethod;
 
     private final ByteBuffer nioBuffer;
-    private int              lastTag       = 0;
-    private int              packedLimit   = 0;
+    private int lastTag = 0;
+    private int packedLimit = 0;
 
     /**
      * Start address of the memory buffer The memory buffer should be non-movable, which normally means that is is allocated
      * off-heap
      */
-    private long             memoryAddress;
+    private long memoryAddress;
 
     /**
      * If true, the nested messages are group-encoded
      */
-    public final boolean     decodeNestedMessageAsGroup;
+    public final boolean decodeNestedMessageAsGroup;
 
     /**
      * An input for a ByteBuffer
@@ -573,7 +572,7 @@ class UnsafeNioBufInput implements Input {
 
     @Override
     public void transferByteRangeTo(Output output, boolean utf8String, int fieldNumber, boolean repeated)
-                                                                                                         throws IOException {
+            throws IOException {
         final int length = readRawVarInt32();
         if (length < 0) {
             throw ProtocolException.negativeSize();
@@ -584,7 +583,7 @@ class UnsafeNioBufInput implements Input {
 
             if (nioBuffer.hasArray()) {
                 output.writeByteRange(true, fieldNumber, nioBuffer.array(),
-                    nioBuffer.arrayOffset() + nioBuffer.position(), length, repeated);
+                        nioBuffer.arrayOffset() + nioBuffer.position(), length, repeated);
                 nioBuffer.position(nioBuffer.position() + length);
             } else {
                 byte[] bytes = new byte[length];

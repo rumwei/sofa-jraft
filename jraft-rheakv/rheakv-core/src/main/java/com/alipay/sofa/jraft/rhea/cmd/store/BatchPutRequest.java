@@ -21,14 +21,13 @@ import java.util.List;
 import com.alipay.sofa.jraft.rhea.storage.KVEntry;
 
 /**
- *
  * @author jiachun.fjc
  */
 public class BatchPutRequest extends BaseRequest {
 
     private static final long serialVersionUID = -980036845124180958L;
 
-    private List<KVEntry>     kvEntries;
+    private List<KVEntry> kvEntries;
 
     public List<KVEntry> getKvEntries() {
         return kvEntries;

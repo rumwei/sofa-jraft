@@ -19,7 +19,6 @@ package com.alipay.sofa.jraft.rhea.errors;
 /**
  * An error occurred on the server for which the client doesn't have a corresponding error code. This is generally an
  * unexpected error.
- * 
  */
 public class UnknownServerException extends ApiException {
 
