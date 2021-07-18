@@ -21,51 +21,53 @@ import com.alipay.sofa.jraft.util.RpcFactoryHelper;
 
 /**
  * Raft options.
- *
- * @author boyan (boyan@alibaba-inc.com)
- * <p>
- * 2018-Apr-03 4:38:40 PM
+ * 用于设置和性能、数据可靠性相关的参数
  */
 public class RaftOptions implements Copiable<RaftOptions> {
 
     /**
      * Maximum of block size per RPC
+     * 节点之间每次文件RPC(snapshot拷贝)请求的最大大小，默认为128K
      */
     private int maxByteCountPerRpc = 128 * 1024;
     /**
-     * File service check hole switch, default disable
+     * 是否在拷贝文件中检查文件空洞，暂时未实现
      */
     private boolean fileCheckHole = false;
     /**
      * The maximum number of entries in AppendEntriesRequest
+     * 即从leader发往follower的最大日志个数
      */
     private int maxEntriesSize = 1024;
     /**
      * The maximum byte size of AppendEntriesRequest
+     * 即从leader发往follower的日志的最大body大小，默认512K
      */
     private int maxBodySize = 512 * 1024;
     /**
-     * Flush buffer to LogStorage if the buffer size reaches the limit
+     * 日志存储缓存区最大大小，默认256K，超过该值，就会将缓存区中的日志flush到LogStorage中
      */
     private int maxAppendBufferSize = 256 * 1024;
     /**
-     * Maximum election delay time allowed by user
+     * 选举定时器间隔在指定时间间隔基础上可以允许的随机最大值
      */
     private int maxElectionDelayMs = 1000;
     /**
-     * Raft election:heartbeat timeout factor
+     * Raft election : heartbeat timeout
+     * 选举超时时间与心跳间隔时间之间的比值
      */
     private int electionHeartbeatFactor = 10;
     /**
-     * Maximum number of tasks that can be applied in a batch
+     * 一批向leader提交的任务最大数目
      */
     private int applyBatch = 32;
     /**
-     * Call fsync when need
+     * 指定了写入日志、raft和snapshot元信息到节点的存储是否调用fsync，强制刷入磁盘。
+     * 如果不设置为true，则可能在多数节点故障的情况下，永久地丢失数据，只有确信该情况可以容忍的时候，才可以设置为false
      */
     private boolean sync = true;
     /**
-     * Sync log meta, snapshot meta and raft meta
+     * 写入snapshot/raft元信息是否调用fsync，默认为false
      */
     private boolean syncMeta = false;
     /**
@@ -73,15 +75,15 @@ public class RaftOptions implements Copiable<RaftOptions> {
      */
     private boolean openStatistics = true;
     /**
-     * Whether to enable replicator pipeline.
+     * 是否穷replicator pipeline优化
      */
     private boolean replicatorPipeline = true;
     /**
-     * The maximum replicator pipeline in-flight requests/responses, only valid when enable replicator pipeline.
+     * 当replicatorPipeline设置为true前提下，最大in-flight请求数
      */
     private int maxReplicatorInflightMsgs = 256;
     /**
-     * Internal disruptor buffers size for Node/FSMCaller/LogManager etc.
+     * 内部disruptor buffer大小，如果是写入吞吐量较高的应用，需要适当提高该参数
      */
     private int disruptorBufferSize = 16384;
     /**
@@ -108,6 +110,8 @@ public class RaftOptions implements Copiable<RaftOptions> {
      * If the clock drift is unbounded, leader might keep the lease longer than it
      * should (clock can move backward/pause without any bound). ReadIndex is not safe
      * in that case.
+     *
+     * ReadIndex请求级别
      */
     private ReadOnlyOption readOnlyOptions = ReadOnlyOption.ReadOnlySafe;
     /**

@@ -43,6 +43,10 @@ import com.alipay.sofa.jraft.util.Describer;
  *
  * 单纯一个Raft Node节点是没啥用的，需要多个节点来构成一个raft group，节点之间的通讯使用bolt框架或grpc框架的rpc服务，因此在创建节点后，
  * 需要将Raft Node加入到{@link NodeManager}中
+ *
+ * 节点提供给客户端的服务可以分为两类：
+ * 1.读服务，可以从leader或者follower读取状态机数据，但是follower读取的数据不保证最新，存在时间差，除非启用线性一致读。
+ * 2.写服务，更改状态机数据，只能提交到leader写入
  */
 public interface Node extends Lifecycle<NodeOptions>, Describer {
 

@@ -39,6 +39,8 @@ import com.alipay.sofa.jraft.util.Utils;
  * 3.创建Node实例，并使用NodeOptions初始化
  * 4.创建并启动RpcServer，提供节点之间的通讯服务
  * 该类就是为了简化上述流程，避免应用层来实现的麻烦
+ *
+ * 在构建完成Raft Group服务端集群后，客户端就可以跟Raft Group进行交互了
  */
 public class RaftGroupService {
 

@@ -21,16 +21,19 @@ import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 用的是Netty的实现
  * Schedules {@link TimerTask}s for one-time future execution in a background
  * thread.
  * <p>
  * Forked from <a href="https://github.com/netty/netty">Netty</a>.
+ *
+ * Timer、Timeout、TimerTask三者的关系
+ * Timer管理着多个Timeout，一个Timeout会包含一个TimeTask
  */
 public interface Timer {
 
     /**
-     * Schedules the specified {@link TimerTask} for one-time execution after
-     * the specified delay.
+     * 创建一个定时任务，要执行的逻辑在{@link TimerTask}中定义
      *
      * @return a handle which is associated with the specified task
      * @throws IllegalStateException      if this timer has been {@linkplain #stop() stopped} already
@@ -40,11 +43,8 @@ public interface Timer {
     Timeout newTimeout(final TimerTask task, final long delay, final TimeUnit unit);
 
     /**
-     * Releases all resources acquired by this {@link Timer} and cancels all
-     * tasks which were scheduled but not executed yet.
-     *
-     * @return the handles associated with the tasks which were canceled by
-     * this method
+     * 停止所有还未被执行的定时任务，并释放被该持有的所有资源{@link Timer}
+     * 会返回所有被取消的任务，Timeout中包含有Timer和TimerTask
      */
     Set<Timeout> stop();
 }

@@ -23,10 +23,9 @@ package com.alipay.sofa.jraft.util.timer;
 public interface TimerTask {
 
     /**
-     * Executed after the delay specified with
-     * Timer#newTimeout(TimerTask, long, TimeUnit).
-     *
-     * @param timeout a handle which is associated with this task
+     * 会在某个特定的时间延时后执行，该延时时间通过Timer#newTimeout(TimerTask, long, TimeUnit)设置
+     * @param timeout 与该执行任务相关的Timeout对象，实际上Timeout对象是包含TimerTask对象的，这跟平时的单向依赖编程习惯不太一样
+     *                好处是在延时任务执行过程中，我们可以利用timeout来做点其他事情
      */
     void run(final Timeout timeout) throws Exception;
 }

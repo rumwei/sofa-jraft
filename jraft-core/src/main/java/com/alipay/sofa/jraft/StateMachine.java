@@ -33,6 +33,12 @@ import com.alipay.sofa.jraft.storage.snapshot.SnapshotWriter;
  * 因StateMachine接口的方法比较多，并且大多数方法可能不需要做一些业务处理，因此jraft提供了一个
  * {@link com.alipay.sofa.jraft.core.StateMachineAdapter}桥接类，方便适配实现状态机，
  * 除了强制要实现 onApply 方法外，其他方法都提供了默认实现，也就是简单地打印日志，用户可以选择实现特定的方法
+ *
+ * 状态机实现建议：
+ * 1.优先继承{@link com.alipay.sofa.jraft.core.StateMachineAdapter}来实现，而非直接实现该接口
+ * 2.启动状态机前，需要清空状态机数据，如果有历史数据被状态机读取且有非幂等的操作，将会导致不一致
+ * 3.尽力优化下方onApply()方法，避免阻塞，加速状态机apply性能
+ * 4.推荐实现snapshot功能，加快恢复功能以及节约空间。但snapshot的save/load都会阻塞状态机，应该尽力优化，避免阻塞。
  */
 public interface StateMachine {
 

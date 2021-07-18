@@ -31,6 +31,8 @@ import com.alipay.sofa.jraft.example.counter.rpc.ValueResponse;
 import com.alipay.sofa.jraft.option.NodeOptions;
 import com.alipay.sofa.jraft.rpc.RaftRpcServerFactory;
 import com.alipay.sofa.jraft.rpc.RpcServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Counter server that keeps a counter value in a raft group.
@@ -41,10 +43,19 @@ import com.alipay.sofa.jraft.rpc.RpcServer;
  */
 public class CounterServer {
 
+    Logger log = LoggerFactory.getLogger(CounterServer.class);
+
     private RaftGroupService raftGroupService;
     private Node node;
     private CounterStateMachine fsm;
 
+    /**
+     * @param dataPath 日志、元数据等保存地址
+     * @param groupId groupId
+     * @param serverId 当前节点信息，包括地址、端口等
+     * @param nodeOptions 集群配置，包括集群所有节点信息、选举超时时间等
+     * @throws IOException
+     */
     public CounterServer(final String dataPath, final String groupId, final PeerId serverId,
                          final NodeOptions nodeOptions) throws IOException {
         // 初始化路径
@@ -102,10 +113,10 @@ public class CounterServer {
 
     public static void main(final String[] args) throws IOException {
         if (args.length != 4) {
-            System.out
-                    .println("Useage : java com.alipay.sofa.jraft.example.counter.CounterServer {dataPath} {groupId} {serverId} {initConf}");
-            System.out
-                    .println("Example: java com.alipay.sofa.jraft.example.counter.CounterServer /tmp/server1 counter 127.0.0.1:8081 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083");
+            //使用规则
+            System.out.println("Usage : java com.alipay.sofa.jraft.example.counter.CounterServer {dataPath} {groupId} {serverId} {initConf}");
+            //示例
+            System.out.println("Example: java com.alipay.sofa.jraft.example.counter.CounterServer /tmp/server1 counter 127.0.0.1:8081 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083");
             System.exit(1);
         }
         final String dataPath = args[0];

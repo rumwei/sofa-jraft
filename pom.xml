@@ -40,6 +40,7 @@
         <module>jraft-example</module>
         <module>jraft-rheakv</module>
         <module>jraft-extension</module>
+        <module>note</module>
     </modules>
 
     <scm>

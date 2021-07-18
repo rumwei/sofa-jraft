@@ -19,6 +19,9 @@ package com.alipay.sofa.jraft.util.timer;
  * {@link Timer}.
  * <p>
  * Forked from <a href="https://github.com/netty/netty">Netty</a>.
+ *
+ * Timer、Timeout、TimerTask三者的关系
+ * Timer管理着多个Timeout，一个Timeout会包含一个TimeTask，不过在Timeout中同时持有上层的Timer实例和下层的TimerTask实例
  */
 public interface Timeout {
 

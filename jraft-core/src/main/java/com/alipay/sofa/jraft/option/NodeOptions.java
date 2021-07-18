@@ -137,6 +137,7 @@ public class NodeOptions extends RpcOptions implements Copiable<NodeOptions> {
     private int raftRpcThreadPoolSize = Utils.cpus() * 6;
     /**
      * Whether to enable metrics for node.
+     * JRaft内置了基于metrics类库的性能指标统计，false默认不开启
      */
     private boolean enableMetrics = false;
 

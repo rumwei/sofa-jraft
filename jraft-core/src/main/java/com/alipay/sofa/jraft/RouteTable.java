@@ -39,11 +39,7 @@ import com.alipay.sofa.jraft.util.Requires;
 import com.google.protobuf.Message;
 
 /**
- * Maintain routes to raft groups.
- *
- * @author boyan (boyan@alibaba-inc.com)
- * <p>
- * 2018-Apr-09 10:41:21 AM
+ * 该类是一个全局单例，维护到Raft Group的路由信息
  */
 public class RouteTable implements Describer {
 
@@ -59,8 +55,7 @@ public class RouteTable implements Describer {
     }
 
     /**
-     * Update configuration of group in route table.
-     *
+     * 更新路由表中对应group的配置信息
      * @param groupId raft group id
      * @param conf    configuration to update
      * @return true on success
@@ -96,8 +91,7 @@ public class RouteTable implements Describer {
     }
 
     /**
-     * Update configuration of group in route table.
-     *
+     * 同上
      * @param groupId raft group id
      * @param confStr configuration string
      * @return true on success
@@ -218,8 +212,11 @@ public class RouteTable implements Describer {
     }
 
     /**
-     * Blocking the thread until query_leader finishes.
+     * 刷新leader信息到路由表中，超时timeoutMs，返回成功或者失败
+     * 注意：该方法在查询leader信息时，是阻塞当前线程的
      *
+     * 应用如果需要向leader提交任务或者必须向leader查询最新数据，就需要定期的调用该方法来更新路由表中的leader信息 或者 在服务端返回
+     * redirect重定向信息的情况下主动更新leader信息
      * @param groupId   raft group id
      * @param timeoutMs timeout millis
      * @return operation status

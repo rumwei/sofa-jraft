@@ -22,11 +22,8 @@ import com.alipay.sofa.jraft.util.Endpoint;
 import com.google.protobuf.Message;
 
 /**
- * Cli RPC client service.
- *
- * @author boyan (boyan@alibaba-inc.com)
- * <p>
- * 2018-Apr-09 11:15:13 AM
+ * Cli RPC客户端服务.
+ * 该接口是对客户端通讯层的封装
  */
 public interface CliClientService extends ClientService {
 

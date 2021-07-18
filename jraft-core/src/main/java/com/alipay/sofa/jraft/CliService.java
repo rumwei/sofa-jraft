@@ -26,176 +26,56 @@ import com.alipay.sofa.jraft.option.CliOptions;
 
 /**
  * Client command-line service
+ * 该Service是Jraft在raft group节点提供的Rpc服务中暴露的一系列用于管理raft group的服务接口
  *
- * @author boyan (boyan@alibaba-inc.com)
- * <p>
- * 2018-Apr-09 4:05:35 PM
+ * 简单使用示例：
+ * // 创建并初始化 CliService
+ * CliService cliService = RaftServiceFactory.createAndInitCliService(new CliOptions());
+ * // 使用CliService
+ * Configuration conf = JRaftUtils.getConfiguration("localhost:8081,localhost:8082,localhost:8083");
+ * Status status = cliService.addPeer("jraft_group", conf, new PeerId("localhost", 8083));
+ * if(status.isOk()){
+ *    System.out.println("添加节点成功");
+ * }
  */
 public interface CliService extends Lifecycle<CliOptions> {
 
-    /**
-     * Add a new peer into the replicating group which consists of |conf|.
-     * return OK status when success.
-     *
-     * @param groupId the raft group id
-     * @param conf    current configuration
-     * @param peer    peer to add
-     * @return operation status
-     */
+    //增加节点peer到groupId所对应的raft group中，其中peer包含配置conf
     Status addPeer(final String groupId, final Configuration conf, final PeerId peer);
-
-    /**
-     * Remove a peer from the replicating group which consists of |conf|.
-     * return OK status when success.
-     *
-     * @param groupId the raft group id
-     * @param conf    current configuration
-     * @param peer    peer to remove
-     * @return operation status
-     */
+    //删除groupId所对应的raft group中的节点peer，其中peer包含配置conf
     Status removePeer(final String groupId, final Configuration conf, final PeerId peer);
-
-    /**
-     * Gracefully change the peers of the replication group.
-     *
-     * @param groupId  the raft group id
-     * @param conf     current configuration
-     * @param newPeers new peers to change
-     * @return operation status
-     */
+    //gracefully变更groupId所对应的raft group中的节点，将conf对应的旧节点迁移为newPeers对应的新节点
     Status changePeers(final String groupId, final Configuration conf, final Configuration newPeers);
-
-    /**
-     * Reset the peer set of the target peer.
-     *
-     * @param groupId  the raft group id
-     * @param peer     target peer
-     * @param newPeers new peers to reset
-     * @return operation status
-     */
+    //重置groupId所对应的raft group中的peer节点的配置为新配置newPeers，仅仅在特殊情况下使用
     Status resetPeer(final String groupId, final PeerId peer, final Configuration newPeers);
-
-    /**
-     * Add some new learners into the replicating group which consists of |conf|.
-     * return OK status when success.
-     *
-     * @param groupId  the raft group id
-     * @param conf     current configuration
-     * @param learners learner peers to add
-     * @return operation status
-     * @since 1.3.0
-     */
+    //learner的概念见note.md
+    //将包含conf配置的新learners添加到groupId所对应的raft group中
     Status addLearners(final String groupId, final Configuration conf, final List<PeerId> learners);
-
-    /**
-     * Remove some learners from the replicating group which consists of |conf|.
-     * return OK status when success.
-     *
-     * @param groupId  the raft group id
-     * @param conf     current configuration
-     * @param learners learner peers to remove
-     * @return operation status
-     * @since 1.3.0
-     */
+    //将包含conf配置的learners从groupId所对应的raft group中移除
     Status removeLearners(final String groupId, final Configuration conf, final List<PeerId> learners);
-
-    /**
-     * Converts the specified learner to follower of |conf|.
-     * return OK status when success.
-     *
-     * @param groupId the raft group id
-     * @param conf    current configuration
-     * @param learner learner peer
-     * @return operation status
-     * @since 1.3.8
-     */
+    //将groupId所对应的raft group中的learner转换为follower，该follower的配置为conf
     Status learner2Follower(final String groupId, final Configuration conf, final PeerId learner);
-
-    /**
-     * Update learners set in the replicating group which consists of |conf|.
-     * return OK status when success.
-     *
-     * @param groupId  the raft group id
-     * @param conf     current configuration
-     * @param learners learner peers to set
-     * @return operation status
-     * @since 1.3.0
-     */
+    //更新groupId所对应的raft group中的learners节点信息，conf为当前raft group的配置
     Status resetLearners(final String groupId, final Configuration conf, final List<PeerId> learners);
-
-    /**
-     * Transfer the leader of the replication group to the target peer
-     *
-     * @param groupId the raft group id
-     * @param conf    current configuration
-     * @param peer    target peer of new leader
-     * @return operation status
-     */
+    //让groupId所对应的raft group中的leader将leader角色转给peer，conf为当前集群配置
     Status transferLeader(final String groupId, final Configuration conf, final PeerId peer);
-
-    /**
-     * Ask the peer to dump a snapshot immediately.
-     *
-     * @param groupId the raft group id
-     * @param peer    target peer
-     * @return operation status
-     */
+    //触发groupId所对应的raft group中的节点peer立即dump一次该节点的快照
     Status snapshot(final String groupId, final PeerId peer);
-
-    /**
-     * Get the leader of the replication group.
-     *
-     * @param groupId  the raft group id
-     * @param conf     configuration
-     * @param leaderId id of leader
-     * @return operation status
-     */
+    //获取groupId所对应的raft group中的leader
     Status getLeader(final String groupId, final Configuration conf, final PeerId leaderId);
-
-    /**
-     * Ask all peers of the replication group.
-     *
-     * @param groupId the raft group id
-     * @param conf    target peers configuration
-     * @return all peers of the replication group
-     */
+    //获取groupId所对应的raft group中的所有节点信息，conf为目标节点配置
     List<PeerId> getPeers(final String groupId, final Configuration conf);
-
-    /**
-     * Ask all alive peers of the replication group.
-     *
-     * @param groupId the raft group id
-     * @param conf    target peers configuration
-     * @return all alive peers of the replication group
-     */
+    //获取groupId所对应的raft group中的所有存活节点信息，conf为目标节点配置
     List<PeerId> getAlivePeers(final String groupId, final Configuration conf);
-
-    /**
-     * Ask all learners of the replication group.
-     *
-     * @param groupId the raft group id
-     * @param conf    target peers configuration
-     * @return all learners of the replication group
-     * @since 1.3.0
-     */
+    //获取groupId所对应的raft group中的所有learners节点信息，conf为目标节点配置
     List<PeerId> getLearners(final String groupId, final Configuration conf);
-
-    /**
-     * Ask all alive learners of the replication group.
-     *
-     * @param groupId the raft group id
-     * @param conf    target peers configuration
-     * @return all alive learners of the replication group
-     */
+    //获取groupId所对应的raft group中的所有存活learners节点信息，conf为目标节点配置
     List<PeerId> getAliveLearners(final String groupId, final Configuration conf);
-
     /**
      * Balance the number of leaders.
-     *
      * @param balanceGroupIds   all raft group ids to balance
      * @param conf              configuration of all nodes
      * @param balancedLeaderIds the result of all balanced leader ids
-     * @return operation status
      */
     Status rebalance(final Set<String> balanceGroupIds, final Configuration conf,
                      final Map<String, PeerId> balancedLeaderIds);

@@ -105,19 +105,23 @@ public class AtomicRangeGroup {
     }
 
     public void readFromQuorum(final String key, RpcContext asyncContext) {
-        final byte[] reqContext = new byte[4];
+        final byte[] reqContext = new byte[4]; //请求id作为请求上下文传入
         Bits.putInt(reqContext, 0, requestId.incrementAndGet());
+        //发起一致性读
         this.node.readIndex(reqContext, new ReadIndexClosure() {
 
             @Override
             public void run(Status status, long index, byte[] reqCtx) {
                 if (status.isOk()) {
                     try {
+                        //执行调用成功回调，可以从状态机读取最新数据返回
+                        //如果你的状态实现有版本概念，可以根据传入的日志index编号做读取。
                         asyncContext.sendResponse(new ValueCommand(fsm.getValue(key)));
                     } catch (final KeyNotFoundException e) {
                         asyncContext.sendResponse(GetCommandProcessor.createKeyNotFoundResponse());
                     }
                 } else {
+                    //特定情况下，比如发生选举，该读请求将失败
                     asyncContext.sendResponse(new BooleanCommand(false, status.getErrorMsg()));
                 }
             }
