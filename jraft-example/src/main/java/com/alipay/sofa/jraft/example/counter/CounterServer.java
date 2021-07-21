@@ -43,7 +43,7 @@ import org.slf4j.LoggerFactory;
  */
 public class CounterServer {
 
-    Logger log = LoggerFactory.getLogger(CounterServer.class);
+    private static final Logger log = LoggerFactory.getLogger(CounterServer.class);
 
     private RaftGroupService raftGroupService;
     private Node node;
@@ -113,6 +113,7 @@ public class CounterServer {
 
     public static void main(final String[] args) throws IOException {
         if (args.length != 4) {
+            log.info("Usage : java com.alipay.sofa.jraft.example.counter.CounterServer {dataPath} {groupId} {serverId} {initConf}");
             //使用规则
             System.out.println("Usage : java com.alipay.sofa.jraft.example.counter.CounterServer {dataPath} {groupId} {serverId} {initConf}");
             //示例

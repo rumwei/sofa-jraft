@@ -45,6 +45,29 @@ import org.slf4j.LoggerFactory;
  * <p>
  * <p>
  * Forked from <a href="https://github.com/netty/netty">Netty</a>.
+ * 时间轮实现延时任务类
+ *
+ * 工作线程是单线程，即所有的延时任务都是一个线程来完成的。即假设A任务执行完需要3000ms
+ * 1.设置A任务在t=1000ms时执行，B任务在t=5000ms时执行，则线程执行完A任务，会进入休眠，1000ms之后，再执行B任务
+ * 2.设置A任务在t=1000ms时执行，B任务在t=2000ms时执行，则线程执行完A任务，t已经是4000ms了，此时会直接执行B任务，即B任务的实际执行时间要晚于设置的时间
+ * 默认最小单位是100ms，可通过构造函数指定。延时任务的时间间隔不能小于该最小单位，如果小于，则无法区分。
+ * 如设置A任务在t=510ms执行，B任务在t=530ms执行，则工作线程会在t=500ms开始执行A任务，执行完接着执行B任务
+ *
+ * 默认的时间轮长度为512，即一圈的时间是100ms*512=51200ms，对应的数据结构即为下方的{@link #wheel}成员变量，它是一个数组，数组元素是一个链表
+ * 链表成员即为Timeout变量
+ *
+ * 时间轮中涉及两类线程
+ * 1.提交任务的线程，这类线程即为需要延时调度的各个业务线程，该线程不在时间轮的管理范围中，时间轮实现中只负责提供提交任务的代码。且该线程只负责将
+ *   任务加入到队列中，并不负责根据延时时间来将任务分配到时间轮中。
+ * 2.执行任务的线程(下称工作线程)，该线程为时间轮提供并维护，且是单线程  -- 如何维持单线程的持续执行？？
+ *
+ * 时间轮执行过程
+ * 1.工作线程到达每个时间整点的时候开始工作。在时间轮中，时间都是相对时间，工作线程第一次启动时为t=0，之后每次tick的时间即为此处说的时间整点
+ * 2.首先工作线程会检查延时队列{@link #timeouts}中是否有由提交任务线程新提交的任务，如果有，则取出这些任务
+ * 3.根据每个任务所指定的延迟时间，将其分配到{@link #wheel}的相应位置上，如t=230ms、t=240ms、t=512*100*n+250ms-n为整数三个任务就会在同
+ *   一个位置，并构成一个链表
+ * 4.步骤3中的分配完成后，才真正的开始执行本tick中的链表对应的任务
+ * 5.判断每个任务的轮次，如果轮次为0，则从链表中移除任务，并直接执行，如果轮次大于0，则将轮次-1即可
  */
 public class HashedWheelTimer implements Timer {
 
@@ -67,7 +90,7 @@ public class HashedWheelTimer implements Timer {
     public static final int WORKER_STATE_STARTED = 1;
     public static final int WORKER_STATE_SHUTDOWN = 2;
     @SuppressWarnings({"unused", "FieldMayBeFinal"})
-    private volatile int workerState;                                                  // 0 - init, 1 - started, 2 - shut down
+    private volatile int workerState; // 0 - init, 1 - started, 2 - shut down
 
     private final long tickDuration;
     private final HashedWheelBucket[] wheel;
@@ -80,142 +103,68 @@ public class HashedWheelTimer implements Timer {
 
     private volatile long startTime;
 
-    /**
-     * Creates a new timer with the default thread factory
-     * ({@link Executors#defaultThreadFactory()}), default tick duration, and
-     * default number of ticks per wheel.
-     */
+    //region 构造函数
     public HashedWheelTimer() {
         this(Executors.defaultThreadFactory());
     }
-
-    /**
-     * Creates a new timer with the default thread factory
-     * ({@link Executors#defaultThreadFactory()}) and default number of ticks
-     * per wheel.
-     *
-     * @param tickDuration the duration between tick
-     * @param unit         the time unit of the {@code tickDuration}
-     * @throws NullPointerException     if {@code unit} is {@code null}
-     * @throws IllegalArgumentException if {@code tickDuration} is &lt;= 0
-     */
-    public HashedWheelTimer(long tickDuration, TimeUnit unit) {
-        this(Executors.defaultThreadFactory(), tickDuration, unit);
-    }
-
-    /**
-     * Creates a new timer with the default thread factory
-     * ({@link Executors#defaultThreadFactory()}).
-     *
-     * @param tickDuration  the duration between tick
-     * @param unit          the time unit of the {@code tickDuration}
-     * @param ticksPerWheel the size of the wheel
-     * @throws NullPointerException     if {@code unit} is {@code null}
-     * @throws IllegalArgumentException if either of {@code tickDuration} and {@code ticksPerWheel} is &lt;= 0
-     */
-    public HashedWheelTimer(long tickDuration, TimeUnit unit, int ticksPerWheel) {
-        this(Executors.defaultThreadFactory(), tickDuration, unit, ticksPerWheel);
-    }
-
-    /**
-     * Creates a new timer with the default tick duration and default number of
-     * ticks per wheel.
-     *
-     * @param threadFactory a {@link ThreadFactory} that creates a
-     *                      background {@link Thread} which is dedicated to
-     *                      {@link TimerTask} execution.
-     * @throws NullPointerException if {@code threadFactory} is {@code null}
-     */
     public HashedWheelTimer(ThreadFactory threadFactory) {
         this(threadFactory, 100, TimeUnit.MILLISECONDS);
     }
-
-    /**
-     * Creates a new timer with the default number of ticks per wheel.
-     *
-     * @param threadFactory a {@link ThreadFactory} that creates a
-     *                      background {@link Thread} which is dedicated to
-     *                      {@link TimerTask} execution.
-     * @param tickDuration  the duration between tick
-     * @param unit          the time unit of the {@code tickDuration}
-     * @throws NullPointerException     if either of {@code threadFactory} and {@code unit} is {@code null}
-     * @throws IllegalArgumentException if {@code tickDuration} is &lt;= 0
-     */
+    public HashedWheelTimer(long tickDuration, TimeUnit unit) {
+        this(Executors.defaultThreadFactory(), tickDuration, unit);
+    }
     public HashedWheelTimer(ThreadFactory threadFactory, long tickDuration, TimeUnit unit) {
         this(threadFactory, tickDuration, unit, 512);
     }
-
-    /**
-     * Creates a new timer.
-     *
-     * @param threadFactory a {@link ThreadFactory} that creates a
-     *                      background {@link Thread} which is dedicated to
-     *                      {@link TimerTask} execution.
-     * @param tickDuration  the duration between tick
-     * @param unit          the time unit of the {@code tickDuration}
-     * @param ticksPerWheel the size of the wheel
-     * @throws NullPointerException     if either of {@code threadFactory} and {@code unit} is {@code null}
-     * @throws IllegalArgumentException if either of {@code tickDuration} and {@code ticksPerWheel} is &lt;= 0
-     */
+    public HashedWheelTimer(long tickDuration, TimeUnit unit, int ticksPerWheel) {
+        this(Executors.defaultThreadFactory(), tickDuration, unit, ticksPerWheel);
+    }
     public HashedWheelTimer(ThreadFactory threadFactory, long tickDuration, TimeUnit unit, int ticksPerWheel) {
         this(threadFactory, tickDuration, unit, ticksPerWheel, -1);
     }
-
     /**
-     * Creates a new timer.
-     *
-     * @param threadFactory      a {@link ThreadFactory} that creates a
-     *                           background {@link Thread} which is dedicated to
-     *                           {@link TimerTask} execution.
-     * @param tickDuration       the duration between tick
-     * @param unit               the time unit of the {@code tickDuration}
-     * @param ticksPerWheel      the size of the wheel
-     * @param maxPendingTimeouts The maximum number of pending timeouts after which call to
-     *                           {@code newTimeout} will result in
-     *                           {@link RejectedExecutionException}
-     *                           being thrown. No maximum pending timeouts limit is assumed if
-     *                           this value is 0 or negative.
-     * @throws NullPointerException     if either of {@code threadFactory} and {@code unit} is {@code null}
-     * @throws IllegalArgumentException if either of {@code tickDuration} and {@code ticksPerWheel} is &lt;= 0
+     * 创建一个新的Timer
+     * @param threadFactory 线程工厂，负责创建一个后台线程，负责延时任务的执行。即上面说的工作线程
+     * @param tickDuration 两次tick之间的时间间隔，默认100
+     * @param unit 上tickDuration的时间单位，默认ms
+     * @param ticksPerWheel 时间轮长度，默认512
+     * @param maxPendingTimeouts 最大允许等待的timeout数目，如果未执行任务数达到该数目，继续通过newTimeout提交任务会返回
+     *                           {@link RejectedExecutionException}异常。如果设置为0或负数，则表示不限制提交的任务数目。
+     * @throws NullPointerException     如果{@code threadFactory}或{@code unit}为null时抛出
+     * @throws IllegalArgumentException 如果{@code tickDuration}或{@code ticksPerWheel}为非正数
      */
-    public HashedWheelTimer(ThreadFactory threadFactory, long tickDuration, TimeUnit unit, int ticksPerWheel,
-                            long maxPendingTimeouts) {
+    public HashedWheelTimer(ThreadFactory threadFactory, long tickDuration, TimeUnit unit, int ticksPerWheel, long maxPendingTimeouts) {
+        //region 参数校验
+        if (threadFactory == null) { throw new NullPointerException("threadFactory"); }
+        if (unit == null) { throw new NullPointerException("unit"); }
+        if (tickDuration <= 0) { throw new IllegalArgumentException("tickDuration must be greater than 0: " + tickDuration); }
+        if (ticksPerWheel <= 0) { throw new IllegalArgumentException("ticksPerWheel must be greater than 0: " + ticksPerWheel); }
+        //endregion
 
-        if (threadFactory == null) {
-            throw new NullPointerException("threadFactory");
-        }
-        if (unit == null) {
-            throw new NullPointerException("unit");
-        }
-        if (tickDuration <= 0) {
-            throw new IllegalArgumentException("tickDuration must be greater than 0: " + tickDuration);
-        }
-        if (ticksPerWheel <= 0) {
-            throw new IllegalArgumentException("ticksPerWheel must be greater than 0: " + ticksPerWheel);
-        }
-
-        // Normalize ticksPerWheel to power of two and initialize the wheel.
+        //规整化ticksPerWheel，此处做了向上"取整"，保持数组长度为2的n次方
         wheel = createWheel(ticksPerWheel);
-        mask = wheel.length - 1;
+        mask = wheel.length - 1; //掩码，用来做取模
 
-        // Convert tickDuration to nanos.
-        this.tickDuration = unit.toNanos(tickDuration);
+        this.tickDuration = unit.toNanos(tickDuration); //转换为ns
 
-        // Prevent overflow.
+        //防止溢出
         if (this.tickDuration >= Long.MAX_VALUE / wheel.length) {
             throw new IllegalArgumentException(String.format(
                     "tickDuration: %d (expected: 0 < tickDuration in nanos < %d", tickDuration, Long.MAX_VALUE
                             / wheel.length));
         }
+        //创建线程，此处只是做初始化，并没有启动，在后续第一次提交任务时，会启动该工作线程
         workerThread = threadFactory.newThread(worker);
-
+        //设置最大允许的等待任务数
         this.maxPendingTimeouts = maxPendingTimeouts;
-
+        //如果超过 INSTANCE_COUNT_LIMIT=256 个HashedWheelTimer 实例，会打印错误日志做提醒
         if (instanceCounter.incrementAndGet() > INSTANCE_COUNT_LIMIT
                 && warnedTooManyInstances.compareAndSet(false, true)) {
             reportTooManyInstances();
         }
     }
+    //endregion
+
 
     @Override
     protected void finalize() throws Throwable {
@@ -279,6 +228,10 @@ public class HashedWheelTimer implements Timer {
         // Wait until the startTime is initialized by the worker.
         while (startTime == 0) {
             try {
+                /**
+                 *  第一次提交任务的线程在调用本start()方法之后，需要使用startTime来计算所提交任务的相对时间，因此在本方法中利用CountDownLatch
+                 *  来保证startTime初始化完成，才返回该方法，这样在该方法后续使用startTime就保证是初始化过了的，详细见{@link Worker#run()}
+                 */
                 startTimeInitialized.await();
             } catch (InterruptedException ignore) {
                 // Ignore - it will be ready very soon.
@@ -324,35 +277,31 @@ public class HashedWheelTimer implements Timer {
 
     @Override
     public Timeout newTimeout(TimerTask task, long delay, TimeUnit unit) {
-        if (task == null) {
-            throw new NullPointerException("task");
-        }
-        if (unit == null) {
-            throw new NullPointerException("unit");
-        }
+        if (task == null) { throw new NullPointerException("task"); }
+        if (unit == null) { throw new NullPointerException("unit"); }
 
         long pendingTimeoutsCount = pendingTimeouts.incrementAndGet();
-
+        //判断如果设置了最大允许等待任务数，且已经达到阈值，则直接抛出RejectedExecutionException异常
         if (maxPendingTimeouts > 0 && pendingTimeoutsCount > maxPendingTimeouts) {
             pendingTimeouts.decrementAndGet();
             throw new RejectedExecutionException("Number of pending timeouts (" + pendingTimeoutsCount
                     + ") is greater than or equal to maximum allowed pending "
                     + "timeouts (" + maxPendingTimeouts + ")");
         }
-
+        /**
+         * 如果工作线程workThread没有启动，此处会负责启动
+         * 在构造函数中可以看的workThread初始化传入的是work对象封装的任务，因此工作线程的执行逻辑定义在{@link Worker#run()}中
+         */
         start();
 
-        // Add the timeout to the timeout queue which will be processed on the next tick.
-        // During processing all the queued HashedWheelTimeouts will be added to the correct HashedWheelBucket.
-        long deadline = System.nanoTime() + unit.toNanos(delay) - startTime;
-
-        // Guard against overflow.
-        if (delay > 0 && deadline < 0) {
+        //将timeout添加到timeout队列中，它会在下一个tick中，由工作线程分配到时间轮的具体位置上，即会放到HashedWheelBucket数组元素的链表上
+        long deadline = System.nanoTime() + unit.toNanos(delay) - startTime; //deadline为相对时间，相对于HashedWheelTimer的启动时间
+        if (delay > 0 && deadline < 0) { //防止溢出
             deadline = Long.MAX_VALUE;
         }
         HashedWheelTimeout timeout = new HashedWheelTimeout(this, task, deadline);
         timeouts.add(timeout);
-        return timeout;
+        return timeout; //返回封装了task，delay信息的timeout对象
     }
 
     /**
@@ -370,37 +319,40 @@ public class HashedWheelTimer implements Timer {
 
     private final class Worker implements Runnable {
         private final Set<Timeout> unprocessedTimeouts = new HashSet<>();
-
-        private long tick;
+        private long tick; //tick过的次数，前面说过，时针每100ms tick一次
 
         @Override
         public void run() {
-            // Initialize the startTime.
+            //在HashedWheelTimer中，用的都是相对时间，因此需要启动时间作为基准，并且用volatile进行修饰
             startTime = System.nanoTime();
             if (startTime == 0) {
-                // We use 0 as an indicator for the uninitialized value here, so make sure it's not 0 when initialized.
+                //我们使用0作为startTime没有被初始化的标志，但此处我们已经做了初始化，因此如果初始化结果是0，为了和未初始化做区分，给赋值成1，
+                //1ns的延迟对几乎所有的系统都不会有影响
                 startTime = 1;
             }
-
-            // Notify the other threads waiting for the initialization at start().
+            /**
+             * 第一个提交任务的线程正await等待startTime初始化完成呢，唤醒它. 见{@link HashedWheelTimer#start()}
+             */
             startTimeInitialized.countDown();
-
+            //开始处理时间轮上的延时任务
             do {
                 final long deadline = waitForNextTick();
                 if (deadline > 0) {
-                    int idx = (int) (tick & mask);
-                    processCancelledTasks();
+                    int idx = (int) (tick & mask); //该次tick，bucket数组对应的index
+                    processCancelledTasks(); //将cancelledTimeouts队列中记录的任务从timeout队列中移除
                     HashedWheelBucket bucket = wheel[idx];
-                    transferTimeoutsToBuckets();
-                    bucket.expireTimeouts(deadline);
+                    transferTimeoutsToBuckets(); //将timeout队列中的任务填充到时间轮的buckets中
+                    bucket.expireTimeouts(deadline); //处理此次tick对应的buckets数组中的相应bucket任务链表
                     tick++;
                 }
             } while (workerStateUpdater.get(HashedWheelTimer.this) == WORKER_STATE_STARTED);
-
-            // Fill the unprocessedTimeouts so we can return them from stop() method.
+            /* 到这里，说明这个timer要关闭了(调用了timer.stop()来结束时间轮调度)，做一些清理工作 */
+            //将所有bucket中还没来得及执行的timeout添加到unprocessedTimeouts这个HashSet中，最后作为stop()方法的返回，以告知用户停止时间轮后
+            //还有这些timeout没有执行
             for (HashedWheelBucket bucket : wheel) {
                 bucket.clearTimeouts(unprocessedTimeouts);
             }
+            //此时任务队列中的任务肯定是没被执行的，也需要加到unprocessedTimeouts中
             for (; ; ) {
                 HashedWheelTimeout timeout = timeouts.poll();
                 if (timeout == null) {
@@ -433,8 +385,8 @@ public class HashedWheelTimer implements Timer {
                 final long ticks = Math.max(calculated, tick); // Ensure we don't schedule for past.
                 int stopIndex = (int) (ticks & mask);
 
-                HashedWheelBucket bucket = wheel[stopIndex];
-                bucket.addTimeout(timeout);
+                HashedWheelBucket bucket = wheel[stopIndex]; //bucket是由HashedWheelTimeout实例组成的一个链表
+                bucket.addTimeout(timeout); //单线程(即工作线程)操作，因此不存在并发
             }
         }
 
@@ -456,8 +408,13 @@ public class HashedWheelTimer implements Timer {
         }
 
         /**
-         * Calculate goal nanoTime from startTime and current tick number,
-         * then wait until that goal has been reached.
+         * 根据startTime和当前的tick值，计算目标纳米时间(相对时间)，然后等待该时间点的到来
+         * 特别注意该方法的返回值
+         * 前面说过，我们用的都是相对时间，因此：
+         * 1.第一次进来的时候，工作线程会在t=100ms的时候返回，返回值是100*10^6
+         * 2.第二次进来的时候，工作线程会在t=200ms的时候返回，依次类推
+         * 另外就是注意极端情况，比如第二次进来的时候，由于前面的任务执行时间超过100ms，为150ms，导致进来的时候就已经是t=250ms
+         * 那么，一进入这个方法就要立即返回，返回值是250*10^6，而不是200*10^6
          *
          * @return Long.MIN_VALUE if received a shutdown request,
          * current time otherwise (with Long.MIN_VALUE changed by +1)
@@ -467,6 +424,8 @@ public class HashedWheelTimer implements Timer {
 
             for (; ; ) {
                 final long currentTime = System.nanoTime() - startTime;
+                //此处+999999作用是向上取整了1ms，不够1ms算1ms
+                //假设deadline - currentTime = 1200000，即准确时间是再过1.2ms执行调度，此处选择到2ms，不够的直接进1，即可以延后一点点调度，但不能提前
                 long sleepTimeMs = (deadline - currentTime + 999999) / 1000000;
 
                 if (sleepTimeMs <= 0) {

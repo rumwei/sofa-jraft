@@ -72,17 +72,18 @@ public class CounterStateMachine extends StateMachineAdapter {
 
     @Override
     public void onApply(final Iterator iter) {
-        while (iter.hasNext()) {
+        while (iter.hasNext()) { //遍历要应用到状态机的raft日志
             long current = 0;
             CounterOperation counterOperation = null;
 
             CounterClosure closure = null;
             if (iter.done() != null) {
-                // This task is applied by this node, get value from closure to avoid additional parsing.
+                //done()回调不为null，必须在应用完raft日志之后调用该回调。同时说明当前是leader
+                //当前是leader，可以直接从IncrementAndAddClosure中获取delta，避免反序列化
                 closure = (CounterClosure) iter.done();
                 counterOperation = closure.getCounterOperation();
             } else {
-                // Have to parse FetchAddRequest from this user log.
+                //其他节点应用此raft日志，需要反序列化IncrementAndGetRequest，获取delta
                 final ByteBuffer data = iter.getData();
                 try {
                     counterOperation = SerializerManager.getSerializer(SerializerManager.Hessian2).deserialize(
@@ -100,11 +101,11 @@ public class CounterStateMachine extends StateMachineAdapter {
                     case INCREMENT:
                         final long delta = counterOperation.getDelta();
                         final long prev = this.value.get();
-                        current = this.value.addAndGet(delta);
+                        current = this.value.addAndGet(delta); //更新状态机
                         LOG.info("Added value={} by delta={} at logIndex={}", prev, delta, iter.getIndex());
                         break;
                 }
-
+                //更新后，确保调用done，返回应答给客户端
                 if (closure != null) {
                     closure.success(current);
                     closure.run(Status.OK());
