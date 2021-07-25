@@ -128,5 +128,18 @@
             <groupId>org.openjdk.jmh</groupId>
             <artifactId>jmh-generator-annprocess</artifactId>
         </dependency>
+
+        <!--接入阿里云日志-->
+        <dependency>
+            <groupId>com.aliyun.openservices</groupId>
+            <artifactId>aliyun-log-producer</artifactId>
+            <version>0.3.10</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun.openservices</groupId>
+            <artifactId>aliyun-log</artifactId>
+            <version>0.6.33</version>
+        </dependency>
+        <!--接入阿里云日志-->
     </dependencies>
 </project>

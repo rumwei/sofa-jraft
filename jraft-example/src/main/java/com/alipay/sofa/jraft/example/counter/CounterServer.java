@@ -19,6 +19,7 @@ package com.alipay.sofa.jraft.example.counter;
 import java.io.File;
 import java.io.IOException;
 
+import com.alipay.sofa.jraft.util.SlsLogUtil;
 import org.apache.commons.io.FileUtils;
 
 import com.alipay.sofa.jraft.Node;
@@ -112,12 +113,12 @@ public class CounterServer {
     }
 
     public static void main(final String[] args) throws IOException {
+        SlsLogUtil.info("topic", CounterServer.class.getName(), "traceId", "start Counter Server");
         if (args.length != 4) {
-            log.info("Usage : java com.alipay.sofa.jraft.example.counter.CounterServer {dataPath} {groupId} {serverId} {initConf}");
             //使用规则
-            System.out.println("Usage : java com.alipay.sofa.jraft.example.counter.CounterServer {dataPath} {groupId} {serverId} {initConf}");
+            log.info("Usage : java com.alipay.sofa.jraft.example.counter.CounterServer {dataPath} {groupId} {serverId} {initConf}");
             //示例
-            System.out.println("Example: java com.alipay.sofa.jraft.example.counter.CounterServer /tmp/server1 counter 127.0.0.1:8081 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083");
+            log.info("Example: java com.alipay.sofa.jraft.example.counter.CounterServer /tmp/server1 counter 127.0.0.1:8081 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083");
             System.exit(1);
         }
         final String dataPath = args[0];
@@ -148,6 +149,8 @@ public class CounterServer {
         // 启动
         final CounterServer counterServer = new CounterServer(dataPath, groupId, serverId, nodeOptions);
         System.out.println("Started counter server at port:"
+                + counterServer.getNode().getNodeId().getPeerId().getPort());
+        SlsLogUtil.info("CountStart", CounterServer.class.getName(), "","Started counter server at port:"
                 + counterServer.getNode().getNodeId().getPeerId().getPort());
     }
 }
