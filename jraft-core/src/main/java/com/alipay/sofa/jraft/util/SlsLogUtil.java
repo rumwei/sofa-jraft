@@ -33,25 +33,25 @@ public class SlsLogUtil {
                 aliLogAccountConfig.get(CONFIG_ACCESS_KEY_KEY));
     }
 
-    public static void info(String topic, String clazz, String traceId, String message) {
-        log(topic, "info", clazz, traceId, message);
+    public static void info(String topic, String traceId, String message) {
+        log(topic, "info", traceId, message);
     }
 
-    public static void warn(String topic, String clazz, String traceId, String message) {
-        log(topic, "warn", clazz, traceId, message);
+    public static void warn(String topic, String traceId, String message) {
+        log(topic, "warn", traceId, message);
     }
 
-    public static void error(String topic, String clazz, String traceId, String message) {
-        log(topic, "error", clazz, traceId, message);
+    public static void error(String topic, String traceId, String message) {
+        log(topic, "error", traceId, message);
     }
 
-    private static void log(String topic, String level, String clazz, String traceId, String message) {
+    private static void log(String topic, String level, String traceId, String message) {
         String timestamp = LocalDateTime.now().toString();
         String service = "sofa";
         String threadName = Thread.currentThread().getName();
         LogItem logItem = new LogItem();
         logItem.PushBack("level", level);
-        logItem.PushBack("class", clazz);
+        logItem.PushBack("class", Thread.currentThread().getStackTrace()[3].getClassName());
         logItem.PushBack("timestamp", timestamp);
         logItem.PushBack("service", service);
         logItem.PushBack("thread", threadName);

@@ -38,16 +38,17 @@ import com.alipay.sofa.jraft.rpc.impl.core.RequestVoteRequestProcessor;
 import com.alipay.sofa.jraft.rpc.impl.core.TimeoutNowRequestProcessor;
 import com.alipay.sofa.jraft.util.Endpoint;
 import com.alipay.sofa.jraft.util.RpcFactoryHelper;
+import com.alipay.sofa.jraft.util.SlsLogUtil;
 
 /**
  * Raft RPC server factory.
- *
- * @author boyan (boyan@alibaba-inc.com)
- * @author jiachun.fjc
+ * 该工厂类的方法都是静态方法，在首次调用该类的任意方法之前，都会先执行该类的static代码块来做初始化
+ * 在该代码块中使用的ProtobufMsgFactory同样是静态类，在该类内部同样通过static代码块来做初始化
  */
 public class RaftRpcServerFactory {
 
     static {
+        SlsLogUtil.info("RaftRpcServerCreateAndInit", "traceId", "执行RaftRpcServerFactory类静态代码块");
         ProtobufMsgFactory.load();
     }
 

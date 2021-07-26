@@ -113,7 +113,7 @@ public class CounterServer {
     }
 
     public static void main(final String[] args) throws IOException {
-        SlsLogUtil.info("topic", CounterServer.class.getName(), "traceId", "start Counter Server");
+        SlsLogUtil.info("topic", "traceId", "start Counter Server");
         if (args.length != 4) {
             //使用规则
             log.info("Usage : java com.alipay.sofa.jraft.example.counter.CounterServer {dataPath} {groupId} {serverId} {initConf}");
@@ -134,11 +134,12 @@ public class CounterServer {
         nodeOptions.setDisableCli(false);
         // 每隔30秒做一次 snapshot
         nodeOptions.setSnapshotIntervalSecs(30);
-        // 解析参数
+        // 利用入参serverIdStr来填充serverId，如serverIdStr=127:0:0:1:8081
         final PeerId serverId = new PeerId();
         if (!serverId.parse(serverIdStr)) {
             throw new IllegalArgumentException("Fail to parse serverId:" + serverIdStr);
         }
+        //利用入参initConfStr来填充initConf，如initConfStr=127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083，最终填充nodeOptions.initialConf字段
         final Configuration initConf = new Configuration();
         if (!initConf.parse(initConfStr)) {
             throw new IllegalArgumentException("Fail to parse initConf:" + initConfStr);
@@ -150,7 +151,7 @@ public class CounterServer {
         final CounterServer counterServer = new CounterServer(dataPath, groupId, serverId, nodeOptions);
         System.out.println("Started counter server at port:"
                 + counterServer.getNode().getNodeId().getPeerId().getPort());
-        SlsLogUtil.info("CountStart", CounterServer.class.getName(), "","Started counter server at port:"
+        SlsLogUtil.info("CountStart", "","Started counter server at port:"
                 + counterServer.getNode().getNodeId().getPeerId().getPort());
     }
 }
