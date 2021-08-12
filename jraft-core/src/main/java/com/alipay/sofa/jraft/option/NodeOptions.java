@@ -89,6 +89,66 @@ public class NodeOptions extends RpcOptions implements Copiable<NodeOptions> {
     // the existing environment.
     //
     // Default: A empty group
+    /**
+     * 配置示例
+     * "initialConf": {
+     *     "empty": false,
+     *     "learners": [],
+     *     "peerSet": [
+     *         {
+     *             "empty": false,
+     *             "endpoint": {
+     *                 "ip": "127.0.0.1",
+     *                 "port": 8083
+     *             },
+     *             "idx": 0,
+     *             "ip": "127.0.0.1",
+     *             "port": 8083,
+     *             "priority": -1,
+     *             "priorityDisabled": true,
+     *             "priorityNotElected": false
+     *         },
+     *         {
+     *             "empty": false,
+     *             "endpoint": {
+     *                 "ip": "127.0.0.1",
+     *                 "port": 8082
+     *             },
+     *             "idx": 0,
+     *             "ip": "127.0.0.1",
+     *             "port": 8082,
+     *             "priority": -1,
+     *             "priorityDisabled": true,
+     *             "priorityNotElected": false
+     *         },
+     *         {
+     *             "empty": false,
+     *             "endpoint": {
+     *                 "ip": "127.0.0.1",
+     *                 "port": 8081
+     *             },
+     *             "idx": 0,
+     *             "ip": "127.0.0.1",
+     *             "port": 8081,
+     *             "priority": -1,
+     *             "priorityDisabled": true,
+     *             "priorityNotElected": false
+     *         }
+     *     ],
+     *     "peers": [
+     *         {
+     *             "$ref": "$.initialConf.peerSet[2]"
+     *         },
+     *         {
+     *             "$ref": "$.initialConf.peerSet[1]"
+     *         },
+     *         {
+     *             "$ref": "$.initialConf.peerSet[0]"
+     *         }
+     *     ],
+     *     "valid": true
+     * }
+     */
     private Configuration initialConf = new Configuration();
 
     // The specific StateMachine implemented your business logic, which must be

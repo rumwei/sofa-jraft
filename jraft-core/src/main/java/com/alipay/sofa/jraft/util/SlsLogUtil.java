@@ -51,7 +51,8 @@ public class SlsLogUtil {
         String threadName = Thread.currentThread().getName();
         LogItem logItem = new LogItem();
         logItem.PushBack("level", level);
-        logItem.PushBack("class", Thread.currentThread().getStackTrace()[3].getClassName());
+        StackTraceElement thirdSTE = Thread.currentThread().getStackTrace()[3];
+        logItem.PushBack("class", thirdSTE.getClassName() + ":" + thirdSTE.getLineNumber());
         logItem.PushBack("timestamp", timestamp);
         logItem.PushBack("service", service);
         logItem.PushBack("thread", threadName);

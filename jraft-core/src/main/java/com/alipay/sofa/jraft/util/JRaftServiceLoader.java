@@ -36,7 +36,10 @@ import org.slf4j.LoggerFactory;
 
 /**
  * A simple service-provider loading facility (SPI).
- *
+ * 决定RPC服务提供类型
+ * // 采用SPI，以便可以更换RPC服务，目前可选的有BoltRpc与GRpc，具体使用哪个开发者可以通过配置
+ * // jraft-core/resources/META-INF.services/com.alipay.sofa.jraft.rpc.RaftRpcFactory
+ * // 来自定义。默认是BoltRaftRpcFactory
  * @author jiachun.fjc
  */
 public final class JRaftServiceLoader<S> implements Iterable<S> {

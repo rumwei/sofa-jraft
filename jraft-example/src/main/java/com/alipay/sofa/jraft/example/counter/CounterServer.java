@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 
 import com.alipay.sofa.jraft.util.SlsLogUtil;
+import com.aliyun.openservices.log.util.JsonUtils;
 import org.apache.commons.io.FileUtils;
 
 import com.alipay.sofa.jraft.Node;
@@ -59,6 +60,12 @@ public class CounterServer {
      */
     public CounterServer(final String dataPath, final String groupId, final PeerId serverId,
                          final NodeOptions nodeOptions) throws IOException {
+        SlsLogUtil.info("CounterServer init", "traceId", "CounterServer初始化构造函数入参:\n"
+        + "dataPath: " + dataPath + "\n"
+        + "groupId:" + groupId + "\n"
+        + "serverId:" + JsonUtils.serialize(serverId) + "\n"
+        + "nodeOptions: 集群配置，详见：https://www.jianshu.com/p/b19a682c307a \n"
+        );
         // 初始化路径
         FileUtils.forceMkdir(new File(dataPath));
 

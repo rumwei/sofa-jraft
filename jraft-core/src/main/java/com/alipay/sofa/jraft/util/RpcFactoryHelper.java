@@ -24,8 +24,10 @@ import com.alipay.sofa.jraft.rpc.RpcResponseFactory;
  */
 public class RpcFactoryHelper {
 
-    private static final RaftRpcFactory RPC_FACTORY = JRaftServiceLoader.load(RaftRpcFactory.class) //
-            .first();
+    // 采用SPI，以便可以更换RPC服务，目前可选的有BoltRpc与GRpc，具体使用哪个开发者可以通过配置
+    // jraft-core/resources/META-INF.services/com.alipay.sofa.jraft.rpc.RaftRpcFactory
+    // 来自定义。默认是BoltRaftRpcFactory
+    private static final RaftRpcFactory RPC_FACTORY = JRaftServiceLoader.load(RaftRpcFactory.class).first();
 
     public static RaftRpcFactory rpcFactory() {
         return RPC_FACTORY;

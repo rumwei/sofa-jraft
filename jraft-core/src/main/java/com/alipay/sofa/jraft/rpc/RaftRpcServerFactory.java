@@ -72,7 +72,8 @@ public class RaftRpcServerFactory {
      */
     public static RpcServer createRaftRpcServer(final Endpoint endpoint, final Executor raftExecutor,
                                                 final Executor cliExecutor) {
-        final RpcServer rpcServer = RpcFactoryHelper.rpcFactory().createRpcServer(endpoint);
+        RaftRpcFactory raftRpcFactory = RpcFactoryHelper.rpcFactory(); //BoltRaftRpcFactory
+        final RpcServer rpcServer = raftRpcFactory.createRpcServer(endpoint);
         addRaftRequestProcessors(rpcServer, raftExecutor, cliExecutor);
         return rpcServer;
     }
