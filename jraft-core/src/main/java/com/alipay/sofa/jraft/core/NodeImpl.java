@@ -559,6 +559,7 @@ public class NodeImpl implements Node, RaftServerService {
 
     public NodeImpl(final String groupId, final PeerId serverId) {
         super();
+        LOG.info("[rumwei] NodeImpl构造函数");
         if (groupId != null) {
             Utils.verifyGroupId(groupId);
         }
@@ -904,6 +905,8 @@ public class NodeImpl implements Node, RaftServerService {
 
     @Override
     public boolean init(final NodeOptions opts) {
+        LOG.info("[rumwei] NodeImpl init...");
+
         Requires.requireNonNull(opts, "Null node options");
         Requires.requireNonNull(opts.getRaftOptions(), "Null raft options");
         Requires.requireNonNull(opts.getServiceFactory(), "Null jraft service factory");
@@ -928,6 +931,7 @@ public class NodeImpl implements Node, RaftServerService {
                 this.options.getTimerPoolSize(), "JRaft-Node-ScheduleThreadPool");
 
         // Init timers
+        LOG.info("[rumwei] 准备开启Vote定时任务");
         final String suffix = getNodeId().toString();
         String name = "JRaft-VoteTimer-" + suffix;
         this.voteTimer = new RepeatedTimer(name, this.options.getElectionTimeoutMs(), TIMER_FACTORY.getVoteTimer(
@@ -943,6 +947,9 @@ public class NodeImpl implements Node, RaftServerService {
                 return randomTimeout(timeoutMs);
             }
         };
+        LOG.info("[rumwei] 开启Vote定时任务结束");
+
+        LOG.info("[rumwei] 准备开启选举定时任务");
         name = "JRaft-ElectionTimer-" + suffix;
         this.electionTimer = new RepeatedTimer(name, this.options.getElectionTimeoutMs(),
                 TIMER_FACTORY.getElectionTimer(this.options.isSharedElectionTimer(), name)) {
@@ -957,6 +964,9 @@ public class NodeImpl implements Node, RaftServerService {
                 return randomTimeout(timeoutMs);
             }
         };
+        LOG.info("[rumwei] 开启选举定时任务结束");
+
+        LOG.info("[rumwei] 准备开启StepDown定时任务");
         name = "JRaft-StepDownTimer-" + suffix;
         this.stepDownTimer = new RepeatedTimer(name, this.options.getElectionTimeoutMs() >> 1,
                 TIMER_FACTORY.getStepDownTimer(this.options.isSharedStepDownTimer(), name)) {
@@ -966,6 +976,9 @@ public class NodeImpl implements Node, RaftServerService {
                 handleStepDownTimeout();
             }
         };
+        LOG.info("[rumwei] 开启StepDown定时任务结束");
+
+        LOG.info("[rumwei] 准备开启Snapshot快照定时任务");
         name = "JRaft-SnapshotTimer-" + suffix;
         this.snapshotTimer = new RepeatedTimer(name, this.options.getSnapshotIntervalSecs() * 1000,
                 TIMER_FACTORY.getSnapshotTimer(this.options.isSharedSnapshotTimer(), name)) {
@@ -993,6 +1006,7 @@ public class NodeImpl implements Node, RaftServerService {
                 }
             }
         };
+        LOG.info("[rumwei] 开启Snapshot快照定时任务结束");
 
         this.configManager = new ConfigurationManager();
 

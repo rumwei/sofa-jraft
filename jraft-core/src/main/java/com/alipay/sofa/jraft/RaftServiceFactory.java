@@ -21,6 +21,8 @@ import com.alipay.sofa.jraft.core.NodeImpl;
 import com.alipay.sofa.jraft.entity.PeerId;
 import com.alipay.sofa.jraft.option.CliOptions;
 import com.alipay.sofa.jraft.option.NodeOptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Service factory to create raft services, such as Node/CliService etc.
@@ -30,6 +32,8 @@ import com.alipay.sofa.jraft.option.NodeOptions;
  * 2018-May-03 11:06:02 AM
  */
 public final class RaftServiceFactory {
+
+    private static final Logger logger = LoggerFactory.getLogger(RaftServiceFactory.class);
 
     /**
      * Create a raft node with group id and it's serverId.
@@ -43,7 +47,9 @@ public final class RaftServiceFactory {
      * Throw {@link IllegalStateException} when fail to initialize.
      */
     public static Node createAndInitRaftNode(final String groupId, final PeerId serverId, final NodeOptions opts) {
+        logger.info("[Rumwei] 创建RaftNode节点");
         final Node ret = createRaftNode(groupId, serverId);
+        logger.info("[Rumwei] 初始化RaftNode节点");
         if (!ret.init(opts)) {
             throw new IllegalStateException("Fail to init node, please see the logs to find the reason.");
         }

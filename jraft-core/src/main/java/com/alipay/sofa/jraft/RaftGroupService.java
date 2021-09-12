@@ -110,6 +110,7 @@ public class RaftGroupService {
      * Starts the raft group service, returns the raft node.
      */
     public synchronized Node start() {
+        LOG.info("[rumwei] RaftGroupService start...");
         return start(true);
     }
 
@@ -119,9 +120,11 @@ public class RaftGroupService {
      * @param startRpcServer whether to start RPC server.
      */
     public synchronized Node start(final boolean startRpcServer) {
+        LOG.info("[rumwei] RaftGroupService start0...");
         if (this.started) {
             return this.node;
         }
+        //region 参数校验
         if (this.serverId == null || this.serverId.getEndpoint() == null
                 || this.serverId.getEndpoint().equals(new Endpoint(Utils.IP_ANY, 0))) {
             throw new IllegalArgumentException("Blank serverId:" + this.serverId);
@@ -129,10 +132,14 @@ public class RaftGroupService {
         if (StringUtils.isBlank(this.groupId)) {
             throw new IllegalArgumentException("Blank group id:" + this.groupId);
         }
+        //endregion
         //Adds RPC server to Server.
         NodeManager.getInstance().addAddress(this.serverId.getEndpoint());
 
+        LOG.info("[rumwei] 初始化RaftGroupService's node信息 开始");
         this.node = RaftServiceFactory.createAndInitRaftNode(this.groupId, this.serverId, this.nodeOptions);
+        LOG.info("[rumwei] 初始化RaftGroupService's node信息 结束");
+
         if (startRpcServer) {
             this.rpcServer.init(null);
         } else {

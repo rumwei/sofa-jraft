@@ -28,6 +28,8 @@ import com.alipay.sofa.jraft.rpc.RpcContext;
 import com.alipay.sofa.jraft.rpc.RpcProcessor;
 import com.alipay.sofa.jraft.rpc.RpcServer;
 import com.alipay.sofa.jraft.util.Requires;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Bolt RPC server impl.
@@ -35,6 +37,8 @@ import com.alipay.sofa.jraft.util.Requires;
  * @author jiachun.fjc
  */
 public class BoltRpcServer implements RpcServer {
+
+    private static final Logger logger = LoggerFactory.getLogger(BoltRpcServer.class);
 
     private final com.alipay.remoting.rpc.RpcServer rpcServer;
 
@@ -44,10 +48,13 @@ public class BoltRpcServer implements RpcServer {
 
     @Override
     public boolean init(final Void opts) {
+        logger.info("[rumwei] BoltRpcServer start init...");
         this.rpcServer.switches().turnOn(GlobalSwitch.CODEC_FLUSH_CONSOLIDATION);
         this.rpcServer.initWriteBufferWaterMark(BoltRaftRpcFactory.CHANNEL_WRITE_BUF_LOW_WATER_MARK,
                 BoltRaftRpcFactory.CHANNEL_WRITE_BUF_HIGH_WATER_MARK);
         this.rpcServer.startup();
+        logger.info("[rumwei] BoltRpcServer finish init...");
+
         return this.rpcServer.isStarted();
     }
 

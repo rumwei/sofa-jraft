@@ -30,6 +30,9 @@ import com.alipay.sofa.jraft.util.Endpoint;
 import com.alipay.sofa.jraft.util.OnlyForTest;
 import com.alipay.sofa.jraft.util.Utils;
 import com.alipay.sofa.jraft.util.concurrent.ConcurrentHashSet;
+import com.aliyun.openservices.log.util.JsonUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Raft nodes manager.
@@ -39,6 +42,7 @@ import com.alipay.sofa.jraft.util.concurrent.ConcurrentHashSet;
  * 2018-Mar-22 5:58:23 PM
  */
 public class NodeManager {
+    private static final Logger logger = LoggerFactory.getLogger(NodeManager.class);
 
     private static final NodeManager INSTANCE = new NodeManager();
 
@@ -71,6 +75,7 @@ public class NodeManager {
      * Adds a RPC service address.
      */
     public void addAddress(final Endpoint addr) {
+        logger.info("[rumwei] NodeManager's addrSet add address:" + JsonUtils.serialize(addr));
         this.addrSet.add(addr);
     }
 
