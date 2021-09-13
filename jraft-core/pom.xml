@@ -140,6 +140,11 @@
             <artifactId>aliyun-log</artifactId>
             <version>0.6.33</version>
         </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.7.12</version>
+        </dependency>
         <!--接入阿里云日志-->
     </dependencies>
 </project>

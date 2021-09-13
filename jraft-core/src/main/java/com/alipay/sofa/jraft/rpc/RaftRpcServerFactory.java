@@ -39,6 +39,8 @@ import com.alipay.sofa.jraft.rpc.impl.core.TimeoutNowRequestProcessor;
 import com.alipay.sofa.jraft.util.Endpoint;
 import com.alipay.sofa.jraft.util.RpcFactoryHelper;
 import com.alipay.sofa.jraft.util.SlsLogUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Raft RPC server factory.
@@ -46,6 +48,8 @@ import com.alipay.sofa.jraft.util.SlsLogUtil;
  * 在该代码块中使用的ProtobufMsgFactory同样是静态类，在该类内部同样通过static代码块来做初始化
  */
 public class RaftRpcServerFactory {
+
+    private static final Logger logger = LoggerFactory.getLogger(RaftRpcServerFactory.class);
 
     static {
         SlsLogUtil.info("RaftRpcServerCreateAndInit", "traceId", "执行RaftRpcServerFactory类静态代码块");
@@ -72,7 +76,9 @@ public class RaftRpcServerFactory {
      */
     public static RpcServer createRaftRpcServer(final Endpoint endpoint, final Executor raftExecutor,
                                                 final Executor cliExecutor) {
+        logger.info("[rumwei] 通过spi创建RaftRpcFactory对象");
         RaftRpcFactory raftRpcFactory = RpcFactoryHelper.rpcFactory(); //BoltRaftRpcFactory
+        logger.info("[rumwei] 借助RaftRpcFactory创建RpcServer实例");
         final RpcServer rpcServer = raftRpcFactory.createRpcServer(endpoint);
         addRaftRequestProcessors(rpcServer, raftExecutor, cliExecutor);
         return rpcServer;
@@ -96,6 +102,7 @@ public class RaftRpcServerFactory {
      */
     public static void addRaftRequestProcessors(final RpcServer rpcServer, final Executor raftExecutor,
                                                 final Executor cliExecutor) {
+        logger.info("[rumwei] 为RpcServer实例注册processors");
         // raft core processors
         final AppendEntriesRequestProcessor appendEntriesRequestProcessor = new AppendEntriesRequestProcessor(
                 raftExecutor);

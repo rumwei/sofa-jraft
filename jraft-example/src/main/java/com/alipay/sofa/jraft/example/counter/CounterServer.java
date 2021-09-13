@@ -19,8 +19,8 @@ package com.alipay.sofa.jraft.example.counter;
 import java.io.File;
 import java.io.IOException;
 
+import cn.hutool.json.JSONUtil;
 import com.alipay.sofa.jraft.util.SlsLogUtil;
-import com.aliyun.openservices.log.util.JsonUtils;
 import org.apache.commons.io.FileUtils;
 
 import com.alipay.sofa.jraft.Node;
@@ -63,7 +63,7 @@ public class CounterServer {
         SlsLogUtil.info("CounterServer init", "traceId", "CounterServer初始化构造函数入参:\n"
         + "dataPath: " + dataPath + "\n"
         + "groupId:" + groupId + "\n"
-        + "serverId:" + JsonUtils.serialize(serverId) + "\n"
+        + "serverId:" + JSONUtil.toJsonStr(serverId) + "\n"
         + "nodeOptions: 集群配置，详见：https://www.jianshu.com/p/b19a682c307a \n"
         );
         // 初始化路径
@@ -87,9 +87,11 @@ public class CounterServer {
         // snapshot, 可选, 一般都推荐
         nodeOptions.setSnapshotUri(dataPath + File.separator + "snapshot");
         // 初始化 raft group 服务框架
+        log.info("[rumwei] 借助RpcServer、groupId等创建RaftGroupService实例");
         this.raftGroupService = new RaftGroupService(groupId, serverId, nodeOptions, rpcServer);
         // 启动
         this.node = this.raftGroupService.start();
+        log.info("[rumwei] CounterServer初始化完成");
     }
 
     public CounterStateMachine getFsm() {

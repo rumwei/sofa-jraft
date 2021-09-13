@@ -141,6 +141,7 @@ public class RaftGroupService {
         LOG.info("[rumwei] 初始化RaftGroupService's node信息 结束");
 
         if (startRpcServer) {
+            LOG.info("[rumewi] RpcServer初始化并启动");
             this.rpcServer.init(null);
         } else {
             LOG.warn("RPC server is not started in RaftGroupService.");
