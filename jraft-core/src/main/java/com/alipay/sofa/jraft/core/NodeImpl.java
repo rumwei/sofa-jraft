@@ -131,23 +131,17 @@ import com.lmax.disruptor.dsl.ProducerType;
 
 /**
  * The raft replica node implementation.
- *
- * @author boyan (boyan@alibaba-inc.com)
- * <p>
- * 2018-Apr-03 4:26:51 PM
  */
 public class NodeImpl implements Node, RaftServerService {
 
-    private static final Logger LOG = LoggerFactory
-            .getLogger(NodeImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NodeImpl.class);
 
     static {
         try {
             if (SignalHelper.supportSignal()) {
                 // TODO support windows signal
                 if (!Platform.isWindows()) {
-                    final List<JRaftSignalHandler> handlers = JRaftServiceLoader.load(JRaftSignalHandler.class) //
-                            .sort();
+                    final List<JRaftSignalHandler> handlers = JRaftServiceLoader.load(JRaftSignalHandler.class).sort();
                     SignalHelper.addSignal(SignalHelper.SIG_USR2, handlers);
                 }
             }
@@ -155,25 +149,20 @@ public class NodeImpl implements Node, RaftServerService {
             LOG.error("Fail to add signal.", t);
         }
     }
-
-    public final static RaftTimerFactory TIMER_FACTORY = JRaftUtils
-            .raftTimerFactory();
+    //定时调度器，内部基于时间轮算法
+    public final static RaftTimerFactory TIMER_FACTORY = JRaftUtils.raftTimerFactory();
 
     // Max retry times when applying tasks.
     private static final int MAX_APPLY_RETRY_TIMES = 3;
 
-    public static final AtomicInteger GLOBAL_NUM_NODES = new AtomicInteger(
-            0);
+    public static final AtomicInteger GLOBAL_NUM_NODES = new AtomicInteger(0);
 
     /**
      * Internal states
      */
-    private final ReadWriteLock readWriteLock = new NodeReadWriteLock(
-            this);
-    protected final Lock writeLock = this.readWriteLock
-            .writeLock();
-    protected final Lock readLock = this.readWriteLock
-            .readLock();
+    private final ReadWriteLock readWriteLock = new NodeReadWriteLock(this);
+    protected final Lock writeLock = this.readWriteLock.writeLock();
+    protected final Lock readLock = this.readWriteLock.readLock();
     private volatile State state;
     private volatile CountDownLatch shutdownLatch;
     private long currTerm;
@@ -246,8 +235,7 @@ public class NodeImpl implements Node, RaftServerService {
 
     private static class NodeReadWriteLock extends LongHeldDetectingReadWriteLock {
 
-        static final long MAX_BLOCKING_MS_TO_REPORT = SystemPropertyUtil.getLong(
-                "jraft.node.detecting.lock.max_blocking_ms_to_report", -1);
+        static final long MAX_BLOCKING_MS_TO_REPORT = SystemPropertyUtil.getLong("jraft.node.detecting.lock.max_blocking_ms_to_report", -1);
 
         private final Node node;
 
@@ -903,6 +891,7 @@ public class NodeImpl implements Node, RaftServerService {
         return ThreadLocalRandom.current().nextInt(timeoutMs, timeoutMs + this.raftOptions.getMaxElectionDelayMs());
     }
 
+    //在RaftServiceFactory中初始化RaftNode时会进行初始化
     @Override
     public boolean init(final NodeOptions opts) {
         LOG.info("[rumwei] NodeImpl init...");
@@ -2664,10 +2653,9 @@ public class NodeImpl implements Node, RaftServerService {
     private void preVote() {
         long oldTerm;
         try {
-            LOG.info("Node {} term {} start preVote.", getNodeId(), this.currTerm);
+            LOG.info("[rumwei] Node {} term {} start preVote.", getNodeId(), this.currTerm);
             if (this.snapshotExecutor != null && this.snapshotExecutor.isInstallingSnapshot()) {
-                LOG.warn(
-                        "Node {} term {} doesn't do preVote when installing snapshot as the configuration may be out of date.",
+                LOG.warn("[rumwei] Node {} term {} doesn't do preVote when installing snapshot as the configuration may be out of date.",
                         getNodeId(), this.currTerm);
                 return;
             }
@@ -3294,8 +3282,7 @@ public class NodeImpl implements Node, RaftServerService {
         final PeerId serverId = new PeerId();
         if (!serverId.parse(request.getServerId())) {
             LOG.warn("Node {} ignore InstallSnapshotRequest from {} bad server id.", getNodeId(), request.getServerId());
-            return RpcFactoryHelper //
-                    .responseFactory() //
+            return RpcFactoryHelper.responseFactory() //
                     .newResponse(InstallSnapshotResponse.getDefaultInstance(), RaftError.EINVAL,
                             "Parse serverId failed: %s", request.getServerId());
         }
@@ -3341,8 +3328,7 @@ public class NodeImpl implements Node, RaftServerService {
         final long startMs = Utils.monotonicMs();
         try {
             if (LOG.isInfoEnabled()) {
-                LOG.info(
-                        "Node {} received InstallSnapshotRequest from {}, lastIncludedLogIndex={}, lastIncludedLogTerm={}, lastLogId={}.",
+                LOG.info("Node {} received InstallSnapshotRequest from {}, lastIncludedLogIndex={}, lastIncludedLogTerm={}, lastLogId={}.",
                         getNodeId(), request.getServerId(), request.getMeta().getLastIncludedIndex(), request.getMeta()
                                 .getLastIncludedTerm(), this.logManager.getLastLogId(false));
             }

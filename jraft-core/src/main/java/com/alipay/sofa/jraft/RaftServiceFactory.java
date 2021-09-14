@@ -48,7 +48,7 @@ public final class RaftServiceFactory {
      */
     public static Node createAndInitRaftNode(final String groupId, final PeerId serverId, final NodeOptions opts) {
         logger.info("[Rumwei] 创建RaftNode节点");
-        final Node ret = createRaftNode(groupId, serverId);
+        final Node ret = createRaftNode(groupId, serverId); //NodeImpl实现
         logger.info("[Rumwei] 初始化RaftNode节点");
         if (!ret.init(opts)) {
             throw new IllegalStateException("Fail to init node, please see the logs to find the reason.");

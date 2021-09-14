@@ -77,10 +77,6 @@ public class RocksDBLogStorage implements LogStorage, Describer {
 
     /**
      * Write batch template.
-     *
-     * @author boyan (boyan@alibaba-inc.com)
-     * <p>
-     * 2017-Nov-08 11:19:22 AM
      */
     private interface WriteBatchTemplate {
 
@@ -89,8 +85,6 @@ public class RocksDBLogStorage implements LogStorage, Describer {
 
     /**
      * A write context
-     *
-     * @author boyan(boyan @ antfin.com)
      */
     public interface WriteContext {
         /**

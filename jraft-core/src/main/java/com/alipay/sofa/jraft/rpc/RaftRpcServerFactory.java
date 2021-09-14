@@ -104,8 +104,7 @@ public class RaftRpcServerFactory {
                                                 final Executor cliExecutor) {
         logger.info("[rumwei] 为RpcServer实例注册processors");
         // raft core processors
-        final AppendEntriesRequestProcessor appendEntriesRequestProcessor = new AppendEntriesRequestProcessor(
-                raftExecutor);
+        final AppendEntriesRequestProcessor appendEntriesRequestProcessor = new AppendEntriesRequestProcessor(raftExecutor);
         rpcServer.registerConnectionClosedEventListener(appendEntriesRequestProcessor);
         rpcServer.registerProcessor(appendEntriesRequestProcessor);
         rpcServer.registerProcessor(new GetFileRequestProcessor(raftExecutor));

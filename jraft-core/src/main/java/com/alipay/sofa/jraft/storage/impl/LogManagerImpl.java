@@ -69,16 +69,11 @@ import com.lmax.disruptor.dsl.ProducerType;
 
 /**
  * LogManager implementation.
- *
- * @author boyan (boyan@alibaba-inc.com)
- * <p>
- * 2018-Apr-04 4:42:20 PM
  */
 public class LogManagerImpl implements LogManager {
     private static final int APPEND_LOG_RETRY_TIMES = 50;
 
-    private static final Logger LOG = LoggerFactory
-            .getLogger(LogManagerImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LogManagerImpl.class);
 
     private LogStorage logStorage;
     private ConfigurationManager configManager;
@@ -132,10 +127,6 @@ public class LogManagerImpl implements LogManager {
 
     /**
      * Waiter metadata
-     *
-     * @author boyan (boyan@alibaba-inc.com)
-     * <p>
-     * 2018-Apr-04 5:05:04 PM
      */
     private static class WaitMeta {
         /**
@@ -429,8 +420,7 @@ public class LogManagerImpl implements LogManager {
                 this.nodeMetrics.recordSize("append-logs-bytes", writtenSize);
                 final int nAppent = this.logStorage.appendEntries(toAppend);
                 if (nAppent != entriesCount) {
-                    LOG.error("**Critical error**, fail to appendEntries, nAppent={}, toAppend={}", nAppent,
-                            toAppend.size());
+                    LOG.error("**Critical error**, fail to appendEntries, nAppent={}, toAppend={}", nAppent, toAppend.size());
                     reportError(RaftError.EIO.getNumber(), "Fail to append log entries");
                 }
                 if (nAppent > 0) {

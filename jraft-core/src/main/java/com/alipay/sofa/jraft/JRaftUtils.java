@@ -43,8 +43,8 @@ import com.alipay.sofa.jraft.util.timer.RaftTimerFactory;
  */
 public final class JRaftUtils {
 
-    private final static RaftTimerFactory TIMER_FACTORY = JRaftServiceLoader.load(RaftTimerFactory.class) //
-            .first();
+    //利用SPI来初始化，默认实现DefaultRaftTimerFactory，对应配置jraft-core/resources/META-INF.services/com.alipay.sofa.jraft.util.timer.RaftTimerFactory
+    private final static RaftTimerFactory TIMER_FACTORY = JRaftServiceLoader.load(RaftTimerFactory.class).first();
 
     /**
      * Get raft timer factory.
